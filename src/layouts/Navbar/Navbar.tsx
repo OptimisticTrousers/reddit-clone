@@ -24,18 +24,18 @@ const Navbar: React.FC = () => {
             placeholder="Search Reddit"
           />
         </div>
-      </div>
-      <div className={s["header__right"]}>
-        <div className={s["header__buttons"]}>
-          <button className={s["header__button header__button_type_log-in"]}>
-            Log In
-          </button>
-          <button className={s["header__button header__button_type_sign-up"]}>
-            Sign Up
-          </button>
-        </div>
-        <div className={s["header__profile"]}>
-          <button className={s["header__dropdown"]}></button>
+        <div className={s["header__right"]}>
+          <div className={s["header__buttons"]}>
+            <button className={s["header__button header__button_type_log-in"]}>
+              Log In
+            </button>
+            <button className={s["header__button header__button_type_sign-up"]}>
+              Sign Up
+            </button>
+          </div>
+          <div className={s["header__profile"]}>
+            <button className={s["header__dropdown"]}>Profile</button>
+          </div>
         </div>
       </div>
     </header>

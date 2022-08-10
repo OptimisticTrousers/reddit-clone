@@ -5,6 +5,7 @@
 
 .header__content{
     width: 97%;
+    display: flex;
 }
 
 .header__logo {
