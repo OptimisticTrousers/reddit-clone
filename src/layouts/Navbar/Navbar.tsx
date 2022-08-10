@@ -8,12 +8,12 @@ import logoName from "../../assets/logo-name.svg";
 
 const Navbar: React.FC = () => {
   return (
-    <header className={styled.header}>
-      <div className={styled['header-content']}>
-        <Link to="/">
-          <img className={styled.logo} src={logo} alt="reddit logo" />
+    <header className={styled['header']}>
+      <div className={styled['header__content']}>
+        <Link to="/" className={styled['header__link']}>
+          <img className={styled['header__logo']} src={logo} alt="reddit logo" />
           <img
-            className={styled.logoName}
+            className={styled['header__logo-name']}
             src={logoName}
             alt="the name reddit"
           />
