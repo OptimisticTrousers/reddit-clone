@@ -1,10 +1,11 @@
 import React from "react";
-import "./App.css";
 import { Outlet } from "react-router-dom";
+import Navbar from "./layouts/Navbar";
 
 const App: React.FC = () => {
   return (
-    <div>
+    <div className="container">
+      <Navbar />
       <Outlet />
     </div>
   );
