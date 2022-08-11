@@ -1,4 +1,5 @@
-.post__content {
+.post{
+    display: flex;
 }
 
 .post__info {
@@ -7,4 +8,11 @@
 
 .post__interactions{
     display: flex;
+    padding-left: 4px;
+    padding-right: 8px;
+}
+
+.post__interaction {
+    padding: 8px;
+    margin-right: 4px;
 }
