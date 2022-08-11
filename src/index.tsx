@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Subreddit from "./pages/Subreddit";
+import CreatePost from "./pages/Subreddit/CreatePost/CreatePost";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="r/" element={<Subreddit />} />
+          <Route path="submit" element={<CreatePost />} />
         </Route>
       </Routes>
     </React.StrictMode>
