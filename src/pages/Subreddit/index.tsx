@@ -5,7 +5,7 @@ import Posts from "./Posts/Posts";
 const Subreddit: React.FC = () => {
   return (
     <div className={s["subreddit"]}>
-      <main>
+      <main className={s["main"]}>
         <Posts />
       </main>
       <aside>
