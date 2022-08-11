@@ -4,7 +4,7 @@ import { JsxEmit } from "typescript";
 import s from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
-import logoName from "../../assets/logo-name.svg";
+import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 
 const Navbar: React.FC = () => {

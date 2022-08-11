@@ -1,11 +1,12 @@
 .header {
-    background-color: #FFFFFF;
+    background-color: rgb(26, 26, 27);
     height: 48px;
 }
 
 .header__content{
     width: 97%;
     display: flex;
+    justify-content: space-between;
 }
 
 .header__logo {
