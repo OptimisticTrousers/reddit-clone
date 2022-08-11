@@ -1,5 +1,6 @@
 import About from "../About/About";
 import s from "./CreatePost.module.css";
+import AddPostForm from "../AddPostForm/AddPostForm";
 
 const CreatePost: React.FC = () => {
   return (
