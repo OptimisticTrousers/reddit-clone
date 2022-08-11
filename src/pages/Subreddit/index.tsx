@@ -1,6 +1,8 @@
+import s from './index.module.css'
+
 const Subreddit: React.FC = () => {
   return (
-    <div >
+    <div className={s['subreddit']}>
     </div>
   )
 }
