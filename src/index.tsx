@@ -7,22 +7,26 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Subreddit from "./pages/Subreddit";
 import CreatePost from "./pages/Subreddit/CreatePost/CreatePost";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="r/" element={<Subreddit />} />
-          <Route path="submit" element={<CreatePost />} />
-        </Route>
-      </Routes>
-    </React.StrictMode>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <React.StrictMode>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="r/" element={<Subreddit />} />
+            <Route path="submit" element={<CreatePost />} />
+          </Route>
+        </Routes>
+      </React.StrictMode>
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -3,7 +3,7 @@ import { Reducer } from "react";
 
 type State = boolean | undefined;
 
-const modalReducer = (state: State, action: Action) => {
+export const modalReducer = (state: State, action: Action) => {
   switch (action.type) {
     case false:
       return true;
@@ -14,7 +14,7 @@ const modalReducer = (state: State, action: Action) => {
   }
 };
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     modal: modalReducer,
   },

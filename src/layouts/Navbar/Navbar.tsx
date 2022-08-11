@@ -1,13 +1,17 @@
 import React from "react";
-import { ReactPropTypes } from "react";
-import { JsxEmit } from "typescript";
 import s from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
+import { useAppDispatch } from "../../hooks/hooks";
+import { modalReducer } from "../../redux/store";
+
 
 const Navbar: React.FC = () => {
+
+  const dispatch = useAppDispatch();
+
   return (
     <header className={s["header"]}>
       <div className={s["header__content"]}>
@@ -30,6 +34,8 @@ const Navbar: React.FC = () => {
         <div className={s["header__right"]}>
           <div className={s["header__buttons"]}>
             <button
+              onClick={() => {
+              }}
               className={classNames(
                 s["header__button"],
                 s["header__button_type_log-in"]
