@@ -1,0 +1,10 @@
+.post__content {
+}
+
+.post__info {
+    display: flex;
+}
+
+.post__interactions{
+    display: flex;
+}
