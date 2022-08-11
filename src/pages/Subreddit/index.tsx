@@ -1,6 +1,6 @@
 const Subreddit: React.FC = () => {
   return (
-    <div>
+    <div >
     </div>
   )
 }
