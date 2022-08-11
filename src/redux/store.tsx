@@ -1,20 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Action, AnyAction, configureStore } from "@reduxjs/toolkit";
+import { Reducer } from "react";
 
-// interface Action {
-//   type: string;
-// }
+type State = boolean | undefined;
 
-// interface Reducer {
-//   fn: (state: number, action: Action) => number;
-// }
+const modalReducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case false:
+      return true;
+    case true:
+      return false;
+    default:
+      return state;
+  }
+};
 
-// const rootReducer: Reducer = (state = 0, action: Action) => {
-//   switch (action.type) {
-//     case "INCREMENT":
-//       return state + 1;
-//     default:
-//       return state;
-//   }
-// };
+const store = configureStore({
+  reducer: {
+    modal: modalReducer,
+  },
+});
 
-// const store = configureStore(rootReducer);
+export type AppDispatch = typeof store.dispatch;
