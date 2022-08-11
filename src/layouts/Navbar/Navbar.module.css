@@ -6,15 +6,40 @@
 .header__content{
     width: 97%;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+}
+
+.header__links {
+    display: flex;
+    align-items: center;
 }
 
 .header__logo {
     width: 32px;
     height: 32px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.header__container {
+    margin-right: 86px;
+    margin-left: 86px;
 }
 
 .header__logo-name{
     width: 57px;
     height: 18px;
+    margin-right: 20px;
+}
+
+.header__search-form {
+    margin: 0px 86px;
 }

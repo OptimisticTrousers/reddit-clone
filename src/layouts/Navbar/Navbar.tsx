@@ -20,10 +20,12 @@ const Navbar: React.FC = () => {
               alt="the name reddit"
             />
           </Link>
-          <input
-            className={s["header__search-form"]}
-            placeholder="Search Reddit"
-          />
+
+          <div className={s["header__container"]}>
+            <form className={s["header__search-form"]}>
+              <input className={s["header__search-input"]} placeholder="Search Reddit"/>
+            </form>
+          </div>
         </div>
         <div className={s["header__right"]}>
           <div className={s["header__buttons"]}>
