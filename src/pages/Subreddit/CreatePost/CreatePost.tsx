@@ -1,10 +1,13 @@
+import About from "../About/About";
+import s from "./CreatePost.module.css";
 
 const CreatePost: React.FC = () => {
   return (
-    <div>
-
-    </div>
-  )
-}
+    <section className={s["section"]}>
+      <AddPostForm />
+      <About />
+    </section>
+  );
+};
 
 export default CreatePost;
