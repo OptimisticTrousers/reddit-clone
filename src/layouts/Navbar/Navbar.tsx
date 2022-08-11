@@ -27,10 +27,20 @@ const Navbar: React.FC = () => {
         </div>
         <div className={s["header__right"]}>
           <div className={s["header__buttons"]}>
-            <button className={s["header__button header__button_type_log-in"]}>
+            <button
+              className={classNames(
+                s["header__button"],
+                s["header__button_type_log-in"]
+              )}
+            >
               Log In
             </button>
-            <button className={s["header__button header__button_type_sign-up"]}>
+            <button
+              className={classNames(
+                s["header__button"],
+                s["header__button_type_sign-up"]
+              )}
+            >
               Sign Up
             </button>
           </div>
