@@ -12,6 +12,8 @@ const Navbar: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
+  console.log(dispatch)
+
   return (
     <header className={s["header"]}>
       <div className={s["header__content"]}>
