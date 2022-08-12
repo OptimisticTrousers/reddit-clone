@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { useAppDispatch } from "../../hooks/hooks";
+import { signIn } from "../../firebase";
 
 const Navbar: React.FC = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   return (
     <header className={s["header"]}>
@@ -34,6 +35,9 @@ const Navbar: React.FC = () => {
         <div className={s["header__right"]}>
           <div className={s["header__buttons"]}>
             <button
+              onClick={() => {
+                signIn()
+              }}
               // onClick={() => {
               //   dispatch({ type: "ENABLE_MODAL" });
               // }}
