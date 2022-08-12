@@ -28,30 +28,29 @@ import {
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getPerformance } from "firebase/performance";
 import app from "./firebase-config";
+import { authStateObserver } from "../redux/store";
 
 const auth = getAuth(app);
 
-function authStateObserver() {}
-
 export async function signIn() {
   const provider = new GoogleAuthProvider();
-  try {
-    await signInWithPopup(auth, provider);
-  } catch (error) {
-    alert(error);
-  }
+  await signInWithPopup(auth, provider);
 }
 
 export async function signOutUser() {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    alert(error);
-  }
+  await signOut(auth);
 }
 
 export function initFirebaseAuth() {
   onAuthStateChanged(auth, authStateObserver);
+}
+
+export function getUserName() {
+  return auth.currentUser?.displayName;
+}
+
+export function isUserSigned() {
+  return !!auth.currentUser;
 }
 
 initFirebaseAuth();
