@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { signIn } from "../../firebase";
 
 const Navbar: React.FC = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <header className={s["header"]}>
