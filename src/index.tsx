@@ -9,7 +9,7 @@ import Subreddit from "./pages/Subreddit";
 import CreatePost from "./pages/Subreddit/CreatePost/CreatePost";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import { StoreProvider } from "./redux/provider";
+import StoreProvider from "./redux/provider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

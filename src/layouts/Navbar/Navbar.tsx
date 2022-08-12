@@ -34,9 +34,9 @@ const Navbar: React.FC = () => {
         <div className={s["header__right"]}>
           <div className={s["header__buttons"]}>
             <button
-              onClick={() => {
-                dispatch({ type: "ENABLE_MODAL" });
-              }}
+              // onClick={() => {
+              //   dispatch({ type: "ENABLE_MODAL" });
+              // }}
               className={classNames(
                 s["header__button"],
                 s["header__button_type_log-in"]

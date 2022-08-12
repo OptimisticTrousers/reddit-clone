@@ -5,10 +5,10 @@ import { useAppSelector } from "./hooks/hooks";
 import Modal from "./components/Modal";
 
 const App: React.FC = () => {
-  const isModalActive = useAppSelector((state) => state.modal);
+  // const isModalActive = useAppSelector((state) => state.modal);
   return (
     <div className="container">
-      {isModalActive && <Modal />}
+      {/* {isModalActive && <Modal />} */}
       <Navbar />
       <Outlet />
     </div>
