@@ -1,32 +1,38 @@
-import { Action, configureStore } from "@reduxjs/toolkit";
+import { Action, combineReducers, configureStore } from "@reduxjs/toolkit";
+import authReducer from "../features/auth/authSlice";
 
-const modalReducer = (state = false, action: Action) => {
-  switch (action.type) {
-    case "ENABLE_MODAL":
-      return true;
-    case "DISABLE_MODAL":
-      return false;
-    default:
-      return state;
-  }
-};
+// export const authStateObserver = (user) => {
 
-const authReducer = (state = false, action: Action) => {
-  switch (action.type) {
-    case "LOG_IN":
-      return true;
-    case "LOG_OUT":
-      return false;
-    default:
-      return state;
-  }
-};
+// }
+
+// const modalReducer = (state = false, action: Action) => {
+//   switch (action.type) {
+//     case "ENABLE_MODAL":
+//       return true;
+//     case "DISABLE_MODAL":
+//       return false;
+//     default:
+//       return state;
+//   }
+// };
+
+// const authReducer = (state = false, action: Action) => {
+//   switch (action.type) {
+//     case "LOG_IN":
+//       return true;
+//     case "LOG_OUT":
+//       return false;
+//     default:
+//       return state;
+//   }
+// };
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    modal: modalReducer,
-    auth: authReducer
-  },
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
