@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { useAppDispatch } from "../../hooks/hooks";
-import { modalReducer } from "../../redux/store";
-
+import { useAppSelector } from "../../hooks/hooks";
 
 const Navbar: React.FC = () => {
-
   const dispatch = useAppDispatch();
 
-  console.log(dispatch)
+  const isModalActive = useAppSelector((state) => state.modal);
+  console.log(isModalActive);
 
   return (
     <header className={s["header"]}>
@@ -29,7 +28,10 @@ const Navbar: React.FC = () => {
 
           <div className={s["header__container"]}>
             <form className={s["header__search-form"]}>
-              <input className={s["header__search-input"]} placeholder="Search Reddit"/>
+              <input
+                className={s["header__search-input"]}
+                placeholder="Search Reddit"
+              />
             </form>
           </div>
         </div>
@@ -37,6 +39,7 @@ const Navbar: React.FC = () => {
           <div className={s["header__buttons"]}>
             <button
               onClick={() => {
+                dispatch({ type: "ENABLE_MODAL" });
               }}
               className={classNames(
                 s["header__button"],

@@ -2,7 +2,7 @@ import { Action, configureStore } from "@reduxjs/toolkit";
 
 type State = boolean | undefined;
 
-export const modalReducer = (state: State, action: Action) => {
+export const modalReducer = (state = false, action: Action) => {
   switch (action.type) {
     case "ENABLE_MODAL":
       return true;
@@ -13,15 +13,15 @@ export const modalReducer = (state: State, action: Action) => {
   }
 };
 
-export const modalSlice = ({
-  name: 'modal',
-  initialState: {
-    value: false
-  },
-  reducers: {
-    
-  }
-})
+// export const modalSlice = ({
+//   name: 'modal',
+//   initialState: {
+//     value: false
+//   },
+//   reducers: {
+
+//   }
+// })
 
 export const store = configureStore({
   reducer: {
@@ -29,4 +29,5 @@ export const store = configureStore({
   },
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
