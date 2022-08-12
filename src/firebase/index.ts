@@ -27,16 +27,31 @@ import {
 } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getPerformance } from "firebase/performance";
+import app from "./firebase-config";
+
+const auth = getAuth(app);
+
+function authStateObserver() {}
 
 export async function signIn() {
   const provider = new GoogleAuthProvider();
-  await signInWithPopup(getAuth(), provider);
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    alert(error);
+  }
 }
 
 export async function signOutUser() {
-  signOut(getAuth());
+  try {
+    await signOut(auth);
+  } catch (error) {
+    alert(error);
+  }
 }
 
 export function initFirebaseAuth() {
-  onAuthStateChanged(getAuth(), authStateObserver)
+  onAuthStateChanged(auth, authStateObserver);
 }
+
+initFirebaseAuth();
