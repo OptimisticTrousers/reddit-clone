@@ -5,13 +5,9 @@ import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { useAppDispatch } from "../../hooks/hooks";
-import { useAppSelector } from "../../hooks/hooks";
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
-
-  const isModalActive = useAppSelector((state) => state.modal);
-  console.log(isModalActive);
 
   return (
     <header className={s["header"]}>
