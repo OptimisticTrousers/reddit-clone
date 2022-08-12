@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
-import { useAppDispatch } from "../../hooks/hooks";
-import { signIn } from "../../firebase";
+import { useAppDispatch} from "../../hooks/hooks";
+import { isUserSigned, signIn } from "../../firebase";
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
+
+  const isUserLoggedIn = isUserSigned();
 
   return (
     <header className={s["header"]}>
@@ -33,30 +35,31 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         <div className={s["header__right"]}>
-          <div className={s["header__buttons"]}>
-            <button
-              onClick={() => {
-                signIn()
-              }}
-              // onClick={() => {
-              //   dispatch({ type: "ENABLE_MODAL" });
-              // }}
-              className={classNames(
-                s["header__button"],
-                s["header__button_type_log-in"]
-              )}
-            >
-              Log In
-            </button>
-            <button
-              className={classNames(
-                s["header__button"],
-                s["header__button_type_sign-up"]
-              )}
-            >
-              Sign Up
-            </button>
-          </div>
+          {isUserLoggedIn ? (
+            <h2>User is logged in</h2>
+          ) : (
+            <div className={s["header__buttons"]}>
+              <button
+                onClick={() => {
+                  signIn();
+                }}
+                className={classNames(
+                  s["header__button"],
+                  s["header__button_type_log-in"]
+                )}
+              >
+                Log In
+              </button>
+              <button
+                className={classNames(
+                  s["header__button"],
+                  s["header__button_type_sign-up"]
+                )}
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
           <div className={s["header__profile"]}>
             <button className={s["header__dropdown"]}>Profile</button>
           </div>
