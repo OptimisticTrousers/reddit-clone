@@ -1,7 +1,5 @@
 import { Action, configureStore } from "@reduxjs/toolkit";
 
-type State = boolean | undefined;
-
 export const modalReducer = (state = false, action: Action) => {
   switch (action.type) {
     case "ENABLE_MODAL":
@@ -12,16 +10,6 @@ export const modalReducer = (state = false, action: Action) => {
       return state;
   }
 };
-
-// export const modalSlice = ({
-//   name: 'modal',
-//   initialState: {
-//     value: false
-//   },
-//   reducers: {
-
-//   }
-// })
 
 export const store = configureStore({
   reducer: {
