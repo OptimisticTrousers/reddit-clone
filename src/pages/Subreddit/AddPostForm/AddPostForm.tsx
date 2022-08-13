@@ -2,6 +2,7 @@ import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import React, { SyntheticEvent, useState } from "react";
 import { db } from "../../../firebase";
 import s from "./AddPostForm.module.css";
+import { nanoid } from "nanoid";
 
 type InputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 type FormEvent = React.FormEvent<HTMLFormElement>;
@@ -18,15 +19,14 @@ const AddPostForm: React.FC = () => {
     setDescription(event.target.value);
   };
 
-  const submitPost = async() => {
-
-    const subredditRef = doc(db, "default", "posts")
+  const submitPost = async () => {
+    const subredditRef = doc(db, "default", "posts");
 
     await updateDoc(subredditRef, {
-      id: uniqid
-    })
-
-
+      id: nanoid(),
+      title,
+      description,
+    });
   };
 
   return (
@@ -70,20 +70,22 @@ const AddPostForm: React.FC = () => {
           </button>
         </div>
         <div className={s["post-creator__inputs"]}>
-            <div className={s["post-creator__input"]}>
-              <textarea
-                placeholder="Title"
-                onChange={handleDescriptionChange}
-                value={description}
-              ></textarea>
-            </div>
-            <div className={s["post-creator__input"]}>
-              <textarea
-                placeholder="Editor"
-                onChange={handleTitleChange}
-                value={title}
-              ></textarea>
-            </div>
+          <div className={s["post-creator__input"]}>
+            <textarea
+              placeholder="Title"
+              onChange={handleDescriptionChange}
+              value={description}
+              required
+            ></textarea>
+          </div>
+          <div className={s["post-creator__input"]}>
+            <textarea
+              placeholder="Editor"
+              onChange={handleTitleChange}
+              value={title}
+              required
+            ></textarea>
+          </div>
         </div>
         <div className={s["post-creator__marks"]}>
           <button>OC</button>
