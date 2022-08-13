@@ -1,5 +1,6 @@
 import { Action, combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
+import { logInThunk } from "../features/auth/authSlice";
 
 // export const authStateObserver = (user) => {
 
@@ -27,13 +28,19 @@ import authReducer from "../features/auth/authSlice";
 //   }
 // };
 
-const rootReducer = combineReducers({
-  auth: authReducer,
-});
+// const rootReducer = combineReducers({
+//   auth: authReducer,
+// });
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    auth: authReducer,
+  },
 });
+
+export function authStateObserver() {
+  store.dispatch(logInThunk());
+}
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

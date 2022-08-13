@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  Auth,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -30,14 +31,14 @@ import { getPerformance } from "firebase/performance";
 import app from "./firebase-config";
 import { authStateObserver } from "../redux/store";
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 export async function signIn() {
   const provider = new GoogleAuthProvider();
   await signInWithPopup(auth, provider);
 }
 
-export async function signOutUser() {
+export async function signOutUser(auth: Auth) {
   await signOut(auth);
 }
 
@@ -49,7 +50,7 @@ export function getUserName() {
   return auth.currentUser?.displayName;
 }
 
-export function isUserSigned() {
+export function isUserSignedIn() {
   return !!auth.currentUser;
 }
 

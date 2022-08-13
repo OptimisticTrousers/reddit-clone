@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import s from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
-import { useAppDispatch} from "../../hooks/hooks";
-import { isUserSigned, signIn } from "../../firebase";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { signIn } from "../../firebase";
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const isUserLoggedIn = isUserSigned();
+  const isUserSignedIn = useAppSelector((state) => state.auth);
 
   return (
     <header className={s["header"]}>
@@ -35,13 +35,12 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         <div className={s["header__right"]}>
-          {isUserLoggedIn ? (
+          {isUserSignedIn ? (
             <h2>User is logged in</h2>
           ) : (
             <div className={s["header__buttons"]}>
               <button
                 onClick={() => {
-                  signIn();
                 }}
                 className={classNames(
                   s["header__button"],
