@@ -1,6 +1,8 @@
 import s from "./SinglePost.module.css";
 
 const SinglePostPage = () => {
+
+  
   return (
     <section>
       <article className={s["post"]}>

@@ -4,6 +4,7 @@ import PostExcerpt from "../PostExcerpt/PostExcerpt";
 import s from "./Posts.module.css";
 import { db } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 type PostsType = Array<{
   title: string;
@@ -25,11 +26,13 @@ const Posts: React.FC = () => {
     <div className={s["container"]}>
       {posts?.map((post) => {
         return (
-          <PostExcerpt
-            key={post.id}
-            title={post.title}
-            description={post.description}
-          />
+          <Link key={post.id} to={post.id} >
+            <PostExcerpt
+              key={post.id}
+              title={post.title}
+              description={post.description}
+            />
+          </Link>
         );
       })}
     </div>

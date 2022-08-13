@@ -10,6 +10,7 @@ import CreatePost from "./pages/Subreddit/CreatePost/CreatePost";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import StoreProvider from "./redux/provider";
+import SinglePostPage from "./pages/Subreddit/SinglePostPage/SinglePostPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,7 +22,9 @@ root.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
-            <Route path="r/" element={<Subreddit />} />
+              <Route path="r/subreddit/:postId" element={<SinglePostPage />} />
+            <Route path="r/subreddit" element={<Subreddit />} >
+            </Route>
             <Route path="submit" element={<CreatePost />} />
           </Route>
         </Routes>
