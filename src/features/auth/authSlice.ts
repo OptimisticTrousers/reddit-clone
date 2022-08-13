@@ -1,36 +1,23 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signOut } from "firebase/auth";
-import { isUserSignedIn, signIn } from "../../firebase/index";
-import { auth } from "../../firebase/index";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
-  value: boolean;
-  status: string;
+  isLoggedIn: boolean;
 }
 
-const initialState: AuthState = { value: false, status: "idle" };
+const initialState: AuthState = { isLoggedIn: false };
 
-export const logInThunk = createAsyncThunk("auth/userLogIn", async () => {
-  await signIn();
-  return isUserSignedIn();
-});
-
-export const logOutThunk = createAsyncThunk("auth/userLogOut", async () => {
-  await signOut(auth);
-  return isUserSignedIn();
-});
-
-export const selectUserState = (state: any) => console.log(state);
+export const selectUserAuth = (state: AuthState) => state.isLoggedIn;
 
 const authSlice = createSlice({
-  name: "userAuth",
+  name: "auth",
   initialState,
-  reducers: {},
-  extraReducers(builder) {
-    builder.addCase(logInThunk.fulfilled, (state) => {
-      state.status = "succeeded";
-    });
+  reducers: {
+    setLoginStatus: (state, action) => {
+      state.isLoggedIn = action.payload;
+    },
   },
 });
+
+export const { setLoginStatus } = authSlice.actions;
 
 export default authSlice.reducer;
