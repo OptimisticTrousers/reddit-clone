@@ -1,7 +1,7 @@
 import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import PostExcerpt from "../PostExcerpt/PostExcerpt";
-import s from "./PostExcerpt.module.css";
+import s from "./Posts.module.css";
 import { db } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
 
