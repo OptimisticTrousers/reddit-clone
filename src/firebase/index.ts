@@ -38,7 +38,7 @@ export async function signIn() {
   await signInWithPopup(auth, provider);
 }
 
-export async function signOutUser(auth: Auth) {
+export async function signOutUser() {
   await signOut(auth);
 }
 
