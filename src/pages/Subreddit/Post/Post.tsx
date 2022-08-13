@@ -2,7 +2,12 @@ import s from "./Post.module.css";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
-const Post: React.FC = () => {
+
+interface Props {
+  title: string;
+  description: string;
+}
+const Post: React.FC<Props> = ({ title, description }) => {
   return (
     <div className={s["post"]}>
       <div className={s["post__votes"]}>
@@ -18,8 +23,8 @@ const Post: React.FC = () => {
           <span className={s["post__date"]}>4 months ago</span>
         </div>
         <div className={s["post__container"]}>
-          <h3 className={s["post__title"]}>r/onepiee Lounge</h3>
-          <p className={s["post__description"]}>That's what we do out here</p>
+          <h3 className={s["post__title"]}>{title}</h3>
+          <p className={s["post__description"]}>{description}</p>
         </div>
         {/* {conditional rendering for sticky post} */}
         <div className={s["post__buttons"]}>

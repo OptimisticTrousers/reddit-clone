@@ -5,20 +5,23 @@ import s from "./Post.module.css";
 import { db } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
 
+type PostsType = Array<{ title: string; description: string, id: string }> | null;
+
 const Posts: React.FC = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostsType | null>(null);
 
   useEffect(() => {
     const subredditPostsRef = doc(db, "subreddit", "posts");
-    getDoc(subredditPostsRef).then((subredditPosts: any) =>
-      // console.log(subredditPosts.data().posts)
-      setPosts(subredditPosts.data().posts)
+    getDoc(subredditPostsRef).then((subredditPosts) =>
+      setPosts(subredditPosts?.data()?.posts)
     );
   }, []);
 
   return (
     <div className={s["container"]}>
-      <Post />
+      {posts?.map((post) => {
+        return <Post key={post.id} title={post.title} description={post.description} />;
+      })}
     </div>
   );
 };
