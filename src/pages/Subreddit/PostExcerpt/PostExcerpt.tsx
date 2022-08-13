@@ -9,45 +9,45 @@ interface Props {
 }
 const PostExcerpt: React.FC<Props> = ({ title, description }) => {
   return (
-    <div className={s["post"]}>
-      <div className={s["post__votes"]}>
+    <div className={s["post-excerpt"]}>
+      <div className={s["post-excerpt__votes"]}>
         <BiUpvote />
-        <p className={s["post__likes"]}>1</p>
+        <p className={s["post-excerpt__likes"]}>1</p>
         <BiDownvote />
       </div>
-      <div className={s["post__content"]}>
+      <div className={s["post-excerpt__content"]}>
         {/* <span>Image goes here</span> */}
-        <div className={s["post__info"]}>
-          <span className={s["post__posted-by"]}>Posted by</span>
-          <p className={s["post__author"]}>/u/TheWatchingBug</p>
-          <span className={s["post__date"]}>4 months ago</span>
+        <div className={s["post-excerpt__info"]}>
+          <span className={s["post-excerpt__posted-by"]}>Posted by</span>
+          <p className={s["post-excerpt__author"]}>/u/TheWatchingBug</p>
+          <span className={s["post-excerpt__date"]}>4 months ago</span>
         </div>
-        <div className={s["post__container"]}>
-          <h3 className={s["post__title"]}>{title}</h3>
-          <p className={s["post__description"]}>{description}</p>
+        <div className={s["post-excerpt__container"]}>
+          <h3 className={s["post-excerpt__title"]}>{title}</h3>
+          <p className={s["post-excerpt__description"]}>{description}</p>
         </div>
         {/* {conditional rendering for sticky post} */}
         <div className={s["post__buttons"]}>
           <span>Expand</span>
-          <div className={s["post__divider"]}></div>
-          <div className={s["post__interactions"]}>
-            <div className={s["post__interaction"]}>
+          <div className={s["post-excerpt__divider"]}></div>
+          <div className={s["post-excerpt__interactions"]}>
+            <div className={s["post-excerpt__interaction"]}>
               <BiMessage />
               <span>0 Comments</span>
             </div>
-            <div className={s["post__interaction"]}>
+            <div className={s["post-excerpt__interaction"]}>
               <span>Icon</span>
               <span>Share</span>
             </div>
-            <div className={s["post__interaction"]}>
+            <div className={s["post-excerpt__interaction"]}>
               <span>Icon</span>
               <span>Save</span>
             </div>
-            <div className={s["post__interaction"]}>
+            <div className={s["post-excerpt__interaction"]}>
               <span>Icon</span>
               <span>Hide</span>
             </div>
-            <div className={s["post__interaction"]}>
+            <div className={s["post-excerpt__interaction"]}>
               <span>Icon</span>
               <span>Report</span>
             </div>
