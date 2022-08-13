@@ -1,0 +1,10 @@
+.post-excerpt__interactions {
+  display: flex;
+  padding-left: 4px;
+  padding-right: 8px;
+}
+
+.post-excerpt__interaction {
+  padding: 8px;
+  margin-right: 4px;
+}

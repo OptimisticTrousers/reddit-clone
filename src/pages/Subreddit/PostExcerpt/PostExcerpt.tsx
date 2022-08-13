@@ -24,29 +24,6 @@ const PostExcerpt: React.FC<Props> = ({ title, description }) => {
         <div className={s["post__buttons"]}>
           <span>Expand</span>
           <div className={s["post-excerpt__divider"]}></div>
-          <div className={s["post-excerpt__interactions"]}>
-            <div className={s["post-excerpt__interaction"]}>
-              <BiMessage />
-              <span>0 Comments</span>
-            </div>
-            <div className={s["post-excerpt__interaction"]}>
-              <span>Icon</span>
-              <span>Share</span>
-            </div>
-            <div className={s["post-excerpt__interaction"]}>
-              <span>Icon</span>
-              <span>Save</span>
-            </div>
-            <div className={s["post-excerpt__interaction"]}>
-              <span>Icon</span>
-              <span>Hide</span>
-            </div>
-            <div className={s["post-excerpt__interaction"]}>
-              <span>Icon</span>
-              <span>Report</span>
-            </div>
-            {/* {conditional rendering for live chat} */}
-          </div>
         </div>
       </div>
     </div>
