@@ -1,4 +1,4 @@
-import s from "./Post.module.css";
+import s from "./PostExcerpt.module.css";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
@@ -7,7 +7,7 @@ interface Props {
   title: string;
   description: string;
 }
-const Post: React.FC<Props> = ({ title, description }) => {
+const PostExcerpt: React.FC<Props> = ({ title, description }) => {
   return (
     <div className={s["post"]}>
       <div className={s["post__votes"]}>
@@ -59,4 +59,4 @@ const Post: React.FC<Props> = ({ title, description }) => {
   );
 };
 
-export default Post;
+export default PostExcerpt;
