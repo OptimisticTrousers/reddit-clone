@@ -2,10 +2,6 @@
     display: flex;
 }
 
-.post-excerpt__info {
-    display: flex;
-}
-
 .post-excerpt__interactions{
     display: flex;
     padding-left: 4px;
