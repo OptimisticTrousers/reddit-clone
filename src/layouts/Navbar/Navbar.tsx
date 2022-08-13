@@ -4,14 +4,11 @@ import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { auth, signIn } from "../../firebase";
-import { logInThunk, logOutThunk } from "../../features/auth/authSlice";
+import { signIn, signOutUser } from "../../firebase";
+import { useAppSelector } from "../../hooks/hooks";
 
 const Navbar: React.FC = () => {
-  const dispatch = useAppDispatch();
-
-  const isUserSignedIn = useAppSelector((state) => state.auth.value);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   return (
     <header className={s["header"]}>
@@ -36,13 +33,13 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         <div className={s["header__right"]}>
-          {isUserSignedIn ? (
-            <h2>User is logged in</h2>
-          ) : (
-            <div className={s["header__buttons"]}>
+          <div className={s["header__buttons"]}>
+            {isLoggedIn ? (
+              <h2>User is logged in</h2>
+            ) : (
               <button
                 onClick={() => {
-                  dispatch(logInThunk());
+                  signIn();
                 }}
                 className={classNames(
                   s["header__button"],
@@ -51,19 +48,20 @@ const Navbar: React.FC = () => {
               >
                 Log In
               </button>
-              <button
-                onClick={() => {
-                  dispatch(logOutThunk());
-                }}
-                className={classNames(
-                  s["header__button"],
-                  s["header__button_type_sign-up"]
-                )}
-              >
-                Sign Up
-              </button>
-            </div>
-          )}
+            )}
+            <button
+              onClick={() => {
+                signOutUser();
+              }}
+              className={classNames(
+                s["header__button"],
+                s["header__button_type_sign-up"]
+              )}
+            >
+              {isLoggedIn ? "Sign Out" : " Sign Up"}
+            </button>
+          </div>
+
           <div className={s["header__profile"]}>
             <button className={s["header__dropdown"]}>Profile</button>
           </div>
