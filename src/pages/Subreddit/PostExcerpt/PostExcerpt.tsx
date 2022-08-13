@@ -2,6 +2,7 @@ import s from "./PostExcerpt.module.css";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
+import Votes from "../Votes/Votes";
 
 interface Props {
   title: string;
@@ -10,11 +11,7 @@ interface Props {
 const PostExcerpt: React.FC<Props> = ({ title, description }) => {
   return (
     <div className={s["post-excerpt"]}>
-      <div className={s["post-excerpt__votes"]}>
-        <BiUpvote />
-        <p className={s["post-excerpt__likes"]}>1</p>
-        <BiDownvote />
-      </div>
+      <Votes />
       <div className={s["post-excerpt__content"]}>
         {/* <span>Image goes here</span> */}
         <div className={s["post-excerpt__info"]}>
