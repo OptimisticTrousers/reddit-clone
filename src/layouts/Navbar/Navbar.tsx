@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { signIn } from "../../firebase";
+import { auth, signIn } from "../../firebase";
+import { logInThunk, logOutThunk } from "../../features/auth/authSlice";
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const isUserSignedIn = useAppSelector((state) => state.auth);
+  const isUserSignedIn = useAppSelector((state) => state.auth.value);
 
   return (
     <header className={s["header"]}>
@@ -41,6 +42,7 @@ const Navbar: React.FC = () => {
             <div className={s["header__buttons"]}>
               <button
                 onClick={() => {
+                  dispatch(logInThunk());
                 }}
                 className={classNames(
                   s["header__button"],
@@ -50,6 +52,9 @@ const Navbar: React.FC = () => {
                 Log In
               </button>
               <button
+                onClick={() => {
+                  dispatch(logOutThunk());
+                }}
                 className={classNames(
                   s["header__button"],
                   s["header__button_type_sign-up"]
