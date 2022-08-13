@@ -13,6 +13,7 @@ const SinglePostPage = () => {
         <h2 className={s["post-page__title"]}>Title</h2>
         <p className={s["post-page__description"]}>description of stuff</p>
         <PostInteractions />
+        <textarea placeholder="What are your thoughts"></textarea>
       </article>
       <aside>
         <About />
