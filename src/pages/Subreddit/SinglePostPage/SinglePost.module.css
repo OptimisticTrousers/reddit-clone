@@ -1,4 +1,7 @@
-.post {
-    width: 100vh;
-    background-color: red;
+.post-page {
+    display: flex;
+    padding: 20px 24px;
+    max-width: 1600px;
+    box-sizing: border-box;
+    background-color: white;
 }

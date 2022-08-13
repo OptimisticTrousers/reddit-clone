@@ -10,7 +10,9 @@ const App: React.FC = () => {
     <div className="container">
       {/* {isModalActive && <Modal />} */}
       <Navbar />
-      <Outlet />
+      <main >
+        <Outlet />
+      </main>
     </div>
   );
 };
