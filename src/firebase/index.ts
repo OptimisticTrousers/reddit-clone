@@ -33,6 +33,8 @@ import { authStateObserver } from "../redux/store";
 
 export const auth = getAuth(app);
 
+export const db = getFirestore(app);
+
 export async function signIn() {
   const provider = new GoogleAuthProvider();
   await signInWithPopup(auth, provider);
