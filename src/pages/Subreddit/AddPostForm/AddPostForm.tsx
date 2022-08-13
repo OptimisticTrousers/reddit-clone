@@ -1,6 +1,27 @@
+import { setDoc } from "firebase/firestore";
+import React, { SyntheticEvent, useState } from "react";
 import s from "./AddPostForm.module.css";
 
+type InputEvent = React.ChangeEvent<HTMLTextAreaElement>;
+type FormEvent = React.FormEvent<HTMLFormElement>;
+
 const AddPostForm: React.FC = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleTitleChange = (event: InputEvent) => {
+    setTitle(event.target.value);
+  };
+
+  const handleDescriptionChange = (event: InputEvent) => {
+    setDescription(event.target.value);
+  };
+
+  const submitPost = async() => {
+
+
+  };
+
   return (
     <div className={s["post-creator"]}>
       <div className={s["post-creator__header"]}>
@@ -42,12 +63,20 @@ const AddPostForm: React.FC = () => {
           </button>
         </div>
         <div className={s["post-creator__inputs"]}>
-          <div className={s["post-creator__input"]}>
-            <textarea>Text required</textarea>
-          </div>
-          <div className={s["post-creator__input"]}>
-            <textarea>Editor</textarea>
-          </div>
+            <div className={s["post-creator__input"]}>
+              <textarea
+                placeholder="Title"
+                onChange={handleDescriptionChange}
+                value={description}
+              ></textarea>
+            </div>
+            <div className={s["post-creator__input"]}>
+              <textarea
+                placeholder="Editor"
+                onChange={handleTitleChange}
+                value={title}
+              ></textarea>
+            </div>
         </div>
         <div className={s["post-creator__marks"]}>
           <button>OC</button>
@@ -58,7 +87,7 @@ const AddPostForm: React.FC = () => {
         <hr />
         <div className={s["post-creator__buttons"]}>
           <button>Save Draft</button>
-          <button>Post</button>
+          <button onClick={submitPost}>Post</button>
         </div>
       </div>
     </div>
