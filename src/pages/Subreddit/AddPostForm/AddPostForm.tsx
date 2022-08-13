@@ -1,4 +1,10 @@
-import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import React, { SyntheticEvent, useState } from "react";
 import { db } from "../../../firebase";
 import s from "./AddPostForm.module.css";
@@ -20,12 +26,14 @@ const AddPostForm: React.FC = () => {
   };
 
   const submitPost = async () => {
-    const subredditRef = doc(db, "default", "posts");
+    const subredditRef = doc(db, "subreddit", "posts");
 
     await updateDoc(subredditRef, {
-      id: nanoid(),
-      title,
-      description,
+      posts: arrayUnion({
+        id: nanoid(),
+        title,
+        description,
+      }),
     });
   };
 
