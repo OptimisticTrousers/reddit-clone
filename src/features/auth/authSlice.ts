@@ -9,10 +9,6 @@ const initialState: AuthState = { isLoggedIn: false };
 
 export const selectUserAuth = (state: AuthState) => state.isLoggedIn;
 
-// export const checkUserStatus = createAsyncThunk("auth/checkAuth", () => {
-//   return isUserSignedIn();
-// });
-
 const authSlice = createSlice({
   name: "auth",
   initialState,

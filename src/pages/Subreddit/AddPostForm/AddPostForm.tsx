@@ -9,6 +9,7 @@ import React, { SyntheticEvent, useState } from "react";
 import { db } from "../../../firebase";
 import s from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
+import { useAppSelector } from "../../../hooks/hooks";
 
 type InputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 type FormEvent = React.FormEvent<HTMLFormElement>;
@@ -16,6 +17,8 @@ type FormEvent = React.FormEvent<HTMLFormElement>;
 const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const handleTitleChange = (event: InputEvent) => {
     setTitle(event.target.value);
@@ -26,15 +29,20 @@ const AddPostForm: React.FC = () => {
   };
 
   const submitPost = async () => {
-    const subredditRef = doc(db, "subreddit", "posts");
+    if (isLoggedIn) {
+      const subredditRef = doc(db, "subreddit", "posts");
 
-    await updateDoc(subredditRef, {
-      posts: arrayUnion({
-        id: nanoid(),
-        title,
-        description,
-      }),
-    });
+      await updateDoc(subredditRef, {
+        posts: arrayUnion({
+          id: nanoid(),
+          title,
+          description,
+        }),
+      });
+    }
+    else {
+      alert("Sign in please!")
+    }
   };
 
   return (
