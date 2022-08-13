@@ -1,36 +1,7 @@
-import { Action, combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import { User } from "firebase/auth";
 import authReducer from "../features/auth/authSlice";
-import { logInThunk } from "../features/auth/authSlice";
-
-// export const authStateObserver = (user) => {
-
-// }
-
-// const modalReducer = (state = false, action: Action) => {
-//   switch (action.type) {
-//     case "ENABLE_MODAL":
-//       return true;
-//     case "DISABLE_MODAL":
-//       return false;
-//     default:
-//       return state;
-//   }
-// };
-
-// const authReducer = (state = false, action: Action) => {
-//   switch (action.type) {
-//     case "LOG_IN":
-//       return true;
-//     case "LOG_OUT":
-//       return false;
-//     default:
-//       return state;
-//   }
-// };
-
-// const rootReducer = combineReducers({
-//   auth: authReducer,
-// });
+import { setLoginStatus } from "../features/auth/authSlice";
 
 export const store = configureStore({
   reducer: {
@@ -38,8 +9,12 @@ export const store = configureStore({
   },
 });
 
-export function authStateObserver() {
-  store.dispatch(logInThunk());
+export function authStateObserver(user: User | null) {
+  if (user) {
+    store.dispatch(setLoginStatus(true));
+  } else {
+    store.dispatch(setLoginStatus(false));
+  }
 }
 
 export type RootState = ReturnType<typeof store.getState>;
