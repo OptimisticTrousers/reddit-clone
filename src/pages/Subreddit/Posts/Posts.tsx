@@ -5,7 +5,7 @@ import {
   getDoc,
   getDocs,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import PostExcerpt from "../PostExcerpt/PostExcerpt";
 import s from "./Posts.module.css";
 import { db } from "../../../firebase";
@@ -30,6 +30,25 @@ const Posts: React.FC = () => {
       setPosts(subredditPosts.docChanges());
     });
   }, []);
+
+  // const onVote = async(post, vote, communityId) => {
+  //   //check for a user => if not, open
+  //   if(newVote) {
+  //     //add/subtract 1 to/from post.voteStatus
+
+  //   } else {
+  //     //Removing their vote
+  //     if(removingVote) {
+  //     //add/subtract 1 to/from post.voteStatus
+  //     //delete the postVote document
+
+  //     } else {
+  //       //Flip
+  //       // add/subtract 2 to/from post.voteStatus
+  //       // updating the existing postVote document
+  //     }
+  //   }
+  // }
 
   return (
     <div className={s["container"]}>
