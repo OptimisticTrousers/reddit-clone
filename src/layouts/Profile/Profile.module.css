@@ -8,14 +8,41 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  height: 32px;
-  width: 70px;
   margin-left: 8px;
+}
+
+.profile__content{
+    text-align: left;
+  width: 110px;
+}
+
+.profile__username {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    white-space: nowrap;
+    color: var(--secondary-color);
+}
+
+.profile__karma {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #a8aaab;
 }
 
 .profile__button:hover {
   border: 1px solid #343536;
   cursor: pointer;
+}
+
+.profile__details {
+    display: flex;
+}
+
+.profile__avatar {
+    width: 24px;
+    height: 24px;
 }
 
 .profile__button-icon {
