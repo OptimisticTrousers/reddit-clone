@@ -2,6 +2,7 @@ import {
   arrayUnion,
   collection,
   doc,
+  serverTimestamp,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -11,15 +12,17 @@ import s from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
+import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
 
 type InputEvent = React.ChangeEvent<HTMLTextAreaElement>;
-type FormEvent = React.FormEvent<HTMLFormElement>;
 
 const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
+
+  const subredditId = useAppSelector(selectSubredditId);
 
   const handleTitleChange = (event: InputEvent) => {
     setTitle(event.target.value);
@@ -35,8 +38,9 @@ const AddPostForm: React.FC = () => {
 
       await updateDoc(subredditRef, {
         posts: arrayUnion({
-          created_at: Date.now(),
+          created_at: serverTimestamp(),
           id: nanoid(),
+          subreddit_id: subredditId,
           user_id: getUserId(),
           title,
           description,
