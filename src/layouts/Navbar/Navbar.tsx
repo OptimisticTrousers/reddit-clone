@@ -26,16 +26,15 @@ const Navbar: React.FC = () => {
               alt="the name reddit"
             />
           </Link>
-
-          <div className={s["header__container"]}>
-            <div className={s["header__search-icon-container"]}>
-              <RiSearchLine className={s["header__search-icon"]} />
-            </div>
-            <input
-              className={s["header__search-input"]}
-              placeholder="Search Reddit"
-            />
+        </div>
+        <div className={s["header__container"]}>
+          <div className={s["header__search-icon-container"]}>
+            <RiSearchLine className={s["header__search-icon"]} />
           </div>
+          <input
+            className={s["header__search-input"]}
+            placeholder="Search Reddit"
+          />
         </div>
         <div className={s["header__right"]}>
           <div className={s["header__buttons"]}>
