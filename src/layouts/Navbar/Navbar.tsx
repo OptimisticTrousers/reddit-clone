@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
             >
               {isLoggedIn ? "Sign Out" : " Sign Up"}
             </button>
-            <Profile />
+            <Profile isLoggedIn={isLoggedIn}/>
           </div>
         </div>
       </div>
