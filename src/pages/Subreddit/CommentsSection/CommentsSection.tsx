@@ -5,11 +5,14 @@ import { db, getUserId } from "../../../firebase";
 import { useAppSelector } from "../../../hooks/hooks";
 import Comments from "../Comments/Comments";
 import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
+import { selectAuthStatus } from "../../../features/auth/authSlice";
 
 const CommentsSection = () => {
   const [commentText, setCommentText] = useState("");
 
   const subredditId = useAppSelector(selectSubredditId);
+
+  const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const handleCommentChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
     event
@@ -20,16 +23,21 @@ const CommentsSection = () => {
   const formSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const commentsRef = collection(db, "comments");
+    if (isLoggedIn) {
+      const commentsRef = collection(db, "comments");
 
-    await addDoc(commentsRef, {
-      content: commentText,
-      created_at: serverTimestamp(),
-      id: nanoid(),
-      subreddit_id: subredditId,
-      updated_at: serverTimestamp(),
-      user_id: getUserId(),
-    });
+      await addDoc(commentsRef, {
+        content: commentText,
+        created_at: serverTimestamp(),
+        id: nanoid(),
+        subreddit_id: subredditId,
+        updated_at: serverTimestamp(),
+        user_id: getUserId(),
+      });
+    }
+    else {
+      alert("LOG IN SUCKER!!")
+    }
   };
   return (
     <div>
