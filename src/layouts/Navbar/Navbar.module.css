@@ -9,6 +9,7 @@
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
+    height: 100%;
 }
 
 .header__left {
@@ -16,7 +17,7 @@
     align-items: center;
 }
 
-.header__links {
+.header__link {
     display: flex;
     align-items: center;
 }
