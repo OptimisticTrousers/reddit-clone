@@ -1,4 +1,5 @@
 import {
+  addDoc,
   arrayUnion,
   collection,
   doc,
@@ -33,22 +34,20 @@ const AddPostForm: React.FC = () => {
   };
 
   const submitPost = async () => {
-    if (isLoggedIn) {
-      const subredditRef = doc(db, "posts");
+    // if (isLoggedIn) {
+    const postsRef = collection(db, "posts");
 
-      await updateDoc(subredditRef, {
-        posts: arrayUnion({
-          created_at: serverTimestamp(),
-          id: nanoid(),
-          subreddit_id: subredditId,
-          user_id: getUserId(),
-          title,
-          description,
-        }),
-      });
-    } else {
-      alert("Sign in please!");
-    }
+    await addDoc(postsRef, {
+      created_at: serverTimestamp(),
+      id: nanoid(),
+      subreddit_id: subredditId,
+      user_id: getUserId(),
+      title,
+      description,
+    });
+    // } else {
+    //   alert("Sign in please!");
+    // }
   };
 
   return (

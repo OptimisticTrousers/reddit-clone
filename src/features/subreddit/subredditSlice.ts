@@ -6,7 +6,7 @@ interface AuthState {
 
 const initialState: AuthState = { subredditId: "krnv57fgYupN9Kdvxit3" };
 
-export const selectSubredditId = (state: any) => state.subredditId;
+export const selectSubredditId = (state: any) => state.subreddit.subredditId;
 
 const subredditSlice = createSlice({
   name: "subreddit",

@@ -4,6 +4,7 @@ import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
 import Votes from "../Votes/Votes";
 import PostAuthor from "../PostAuthor/PostAuthor";
+import PostInteractions from "../PostInteractions/PostInteractions";
 
 interface Props {
   title: string;
@@ -24,6 +25,7 @@ const PostExcerpt: React.FC<Props> = ({ title, description }) => {
         <div className={s["post__buttons"]}>
           <span>Expand</span>
           <div className={s["post-excerpt__divider"]}></div>
+          <PostInteractions />
         </div>
       </div>
     </div>
