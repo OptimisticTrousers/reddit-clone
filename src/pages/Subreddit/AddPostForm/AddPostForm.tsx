@@ -35,16 +35,17 @@ const AddPostForm: React.FC = () => {
 
   const submitPost = async () => {
     if (isLoggedIn) {
-    const postsRef = collection(db, "posts");
+      const postsRef = collection(db, "posts");
 
-    await addDoc(postsRef, {
-      created_at: serverTimestamp(),
-      id: nanoid(),
-      subreddit_id: subredditId,
-      user_id: getUserId(),
-      title,
-      description,
-    });
+      await addDoc(postsRef, {
+        created_at: serverTimestamp(),
+        id: nanoid(),
+        subreddit_id: subredditId,
+        post_id: "lSXBVO-I64XcdFEljHGii",
+        user_id: getUserId(),
+        title,
+        description,
+      });
     } else {
       alert("Sign in please!");
     }
