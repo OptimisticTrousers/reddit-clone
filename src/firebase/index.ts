@@ -56,4 +56,8 @@ export function isUserSignedIn() {
   return !!auth.currentUser;
 }
 
+export function getUser() {
+  return auth.currentUser;
+}
+
 initFirebaseAuth();

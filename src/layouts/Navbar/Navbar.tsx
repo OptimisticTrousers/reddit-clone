@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
-import { signIn, signOutUser } from "../../firebase";
+import { getUser, signIn, signOutUser } from "../../firebase";
 import { useAppSelector } from "../../hooks/hooks";
 
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    console.log(getUser())
+  }, [isLoggedIn])
 
   return (
     <header className={s["header"]}>
