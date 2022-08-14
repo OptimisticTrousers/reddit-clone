@@ -10,6 +10,7 @@ import { selectAuthStatus } from "../../features/auth/authSlice";
 import { RiSearchLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
+import Profile from "../Profile/Profile";
 
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
@@ -64,12 +65,7 @@ const Navbar: React.FC = () => {
             >
               {isLoggedIn ? "Sign Out" : " Sign Up"}
             </button>
-            <div className={s["header__profile"]}>
-              <button className={s["header__profile-button"]}>
-                <FaRegUser className={s["header__profile-button-icon"]} />
-                <IoIosArrowDown className={s["header__profile-button-icon"]} />
-              </button>
-            </div>
+            <Profile />
           </div>
         </div>
       </div>
