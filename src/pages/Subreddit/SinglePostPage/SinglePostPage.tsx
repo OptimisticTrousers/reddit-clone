@@ -6,6 +6,7 @@ import Votes from "../Votes/Votes";
 import s from "./SinglePost.module.css";
 import { useLocation } from "react-router-dom";
 import { Location } from "react-router-dom";
+import CommentsSection from "../CommentsSection/CommentsSection";
 
 type LocationState = {
   title: string;
@@ -26,12 +27,15 @@ const SinglePostPage = () => {
     <section className={s["post-page"]}>
       <Votes />
       <article className={s["post-page__content"]}>
-        <PostAuthor />
-        <h2 className={s["post-page__title"]}>{title}</h2>
-        <p className={s["post-page__description"]}>{description}</p>
-        <PostInteractions />
-        <textarea placeholder="What are your thoughts"></textarea>
-        <Comments />
+        <div className={s["post-page__post"]}>
+          <PostAuthor />
+          <h2 className={s["post-page__title"]}>{title}</h2>
+          <p className={s["post-page__description"]}>{description}</p>
+          <PostInteractions />
+        </div>
+        <div className={s["post-page__comments"]}>
+          <CommentsSection />
+        </div>
       </article>
       <aside>
         <About />
