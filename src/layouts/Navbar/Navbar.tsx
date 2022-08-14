@@ -6,13 +6,14 @@ import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { getUser, signIn, signOutUser } from "../../firebase";
 import { useAppSelector } from "../../hooks/hooks";
+import { selectAuthStatus } from "../../features/auth/authSlice";
 
 const Navbar: React.FC = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(selectAuthStatus);
 
   useEffect(() => {
-    console.log(getUser())
-  }, [isLoggedIn])
+    console.log(getUser());
+  }, [isLoggedIn]);
 
   return (
     <header className={s["header"]}>

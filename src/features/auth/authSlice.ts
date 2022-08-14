@@ -7,7 +7,7 @@ interface AuthState {
 
 const initialState: AuthState = { isLoggedIn: false };
 
-export const selectUserAuth = (state: AuthState) => state.isLoggedIn;
+export const selectAuthStatus = (state: any) => state.isLoggedIn;
 
 const authSlice = createSlice({
   name: "auth",

@@ -10,6 +10,7 @@ import { db, getUserId } from "../../../firebase";
 import s from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
+import { selectAuthStatus } from "../../../features/auth/authSlice";
 
 type InputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 type FormEvent = React.FormEvent<HTMLFormElement>;
@@ -18,7 +19,7 @@ const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const handleTitleChange = (event: InputEvent) => {
     setTitle(event.target.value);
