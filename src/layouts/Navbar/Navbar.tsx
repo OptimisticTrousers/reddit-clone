@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { getUser, signIn, signOutUser } from "../../firebase";
 import { useAppSelector } from "../../hooks/hooks";
 import { selectAuthStatus } from "../../features/auth/authSlice";
+import { RiSearchLine } from "react-icons/ri";
 
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
@@ -15,7 +16,7 @@ const Navbar: React.FC = () => {
     <header className={s["header"]}>
       <div className={s["header__content"]}>
         <div className={s["header__left"]}>
-          <Link to="/" className={s["header__link"]}>
+          <Link to="/" className={s["header__links"]}>
             <img className={s["header__logo"]} src={logo} alt="reddit logo" />
             <img
               className={s["header__logo-name"]}
@@ -25,6 +26,9 @@ const Navbar: React.FC = () => {
           </Link>
 
           <div className={s["header__container"]}>
+            <div className={s["header__search-icon-container"]}>
+              <RiSearchLine className={s["header__search-icon"]}/>
+            </div>
             <input
               className={s["header__search-input"]}
               placeholder="Search Reddit"
