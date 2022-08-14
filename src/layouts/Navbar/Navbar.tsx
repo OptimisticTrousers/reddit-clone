@@ -11,10 +11,6 @@ import { selectAuthStatus } from "../../features/auth/authSlice";
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  useEffect(() => {
-    console.log(getUser());
-  }, [isLoggedIn]);
-
   return (
     <header className={s["header"]}>
       <div className={s["header__content"]}>

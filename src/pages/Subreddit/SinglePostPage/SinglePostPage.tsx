@@ -1,10 +1,15 @@
 import About from "../About/About";
+import Comments from "../Comments/Comments";
 import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";
 import Votes from "../Votes/Votes";
 import s from "./SinglePost.module.css";
+import { useLocation } from "react-router-dom";
 
 const SinglePostPage = () => {
+  const location = useLocation();
+
+  console.log(location);
   return (
     <section className={s["post-page"]}>
       <Votes />
@@ -14,6 +19,7 @@ const SinglePostPage = () => {
         <p className={s["post-page__description"]}>description of stuff</p>
         <PostInteractions />
         <textarea placeholder="What are your thoughts"></textarea>
+        <Comments />
       </article>
       <aside>
         <About />

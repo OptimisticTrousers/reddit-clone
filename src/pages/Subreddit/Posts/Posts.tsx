@@ -29,20 +29,15 @@ const Posts: React.FC = () => {
     console.log(subredditPostsRef);
 
     getDocs(subredditPostsRef).then((subredditPosts) => {
-      // console.log(subredditPosts.docChanges())
       setPosts(subredditPosts.docChanges());
     });
-    // getDoc(subredditPostsRef).then((subredditPosts) =>
-    // console.log(subredditPosts)
-    // setPosts(subredditPosts?.data()?.posts)
-    // );
   }, []);
 
   return (
     <div className={s["container"]}>
       {posts?.map(({ doc }) => {
         return (
-          <Link key={doc.id} to={doc.id}>
+          <Link key={doc.id} to={doc.id} state={doc.data()}>
             <PostExcerpt
               key={doc.id}
               title={doc.data().title}
