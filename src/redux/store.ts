@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { User } from "firebase/auth";
 import authReducer from "../features/auth/authSlice";
 import { setLoginStatus } from "../features/auth/authSlice";
+import subredditReducer from "../features/subreddit/subredditSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    subreddit: subredditReducer,
   },
 });
 

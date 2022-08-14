@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 type Props = {
-  children?: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 };
 
 const StoreProvider: React.FC<Props> = ({ children }) => {

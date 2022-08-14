@@ -56,6 +56,10 @@ export function isUserSignedIn() {
   return !!auth.currentUser;
 }
 
+export function getUserId() {
+  return auth.currentUser?.uid;
+}
+
 export function getUser() {
   return auth.currentUser;
 }

@@ -6,7 +6,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { SyntheticEvent, useState } from "react";
-import { db } from "../../../firebase";
+import { db, getUserId } from "../../../firebase";
 import s from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
@@ -30,18 +30,19 @@ const AddPostForm: React.FC = () => {
 
   const submitPost = async () => {
     if (isLoggedIn) {
-      const subredditRef = doc(db, "subreddit", "posts");
+      const subredditRef = doc(db, "posts");
 
       await updateDoc(subredditRef, {
         posts: arrayUnion({
+          created_at: Date.now(),
           id: nanoid(),
+          user_id: getUserId(),
           title,
           description,
         }),
       });
-    }
-    else {
-      alert("Sign in please!")
+    } else {
+      alert("Sign in please!");
     }
   };
 
