@@ -16,16 +16,17 @@ type LocationState = {
   subreddit_id: string;
   updated_at: string;
   user_id: string;
+  voteStatus: number;
 };
 
 const SinglePostPage = () => {
   const location = useLocation();
 
-  const { title, description, user_id } = location.state as LocationState;
+  const { title, description, voteStatus } = location.state as LocationState;
 
   return (
     <section className={s["post-page"]}>
-      <Votes />
+      <Votes voteStatus={voteStatus} />
       <article className={s["post-page__content"]}>
         <div className={s["post-page__post"]}>
           <PostAuthor />

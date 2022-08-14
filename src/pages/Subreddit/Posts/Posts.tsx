@@ -34,13 +34,10 @@ const Posts: React.FC = () => {
   return (
     <div className={s["container"]}>
       {posts?.map(({ doc }) => {
+        const data = doc.data();
         return (
-          <Link key={doc.id} to={doc.id} state={{...doc.data()}}>
-            <PostExcerpt
-              key={doc.id}
-              title={doc.data().title}
-              description={doc.data().description}
-            />
+          <Link key={doc.id} to={doc.id} state={{ ...data }}>
+            <PostExcerpt key={doc.id} data={data} />
           </Link>
         );
       })}

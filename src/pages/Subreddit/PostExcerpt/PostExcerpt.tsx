@@ -5,15 +5,13 @@ import { BiMessage } from "react-icons/bi";
 import Votes from "../Votes/Votes";
 import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";
+import { DocumentData } from "firebase/firestore";
 
-interface Props {
-  title: string;
-  description: string;
-}
-const PostExcerpt: React.FC<Props> = ({ title, description }) => {
+const PostExcerpt: React.FC<DocumentData> = ({ data }) => {
+  const { voteStatus, title, description } = data;
   return (
     <div className={s["post-excerpt"]}>
-      <Votes />
+      <Votes voteStatus={voteStatus} />
       <div className={s["post-excerpt__content"]}>
         {/* <span>Image goes here</span> */}
         <PostAuthor />

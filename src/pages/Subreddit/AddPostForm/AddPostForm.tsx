@@ -41,6 +41,7 @@ const AddPostForm: React.FC = () => {
         created_at: serverTimestamp(),
         id: nanoid(),
         subreddit_id: subredditId,
+        voteStatus: 0,
         post_id: "lSXBVO-I64XcdFEljHGii",
         user_id: getUserId(),
         title,
