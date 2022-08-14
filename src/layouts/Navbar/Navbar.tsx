@@ -8,6 +8,7 @@ import { getUser, signIn, signOutUser } from "../../firebase";
 import { useAppSelector } from "../../hooks/hooks";
 import { selectAuthStatus } from "../../features/auth/authSlice";
 import { RiSearchLine } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
@@ -27,7 +28,7 @@ const Navbar: React.FC = () => {
 
           <div className={s["header__container"]}>
             <div className={s["header__search-icon-container"]}>
-              <RiSearchLine className={s["header__search-icon"]}/>
+              <RiSearchLine className={s["header__search-icon"]} />
             </div>
             <input
               className={s["header__search-input"]}
@@ -37,9 +38,9 @@ const Navbar: React.FC = () => {
         </div>
         <div className={s["header__right"]}>
           <div className={s["header__buttons"]}>
-            {isLoggedIn ? (
+            {/* {isLoggedIn ? (
               <h2>User is logged in</h2>
-            ) : (
+            ) : ( */}
               <button
                 onClick={() => {
                   signIn();
@@ -51,7 +52,7 @@ const Navbar: React.FC = () => {
               >
                 Log In
               </button>
-            )}
+            {/* )} */}
             <button
               onClick={() => {
                 signOutUser();
@@ -63,6 +64,11 @@ const Navbar: React.FC = () => {
             >
               {isLoggedIn ? "Sign Out" : " Sign Up"}
             </button>
+            <div className={s["header__profile"]}>
+
+            <FaUser />
+            </div>
+
           </div>
 
           <div className={s["header__profile"]}>

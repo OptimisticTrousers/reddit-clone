@@ -1,5 +1,6 @@
 :root {
-  --search-color: #d7dadc;
+  --newRedditTheme-button: #d7dadc;
+  --newRedditTheme-body: #1a1a1b;
 }
 .header {
   background-color: rgb(26, 26, 27);
@@ -21,7 +22,38 @@
   flex-grow: 0;
 }
 
+.header__buttons {
+    display: flex;
+    align-items: center;
+}
+
+.header__button {
+  padding: 4px 16px;
+  min-height: 32px;
+  min-width: 32px;
+  line-height: 17px;
+  text-transform: unset;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 9999px;
+  border: none;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.header__button_type_log-in {
+  background-color: rgb(26, 26, 27);
+  color: white;
+  border: 1px solid white;
+}
+
+.header__button_type_sign-up {
+  margin-left: 4px;
+}
+
 .header__right {
+  display: inline-flex;
+  align-items: center;
   flex-grow: 0;
 }
 
@@ -40,7 +72,7 @@
 
 .header__container {
   background-color: #272729;
-  color: var(--search-color);
+  color: var(--newRedditTheme-button);
   margin: 0 auto;
   width: 690px;
   flex-grow: 1;
@@ -48,18 +80,20 @@
   display: flex;
   height: 36px;
   align-items: center;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .header__search-input {
   background-color: inherit;
   border: none;
   font-weight: 400;
-  color: var(--search-color);
+  color: var(--newRedditTheme-button);
   width: 100%;
 }
 
 .header__search-input:focus {
-    all: unset;
+  all: unset;
 }
 
 .header__search-icon-container {
