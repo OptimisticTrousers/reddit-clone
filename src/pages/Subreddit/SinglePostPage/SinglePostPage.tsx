@@ -21,7 +21,7 @@ type LocationState = {
 const SinglePostPage = () => {
   const location = useLocation();
 
-  const { title, description } = location.state as LocationState;
+  const { title, description, user_id } = location.state as LocationState;
 
   return (
     <section className={s["post-page"]}>
