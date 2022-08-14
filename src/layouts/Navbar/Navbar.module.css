@@ -107,20 +107,50 @@
 }
 
 .header__button_type_log-in {
-  background-color: rgb(26, 26, 27);
+  background-color: black;
   color: white;
   border: 1px solid white;
+}
+
+.header__button_type_log-in:hover {
+  background-color: rgb(26, 26, 27);
+  cursor: pointer;
 }
 
 .header__button_type_sign-up {
   margin-left: 4px;
 }
 
+.header__button_type_sign-up:hover {
+  background-color: rgb(215, 218, 220);
+  cursor: pointer;
+}
+
 .header__profile-button {
   background-color: #1a1a1b;
   border: 1px solid transparent;
   border-radius: 4px;
+  color: gray;
   padding: 20x 0;
-  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  height: 32px;
   width: 70px;
+  margin-left: 8px;
+}
+
+.header__profile-button:hover {
+  border: 1px solid #343536;
+  cursor: pointer;
+}
+
+.header__profile-button-icon {
+  font-size: 20px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
 }
