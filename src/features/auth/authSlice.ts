@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { isUserSignedIn } from "../../firebase";
+import { RootState } from "../../redux/store";
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -7,7 +8,7 @@ interface AuthState {
 
 const initialState: AuthState = { isLoggedIn: false };
 
-export const selectAuthStatus = (state: any) => state.isLoggedIn;
+export const selectAuthStatus = (state: RootState) => state.auth.isLoggedIn;
 
 const authSlice = createSlice({
   name: "auth",

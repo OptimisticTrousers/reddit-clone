@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../redux/store";
 
 interface AuthState {
   subredditId: string;
@@ -6,7 +7,8 @@ interface AuthState {
 
 const initialState: AuthState = { subredditId: "krnv57fgYupN9Kdvxit3" };
 
-export const selectSubredditId = (state: any) => state.subreddit.subredditId;
+export const selectSubredditId = (state: RootState) =>
+  state.subreddit.subredditId;
 
 const subredditSlice = createSlice({
   name: "subreddit",
