@@ -34,7 +34,7 @@ const AddPostForm: React.FC = () => {
   };
 
   const submitPost = async () => {
-    // if (isLoggedIn) {
+    if (isLoggedIn) {
     const postsRef = collection(db, "posts");
 
     await addDoc(postsRef, {
@@ -45,9 +45,9 @@ const AddPostForm: React.FC = () => {
       title,
       description,
     });
-    // } else {
-    //   alert("Sign in please!");
-    // }
+    } else {
+      alert("Sign in please!");
+    }
   };
 
   return (
