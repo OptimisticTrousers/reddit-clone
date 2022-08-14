@@ -41,17 +41,17 @@ const Navbar: React.FC = () => {
             {/* {isLoggedIn ? (
               <h2>User is logged in</h2>
             ) : ( */}
-              <button
-                onClick={() => {
-                  signIn();
-                }}
-                className={classNames(
-                  s["header__button"],
-                  s["header__button_type_log-in"]
-                )}
-              >
-                Log In
-              </button>
+            <button
+              onClick={() => {
+                signIn();
+              }}
+              className={classNames(
+                s["header__button"],
+                s["header__button_type_log-in"]
+              )}
+            >
+              Log In
+            </button>
             {/* )} */}
             <button
               onClick={() => {
@@ -65,10 +65,10 @@ const Navbar: React.FC = () => {
               {isLoggedIn ? "Sign Out" : " Sign Up"}
             </button>
             <div className={s["header__profile"]}>
-
-            <FaUser />
+              <button className={s["header__profile-button"]}>
+                <FaUser />
+              </button>
             </div>
-
           </div>
 
           <div className={s["header__profile"]}>
