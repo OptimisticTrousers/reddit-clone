@@ -26,8 +26,6 @@ const Posts: React.FC = () => {
   useEffect(() => {
     const subredditPostsRef = collection(db, "posts");
 
-    console.log(subredditPostsRef);
-
     getDocs(subredditPostsRef).then((subredditPosts) => {
       setPosts(subredditPosts.docChanges());
     });
@@ -37,7 +35,7 @@ const Posts: React.FC = () => {
     <div className={s["container"]}>
       {posts?.map(({ doc }) => {
         return (
-          <Link key={doc.id} to={doc.id} state={doc.data()}>
+          <Link key={doc.id} to={doc.id} state={{...doc.data()}}>
             <PostExcerpt
               key={doc.id}
               title={doc.data().title}
