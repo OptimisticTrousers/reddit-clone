@@ -1,3 +1,4 @@
+import styles from "./CommentsSection.module.css";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
@@ -6,6 +7,7 @@ import { useAppSelector } from "../../../hooks/hooks";
 import Comments from "../Comments/Comments";
 import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
+import CSSModules from "react-css-modules";
 
 const CommentsSection = () => {
   const [commentText, setCommentText] = useState("");
@@ -34,9 +36,8 @@ const CommentsSection = () => {
         updated_at: serverTimestamp(),
         user_id: getUserId(),
       });
-    }
-    else {
-      alert("LOG IN SUCKER!!")
+    } else {
+      alert("LOG IN SUCKER!!");
     }
   };
   return (
@@ -54,4 +55,4 @@ const CommentsSection = () => {
   );
 };
 
-export default CommentsSection;
+export default CSSModules(CommentsSection, styles, { allowMultiple: true });
