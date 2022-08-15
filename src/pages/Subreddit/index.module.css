@@ -1,4 +1,5 @@
 .subreddit {
+  height: 100%;
 }
 .main {
   padding: 20px 24px;
@@ -6,6 +7,8 @@
   box-sizing: border-box;
   justify-content: center;
   max-width: 100%;
+  background-color: black;
+  height: 100%;
 }
 .aside {
     margin-left: 24px;
