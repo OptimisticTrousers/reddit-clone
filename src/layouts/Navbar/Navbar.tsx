@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
@@ -17,6 +17,12 @@ import { AiFillHome } from "react-icons/ai";
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
+  const [isHomeDropdownActive, setIsHomeDropdownActive] = useState(false)
+
+  function handleHomeDropdown() {
+    setIsHomeDropdownActive(prevValue => !prevValue)
+  }
+
   return (
     <header styleName="header">
       <div styleName="header__content">
@@ -29,7 +35,7 @@ const Navbar: React.FC = () => {
               alt="the name reddit"
             />
           </Link>
-          <div styleName="header__dropdown">
+          <div styleName="header__dropdown" onClick={handleHomeDropdown}>
             <div styleName="header__dropdown-left">
               <AiFillHome styleName="header__dropdown-icon"/>
               <h1 styleName="header__dropdown-title">Home</h1>
