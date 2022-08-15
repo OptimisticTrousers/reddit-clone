@@ -1,27 +1,38 @@
 .post-page {
-    display: flex;
-    padding: 20px 24px;
-    max-width: 1600px;
-    box-sizing: border-box;
-    background-color: white;
+  display: flex;
+  width: min-content;
+  box-sizing: border-box;
+  padding: 20px 24px;
+  margin: 0 auto;
 }
-
-.post-page__content {
-
+.post-page__container {
 }
 
 .post-page__post {
+  background-color: rgb(26, 26, 27);
+  margin-bottom: 100px;
+}
+.post-page__content {
+}
 
+.post-page__post {
+  color: rgb(215, 218, 220);
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding-top: 8px;
 }
 
 .post-page__title {
-
 }
 
 .post-page__description {
-
 }
 
 .post-page__comments {
-    
+  background-color: rgb(26, 26, 27);
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.aside {
+  margin-left: 24px;
 }

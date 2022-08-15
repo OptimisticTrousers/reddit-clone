@@ -8,6 +8,7 @@ import Comments from "../Comments/Comments";
 import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
 import CSSModules from "react-css-modules";
+import upsideDownTriangle from "../../../assets/upside-down-triangle.svg";
 
 const CommentsSection = () => {
   const [commentText, setCommentText] = useState("");
@@ -41,7 +42,12 @@ const CommentsSection = () => {
     }
   };
   return (
-    <div>
+    <div styleName="comments-section">
+      <div styleName="comments-section__user">
+        <span styleName="comments-section__username">
+          Comment as <a>OptimisticTrousers1</a>
+        </span>
+      </div>
       <form onSubmit={formSubmit}>
         <textarea
           placeholder="What are your thoughts"
@@ -50,9 +56,27 @@ const CommentsSection = () => {
         ></textarea>
         <button type="submit">Submit Comment</button>
       </form>
+      <div styleName="comments-section__filter">
+        <button styleName="comments-section__button">Sort By: Best</button>
+        <img
+          styleName="comments-section__icon"
+          src={upsideDownTriangle}
+          alt="tiny upside down triangle"
+        />
+      </div>
+      <hr />
+      <div styleName="comments-section__discussion">
+        <a styleName="comments-section__hyperlink">
+          View discussions in 1 other community
+        </a>
+      </div>
+
       <Comments />
     </div>
   );
 };
 
-export default CSSModules(CommentsSection, styles, { allowMultiple: true });
+export default CSSModules(CommentsSection, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

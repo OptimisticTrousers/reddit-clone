@@ -1,0 +1,39 @@
+.comments-section__button {
+    color: #4FBCFF;
+    font-weight: 700;
+    line-height: 24px;
+    width: 97px;
+    letter-spacing: normal;
+    background-color: inherit;
+    border: none;
+}
+.comments-section__button:hover {
+    cursor: pointer;
+}
+.comments-section__filter {
+    display: flex;
+    align-items: center;
+}
+.comments-section__filter:hover {
+    cursor: pointer;
+}
+.comments-section {
+  margin: 24px 40px 24px 48px;
+}
+
+.comments-section__user {
+  color: white;
+  margin-bottom: 4px;
+}
+
+.comments-section__icon {
+    width: 20px;
+    height: 20px;
+}
+
+.comments-section__discussion {
+    text-align: right;
+}
+.comments-section__hyperlink{
+    color: #4FBCFF;
+}
