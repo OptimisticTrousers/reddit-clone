@@ -44,18 +44,26 @@ const CommentsSection = () => {
   return (
     <div styleName="comments-section">
       <div styleName="comments-section__user">
-        <span styleName="comments-section__username">
-          Comment as <a>OptimisticTrousers1</a>
+        <span styleName="comments-section__comment-as">
+          Comment as{" "}
+          <span styleName="comments-section__username">
+            OptimisticTrousers1
+          </span>
         </span>
       </div>
-      <form onSubmit={formSubmit}>
+      <div styleName="comments-section__comments-form">
+        {/* <form onSubmit={formSubmit}> */}
         <textarea
+          styleName="comments-section__comments-form-textarea"
           placeholder="What are your thoughts"
           onChange={handleCommentChange}
           value={commentText}
         ></textarea>
-        <button type="submit">Submit Comment</button>
-      </form>
+        <div styleName="comments-section__comments-form-button-container">
+          <button styleName="comments-section__comments-form-button">Comment</button>
+        </div>
+        {/* </form> */}
+      </div>
       <div styleName="comments-section__filter">
         <button styleName="comments-section__button">Sort By: Best</button>
         <img
