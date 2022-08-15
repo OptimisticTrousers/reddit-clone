@@ -3,6 +3,7 @@ import Filter from "../../components/Filter/Filter";
 import About from "../Subreddit/About/About";
 import Posts from "../Subreddit/Posts/Posts";
 import styles from "./Home.module.css";
+import Card from "../../components/Card/Card";
 
 const Home: React.FC = () => {
   return (
@@ -13,7 +14,23 @@ const Home: React.FC = () => {
           <Posts />
         </div>
         <aside>
-          <About />
+          <Card>
+            <div styleName="home__top-community-image">
+              <h2 styleName="home__top-community-title">Top Communities</h2>
+            </div>
+          <div styleName="home__top-community-list">
+            <div styleName="home__top-community-item">
+              <div className="home__top-community-details">
+                <p>1</p>
+                <img />
+                <span>r/gaming</span>
+              </div>
+              <div styleName="home__top-community-button">
+                <button>Join</button>
+              </div>
+            </div>
+          </div>
+          </Card>
         </aside>
       </div>
     </div>
