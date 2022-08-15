@@ -65,4 +65,7 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default CSSModules(Navbar, styles, { allowMultiple: true });
+export default CSSModules(Navbar, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

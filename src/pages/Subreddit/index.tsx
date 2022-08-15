@@ -18,4 +18,7 @@ const Subreddit: React.FC = () => {
   );
 };
 
-export default CSSModules(Subreddit, styles, { allowMultiple: true });
+export default CSSModules(Subreddit, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

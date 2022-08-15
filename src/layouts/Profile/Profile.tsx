@@ -35,4 +35,7 @@ const Profile: React.FC<Props> = ({ isLoggedIn }) => {
   );
 };
 
-export default CSSModules(Profile, styles, { allowMultiple: true });
+export default CSSModules(Profile, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

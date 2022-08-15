@@ -79,4 +79,5 @@ const CommentsSection = () => {
 export default CSSModules(CommentsSection, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "log",
 });

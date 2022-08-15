@@ -58,5 +58,6 @@ const SinglePostPage = () => {
 
 export default CSSModules(SinglePostPage, styles, {
   allowMultiple: true,
+  handleNotFoundStyleName: "log",
   handleNotFoundStyleName: "ignore",
 });

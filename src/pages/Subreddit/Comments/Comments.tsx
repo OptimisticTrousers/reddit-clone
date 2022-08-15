@@ -32,4 +32,7 @@ const Comments = () => {
   );
 };
 
-export default CSSModules(Comments, styles, { allowMultiple: true });
+export default CSSModules(Comments, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

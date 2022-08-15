@@ -6,11 +6,11 @@ const PostInteractions = () => {
   return (
     <div styleName="post-excerpt__interactions">
       <div styleName="post-excerpt__interaction">
-        <BiMessage styleName="post-excerpt__icon"/>
+        <BiMessage styleName="post-excerpt__icon" />
         <span styleName="post-excerpt__action">0 Comments</span>
       </div>
       <div styleName="post-excerpt__interaction">
-        <span >Icon</span>
+        <span>Icon</span>
         <span styleName="post-excerpt__action">Share</span>
       </div>
       <div styleName="post-excerpt__interaction">
@@ -30,4 +30,7 @@ const PostInteractions = () => {
   );
 };
 
-export default CSSModules(PostInteractions, styles, { allowMultiple: true });
+export default CSSModules(PostInteractions, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

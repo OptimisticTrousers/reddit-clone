@@ -11,4 +11,7 @@ const Comment: React.FC<DocumentData> = ({ comment }) => {
   );
 };
 
-export default CSSModules(Comment, styles, { allowMultiple: true });
+export default CSSModules(Comment, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

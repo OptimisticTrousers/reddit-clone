@@ -21,4 +21,7 @@ const Votes: React.FC<Props> = ({ voteStatus }) => {
   );
 };
 
-export default CSSModules(Votes, styles, { allowMultiple: true });
+export default CSSModules(Votes, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

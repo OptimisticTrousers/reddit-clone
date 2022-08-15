@@ -38,4 +38,7 @@ const About: React.FC = () => {
   );
 };
 
-export default CSSModules(About, styles, {allowMultiple: true});
+export default CSSModules(About, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

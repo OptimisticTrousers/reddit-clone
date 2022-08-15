@@ -11,4 +11,7 @@ const PostAuthor = () => {
   );
 };
 
-export default CSSModules(PostAuthor, styles, { allowMultiple: true });
+export default CSSModules(PostAuthor, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

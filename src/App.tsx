@@ -4,7 +4,7 @@ import Navbar from "./layouts/Navbar/Navbar";
 import { useAppSelector } from "./hooks/hooks";
 import Modal from "./components/Modal/Modal";
 import CSSModules from "react-css-modules";
-import styles from './App.module.css'
+import styles from "./App.module.css";
 
 const App: React.FC = () => {
   // const isModalActive = useAppSelector((state) => state.modal);
@@ -19,4 +19,7 @@ const App: React.FC = () => {
   );
 };
 
-export default CSSModules(App, styles, { allowMultiple: true });
+export default CSSModules(App, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

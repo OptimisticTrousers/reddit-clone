@@ -65,4 +65,7 @@ const Posts: React.FC = () => {
   );
 };
 
-export default CSSModules(Posts, styles, { allowMultiple: true });
+export default CSSModules(Posts, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

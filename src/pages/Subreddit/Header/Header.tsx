@@ -30,4 +30,7 @@ const Header: React.FC = () => {
   );
 };
 
-export default CSSModules(Header, styles, { allowMultiple: true });
+export default CSSModules(Header, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

@@ -10,9 +10,9 @@ import CSSModules from "react-css-modules";
 
 const PostExcerpt: React.FC<DocumentData> = ({ data }) => {
   // const { voteStatus , title, description } = data;
-  let voteStatus = 1
-  let title = "bob"
-  let description = "bob"
+  let voteStatus = 1;
+  let title = "bob";
+  let description = "bob";
   return (
     <div styleName="post-excerpt">
       <Votes voteStatus={voteStatus} />
@@ -34,4 +34,7 @@ const PostExcerpt: React.FC<DocumentData> = ({ data }) => {
   );
 };
 
-export default CSSModules(PostExcerpt, styles, { allowMultiple: true });
+export default CSSModules(PostExcerpt, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

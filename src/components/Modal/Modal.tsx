@@ -9,4 +9,7 @@ const Modal: React.FC = () => {
   );
 };
 
-export default CSSModules(Modal, styles, { allowMultiple: true });
+export default CSSModules(Modal, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});

@@ -12,4 +12,7 @@ const CreatePost: React.FC = () => {
   );
 };
 
-export default CSSModules(CreatePost, styles, { allowMultiple: true });
+export default CSSModules(CreatePost, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});
