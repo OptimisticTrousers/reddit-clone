@@ -1,26 +1,27 @@
-import s from "./Header.module.css";
+import styles from "./Header.module.css";
 import subredditLogo from "../../../assets/subreddit-logo.svg";
 import classNames from "classnames";
+import CSSModules from "react-css-modules";
 
 const Header: React.FC = () => {
   return (
-    <div className={s["header"]}>
-      <div className={s["header__background"]}></div>
-      <div className={s["header__container"]}>
-        <div className={s["header__content"]}>
+    <div styleName="header">
+      <div styleName="header__background"></div>
+      <div styleName="header__container">
+        <div styleName="header__content">
           <img
-            className={s["header__subreddit-picture"]}
+            styleName="header__subreddit-picture"
             src={subredditLogo}
             alt="default subreddit logo"
           />
-          <div className={s["header__title-container"]}>
-            <div className={s["header__title"]}>
-              <h1 className={s["header__subreddit-name"]}>onepieee</h1>
-              <h2 className={s["header__subreddit-link"]}>r/onepieee</h2>
+          <div styleName="header__title-container">
+            <div styleName="header__title">
+              <h1 styleName="header__subreddit-name">onepieee</h1>
+              <h2 styleName="header__subreddit-link">r/onepieee</h2>
             </div>
-            <div className={s["header__buttons"]}>
-              {/* <button className={classNames(s["header__button"], s["header__button_type"])}>Join</button> */}
-              <button className={s["header__button"]}>Join</button>
+            <div styleName="header__buttons">
+              {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}
+              <button styleName="header__button">Join</button>
             </div>
           </div>
         </div>
@@ -29,4 +30,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default CSSModules(Header, styles, { allowMultiple: true });
