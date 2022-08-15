@@ -1,5 +1,9 @@
+a {
+    all: unset;
+}
 .post-excerpt{
     display: flex;
+    color: rgb(215, 218, 220);
 }
 
 .post-excerpt__content {
@@ -11,7 +15,9 @@
 }
 
 .post-excerpt__title {
-
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
 }
 
 .post-excerpt__description {

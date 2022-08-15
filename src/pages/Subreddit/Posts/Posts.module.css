@@ -1,3 +1,11 @@
 .container {
+    border-radius: 4px;
+    padding-left: 40px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background-color: rgb(26, 26, 27);
+}
 
+.container:hover {
+    cursor: pointer;
 }
