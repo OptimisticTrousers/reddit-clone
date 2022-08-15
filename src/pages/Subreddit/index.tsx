@@ -1,13 +1,14 @@
-import s from "./index.module.css";
+import styles from "./index.module.css";
 import About from "./About/About";
 import Posts from "./Posts/Posts";
 import Header from "./Header/Header";
+import CSSModules from "react-css-modules";
 
 const Subreddit: React.FC = () => {
   return (
-    <div className={s["subreddit"]}>
+    <div styleName="subreddit">
       <Header />
-      <main className={s["main"]}>
+      <main styleName="main">
         <Posts />
         <aside>
           <About />
@@ -17,4 +18,4 @@ const Subreddit: React.FC = () => {
   );
 };
 
-export default Subreddit;
+export default CSSModules(Subreddit, styles, { allowMultiple: true });
