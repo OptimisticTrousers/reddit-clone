@@ -17,29 +17,26 @@ const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
   return (
-    <header styleName={s["header"]}>
-      <div styleName={s["header__content"]}>
-        <div styleName={s["header__left"]}>
-          <Link to="/" styleName={s["header__links"]}>
-            <img styleName={s["header__logo"]} src={logo} alt="reddit logo" />
+    <header styleName="header">
+      <div styleName="header__content">
+        <div styleName="header__left">
+          <Link to="/" styleName="header__links">
+            <img styleName="header__logo" src={logo} alt="reddit logo" />
             <img
-              styleName={s["header__logo-name"]}
+              styleName="header__logo-name"
               src={logoName}
               alt="the name reddit"
             />
           </Link>
         </div>
-        <div styleName={s["header__container"]}>
-          <div styleName={s["header__search-icon-container"]}>
-            <RiSearchLine className={s["header__search-icon"]} />
+        <div styleName="header__container">
+          <div styleName="header__search-icon-container">
+            <RiSearchLine styleName="header__search-icon" />
           </div>
-          <input
-            styleName={s["header__search-input"]}
-            placeholder="Search Reddit"
-          />
+          <input styleName="header__search-input" placeholder="Search Reddit" />
         </div>
-        <div styleName={s["header__right"]}>
-          <div styleName={s["header__buttons"]}>
+        <div styleName="header__right">
+          <div styleName="header__buttons">
             {/* {isLoggedIn ? (
               <h2>User is logged in</h2>
             ) : ( */}
@@ -47,10 +44,7 @@ const Navbar: React.FC = () => {
               onClick={() => {
                 signIn();
               }}
-              styleName={classNames(
-                s["header__button"],
-                s["header__button_type_log-in"]
-              )}
+              styleName="header__button header__button_type_log-in"
             >
               Log In
             </button>
@@ -59,10 +53,7 @@ const Navbar: React.FC = () => {
               onClick={() => {
                 signOutUser();
               }}
-              styleName={classNames(
-                s["header__button"],
-                s["header__button_type_sign-up"]
-              )}
+              styleName="header__button header__button_type_sign-up"
             >
               {isLoggedIn ? "Sign Out" : " Sign Up"}
             </button>
