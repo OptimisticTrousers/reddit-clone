@@ -1,4 +1,4 @@
-import s from "./Comments.module.css";
+import styles from "./Comments.module.css";
 import Comment from "../Comment/Comment";
 import { useEffect, useState } from "react";
 import {
@@ -8,6 +8,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
+import CSSModules from "react-css-modules";
 
 type CommentsType = DocumentChange<DocumentData>[];
 
@@ -23,7 +24,7 @@ const Comments = () => {
   }, []);
 
   return (
-    <div className={s["comments"]}>
+    <div styleName="comments">
       {comments?.map(({ doc }) => {
         return <Comment key={doc.id} comment={doc.data()} />;
       })}
@@ -31,4 +32,4 @@ const Comments = () => {
   );
 };
 
-export default Comments;
+export default CSSModules(Comments, styles, { allowMultiple: true });
