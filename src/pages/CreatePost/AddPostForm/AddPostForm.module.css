@@ -1,80 +1,109 @@
 .post-creator {
-    color: white;
+  color: white;
 }
 
 .post-creator__header {
-
 }
 
 .post-creator__top {
-    display: flex;
-    justify-content: space-between;
-    margin: 16px 0;
-    border-bottom: 1px solid #343536;
-    padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  border-bottom: 1px solid #343536;
+  padding: 4px;
 }
 
 .post-creator__title {
-
 }
 
 .post-creator__drafts {
-    
 }
 .post-creator__button_type_drafts {
-
 }
 
 .post-creator__subreddit-description {
-
 }
 
 .post-creator__form {
-    margin-bottom: 12px;
-    border-radius: 5px;
-    background-color: var(--primary-color);
+  margin-bottom: 12px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
 }
 
 .post-creator__post-types {
 }
 
 .post-creator__button {
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 18px;
-    cursor: pointer;
-    background-color: inherit;
-    outline: none;
-    box-sizing: border-box;
-    padding: 15px 17px;
-    border-width: 0 1px 1px 0;
-    border-style: solid;
-    border-color: #343536;
-    color: white;
-    flex: 1;
-    width: 113px;
-    padding: 15px 17px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  cursor: pointer;
+  background-color: inherit;
+  outline: none;
+  box-sizing: border-box;
+  padding: 15px 17px;
+  border-width: 0 1px 1px 0;
+  border-style: solid;
+  border-color: #343536;
+  color: white;
+  flex: 1;
+  width: 113px;
+  padding: 15px 17px;
 }
 
 .post-creator__button {
-
 }
 
 .post-creator__button {
-
 }
 
 .post-creator__inputs {
-
+  margin: 16px;
+}
+.post-creator__input-container {
+  margin-bottom: 8px;
 }
 .post-creator__input {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: 1px solid #343536;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 8px 68px 8px 16px;
+}
 
+.post-creator__input_type_input {
+  height: 39px;
+}
+
+.post-creator__input_type_textarea {
+  height: 138px;
 }
 
 .post-creator__marks {
-
 }
 
-.post-creator__buttons {
-    
+.post-creator__post-buttons {
+  border-top: 1px solid #343536;
+  margin: 16px;
+  padding: 16px 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post-creator__post-button {
+  background-color: #dfe1e3;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 17px;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+  cursor: not-allowed;
+  color: rgba(26, 26, 27, 0.5);
+  border-radius: 9999px;
+  border: none;
 }

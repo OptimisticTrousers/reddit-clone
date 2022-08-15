@@ -21,7 +21,9 @@ import { BsLink45Deg } from "react-icons/bs";
 import { BiPoll } from "react-icons/bi";
 import { HiOutlineMicrophone } from "react-icons/hi";
 
-type InputEvent = React.ChangeEvent<HTMLTextAreaElement>;
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
+
+type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
 const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -35,7 +37,7 @@ const AddPostForm: React.FC = () => {
     setTitle(event.target.value);
   };
 
-  const handleDescriptionChange = (event: InputEvent) => {
+  const handleDescriptionChange = (event: TextAreaEvent) => {
     setDescription(event.target.value);
   };
 
@@ -97,33 +99,36 @@ const AddPostForm: React.FC = () => {
           </button>
         </div>
         <div styleName="post-creator__inputs">
-          <div styleName="post-creator__input">
-            <textarea
+          <div styleName="post-creator__input-container">
+            <input
+              styleName="post-creator__input post-creator__input_type_input"
               placeholder="Title"
-              onChange={handleDescriptionChange}
+              onChange={handleTitleChange}
               value={description}
               required
-            ></textarea>
+            />
           </div>
-          <div styleName="post-creator__input">
+          <div styleName="post-creator__input-container">
             <textarea
+              styleName="post-creator__input post-creator__input_type_textarea"
               placeholder="Editor"
-              onChange={handleTitleChange}
+              onChange={handleDescriptionChange}
               value={title}
               required
             ></textarea>
           </div>
         </div>
-        <div styleName="post-creator__marks">
+        {/* <div styleName="post-creator__marks">
           <button>OC</button>
           <button>Spoiler</button>
           <button>NSFW</button>
           <button>Flair</button>
-        </div>
-        <hr />
-        <div styleName="post-creator__buttons">
-          <button>Save Draft</button>
-          <button onClick={submitPost}>Post</button>
+        </div> */}
+        <div styleName="post-creator__post-buttons">
+          {/* <button>Save Draft</button> */}
+          <button styleName="post-creator__post-button" onClick={submitPost}>
+            Post
+          </button>
         </div>
       </div>
     </div>
