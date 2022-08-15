@@ -1,4 +1,5 @@
 import CSSModules from "react-css-modules";
+import { IoIosArrowDown } from "react-icons/io";
 import styles from "./About.module.css";
 
 const About: React.FC = () => {
@@ -28,8 +29,10 @@ const About: React.FC = () => {
       <button styleName="about__button about__button_type_create">
         Create Post
       </button>
+      <hr styleName="about__thematic-break"></hr>
       <button styleName="about__button about__button_type_options">
         Community Options
+        <IoIosArrowDown />
       </button>
     </div>
   );

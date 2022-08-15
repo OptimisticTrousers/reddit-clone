@@ -7,13 +7,6 @@
   justify-content: center;
   max-width: 100%;
 }
-
-.votes__likes {
-  margin: 4px 0;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 16px;
-  pointer-events: none;
-  word-break: normal;
-  color: rgb(215, 218, 220);
+.aside {
+    margin-left: 24px;
 }

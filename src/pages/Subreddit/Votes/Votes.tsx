@@ -10,9 +10,13 @@ interface Props {
 const Votes: React.FC<Props> = ({ voteStatus }) => {
   return (
     <div styleName="votes">
-      <BiUpvote styleName="votes__upvote"/>
+      <div styleName="votes__vote votes__vote_type_upvote">
+        <BiUpvote styleName="votes__icon " />
+      </div>
       <p styleName="votes__likes">{voteStatus}</p>
-      <BiDownvote styleName="votes__downvote"/>
+      <div styleName="votes__vote votes__vote_type_downvote">
+        <BiDownvote styleName="votes__icon" />
+      </div>
     </div>
   );
 };

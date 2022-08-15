@@ -10,7 +10,7 @@ const Subreddit: React.FC = () => {
       <Header />
       <main styleName="main">
         <Posts />
-        <aside>
+        <aside styleName="aside">
           <About />
         </aside>
       </main>

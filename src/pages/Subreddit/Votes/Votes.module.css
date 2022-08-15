@@ -1,18 +1,36 @@
 .votes {
-    width: 40px;
-    border-left: 4px solid transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 8px 4px;
+  width: 40px;
+  border-left: 4px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
 }
 
-.votes__upvote, .votes__downvote {
-    width: 20px;
-    height: 20px;
+.votes__icon {
+  width: 20px;
+  height: 20px;
+}
 
+.votes__vote:hover {
+  background-color: rgba(215, 218, 220, 0.1);
+  outline: none;
+}
+
+.votes__vote_type_upvote:hover {
+  color: #cc3700;
+}
+
+.votes__vote_type_downvote:hover {
+  color: #5a75cc;
 }
 
 .votes__likes {
-
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  pointer-events: none;
+  word-break: normal;
+  color: rgb(215, 218, 220);
 }
