@@ -1,9 +1,16 @@
+import CSSModules from "react-css-modules";
+import Filter from "../../components/Filter/Filter";
+import styles from "./Home.module.css";
+
 const Home: React.FC = () => {
   return (
     <div>
-      hi im home
+      <Filter />
     </div>
-  )
-}
+  );
+};
 
-export default Home;
+export default CSSModules(Home, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});
