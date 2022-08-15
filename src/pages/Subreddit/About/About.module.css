@@ -9,22 +9,6 @@
   word-wrap: break-word;
 }
 
-.about__top {
-  /* padding: 0 12px 12px; */
-  border-radius: 3px 3px 0 0;
-  line-height: 12px;
-  letter-spacing: 0.5px;
-  font-weight: 700;
-  padding-bottom: 12px;
-}
-
-.about__title {
-  color: #818384;
-  font-weight: 700;
-  line-height: 18px;
-  text-transform: none;
-}
-
 .about__description {
   margin-bottom: 8px;
 }

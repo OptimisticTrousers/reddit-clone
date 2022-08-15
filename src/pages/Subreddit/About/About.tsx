@@ -1,14 +1,13 @@
 import CSSModules from "react-css-modules";
 import { IoIosArrowDown } from "react-icons/io";
 import Card from "../../../components/Card/Card";
+import CardHeader from "../../../components/CardHeader/CardHeader";
 import styles from "./About.module.css";
 
 const About: React.FC = () => {
   return (
     <Card>
-      <div styleName="about__top">
-        <h2 styleName="about__title">About Community</h2>
-      </div>
+      <CardHeader />
       <p styleName="about__description">
         Make r/onepiece into r/onepiee in r/place
       </p>
