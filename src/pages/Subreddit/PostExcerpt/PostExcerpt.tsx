@@ -22,7 +22,7 @@ const PostExcerpt: React.FC<DocumentData> = ({ data }) => {
         </div>
         {/* {conditional rendering for sticky post} */}
         <div styleName="post__buttons">
-          <span>Expand</span>
+          {/* <span>Expand</span> */}
           <div styleName="post-excerpt__divider"></div>
           <PostInteractions />
         </div>

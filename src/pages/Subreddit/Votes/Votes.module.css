@@ -4,6 +4,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 8px 4px;
+}
+
+.votes__upvote, .votes__downvote {
+    width: 20px;
+    height: 20px;
+
 }
 
 .votes__likes {

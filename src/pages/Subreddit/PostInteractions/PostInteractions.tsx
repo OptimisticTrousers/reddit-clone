@@ -6,24 +6,24 @@ const PostInteractions = () => {
   return (
     <div styleName="post-excerpt__interactions">
       <div styleName="post-excerpt__interaction">
-        <BiMessage />
-        <span>0 Comments</span>
+        <BiMessage styleName="post-excerpt__icon"/>
+        <span styleName="post-excerpt__action">0 Comments</span>
+      </div>
+      <div styleName="post-excerpt__interaction">
+        <span >Icon</span>
+        <span styleName="post-excerpt__action">Share</span>
       </div>
       <div styleName="post-excerpt__interaction">
         <span>Icon</span>
-        <span>Share</span>
+        <span styleName="post-excerpt__action">Save</span>
       </div>
       <div styleName="post-excerpt__interaction">
         <span>Icon</span>
-        <span>Save</span>
+        <span styleName="post-excerpt__action">Hide</span>
       </div>
       <div styleName="post-excerpt__interaction">
         <span>Icon</span>
-        <span>Hide</span>
-      </div>
-      <div styleName="post-excerpt__interaction">
-        <span>Icon</span>
-        <span>Report</span>
+        <span styleName="post-excerpt__action">Report</span>
       </div>
       {/* {conditional rendering for live chat} */}
     </div>

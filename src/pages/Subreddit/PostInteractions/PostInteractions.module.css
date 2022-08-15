@@ -2,9 +2,24 @@
   display: flex;
   padding-left: 4px;
   padding-right: 8px;
+  color: #818384;
 }
 
 .post-excerpt__interaction {
   padding: 8px;
   margin-right: 4px;
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
 }
+
+.post-excerpt__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.post-excerpt__action {
+
+}
+
+
