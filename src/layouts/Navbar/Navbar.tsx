@@ -17,10 +17,10 @@ import { AiFillHome } from "react-icons/ai";
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  const [isHomeDropdownActive, setIsHomeDropdownActive] = useState(false)
+  const [isHomeDropdownActive, setIsHomeDropdownActive] = useState(false);
 
   function handleHomeDropdown() {
-    setIsHomeDropdownActive(prevValue => !prevValue)
+    setIsHomeDropdownActive((prevValue) => !prevValue);
   }
 
   return (
@@ -37,11 +37,11 @@ const Navbar: React.FC = () => {
           </Link>
           <div styleName="header__dropdown" onClick={handleHomeDropdown}>
             <div styleName="header__dropdown-left">
-              <AiFillHome styleName="header__dropdown-icon"/>
+              <AiFillHome styleName="header__dropdown-icon" />
               <h1 styleName="header__dropdown-title">Home</h1>
             </div>
             <div styleName="header__dropdown-right">
-              <IoIosArrowDown styleName="header__dropdown-icon"/>
+              <IoIosArrowDown styleName="header__dropdown-icon" />
             </div>
           </div>
         </div>
@@ -65,14 +65,16 @@ const Navbar: React.FC = () => {
               Log In
             </button>
             {/* )} */}
-            <button
-              onClick={() => {
-                signOutUser();
-              }}
-              styleName="header__button header__button_type_sign-up"
-            >
-              {isLoggedIn ? "Sign Out" : " Sign Up"}
-            </button>
+            {isLoggedIn === false && (
+              <button
+                onClick={() => {
+                  signOutUser();
+                }}
+                styleName="header__button header__button_type_sign-up"
+              >
+                Sign Up
+              </button>
+            )}
             <Profile isLoggedIn={isLoggedIn} />
           </div>
         </div>
