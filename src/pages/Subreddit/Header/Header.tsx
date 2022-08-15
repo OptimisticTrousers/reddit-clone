@@ -1,5 +1,6 @@
 import s from "./Header.module.css";
 import subredditLogo from "../../../assets/subreddit-logo.svg";
+import classNames from "classnames";
 
 const Header: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const Header: React.FC = () => {
               <h2 className={s["header__subreddit-link"]}>r/onepieee</h2>
             </div>
             <div className={s["header__buttons"]}>
+              {/* <button className={classNames(s["header__button"], s["header__button_type"])}>Join</button> */}
               <button className={s["header__button"]}>Join</button>
             </div>
           </div>
