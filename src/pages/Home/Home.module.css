@@ -1,0 +1,7 @@
+.home {
+    display: grid;
+    place-items: center;
+}
+.home__content{
+    display: flex;
+}
