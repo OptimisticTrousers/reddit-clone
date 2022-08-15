@@ -12,6 +12,7 @@ import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import Profile from "../Profile/Profile";
 import CSSModules from "react-css-modules";
+import { AiFillHome } from "react-icons/ai";
 
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
@@ -28,6 +29,15 @@ const Navbar: React.FC = () => {
               alt="the name reddit"
             />
           </Link>
+          <div styleName="header__dropdown">
+            <div styleName="header__dropdown-left">
+              <AiFillHome styleName="header__dropdown-icon"/>
+              <h1 styleName="header__dropdown-title">Home</h1>
+            </div>
+            <div styleName="header__dropdown-right">
+              <IoIosArrowDown styleName="header__dropdown-icon"/>
+            </div>
+          </div>
         </div>
         <div styleName="header__container">
           <div styleName="header__search-icon-container">
