@@ -1,14 +1,15 @@
 import About from "../About/About";
-import s from "./CreatePost.module.css";
+import styles from "./CreatePost.module.css";
 import AddPostForm from "../AddPostForm/AddPostForm";
+import CSSModules from "react-css-modules";
 
 const CreatePost: React.FC = () => {
   return (
-    <section className={s["section"]}>
+    <section styleName="section">
       <AddPostForm />
       <About />
     </section>
   );
 };
 
-export default CreatePost;
+export default CSSModules(CreatePost, styles, { allowMultiple: true });
