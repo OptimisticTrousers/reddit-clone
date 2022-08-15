@@ -7,10 +7,11 @@ import {
 } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import PostExcerpt from "../PostExcerpt/PostExcerpt";
-import s from "./Posts.module.css";
+import styles from "./Posts.module.css";
 import { db } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import CSSModules from "react-css-modules";
 
 // type PostsType = Array<{
 //   title: string;
@@ -51,7 +52,7 @@ const Posts: React.FC = () => {
   // }
 
   return (
-    <div className={s["container"]}>
+    <div styleName="container">
       {posts?.map(({ doc }) => {
         const data = doc.data();
         return (
@@ -64,4 +65,4 @@ const Posts: React.FC = () => {
   );
 };
 
-export default Posts;
+export default CSSModules(Posts, styles, { allowMultiple: true });
