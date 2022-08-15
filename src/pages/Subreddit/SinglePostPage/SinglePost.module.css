@@ -11,6 +11,7 @@
 .post-page__post {
   background-color: rgb(26, 26, 27);
   margin-bottom: 100px;
+  width: 700px;
 }
 .post-page__content {
 }
@@ -32,4 +33,7 @@
   background-color: rgb(26, 26, 27);
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.aside {
 }
