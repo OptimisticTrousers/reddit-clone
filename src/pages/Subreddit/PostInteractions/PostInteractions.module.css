@@ -11,11 +11,21 @@
   display: flex;
   align-items: center;
   margin-right: 6px;
+  border-radius: 2px;
+}
+
+.post-excerpt__interaction:hover {
+  background-color: rgba(215,218,220,0.1);
+  outline: none;
+  padding: 8px;
+  word-break: normal;
+  margin-right: 4px;
 }
 
 .post-excerpt__icon {
   width: 20px;
   height: 20px;
+  margin-right: 6px;
 }
 
 .post-excerpt__action {
