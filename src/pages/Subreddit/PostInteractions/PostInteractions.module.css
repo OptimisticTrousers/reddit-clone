@@ -29,7 +29,8 @@
 }
 
 .post-excerpt__action {
-
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 
