@@ -1,6 +1,7 @@
-import s from "./Votes.module.css";
+import styles from "./Votes.module.css";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import React from "react";
+import CSSModules from "react-css-modules";
 
 interface Props {
   voteStatus: number;
@@ -8,12 +9,12 @@ interface Props {
 
 const Votes: React.FC<Props> = ({ voteStatus }) => {
   return (
-    <div className={s["votes"]}>
+    <div styleName="votes">
       <BiUpvote />
-      <p className={s["votes__likes"]}>{voteStatus}</p>
+      <p styleName="votes__likes">{voteStatus}</p>
       <BiDownvote />
     </div>
   );
 };
 
-export default Votes;
+export default CSSModules(Votes, styles, { allowMultiple: true });
