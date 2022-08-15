@@ -1,6 +1,7 @@
 .home {
   display: grid;
   place-items: center;
+  padding: 20px 24px;
 }
 .home__content {
   display: flex;
@@ -29,10 +30,19 @@
 
 .home__top-community-title {
   color: white;
+  padding-left: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.home__top-community-list {
+    padding: 0;
 }
 
 .home__top-community-item {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+
 }
 
 .home__top-community-details{

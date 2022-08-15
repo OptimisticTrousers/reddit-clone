@@ -18,8 +18,8 @@ const Home: React.FC = () => {
             <div styleName="home__top-community-image">
               <h2 styleName="home__top-community-title">Top Communities</h2>
             </div>
-          <div styleName="home__top-community-list">
-            <div styleName="home__top-community-item">
+          <ol styleName="home__top-community-list">
+            <li styleName="home__top-community-item">
               <div className="home__top-community-details">
                 <p>1</p>
                 <img />
@@ -28,8 +28,8 @@ const Home: React.FC = () => {
               <div styleName="home__top-community-button">
                 <button>Join</button>
               </div>
-            </div>
-          </div>
+            </li>
+          </ol>
           </Card>
         </aside>
       </div>
