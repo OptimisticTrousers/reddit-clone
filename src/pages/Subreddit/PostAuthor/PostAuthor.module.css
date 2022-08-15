@@ -1,15 +1,21 @@
 .post-excerpt__info {
-    display: flex;
+  display: flex;
+  color: rgb(129, 131, 132);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
 }
 
 .post-excerpt__posted-by {
-
+    flex: 0 0 auto;
+    margin-right: 3px;
 }
 
 .post-excerpt__author {
-
+    margin-right: 3px;
+    text-decoration: none;
 }
 
 .post-excerpt__date {
-
+    flex: 0 0 auto;
 }

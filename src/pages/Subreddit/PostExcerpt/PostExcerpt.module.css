@@ -4,6 +4,9 @@ a {
 .post-excerpt{
     display: flex;
     color: rgb(215, 218, 220);
+    background-color: rgb(26, 26, 27);
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
 .post-excerpt__content {
@@ -18,10 +21,13 @@ a {
     font-size: 18px;
     font-weight: 500;
     line-height: 22px;
+    word-wrap: break-word;
 }
 
 .post-excerpt__description {
-
+    padding: 5px 8px 10px;
+    overflow: hidden;
+    max-height: 250px;
 }
 
 .post__buttons {
