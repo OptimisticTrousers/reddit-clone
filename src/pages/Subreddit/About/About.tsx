@@ -1,10 +1,11 @@
 import CSSModules from "react-css-modules";
 import { IoIosArrowDown } from "react-icons/io";
+import Card from "../../../components/Card/Card";
 import styles from "./About.module.css";
 
 const About: React.FC = () => {
   return (
-    <div styleName="about">
+    <Card>
       <div styleName="about__top">
         <h2 styleName="about__title">About Community</h2>
       </div>
@@ -34,7 +35,7 @@ const About: React.FC = () => {
         Community Options
         <IoIosArrowDown />
       </button>
-    </div>
+    </Card>
   );
 };
 

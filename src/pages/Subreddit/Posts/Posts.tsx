@@ -56,7 +56,7 @@ const Posts: React.FC = () => {
       {posts?.map(({ doc }) => {
         const data = doc.data();
         return (
-          <Link key={doc.id} to={doc.id} state={{ ...data }}>
+          <Link key={doc.id} to={`/r/subreddit/${doc.id}`} state={{ ...data }}>
             <PostExcerpt key={doc.id} data={data} />
           </Link>
         );
