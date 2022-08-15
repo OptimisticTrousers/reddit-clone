@@ -7,7 +7,7 @@ import Modal from "./components/Modal";
 const App: React.FC = () => {
   // const isModalActive = useAppSelector((state) => state.modal);
   return (
-    <div className="container">
+    <div >
       {/* {isModalActive && <Modal />} */}
       <Navbar />
       <main >
