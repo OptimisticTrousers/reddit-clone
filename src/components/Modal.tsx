@@ -1,10 +1,12 @@
-import s from "./Modal.module.css";
+import styles from "./Modal.module.css";
+import CSSModules from "react-css-modules";
+
 const Modal: React.FC = () => {
   return (
-    <div className={s["modal"]}>
-      <div className="modal-content"></div>
+    <div styleName="modal">
+      <div styleName="modal-content"></div>
     </div>
   );
 };
 
-export default Modal;
+export default CSSModules(Modal, styles, { allowMultiple: true });
