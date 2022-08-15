@@ -15,7 +15,7 @@ import { useAppSelector } from "../../../hooks/hooks";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
 import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
 import CSSModules from "react-css-modules";
-import { GrDocumentText } from "react-icons/gr";
+import { HiOutlineDocumentText } from "react-icons/hi";
 import { AiOutlinePicture } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";
 import { BiPoll } from "react-icons/bi";
@@ -78,23 +78,23 @@ const AddPostForm: React.FC = () => {
       <div styleName="post-creator__form">
         <div styleName="post-creator__post-types">
           <button styleName="post-creator__button">
-            <GrDocumentText />
+            <HiOutlineDocumentText styleName="post-creator__icon" />
             Post
           </button>
           <button styleName="post-creator__button">
-            <AiOutlinePicture />
+            <AiOutlinePicture styleName="post-creator__icon" />
             Video
           </button>
           <button styleName="post-creator__button">
-            <BsLink45Deg />
+            <BsLink45Deg styleName="post-creator__icon" />
             Link
           </button>
           <button styleName="post-creator__button">
-            <BiPoll />
+            <BiPoll styleName="post-creator__icon" />
             Poll
           </button>
           <button styleName="post-creator__button">
-            <HiOutlineMicrophone />
+            <HiOutlineMicrophone styleName="post-creator__icon" />
             Talk
           </button>
         </div>

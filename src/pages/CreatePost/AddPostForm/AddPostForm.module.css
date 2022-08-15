@@ -32,6 +32,7 @@
 }
 
 .post-creator__post-types {
+    display: flex;
 }
 
 .post-creator__button {
@@ -52,7 +53,15 @@
   padding: 15px 17px;
 }
 
+.post-creator__icon {
+    width: 20px;
+    height: 20px;
+}
+
 .post-creator__button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 .post-creator__button {
