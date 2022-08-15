@@ -3,10 +3,11 @@ import Comments from "../Comments/Comments";
 import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";
 import Votes from "../Votes/Votes";
-import s from "./SinglePost.module.css";
+import styles from "./SinglePost.module.css";
 import { useLocation } from "react-router-dom";
 import { Location } from "react-router-dom";
 import CommentsSection from "../CommentsSection/CommentsSection";
+import CSSModules from "react-css-modules";
 
 type LocationState = {
   title: string;
@@ -25,16 +26,16 @@ const SinglePostPage = () => {
   const { title, description, voteStatus } = location.state as LocationState;
 
   return (
-    <section className={s["post-page"]}>
+    <section styleName="post-page">
       <Votes voteStatus={voteStatus} />
-      <article className={s["post-page__content"]}>
-        <div className={s["post-page__post"]}>
+      <article styleName="post-page__content">
+        <div styleName="post-page__post">
           <PostAuthor />
-          <h2 className={s["post-page__title"]}>{title}</h2>
-          <p className={s["post-page__description"]}>{description}</p>
+          <h2 styleName="post-page__title">{title}</h2>
+          <p styleName="post-page__description">{description}</p>
           <PostInteractions />
         </div>
-        <div className={s["post-page__comments"]}>
+        <div styleName="post-page__comments">
           <CommentsSection />
         </div>
       </article>
@@ -45,4 +46,4 @@ const SinglePostPage = () => {
   );
 };
 
-export default SinglePostPage;
+export default CSSModules(SinglePostPage, styles, { allowMultiple: true });
