@@ -1,6 +1,11 @@
-* {
-    margin: 0;
+:root {
+  --primary-color: #1a1a1b;
+  --secondary-color: #d7dadc;
 }
-body, html {
-    height: 100%;
+* {
+  margin: 0;
+}
+body,
+html {
+  height: 100%;
 }
