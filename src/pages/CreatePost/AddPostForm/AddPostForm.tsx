@@ -15,6 +15,11 @@ import { useAppSelector } from "../../../hooks/hooks";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
 import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
 import CSSModules from "react-css-modules";
+import { GrDocumentText } from "react-icons/gr";
+import { AiOutlinePicture } from "react-icons/ai";
+import { BsLink45Deg } from "react-icons/bs";
+import { BiPoll } from "react-icons/bi";
+import { HiOutlineMicrophone } from "react-icons/hi";
 
 type InputEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
@@ -56,39 +61,39 @@ const AddPostForm: React.FC = () => {
   return (
     <div styleName="post-creator">
       <div styleName="post-creator__header">
-        <div styleName="post-creator__title">Create a post</div>
-        <div styleName="post-creator__drafts">
+        <div styleName="post-creator__top">
+          <div styleName="post-creator__title">Create a post</div>
           <button styleName="post-creator__button_type_drafts">Drafts</button>
         </div>
         <div styleName="post-creator__subreddit-description">
-          New to the trade and have a question you need answered? Try the
+          {/* New to the trade and have a question you need answered? Try the
           **Beginner Questions** thread posted at the top of the subreddit!
           Looking for feedback? Try our weekly **Feedback Thread** instead! If
           you're posting something you made or want feedback on, do so On
-          Saturday.
+          Saturday. */}
         </div>
       </div>
       <div styleName="post-creator__form">
         <div styleName="post-creator__post-types">
           <button styleName="post-creator__button">
+            <GrDocumentText />
             Post
-            <span>Icon</span>
           </button>
           <button styleName="post-creator__button">
-            Images and Video
-            <span>Icon</span>
+            <AiOutlinePicture />
+            Video
           </button>
           <button styleName="post-creator__button">
+            <BsLink45Deg />
             Link
-            <span>Icon</span>
           </button>
           <button styleName="post-creator__button">
+            <BiPoll />
             Poll
-            <span>Icon</span>
           </button>
           <button styleName="post-creator__button">
+            <HiOutlineMicrophone />
             Talk
-            <span>Icon</span>
           </button>
         </div>
         <div styleName="post-creator__inputs">
