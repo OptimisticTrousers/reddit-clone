@@ -1,13 +1,14 @@
 import { DocumentData } from "firebase/firestore";
 import React from "react";
-import s from "./Comment.module.css";
+import CSSModules from "react-css-modules";
+import styles from "./Comment.module.css";
 
 const Comment: React.FC<DocumentData> = ({ comment }) => {
   return (
-    <div className={s["comment"]}>
-      <div className={s["comment__author"]}>{comment.content}</div>
+    <div styleName="comment">
+      <div styleName="comment__author">{comment.content}</div>
     </div>
   );
 };
 
-export default Comment;
+export default CSSModules(Comment, styles, { allowMultiple: true });
