@@ -111,6 +111,14 @@ const CommunityModal: React.FC = () => {
               </p>
             </div>
           </div>
+          <div styleName="community-modal__buttons">
+            <button styleName="community-modal__button community-modal__button_type_cancel">
+              Cancel
+            </button>
+            <button styleName="community-modal__button community-modal__button_type_create">
+              Create Community
+            </button>
+          </div>
         </div>
       </div>
     </Modal>
