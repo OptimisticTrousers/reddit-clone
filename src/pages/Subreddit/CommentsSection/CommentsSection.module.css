@@ -60,6 +60,7 @@
 .comments-section__filter {
   display: flex;
   align-items: center;
+  margin-top: 16px;
 }
 .comments-section__filter:hover {
   cursor: pointer;
