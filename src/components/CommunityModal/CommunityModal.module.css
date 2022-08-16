@@ -9,8 +9,11 @@
     background-color: var(--primary-color);
     padding: 16px;
     box-sizing: border-box;
-    border-radius: 0 4px 4px 0;
+    border-radius: 4px;
     overflow-y: auto;
+    border: 1px solid #343536;
+    box-shadow: 0 2px 20px 0 rgb(0, 0, 0 / 30%);
+    pointer-events: auto;
 }
 
 .community-modal__header {
