@@ -19,6 +19,7 @@
     border-bottom: 1px solid  #343536;
     padding: 0 0 8px;
     align-items: center;
+    margin-bottom: 16px;
 }
 
 .community-modal__title {
@@ -58,6 +59,7 @@
 
 .community-modal__form {
     margin-top: 12px;
+    margin-bottom: 30px;
 }
 
 .community-modal__input {
@@ -83,4 +85,12 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
+}
+
+.community-modal__community-type-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 4px;
+    color: var(--secondary-color);
 }

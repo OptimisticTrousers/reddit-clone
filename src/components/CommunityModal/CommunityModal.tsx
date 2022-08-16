@@ -46,9 +46,9 @@ const CommunityModal: React.FC = () => {
               <p styleName="community-modal__characters-remaining">
                 21 Characters remaining
               </p>
-              <p styleName="community-modal__feedback-message">
+              {/* <p styleName="community-modal__feedback-message">
                 A community name is required
-              </p>
+              </p> */}
             </div>
           </div>
           <div styleName="community-modal__radio">
