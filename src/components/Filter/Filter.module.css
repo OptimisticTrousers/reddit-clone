@@ -18,6 +18,10 @@
   align-items: center;
   column-gap: 4px;
 }
+.filter__category:hover {
+    background-color: #343434;
+    cursor: pointer;
+}
 .filter__icon {
     width: 24px;
     height: 24px;
