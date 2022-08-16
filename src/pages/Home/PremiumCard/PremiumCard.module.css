@@ -1,0 +1,17 @@
+.premium-card__button {
+    background-color: #ff4500;
+    border: none;
+    color: var(--primary-color);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: unset;
+    line-height: 17px;
+    text-transform: unset;
+    min-height: 32px;
+    min-width: 32px;
+    padding: 4px 16px;
+    border-radius: 9999px;
+    box-sizing: border-box;
+    text-align: center;
+}
