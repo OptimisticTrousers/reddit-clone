@@ -6,10 +6,15 @@ import { toggleCommunityModalState } from "../../features/subreddit/subredditSli
 
 interface Props {
   children: JSX.Element | JSX.Element[];
+  dropdown: string;
 }
-const Dropdown: React.FC<Props> = ({ children }) => {
+const Dropdown: React.FC<Props> = ({ children, dropdown }) => {
   return (
-    <div styleName="dropdown">
+    <div
+      styleName={`dropdown ${
+        dropdown === "community" ? "community-width" : "profile-width"
+      }`}
+    >
       <div styleName="dropdown__content">{children}</div>
     </div>
   );

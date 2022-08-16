@@ -18,6 +18,10 @@
   flex-grow: 0;
 }
 
+.header__dropdown-profile {
+  width: 100%;
+}
+
 .header__left:hover {
   cursor: pointer;
 }
@@ -66,8 +70,9 @@
 }
 
 .header__dropdown-menu {
-  width: 100%;
+  max-width:270px;
   position: relative;
+  overflow: scroll;
 }
 
 .header__dropdown-icon {

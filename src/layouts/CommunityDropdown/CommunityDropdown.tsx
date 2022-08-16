@@ -5,10 +5,14 @@ import styles from "./CommunityDropdown.module.css";
 import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const CommunityDropdown: React.FC = () => {
+interface Props {
+  dropdown: string;
+}
+
+const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
   const dispatch = useAppDispatch();
   return (
-    <Dropdown>
+    <Dropdown dropdown={dropdown}>
       <div styleName="community__dropdown">
         <p styleName="community__dropdown-my-communities">MY COMMUNITIES</p>
         <button

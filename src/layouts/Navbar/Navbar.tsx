@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
               </div>
             </div>
             <div className="header__dropdown-menu">
-              {isSubscriptionsDropdownOpen && <CommunityDropdown />}
+              {isSubscriptionsDropdownOpen && <CommunityDropdown dropdown={"community"}/>}
             </div>
           </div>
         </div>
@@ -96,8 +96,8 @@ const Navbar: React.FC = () => {
                 onClick={handleProfileDropdown}
               >
                 <Profile isLoggedIn={isLoggedIn} />
+              {isProfileDropdownOpen && <ProfileDropdown dropdown={"dropdown"}/>}
               </div>
-              {isProfileDropdownOpen && <ProfileDropdown />}
             </div>
           </div>
         </div>
