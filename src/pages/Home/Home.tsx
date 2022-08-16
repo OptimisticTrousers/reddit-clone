@@ -8,6 +8,7 @@ import PremiumCard from "./PremiumCard/PremiumCard";
 import TopCommunitiesCard from "./TopCommunitiesCard/TopCommunitiesCard";
 import PostCreatorCard from "../../components/PostCreatorCard/PostCreatorCard";
 import Filter from "../../components/Filter/Filter";
+import PersonalHomeCard from "./PersonalHomeCard/PersonalHomeCard";
 
 const Home: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
         <aside styleName="aside">
           <TopCommunitiesCard />
           <PremiumCard />
+          <PersonalHomeCard />
         </aside>
       </div>
     </div>

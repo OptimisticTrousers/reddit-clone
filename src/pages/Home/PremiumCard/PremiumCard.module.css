@@ -29,7 +29,8 @@
 }
 
 .premium-card__button:hover {
-
+    background-color: #ff2000;
+    cursor: pointer;
 }
 
 .premium-card__text {
