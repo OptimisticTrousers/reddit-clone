@@ -6,7 +6,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
-import PostExcerpt from "../PostExcerpt/PostExcerpt";
+import Post from "../Post/Post";
 import styles from "./Posts.module.css";
 import { db } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
@@ -57,7 +57,7 @@ const Posts: React.FC = () => {
         const data = doc.data();
         return (
           <Link key={doc.id} to={`/r/subreddit/${doc.id}`} state={{ ...data }}>
-            <PostExcerpt key={doc.id} data={data} />
+            <Post key={doc.id} data={data} />
           </Link>
         );
       })}

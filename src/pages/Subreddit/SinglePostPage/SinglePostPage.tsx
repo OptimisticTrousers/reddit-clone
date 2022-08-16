@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { Location } from "react-router-dom";
 import CommentsSection from "../CommentsSection/CommentsSection";
 import CSSModules from "react-css-modules";
-import PostExcerpt from "../PostExcerpt/PostExcerpt";
+import Post from "../Post/Post";
 
 type LocationState = {
   title: string;
@@ -30,7 +30,7 @@ const SinglePostPage = () => {
     <section styleName="post-page">
       <div styleName="post-page__container">
         <div styleName="post-page__post">
-          <PostExcerpt
+          <Post
             title={title}
             description={description}
             voteStatus={voteStatus}

@@ -1,4 +1,4 @@
-import styles from "./PostExcerpt.module.css";
+import styles from "./Post.module.css";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
@@ -8,7 +8,7 @@ import PostInteractions from "../PostInteractions/PostInteractions";
 import { DocumentData } from "firebase/firestore";
 import CSSModules from "react-css-modules";
 
-const PostExcerpt: React.FC<DocumentData> = ({ data }) => {
+const Post: React.FC<DocumentData> = ({ data }) => {
   // const { voteStatus , title, description } = data;
   let voteStatus = 1;
   let title = "bob";
@@ -34,7 +34,7 @@ const PostExcerpt: React.FC<DocumentData> = ({ data }) => {
   );
 };
 
-export default CSSModules(PostExcerpt, styles, {
+export default CSSModules(Post, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "log",
 });
