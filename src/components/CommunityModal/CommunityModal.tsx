@@ -7,8 +7,12 @@ import personIcon from "../../assets/person-icon.svg";
 import eyeIcon from "../../assets/eye-icon.svg";
 import lockIcon from "../../assets/lock-icon.svg";
 import exitIcon from "../../assets/exit-icon.svg";
+import { useAppDispatch } from "../../hooks/hooks";
+import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
 
 const CommunityModal: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   return (
     <Modal>
       <div styleName="community-modal">
@@ -16,9 +20,10 @@ const CommunityModal: React.FC = () => {
           <div styleName="community-modal__header">
             <h1 styleName="community-modal__title">Create a community</h1>
             <img
-              styleName="community-modal__icon"
+              styleName="community-modal__icon community-modal__icon_type_exit"
               src={exitIcon}
               alt="exit button icon"
+              onClick={() => dispatch(toggleCommunityModalState())}
             />
           </div>
           {/* <div styleName="community-modal__container"> */}
