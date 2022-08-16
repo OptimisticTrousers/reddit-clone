@@ -23,6 +23,12 @@ const Navbar: React.FC = () => {
   const [isSubscriptionsDropdownOpen, setIsSubscriptionsDropdownOpen] =
     useState(false);
 
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  function handleProfileDropdown() {
+    setIsProfileDropdownOpen((prevValue) => !prevValue);
+  }
+
   function handleHomeDropdown() {
     setIsSubscriptionsDropdownOpen((prevValue) => !prevValue);
   }
@@ -50,7 +56,7 @@ const Navbar: React.FC = () => {
               </div>
             </div>
             <div className="header__dropdown-menu">
-              {isSubscriptionsDropdownOpen && <CommunityDropdown/>}
+              {isSubscriptionsDropdownOpen && <CommunityDropdown />}
             </div>
           </div>
         </div>
@@ -85,8 +91,13 @@ const Navbar: React.FC = () => {
               </button>
             )}
             <div className="header__dropdown-menu">
-            <Profile isLoggedIn={isLoggedIn} />
-              {<ProfileDropdown/>}
+              <div
+                styleName="header__dropdown-profile"
+                onClick={handleProfileDropdown}
+              >
+                <Profile isLoggedIn={isLoggedIn} />
+              </div>
+              {isProfileDropdownOpen && <ProfileDropdown />}
             </div>
           </div>
         </div>
