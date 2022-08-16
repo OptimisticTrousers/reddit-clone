@@ -80,6 +80,7 @@
 
 .comments-section__discussion {
   text-align: right;
+  padding-top: 6px;
 }
 .comments-section__hyperlink {
   color: #4fbcff;
