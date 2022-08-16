@@ -17,7 +17,7 @@
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0.75)
     ),
-    url(../../assets/communities.png);
+    url(../../../assets/communities.png);
   background-position: 50% center;
   background-size: cover;
   background-repeat: no-repeat;
