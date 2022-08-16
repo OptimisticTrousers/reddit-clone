@@ -17,10 +17,10 @@ import { AiFillHome } from "react-icons/ai";
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  const [isHomeDropdownActive, setIsHomeDropdownActive] = useState(false);
+  const [isSubscriptionsDropdownOpen, setIsSubscribtionsDropdownOpen] = useState(false);
 
   function handleHomeDropdown() {
-    setIsHomeDropdownActive((prevValue) => !prevValue);
+    setIsSubscribtionsDropdownOpen((prevValue) => !prevValue);
   }
 
   return (
