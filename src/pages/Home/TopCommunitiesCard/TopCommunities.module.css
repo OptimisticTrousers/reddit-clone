@@ -1,0 +1,95 @@
+.top-communities {
+  display: grid;
+  place-items: center;
+  padding: 20px 24px;
+}
+.top-communities__content {
+  display: flex;
+}
+.top-communities__posts {
+}
+
+.top-communities__top-community-image {
+  width: 100%;
+  height: 80px;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.75)
+    ),
+    url(../../assets/communities.png);
+  background-position: 50% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  display: flex;
+  justify-content: start;
+  align-items: flex-end;
+}
+
+.top-communities__top-community-title {
+  color: white;
+  padding-left: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.top-communities__top-community-list {
+  padding: 0;
+}
+
+.top-communities__top-community-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+}
+
+.top-communities__top-community-details {
+  display: flex;
+  justify-content: center;
+  margin: 0 12px;
+  gap: 8px;
+}
+
+.top-communities__top-comunity-rank {
+  color: white;
+  text-align: right;
+  min-width: 20px;
+}
+.top-communities__top-community-icon {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
+    brightness(118%) contrast(119%);
+  width: 20px;
+  height: 20px;
+}
+.top-communities__top-comunity-name {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.top-communities__top-community-button {
+  background-color: white;
+  border: none;
+  color: var(--primary-secondary);
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 16px;
+  text-transform: unset;
+  color: black;
+  border-radius: 9999px;
+  box-sizing: border-box;
+}
+.top-communities__top-community-button_type_join {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 4px 16px;
+}
+.top-communities__top-community-button_type_view {
+  width: 100%;
+  height: 32px;
+}
+.top-communities__top-community-button:hover {
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}

@@ -5,6 +5,7 @@ import Posts from "../Subreddit/Posts/Posts";
 import styles from "./Home.module.css";
 import Card from "../../components/Card/Card";
 import { IoIosArrowUp } from "react-icons/io";
+import PremiumCard from "./PremiumCard/PremiumCard";
 
 const Home: React.FC = () => {
   return (
@@ -79,6 +80,7 @@ const Home: React.FC = () => {
               View All
             </button>
           </Card>
+          <PremiumCard />
         </aside>
       </div>
     </div>
