@@ -24,14 +24,16 @@ const CommunityModal: React.FC = () => {
           {/* <div styleName="community-modal__container"> */}
           <div styleName="community-modal__instructions">
             <h3 styleName="community-modal__name">Name</h3>
-            <p styleName="community-modal__instruction">
-              Community names including capitalization cannot be changed
-              <img
-                styleName="community-modal__icon"
-                src={informationIcon}
-                alt="information icon"
-              />
-            </p>
+            <div styleName="community-modal__description-container">
+              <p styleName="community-modal__instruction">
+                Community names including capitalization cannot be changed
+                <img
+                  styleName="community-modal__icon"
+                  src={informationIcon}
+                  alt="information icon"
+                />
+              </p>
+            </div>
           </div>
           <div styleName="community-modal__form">
             <input
