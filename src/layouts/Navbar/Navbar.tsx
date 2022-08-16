@@ -13,11 +13,13 @@ import { IoIosArrowDown } from "react-icons/io";
 import Profile from "../Profile/Profile";
 import CSSModules from "react-css-modules";
 import { AiFillHome } from "react-icons/ai";
+import Dropdown from "../Dropdown/Dropdown";
 
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  const [isSubscriptionsDropdownOpen, setIsSubscribtionsDropdownOpen] = useState(false);
+  const [isSubscriptionsDropdownOpen, setIsSubscribtionsDropdownOpen] =
+    useState(false);
 
   function handleHomeDropdown() {
     setIsSubscribtionsDropdownOpen((prevValue) => !prevValue);
@@ -35,13 +37,18 @@ const Navbar: React.FC = () => {
               alt="the name reddit"
             />
           </Link>
-          <div styleName="header__dropdown" onClick={handleHomeDropdown}>
-            <div styleName="header__dropdown-left">
-              <AiFillHome styleName="header__dropdown-icon" />
-              <h1 styleName="header__dropdown-title">Home</h1>
+          <div styleName="header__dropdown-container">
+            <div styleName="header__dropdown" onClick={handleHomeDropdown}>
+              <div styleName="header__dropdown-left">
+                <AiFillHome styleName="header__dropdown-icon" />
+                <h1 styleName="header__dropdown-title">Home</h1>
+              </div>
+              <div styleName="header__dropdown-right">
+                <IoIosArrowDown styleName="header__dropdown-icon" />
+              </div>
             </div>
-            <div styleName="header__dropdown-right">
-              <IoIosArrowDown styleName="header__dropdown-icon" />
+            <div className="header__dropdown-menu">
+              {isSubscriptionsDropdownOpen && <Dropdown />}
             </div>
           </div>
         </div>
