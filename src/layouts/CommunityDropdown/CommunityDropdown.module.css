@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url(../../assets/OpenSans-Regular.ttf);
+}
+.community__dropdown-my-communities {
+  font-family: "Open Sans";
+  color: rgb(113, 128, 150);
+  font-size: 9.33px;
+  padding-left: 0.75rem;
+  margin-bottom: 4px;
+}
+.community__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.community__dropdown-button {
+  padding: 6.4px 12.8px;
+  background-color: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  display: flex;
+  color: white;
+  gap: 8px;
+  border: none;
+}
+.community__dropdown-button:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+}

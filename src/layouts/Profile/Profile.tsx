@@ -5,6 +5,7 @@ import styles from "./Profile.module.css";
 import onlineStatus from "../../assets/online-status.svg";
 import { getUserName } from "../../firebase";
 import CSSModules from "react-css-modules";
+import Dropdown from "../Dropdown/Dropdown";
 
 interface Props {
   isLoggedIn: boolean;

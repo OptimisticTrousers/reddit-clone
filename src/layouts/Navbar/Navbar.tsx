@@ -14,6 +14,7 @@ import Profile from "../Profile/Profile";
 import CSSModules from "react-css-modules";
 import { AiFillHome } from "react-icons/ai";
 import Dropdown from "../Dropdown/Dropdown";
+import CommunityDropdown from "../CommunityDropdown/CommunityDropdown";
 
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
@@ -48,7 +49,7 @@ const Navbar: React.FC = () => {
               </div>
             </div>
             <div className="header__dropdown-menu">
-              {isSubscriptionsDropdownOpen && <Dropdown />}
+              {isSubscriptionsDropdownOpen && <CommunityDropdown/>}
             </div>
           </div>
         </div>

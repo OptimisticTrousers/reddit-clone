@@ -4,21 +4,13 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useAppDispatch } from "../../hooks/hooks";
 import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
 
-const Dropdown: React.FC = () => {
-  const dispatch = useAppDispatch();
-
+interface Props {
+  children: JSX.Element | JSX.Element[];
+}
+const Dropdown: React.FC<Props> = ({ children }) => {
   return (
     <div styleName="dropdown">
-      <div styleName="dropdown__content">
-        <p styleName="dropdown__my-communities">MY COMMUNITIES</p>
-        <button
-          styleName="dropdown__button"
-          onClick={() => dispatch(toggleCommunityModalState())}
-        >
-          <AiOutlinePlus styleName="dropdown__icon" />
-          Create Community
-        </button>
-      </div>
+      <div styleName="dropdown__content">{children}</div>
     </div>
   );
 };
