@@ -7,14 +7,21 @@ import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";
 import { DocumentData } from "firebase/firestore";
 import CSSModules from "react-css-modules";
+import { render } from "@testing-library/react";
 
-const Post: React.FC<DocumentData> = ({ data }) => {
-  // const { voteStatus , title, description } = data;
+const Post: React.FC<DocumentData> = (props) => {
+  let renderHover;
+
+  if (props?.renderHover) {
+    renderHover = true;
+  } else {
+    renderHover = false;
+  }
   let voteStatus = 1;
   let title = "bob";
   let description = "bob";
   return (
-    <div styleName="post-excerpt">
+    <div styleName={renderHover ? "post-excerpt-hover" : "post-excerpt"}>
       <Votes voteStatus={voteStatus} />
       <div styleName="post-excerpt__content">
         {/* <span>Image goes here</span> */}

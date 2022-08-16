@@ -8,6 +8,10 @@
 .aside {
   margin-left: 24px;
 }
+.post-page__post-component:hover {
+  all: unset;
+  background-color: red;
+}
 .post-page__container {
 }
 

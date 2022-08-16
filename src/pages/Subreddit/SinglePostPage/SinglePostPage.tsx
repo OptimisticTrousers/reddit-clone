@@ -31,6 +31,7 @@ const SinglePostPage = () => {
       <div styleName="post-page__container">
         <div styleName="post-page__post">
           <Post
+          styleName="post-page__post-component"
             title={title}
             description={description}
             voteStatus={voteStatus}

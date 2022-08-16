@@ -1,7 +1,7 @@
 a {
   all: unset;
 }
-.post-excerpt {
+.post-excerpt, .post-excerpt-hover {
   display: flex;
   color: rgb(215, 218, 220);
   background-color: rgb(26, 26, 27);
@@ -11,7 +11,7 @@ a {
   width: 600px;
 }
 
-.post-excerpt:hover {
+.post-excerpt-hover:hover {
   border: 1px solid #818384;
   cursor: pointer;
 }

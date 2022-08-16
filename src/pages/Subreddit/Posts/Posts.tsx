@@ -57,7 +57,7 @@ const Posts: React.FC = () => {
         const data = doc.data();
         return (
           <Link key={doc.id} to={`/r/subreddit/${doc.id}`} state={{ ...data }}>
-            <Post key={doc.id} data={data} />
+            <Post key={doc.id} data={data} renderHover={true}/>
           </Link>
         );
       })}
