@@ -1,0 +1,35 @@
+.community-modal {
+  color: white;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+.community-modal__container {
+    background-color: var(--primary-color);
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 0 4px 4px 0;
+    overflow-y: auto;
+}
+
+.community-modal__header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid  #343536;
+    padding: 0 0 8px;
+}
+
+.community-modal__title {
+    font-weight: 500;
+    line-height: 20px;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.community-modal__icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+  fill: white;
+}
