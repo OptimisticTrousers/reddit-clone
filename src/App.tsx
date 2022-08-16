@@ -5,12 +5,14 @@ import { useAppSelector } from "./hooks/hooks";
 import Modal from "./components/Modal/Modal";
 import CSSModules from "react-css-modules";
 import styles from "./App.module.css";
+import { selectCommunityModalState } from "./features/subreddit/subredditSlice";
 
 const App: React.FC = () => {
-  // const isModalActive = useAppSelector((state) => state.modal);
+  const communityModalState = useAppSelector(selectCommunityModalState);
+
   return (
     <>
-      {/* {isModalActive && <Modal />} */}
+      {/* {communityModalState && <Modal />} */}
       <Navbar />
       <div styleName="container">
         <Outlet />

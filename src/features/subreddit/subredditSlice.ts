@@ -14,6 +14,9 @@ const initialState: AuthState = {
 export const selectSubredditId = (state: RootState) =>
   state.subreddit.subredditId;
 
+export const selectCommunityModalState = (state: RootState) =>
+  state.subreddit.communityModalState;
+
 const subredditSlice = createSlice({
   name: "subreddit",
   initialState,
@@ -21,13 +24,13 @@ const subredditSlice = createSlice({
     getSubredditId: (state, action) => {
       state.subredditId = action.payload;
     },
-    setCommunityModalState: (state, action) => {
-      state.communityModalState = action.payload;
+    toggleCommunityModalState: (state) => {
+      state.communityModalState = !state.communityModalState;
     },
   },
 });
 
-export const { getSubredditId, setCommunityModalState } =
+export const { getSubredditId, toggleCommunityModalState } =
   subredditSlice.actions;
 
 export default subredditSlice.reducer;

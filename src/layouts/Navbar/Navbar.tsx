@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { getUser, signIn, signOutUser } from "../../firebase";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { selectAuthStatus } from "../../features/auth/authSlice";
 import { RiSearchLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
@@ -18,11 +18,11 @@ import Dropdown from "../Dropdown/Dropdown";
 const Navbar: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  const [isSubscriptionsDropdownOpen, setIsSubscribtionsDropdownOpen] =
+  const [isSubscriptionsDropdownOpen, setIsSubscriptionsDropdownOpen] =
     useState(false);
 
   function handleHomeDropdown() {
-    setIsSubscribtionsDropdownOpen((prevValue) => !prevValue);
+    setIsSubscriptionsDropdownOpen((prevValue) => !prevValue);
   }
 
   return (
