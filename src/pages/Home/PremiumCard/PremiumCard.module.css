@@ -1,3 +1,6 @@
+.premium-card {
+    margin-bottom: 8px;
+}
 .premium-card__content {
   display: flex;
   justify-content: space-between;
