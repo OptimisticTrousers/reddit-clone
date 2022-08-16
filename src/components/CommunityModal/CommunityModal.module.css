@@ -6,7 +6,7 @@
   height: 100%;
 }
 .community-modal__icon_type_exit {
-    cursor: pointer;
+  cursor: pointer;
 }
 .community-modal__container {
   background-color: var(--primary-color);
@@ -101,13 +101,13 @@
   color: var(--secondary-color);
 }
 .community-modal__radio {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
 .community-modal__radio-group {
   display: flex;
   column-gap: 8px;
-    margin-top: 12px;
+  margin-top: 12px;
 }
 .community-modal__community-type {
   font-weight: 500;
@@ -125,42 +125,51 @@
   margin: 1px 0 0 4px;
 }
 .community-modal__buttons {
-    padding: 16px;
-    margin: 16px -16px -16px;
-    display: flex;
-    justify-content: flex-end;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    width: 100%;
-    pointer-events: auto;
-    background-color: #343536;
+  padding: 16px;
+  margin: 16px -16px -16px;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #343536;
 }
 
 .community-modal__button {
-    margin-left: 8px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: unset;
-    min-height: 32px;
-    min-width: 32px;
-    padding: 4px 16px;
-    line-height: 17px;
-    font-family: inherit;
-    border-radius: 9999px;
-    width: auto;
-    text-align: center;
-    box-sizing: border-box;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+  line-height: 17px;
+  font-family: inherit;
+  border-radius: 9999px;
+  width: auto;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .community-modal__button_type_cancel {
-    border: 1px solid var(--secondary-color);
-    color: var(--secondary-color);
-    background-color: inherit;
+  border: 1px solid var(--secondary-color);
+  color: var(--secondary-color);
+  background-color: inherit;
+}
+
+.community-modal__button_type_cancel:hover {
+  background-color: var(--primary-color);
+  cursor: pointer;
 }
 
 .community-modal__button_type_create {
-    border: none;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+  border: none;
+  background-color: white;
+  color: var(--primary-color);
 }
 
+.community-modal__button_type_create:hover {
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}
