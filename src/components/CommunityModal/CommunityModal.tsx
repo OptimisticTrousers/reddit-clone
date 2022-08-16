@@ -62,23 +62,55 @@ const CommunityModal: React.FC = () => {
                 src={selectedRadio}
                 alt="user selected radio button"
               />
-              {/* <div stylename="community-modal__text">
-                <div stylename="community-modal__icon-container"> */}
-                  <img
-                    styleName="community-modal__icon"
-                    src={personIcon}
-                    alt="icon of a faceless person at shoulder level"
-                  />
-                {/* </div> */}
-                <p styleName="community-modal__community-type">Public</p>
-                <p styleName="community-modal__community-type-description">
-                  Anyone can view, post, and comment to this community
-                  </p>
-                {/* </div>
-              </div> */}
+              <img
+                styleName="community-modal__icon"
+                src={personIcon}
+                alt="icon of a faceless person at shoulder level"
+              />
+              <p styleName="community-modal__community-type">Public</p>
+              <p styleName="community-modal__community-type-description">
+                Anyone can view, post, and comment to this community
+              </p>
             </div>
           </div>
-          {/* </div> */}
+          <div styleName="community-modal__radio">
+            <div styleName="community-modal__radio-group">
+              <input type="hidden" value="public" />
+              <img
+                styleName="community-modal__icon"
+                src={selectedRadio}
+                alt="user selected radio button"
+              />
+              <img
+                styleName="community-modal__icon"
+                src={personIcon}
+                alt="icon of a faceless person at shoulder level"
+              />
+              <p styleName="community-modal__community-type">Public</p>
+              <p styleName="community-modal__community-type-description">
+                Anyone can view, post, and comment to this community
+              </p>
+            </div>
+          </div>
+          <div styleName="community-modal__radio">
+            <div styleName="community-modal__radio-group">
+              <input type="hidden" value="public" />
+              <img
+                styleName="community-modal__icon"
+                src={selectedRadio}
+                alt="user selected radio button"
+              />
+              <img
+                styleName="community-modal__icon"
+                src={personIcon}
+                alt="icon of a faceless person at shoulder level"
+              />
+              <p styleName="community-modal__community-type">Public</p>
+              <p styleName="community-modal__community-type-description">
+                Anyone can view, post, and comment to this community
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Modal>

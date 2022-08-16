@@ -97,11 +97,14 @@
   margin-bottom: 4px;
   color: var(--secondary-color);
 }
+.community-modal__radio {
+    margin-top: 16px;
+}
 
 .community-modal__radio-group {
   display: flex;
   column-gap: 8px;
-  margin-top: 12px;
+    margin-top: 12px;
 }
 .community-modal__community-type {
   font-weight: 500;
