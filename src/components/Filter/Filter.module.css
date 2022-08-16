@@ -1,5 +1,6 @@
 .filter {
     width: 100%;
     color: white;
-    background-color: red;
+    margin-bottom: 16px;
+    padding: 8px;
 }

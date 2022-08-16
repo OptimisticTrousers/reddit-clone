@@ -1,7 +1,6 @@
 .aside {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
   margin-left: 24px;
 }
 .home {

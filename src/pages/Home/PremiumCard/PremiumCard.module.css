@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
 }
 .premium-card__icon {
   object-fit: contain;
@@ -27,7 +26,7 @@
 }
 
 .premium-card__button:hover {
-    
+
 }
 
 .premium-card__text {
