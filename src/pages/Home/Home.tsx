@@ -16,7 +16,7 @@ const Home: React.FC = () => {
         <div className="home__posts">
           <Posts />
         </div>
-        <aside>
+        <aside styleName="aside">
           <TopCommunitiesCard />
           <PremiumCard />
         </aside>

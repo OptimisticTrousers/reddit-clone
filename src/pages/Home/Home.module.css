@@ -1,3 +1,8 @@
+.aside {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
 .home {
   display: grid;
   place-items: center;
