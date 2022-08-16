@@ -4,6 +4,8 @@ import styles from "./CommunityModal.module.css";
 import informationIcon from "../../assets/information-icon.svg";
 import selectedRadio from "../../assets/selected-radio.svg";
 import personIcon from "../../assets/person-icon.svg";
+import eyeIcon from "../../assets/eye-icon.svg";
+import lockIcon from "../../assets/lock-icon.svg";
 
 const CommunityModal: React.FC = () => {
   return (
