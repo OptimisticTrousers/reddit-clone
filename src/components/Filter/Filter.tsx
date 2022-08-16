@@ -1,11 +1,14 @@
 import CSSModules from "react-css-modules";
+import Card from "../Card/Card";
 import styles from './Filter.module.css'
 
 const Filter:React.FC = () => {
   return (
-    <div>
-      <h1></h1>
-    </div>
+    <Card >
+      <h1>Bob jones</h1>
+      <h1>Bob jones</h1>
+      <h1>Bob jones</h1>
+    </Card>
   )
 }
 

@@ -11,9 +11,9 @@ import TopCommunitiesCard from "./TopCommunitiesCard/TopCommunitiesCard";
 const Home: React.FC = () => {
   return (
     <div styleName="home">
-      <Filter />
       <div styleName="home__content">
         <div className="home__posts">
+          <Filter />
           <Posts />
         </div>
         <aside styleName="aside">
