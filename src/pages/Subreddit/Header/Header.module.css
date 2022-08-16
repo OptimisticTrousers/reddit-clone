@@ -19,6 +19,7 @@
 .header__subreddit-picture {
   height: 72px;
   width: 72px;
+  filter: brightness(0) invert(1);
 }
 .header__title-container {
   padding-left: 16px;
