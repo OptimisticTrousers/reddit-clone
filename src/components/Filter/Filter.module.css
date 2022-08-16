@@ -1,0 +1,24 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filter__categories {
+    display: flex;
+}
+.filter__category {
+  border-radius: 20px;
+  background-color: #272729;
+  border: 1px solid transparent;
+  margin-right: 8px;
+  min-height: unset;
+  min-width: unset;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+}
+.filter__icon {
+    width: 24px;
+    height: 24px;
+}
