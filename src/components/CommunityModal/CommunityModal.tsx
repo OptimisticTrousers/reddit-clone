@@ -48,7 +48,7 @@ const CommunityModal: React.FC = () => {
               </p>
               {/* <p styleName="community-modal__feedback-message">
                 A community name is required
-              </p> */}
+              </pr */}
             </div>
           </div>
           <div styleName="community-modal__radio">
@@ -62,19 +62,20 @@ const CommunityModal: React.FC = () => {
                 src={selectedRadio}
                 alt="user selected radio button"
               />
-              <div styleName="community-modal__text">
-                <div styleName="community-modal__icon-container">
+              {/* <div stylename="community-modal__text">
+                <div stylename="community-modal__icon-container"> */}
                   <img
                     styleName="community-modal__icon"
                     src={personIcon}
                     alt="icon of a faceless person at shoulder level"
                   />
-                </div>
-                <div styleName="community-modal__community-type">Public</div>
-                <div styleName="community-modal__community-type-description">
+                {/* </div> */}
+                <p styleName="community-modal__community-type">Public</p>
+                <p styleName="community-modal__community-type-description">
                   Anyone can view, post, and comment to this community
-                </div>
-              </div>
+                  </p>
+                {/* </div>
+              </div> */}
             </div>
           </div>
           {/* </div> */}
