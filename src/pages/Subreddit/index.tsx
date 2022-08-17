@@ -20,7 +20,7 @@ import { getSubredditData } from "../../features/subreddit/subredditSlice";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
-  const dispatch = useAppDispatch();
+  const dispatch =  useAppDispatch();
 
   useEffect(() => {
     const subredditsRef = collection(db, "subreddits");
@@ -34,7 +34,7 @@ const Subreddit: React.FC = () => {
         alert("SUBREDDIT NOT FOUND");
       }
     });
-  }, [subredditName]);
+  }, [subredditName, dispatch]);
 
   return (
     <div styleName="subreddit">
