@@ -12,6 +12,7 @@
   align-items: center;
   margin-right: 6px;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .post-excerpt__interaction:hover {
