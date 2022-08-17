@@ -4,23 +4,38 @@ import Posts from "./Posts/Posts";
 import Header from "./Header/Header";
 import CSSModules from "react-css-modules";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  DocumentData,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebase";
+import { useAppDispatch } from "../../hooks/hooks";
+import { getSubredditData } from "../../features/subreddit/subredditSlice";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    async function newStuff() {
-      const subredditsRef = collection(db, "subreddits");
+    const subredditsRef = collection(db, "subreddits");
 
-      const q = query(subredditsRef, where("name", "==", subredditName));
+    const q = query(subredditsRef, where("name", "==", subredditName));
 
-      const querySnapshot = await getDocs(q);
-      console.log(querySnapshot)
-    }
-  });
+    onSnapshot(q, (snapshot) => {
+      if (snapshot.docs[0]?.data()) {
+        dispatch(getSubredditData(snapshot.docs[0]?.data()));
+      } else {
+        alert("SUBREDDIT NOT FOUND");
+      }
+    });
+  }, [subredditName]);
+
   return (
     <div styleName="subreddit">
       <Header />

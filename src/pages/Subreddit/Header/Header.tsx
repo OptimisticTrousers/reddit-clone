@@ -3,7 +3,11 @@ import subredditLogo from "../../../assets/subreddit-logo.svg";
 import classNames from "classnames";
 import CSSModules from "react-css-modules";
 
-const Header: React.FC = () => {
+interface Props {
+  name: string;
+}
+
+const Header: React.FC<Props> = ({ name }) => {
   return (
     <div styleName="header">
       <div styleName="header__background"></div>
@@ -16,8 +20,8 @@ const Header: React.FC = () => {
           />
           <div styleName="header__title-container">
             <div styleName="header__title">
-              <h1 styleName="header__subreddit-name">onepieee</h1>
-              <h2 styleName="header__subreddit-link">r/onepieee</h2>
+              <h1 styleName="header__subreddit-name">{name}</h1>
+              <h2 styleName="header__subreddit-link">r/{name}</h2>
             </div>
             <div styleName="header__buttons">
               {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}

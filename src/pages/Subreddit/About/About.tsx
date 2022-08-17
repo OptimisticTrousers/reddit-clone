@@ -4,7 +4,7 @@ import Card from "../../../components/Card/Card";
 import CardHeader from "../../../components/CardHeader/CardHeader";
 import styles from "./About.module.css";
 
-const About: React.FC = () => {
+const About: React.FC = () => { 
   return (
     <Card>
       <CardHeader />
