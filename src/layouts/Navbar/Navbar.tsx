@@ -56,7 +56,9 @@ const Navbar: React.FC = () => {
               </div>
             </div>
             <div className="header__dropdown-menu">
-              {isSubscriptionsDropdownOpen && <CommunityDropdown dropdown={"community"}/>}
+              {isSubscriptionsDropdownOpen && (
+                <CommunityDropdown dropdown={"community"} />
+              )}
             </div>
           </div>
         </div>
@@ -96,7 +98,14 @@ const Navbar: React.FC = () => {
                 onClick={handleProfileDropdown}
               >
                 <Profile isLoggedIn={isLoggedIn} />
-              {isProfileDropdownOpen && <ProfileDropdown dropdown={"dropdown"}/>}
+              </div>
+              <div
+                styleName="header__dropdown-dropdown"
+                onClick={() => signOutUser()}
+              >
+                {isProfileDropdownOpen && isLoggedIn && (
+                  <ProfileDropdown dropdown={"dropdown"} />
+                )}
               </div>
             </div>
           </div>

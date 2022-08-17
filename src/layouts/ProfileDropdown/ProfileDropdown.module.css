@@ -1,7 +1,22 @@
 .profile-dropdown__button {
-    outline: 2px solid transparent;
-    padding-top: 0.4rem;
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
+  outline: 2px solid transparent;
+  padding-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  width: 100%;
+  background-color: inherit;
+  border-radius: 9999px;
+  color: white;
+  border: none;
+}
+.profile-dropdown__button:hover {
+  background-color: #242424;
+  cursor: pointer;
+}
+
+.profile-dropdown__icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
 }

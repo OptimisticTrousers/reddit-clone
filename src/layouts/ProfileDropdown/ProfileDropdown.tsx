@@ -12,7 +12,7 @@ const ProfileDropdown: React.FC<Props> = ({dropdown}) => {
     <Dropdown dropdown={dropdown}>
       <div styleName="profile-dropdown">
         <button styleName="profile-dropdown__button">
-          <img src={logOutIcon} alt="log out icon" />
+          <img styleName="profile-dropdown__icon" src={logOutIcon} alt="log out icon" />
           Log Out
         </button>
       </div>
