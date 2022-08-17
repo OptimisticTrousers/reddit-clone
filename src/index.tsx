@@ -22,8 +22,8 @@ root.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
-              <Route path="r/subreddit/:postId" element={<SinglePostPage />} />
-            <Route path="r/subreddit" element={<Subreddit />} >
+            <Route path="r/:subredditName" element={<Subreddit />}>
+              <Route path="comments/:postId" element={<SinglePostPage />} />
             </Route>
             <Route path="submit" element={<CreatePost />} />
           </Route>

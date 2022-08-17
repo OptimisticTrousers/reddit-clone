@@ -9,10 +9,17 @@ import lockIcon from "../../assets/lock-icon.svg";
 import exitIcon from "../../assets/exit-icon.svg";
 import { useAppDispatch } from "../../hooks/hooks";
 import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import { db, getUserName } from "../../firebase";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import React, { useState } from "react";
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const CommunityModal: React.FC = () => {
@@ -32,19 +39,23 @@ const CommunityModal: React.FC = () => {
 
   async function createSubreddit() {
     const subredditsRef = collection(db, "subreddits");
+    console.log(subredditName);
+    console.log(communityType);
 
-    await addDoc(subredditsRef, {
-      created_at: serverTimestamp(),
-      creator_at: getUserName(),
-      description: "Add a description",
-      id: nanoid(),
-      name: subredditName,
-      number_of_members: 1,
-      privacy_type: communityType,
-    });
+    // await addDoc(subredditsRef, {
+    //   created_at: serverTimestamp(),
+    //   creator_at: getUserName(),
+    //   description: "Add a description",
+    //   id: nanoid(),
+    //   name: subredditName,
+    //   number_of_members: 1,
+    //   privacy_type: communityType,
+    // });
   }
 
-  function handleRadio(event: InputEvent) {
+  function handleRadio(event: any) {
+    event.preventDefault();
+    console.log(event.target.value);
     setCommunityType(event.target.value);
   }
 
@@ -75,95 +86,107 @@ const CommunityModal: React.FC = () => {
               </p>
             </div>
           </div>
-          <div styleName="community-modal__form">
-            <input
-              maxLength={21}
-              type="text"
-              styleName="community-modal__input"
-              placeholder="r/gaming"
-              value={subredditName}
-              onChange={handleSubredditName}
-            />
-            <div styleName="community-modal__feedback">
-              <p styleName="community-modal__characters-remaining">
-                21 Characters remaining
-              </p>
-              {/* <p styleName="community-modal__feedback-message">
+          <form onSubmit={createSubreddit}>
+            <div styleName="community-modal__form">
+              <input
+                maxLength={21}
+                type="text"
+                styleName="community-modal__input"
+                placeholder="r/gaming"
+                value={subredditName}
+                onChange={handleSubredditName}
+                required
+              />
+              <div styleName="community-modal__feedback">
+                <p styleName="community-modal__characters-remaining">
+                  21 Characters remaining
+                </p>
+                {/* <p styleName="community-modal__feedback-message">
                 A community name is required
               </pr */}
+              </div>
             </div>
-          </div>
-          <div styleName="community-modal__radio">
-            <h3 styleName="community-modal__community-type-title">
-              Community type
-            </h3>
-            <div styleName="community-modal__radio-group">
-              <input type="radio" value="public" name="community_type" />
-              {/* <img
+            <div styleName="community-modal__radio">
+              <h3 styleName="community-modal__community-type-title">
+                Community type
+              </h3>
+              <div styleName="community-modal__radio-group">
+                <input type="radio" value="public" name="community_type" required/>
+                {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
                 alt="user selected radio button"
               /> */}
-              <img
-                styleName="community-modal__icon"
-                src={personIcon}
-                alt="icon of a faceless person at shoulder level"
-              />
-              <p styleName="community-modal__community-type">Public</p>
-              <p styleName="community-modal__community-type-description">
-                Anyone can view, post, and comment to this community
-              </p>
+                <img
+                  styleName="community-modal__icon"
+                  src={personIcon}
+                  alt="icon of a faceless person at shoulder level"
+                />
+                <p styleName="community-modal__community-type">Public</p>
+                <p styleName="community-modal__community-type-description">
+                  Anyone can view, post, and comment to this community
+                </p>
+              </div>
             </div>
-          </div>
-          <div styleName="community-modal__radio">
-            <div styleName="community-modal__radio-group">
-              <input type="radio" value="restricted" name="community_type" />
-              {/* <img
+            <div styleName="community-modal__radio">
+              <div styleName="community-modal__radio-group">
+                <input type="radio" value="restricted" name="community_type" required/>
+                {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
                 alt="user selected radio button"
               /> */}
-              <img
-                styleName="community-modal__icon"
-                src={personIcon}
-                alt="icon of a faceless person at shoulder level"
-              />
-              <p styleName="community-modal__community-type">Restricted</p>
-              <p styleName="community-modal__community-type-description">
-                Anyone can view this community, but only approved users can post
-              </p>
+                <img
+                  styleName="community-modal__icon"
+                  src={personIcon}
+                  alt="icon of a faceless person at shoulder level"
+                />
+                <p styleName="community-modal__community-type">Restricted</p>
+                <p styleName="community-modal__community-type-description">
+                  Anyone can view this community, but only approved users can
+                  post
+                </p>
+              </div>
             </div>
-          </div>
-          <div styleName="community-modal__radio">
-            <div styleName="community-modal__radio-group">
-              <input type="radio" value="private" name="community_type" />
-              {/* <img
+            <div styleName="community-modal__radio">
+              <div styleName="community-modal__radio-group">
+                <input
+                  type="radio"
+                  value="private"
+                  name="community_type"
+                  required
+                />
+                {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
                 alt="user selected radio button"
               /> */}
-              <img
-                styleName="community-modal__icon"
-                src={personIcon}
-                alt="icon of a faceless person at shoulder level"
-              />
-              <p styleName="community-modal__community-type">Private</p>
-              <p styleName="community-modal__community-type-description">
-                Only approved users can view and submit to this community
-              </p>
+                <img
+                  styleName="community-modal__icon"
+                  src={personIcon}
+                  alt="icon of a faceless person at shoulder level"
+                />
+                <p styleName="community-modal__community-type">Private</p>
+                <p styleName="community-modal__community-type-description">
+                  Only approved users can view and submit to this community
+                </p>
+              </div>
             </div>
-          </div>
-          <div styleName="community-modal__buttons">
-            <button
-              styleName="community-modal__button community-modal__button_type_cancel"
-              onClick={onToggleModalClick}
-            >
-              Cancel
-            </button>
-            <button styleName="community-modal__button community-modal__button_type_create" onClick={createSubreddit}>
-              Create Community
-            </button>
-          </div>
+            <div styleName="community-modal__buttons">
+              <button
+                styleName="community-modal__button community-modal__button_type_cancel"
+                onClick={onToggleModalClick}
+              >
+                Cancel
+              </button>
+              <button
+                styleName="community-modal__button community-modal__button_type_create"
+                type="submit"
+              >
+                Create Community
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </Modal>
