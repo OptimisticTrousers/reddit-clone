@@ -17,7 +17,7 @@ import {
   serverTimestamp,
   where,
 } from "firebase/firestore";
-import { db, getUserName } from "../../firebase";
+import { db, getUserName, isUserSignedIn } from "../../firebase";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
@@ -37,32 +37,34 @@ const CommunityModal: React.FC = () => {
     dispatch(toggleCommunityModalState());
   }
 
-  async function createSubreddit() {
+  async function createSubreddit(event: any) {
+    event.preventDefault();
     const subredditsRef = collection(db, "subreddits");
-    console.log(subredditName);
-    console.log(communityType);
 
-    // await addDoc(subredditsRef, {
-    //   created_at: serverTimestamp(),
-    //   creator_at: getUserName(),
-    //   description: "Add a description",
-    //   id: nanoid(),
-    //   name: subredditName,
-    //   number_of_members: 1,
-    //   privacy_type: communityType,
-    // });
+    if (isUserSignedIn()) {
+      await addDoc(subredditsRef, {
+        created_at: serverTimestamp(),
+        creator_id: getUserName(),
+        description: "Add a description",
+        id: nanoid(),
+        name: subredditName,
+        number_of_members: 1,
+        privacy_type: communityType,
+      });
+    }
+    else {
+      alert("SIGN IN DUDE!!!")
+    }
   }
 
   function handleRadio(event: any) {
-    event.preventDefault();
-    console.log(event.target.value);
     setCommunityType(event.target.value);
   }
 
   return (
     <Modal>
       <div styleName="community-modal">
-        <div styleName="community-modal__container" onChange={handleRadio}>
+        <div styleName="community-modal__container">
           <div styleName="community-modal__header">
             <h1 styleName="community-modal__title">Create a community</h1>
             <img
@@ -111,7 +113,13 @@ const CommunityModal: React.FC = () => {
                 Community type
               </h3>
               <div styleName="community-modal__radio-group">
-                <input type="radio" value="public" name="community_type" required/>
+                <input
+                  type="radio"
+                  value="public"
+                  name="community_type"
+                  required
+                  onChange={handleRadio}
+                />
                 {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
@@ -130,7 +138,13 @@ const CommunityModal: React.FC = () => {
             </div>
             <div styleName="community-modal__radio">
               <div styleName="community-modal__radio-group">
-                <input type="radio" value="restricted" name="community_type" required/>
+                <input
+                  type="radio"
+                  value="restricted"
+                  name="community_type"
+                  required
+                  onChange={handleRadio}
+                />
                 {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
@@ -155,6 +169,7 @@ const CommunityModal: React.FC = () => {
                   value="private"
                   name="community_type"
                   required
+                  onChange={handleRadio}
                 />
                 {/* <img
                 styleName="community-modal__icon"
