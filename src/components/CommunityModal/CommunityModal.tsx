@@ -9,21 +9,56 @@ import lockIcon from "../../assets/lock-icon.svg";
 import exitIcon from "../../assets/exit-icon.svg";
 import { useAppDispatch } from "../../hooks/hooks";
 import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db, getUserName } from "../../firebase";
+import { nanoid } from "nanoid";
+import { useState } from "react";
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const CommunityModal: React.FC = () => {
   const dispatch = useAppDispatch();
 
+  const [subredditName, setSubredditName] = useState("");
+
+  const [communityType, setCommunityType] = useState("");
+
+  function handleSubredditName(event: InputEvent) {
+    setSubredditName(event.target.value);
+  }
+
+  function onToggleModalClick() {
+    dispatch(toggleCommunityModalState());
+  }
+
+  async function createSubreddit() {
+    const subredditsRef = collection(db, "subreddits");
+
+    await addDoc(subredditsRef, {
+      created_at: serverTimestamp(),
+      creator_at: getUserName(),
+      description: "Add a description",
+      id: nanoid(),
+      name: subredditName,
+      number_of_members: 1,
+      privacy_type: communityType,
+    });
+  }
+
+  function handleRadio(event: InputEvent) {
+    setCommunityType(event.target.value);
+  }
+
   return (
     <Modal>
       <div styleName="community-modal">
-        <div styleName="community-modal__container">
+        <div styleName="community-modal__container" onChange={handleRadio}>
           <div styleName="community-modal__header">
             <h1 styleName="community-modal__title">Create a community</h1>
             <img
               styleName="community-modal__icon community-modal__icon_type_exit"
               src={exitIcon}
               alt="exit button icon"
-              onClick={() => dispatch(toggleCommunityModalState())}
+              onClick={onToggleModalClick}
             />
           </div>
           {/* <div styleName="community-modal__container"> */}
@@ -46,6 +81,8 @@ const CommunityModal: React.FC = () => {
               type="text"
               styleName="community-modal__input"
               placeholder="r/gaming"
+              value={subredditName}
+              onChange={handleSubredditName}
             />
             <div styleName="community-modal__feedback">
               <p styleName="community-modal__characters-remaining">
@@ -80,7 +117,7 @@ const CommunityModal: React.FC = () => {
           </div>
           <div styleName="community-modal__radio">
             <div styleName="community-modal__radio-group">
-              <input type="radio" value="public" name="community_type"/>
+              <input type="radio" value="restricted" name="community_type" />
               {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
@@ -99,7 +136,7 @@ const CommunityModal: React.FC = () => {
           </div>
           <div styleName="community-modal__radio">
             <div styleName="community-modal__radio-group">
-              <input type="radio" value="public" name="community_type"/>
+              <input type="radio" value="private" name="community_type" />
               {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
@@ -117,10 +154,13 @@ const CommunityModal: React.FC = () => {
             </div>
           </div>
           <div styleName="community-modal__buttons">
-            <button styleName="community-modal__button community-modal__button_type_cancel">
+            <button
+              styleName="community-modal__button community-modal__button_type_cancel"
+              onClick={onToggleModalClick}
+            >
               Cancel
             </button>
-            <button styleName="community-modal__button community-modal__button_type_create">
+            <button styleName="community-modal__button community-modal__button_type_create" onClick={createSubreddit}>
               Create Community
             </button>
           </div>
