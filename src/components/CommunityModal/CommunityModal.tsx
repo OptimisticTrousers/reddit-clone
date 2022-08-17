@@ -91,9 +91,9 @@ const CommunityModal: React.FC = () => {
                 src={personIcon}
                 alt="icon of a faceless person at shoulder level"
               />
-              <p styleName="community-modal__community-type">Public</p>
+              <p styleName="community-modal__community-type">Restricted</p>
               <p styleName="community-modal__community-type-description">
-                Anyone can view, post, and comment to this community
+                Anyone can view this community, but only approved users can post
               </p>
             </div>
           </div>
@@ -110,9 +110,9 @@ const CommunityModal: React.FC = () => {
                 src={personIcon}
                 alt="icon of a faceless person at shoulder level"
               />
-              <p styleName="community-modal__community-type">Public</p>
+              <p styleName="community-modal__community-type">Private</p>
               <p styleName="community-modal__community-type-description">
-                Anyone can view, post, and comment to this community
+                Only approved users can view and submit to this community
               </p>
             </div>
           </div>
