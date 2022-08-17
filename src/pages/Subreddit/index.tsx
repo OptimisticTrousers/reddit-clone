@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAppDispatch } from "../../hooks/hooks";
-import { getSubredditData } from "../../features/subreddit/subredditSlice";
+import { setSubredditData} from "../../features/subreddit/subredditSlice";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
@@ -29,7 +29,8 @@ const Subreddit: React.FC = () => {
 
     onSnapshot(q, (snapshot) => {
       if (snapshot.docs[0]?.data()) {
-        dispatch(getSubredditData(snapshot.docs[0]?.data()));
+        console.log(snapshot.docs[0]?.data())
+        dispatch(setSubredditData(snapshot.docs[0]?.data()));
       } else {
         alert("SUBREDDIT NOT FOUND");
       }
