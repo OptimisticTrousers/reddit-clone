@@ -61,12 +61,12 @@ const CommunityModal: React.FC = () => {
               Community type
             </h3>
             <div styleName="community-modal__radio-group">
-              <input type="hidden" value="public" />
-              <img
+              <input type="radio" value="public" name="community_type" />
+              {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
                 alt="user selected radio button"
-              />
+              /> */}
               <img
                 styleName="community-modal__icon"
                 src={personIcon}
@@ -80,12 +80,12 @@ const CommunityModal: React.FC = () => {
           </div>
           <div styleName="community-modal__radio">
             <div styleName="community-modal__radio-group">
-              <input type="hidden" value="public" />
-              <img
+              <input type="radio" value="public" name="community_type"/>
+              {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
                 alt="user selected radio button"
-              />
+              /> */}
               <img
                 styleName="community-modal__icon"
                 src={personIcon}
@@ -99,12 +99,12 @@ const CommunityModal: React.FC = () => {
           </div>
           <div styleName="community-modal__radio">
             <div styleName="community-modal__radio-group">
-              <input type="hidden" value="public" />
-              <img
+              <input type="radio" value="public" name="community_type"/>
+              {/* <img
                 styleName="community-modal__icon"
                 src={selectedRadio}
                 alt="user selected radio button"
-              />
+              /> */}
               <img
                 styleName="community-modal__icon"
                 src={personIcon}
