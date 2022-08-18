@@ -55,11 +55,29 @@
 }
 .sign-up-modal__oauth:hover {
   color: #3c4043;
-
 }
 
 .sign-up-modal__oauth-text {
   flex-grow: 1;
+}
+
+.sign-up-modal__divider {
+  display: flex;
+  align-items: center;
+  margin: 28px 0;
+  justify-content: space-between;
+}
+
+.sign-up-modal__divider-line {
+  border-top: 1px solid #edeff1;
+  width: 40%;
+}
+
+.sign-up-modal__divider-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: white;
 }
 
 .sign-up-modal__exit {

@@ -118,6 +118,11 @@ const AuthModal: React.FC = () => {
                   Continue with Google
                 </p>
               </button>
+              <div styleName="sign-up-modal__divider">
+                <span styleName="sign-up-modal__divider-line"></span>
+                <span styleName="sign-up-modal__divider-text">OR</span>
+                <span styleName="sign-up-modal__divider-line"></span>
+              </div>
               {signUpModalState && (
                 <input
                   type="email"
