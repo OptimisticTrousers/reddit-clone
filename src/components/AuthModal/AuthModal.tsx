@@ -7,6 +7,7 @@ import { auth } from "../../firebase";
 import { useAppDispatch } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./AuthModal.module.css";
+import exitIcon from "../../assets/exit-icon.svg";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -49,6 +50,13 @@ const AuthModal: React.FC = () => {
     <Modal>
       <div styleName="sign-up-modal">
         <div styleName="sign-up-modal__container">
+          <button styleName="sign-up-modal__exit">
+            <img
+              styleName="sign-up-modal__exit-icon"
+              src={exitIcon}
+              alt="exit button for modal"
+            />
+          </button>
           <div styleName="sign-up-modal__image"></div>
           <div styleName="sign-up-modal__content">
             <form styleName="sign-up-modal__form" onSubmit={formSubmit}>

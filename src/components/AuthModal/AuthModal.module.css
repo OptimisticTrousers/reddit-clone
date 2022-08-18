@@ -18,6 +18,23 @@
   align-items: center;
   width: 850px;
   height: 650px;
+  position: relative;
+}
+
+.sign-up-modal__exit-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.sign-up-modal__exit {
+  position: absolute;
+  background-color: inherit;
+  border: none;
+  right: 16px;
+  top: 16px;
+  cursor: pointer;
 }
 
 .sign-up-modal__title {
