@@ -4,11 +4,15 @@ import { RootState } from "../../redux/store";
 
 interface AuthState {
   isLoggedIn: boolean;
+  signUpModalState: boolean;
 }
 
-const initialState: AuthState = { isLoggedIn: false };
+const initialState: AuthState = { isLoggedIn: false, signUpModalState: false };
 
 export const selectAuthStatus = (state: RootState) => state.auth.isLoggedIn;
+
+export const selectSignUpModalState = (state: RootState) =>
+  state.auth.signUpModalState;
 
 const authSlice = createSlice({
   name: "auth",
@@ -17,9 +21,12 @@ const authSlice = createSlice({
     setLoginStatus: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+    toggleSignUpModal: (state) => {
+      state.signUpModalState = !state.signUpModalState;
+    },
   },
 });
 
-export const { setLoginStatus } = authSlice.actions;
+export const { setLoginStatus, toggleSignUpModal } = authSlice.actions;
 
 export default authSlice.reducer;
