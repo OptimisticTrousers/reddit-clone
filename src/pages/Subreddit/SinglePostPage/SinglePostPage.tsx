@@ -10,6 +10,18 @@ import CommentsSection from "../CommentsSection/CommentsSection";
 import CSSModules from "react-css-modules";
 import Post from "../Post/Post";
 import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  DocumentData,
+  DocumentReference,
+  onSnapshot,
+  Query,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { db } from "../../../firebase";
 
 type LocationState = {
   title: string;
@@ -20,6 +32,7 @@ type LocationState = {
   updated_at: string;
   user_id: string;
   voteStatus: number;
+  commentsQuantity: number;
 };
 
 const SinglePostPage = () => {
@@ -28,6 +41,17 @@ const SinglePostPage = () => {
 
   const data = location.state as LocationState;
 
+  const [comments, setComments] = useState<DocumentData | undefined>(undefined);
+
+  useEffect(() => {
+    const commentsRef = collection(db, "comments");
+    const commentQuery = query(commentsRef, where("post_id", "==", postId));
+
+    onSnapshot(commentQuery, async (snapshot) => {
+      const docChanges = snapshot.docChanges();
+      setComments(docChanges);
+    });
+  }, [postId]);
   return (
     <section styleName="post-page">
       <div styleName="post-page__container">
@@ -44,7 +68,10 @@ const SinglePostPage = () => {
         </div>
       </article> */}
         <div styleName="post-page__comments">
-          <CommentsSection postId={postId}/>
+          <CommentsSection
+            postId={postId}
+            comments={comments}
+          />
         </div>
       </div>
       <aside styleName="aside">

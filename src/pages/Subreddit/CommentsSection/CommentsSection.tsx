@@ -1,5 +1,18 @@
 import styles from "./CommentsSection.module.css";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  DocumentData,
+  DocumentSnapshot,
+  increment,
+  Query,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { db, getUserId } from "../../../firebase";
@@ -12,9 +25,10 @@ import { selectCommunityData } from "../../../features/subreddit/subredditSlice"
 
 interface Props {
   postId: string | undefined;
+  comments: DocumentData | undefined;
 }
 
-const CommentsSection: React.FC<Props> = ({ postId }) => {
+const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const [commentText, setCommentText] = useState("");
 
   const { id } = useAppSelector(selectCommunityData);
@@ -32,7 +46,6 @@ const CommentsSection: React.FC<Props> = ({ postId }) => {
 
     if (isLoggedIn) {
       const commentsRef = collection(db, "comments");
-
       await addDoc(commentsRef, {
         content: commentText,
         created_at: serverTimestamp(),
@@ -42,6 +55,13 @@ const CommentsSection: React.FC<Props> = ({ postId }) => {
         updated_at: serverTimestamp(),
         user_id: getUserId(),
       });
+
+      const postRef = doc(db, "posts", `${postId}`);
+
+      await updateDoc(postRef, {
+        commentsQuantity: increment(1),
+      });
+
       setCommentText("");
     } else {
       alert("LOG IN SUCKER!!");
@@ -93,7 +113,7 @@ const CommentsSection: React.FC<Props> = ({ postId }) => {
         </a>
       </div>
 
-      <Comments postId={postId} />
+      <Comments comments={comments} />
     </div>
   );
 };

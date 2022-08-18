@@ -16,17 +16,20 @@ interface Props {
 
 const Post: React.FC<Props> = (props) => {
   return (
-    <div styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"} data-testid="post">
-      <Votes voteStatus={props.data.voteStatus} />
+    <div
+      styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}
+      data-testid="post"
+    >
+      <Votes voteStatus={props.data?.voteStatus} />
       <div styleName="post-excerpt__content">
         <PostAuthor />
         <div styleName="post-excerpt__container">
-          <h3 styleName="post-excerpt__title">{props.data.title}</h3>
-          <p styleName="post-excerpt__description">{props.data.description}</p>
+          <h3 styleName="post-excerpt__title">{props.data?.title}</h3>
+          <p styleName="post-excerpt__description">{props.data?.description}</p>
         </div>
         <div styleName="post__buttons">
           <div styleName="post-excerpt__divider"></div>
-          <PostInteractions />
+          <PostInteractions commentsQuantity={props.data?.commentsQuantity} />
         </div>
       </div>
     </div>

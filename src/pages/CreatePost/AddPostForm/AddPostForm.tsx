@@ -60,6 +60,7 @@ const AddPostForm: React.FC = () => {
         user_id: getUserId(),
         title,
         description,
+        commentsQuantity: 0,
       });
       setTimeout(() => {
         navigate(`/r/${name}/comments/${postRef.id}`);

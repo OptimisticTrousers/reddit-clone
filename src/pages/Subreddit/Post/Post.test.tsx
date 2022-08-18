@@ -18,6 +18,7 @@ describe("Post", () => {
       voteStatus: 0,
     },
     renderHover: false,
+    commentsQuantity: 0,
   };
 
   test("snapshot", () => {
