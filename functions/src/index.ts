@@ -10,6 +10,7 @@ export const createUserDocument = functions.auth
   .onCreate(async (user: UserRecord) => {
     const newUser = {
       ...user,
+      communities: [],
     };
     db.collection("users").doc(user.uid).set(newUser);
   });
