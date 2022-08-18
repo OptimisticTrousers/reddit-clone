@@ -23,6 +23,9 @@ interface Props {
 }
 
 const Posts: React.FC<Props>= ({posts}) => {
+  if(posts === undefined) {
+    return <h1>Oopsies</h1>
+  }
   return (
     <div styleName="container">
       {posts?.map((doc: DocumentData) => {

@@ -3,19 +3,17 @@ import { DocumentData } from "firebase/firestore";
 import { RootState } from "../../redux/store";
 
 interface AuthState {
-  subredditId: string;
   communityModalState: boolean;
-  // currentSubredditData: any;
+  communityData: DocumentData;
 }
 
 const initialState: AuthState = {
-  subredditId: "krnv57fgYupN9Kdvxit3",
   communityModalState: false,
-  // currentSubredditData: {},
+  communityData: {},
 };
 
 export const selectSubredditId = (state: RootState) =>
-  state.subreddit.subredditId;
+  state.subreddit.communityData;
 
 export const selectCommunityModalState = (state: RootState) =>
   state.subreddit.communityModalState;
@@ -27,8 +25,8 @@ const subredditSlice = createSlice({
   name: "subreddit",
   initialState,
   reducers: {
-    getSubredditId: (state, action) => {
-      state.subredditId = action.payload;
+    setCommunityData: (state, action) => {
+      state.communityData = action.payload;
     },
     toggleCommunityModalState: (state) => {
       state.communityModalState = !state.communityModalState;
@@ -36,7 +34,7 @@ const subredditSlice = createSlice({
   },
 });
 
-export const { getSubredditId, toggleCommunityModalState } =
+export const { setCommunityData, toggleCommunityModalState } =
   subredditSlice.actions;
 
 export default subredditSlice.reducer;
