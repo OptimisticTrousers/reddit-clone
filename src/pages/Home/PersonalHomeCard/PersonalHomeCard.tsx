@@ -1,8 +1,19 @@
 import CSSModules from "react-css-modules";
 import Card from "../../../components/Card/Card";
+import {
+  selectCommunityModalState,
+  toggleCommunityModalState,
+} from "../../../features/subreddit/subredditSlice";
+import { useAppDispatch } from "../../../hooks/hooks";
 import styles from "./PersonalHomeCard.module.css";
 
 const PersonalHomeCard: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  function handleCommunityClick() {
+dispatch(toggleCommunityModalState())
+  }
+
   return (
     <Card>
       <div styleName="personal-home-card">
@@ -20,8 +31,15 @@ const PersonalHomeCard: React.FC = () => {
           favorite communities.
         </p>
         <div styleName="personal-home-card__buttons">
-          <button styleName="personal-home-card__button personal-home-card__button_type_create-post">Create Post</button>
-          <button styleName="personal-home-card__button personal-home-card__button_type_create-community">Create Community</button>
+          <button styleName="personal-home-card__button personal-home-card__button_type_create-post">
+            Create Post
+          </button>
+          <button
+            styleName="personal-home-card__button personal-home-card__button_type_create-community"
+            onClick={handleCommunityClick}
+          >
+            Create Community
+          </button>
         </div>
       </div>
     </Card>
