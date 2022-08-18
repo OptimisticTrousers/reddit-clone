@@ -91,6 +91,10 @@
   border: none;
   width: 100%;
   margin-top: 12px;
+  cursor: pointer;
+}
+.sign-up-modal__button:hover {
+  background-color: #1484d7;
 }
 
 .sign-up-modal__bottom-text-container {
@@ -103,7 +107,7 @@
 .sign-up-modal__bottom-text {
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   line-height: 24px;
   text-transform: uppercase;
   color: #0079d3;
