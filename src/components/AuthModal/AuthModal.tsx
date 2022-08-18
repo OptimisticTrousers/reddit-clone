@@ -101,14 +101,16 @@ const AuthModal: React.FC = () => {
                 </a>
                 .
               </p>
-              <input
-                type="email"
-                styleName="sign-up-modal__input"
-                placeholder="EMAIL"
-                value={email}
-                onChange={handleEmail}
-                required
-              />
+              {signUpModalState && (
+                <input
+                  type="email"
+                  styleName="sign-up-modal__input"
+                  placeholder="EMAIL"
+                  value={email}
+                  onChange={handleEmail}
+                  required
+                />
+              )}
               <input
                 styleName="sign-up-modal__input"
                 placeholder="USERNAME"
@@ -124,20 +126,27 @@ const AuthModal: React.FC = () => {
                 onChange={handlePassword}
                 required
               />
-              <input
-                styleName="sign-up-modal__input"
-                type="password"
-                placeholder="CONFIRM PASSWORD"
-                required
-                onChange={handleConfirmPassword}
-                value={confirmPassword}
-              />
+              {signUpModalState && (
+                <input
+                  styleName="sign-up-modal__input"
+                  type="password"
+                  placeholder="CONFIRM PASSWORD"
+                  required
+                  onChange={handleConfirmPassword}
+                  value={confirmPassword}
+                />
+              )}
               <button styleName="sign-up-modal__button" type="submit">
                 Continue
               </button>
+              {signInModalState && <p>Forget your username or password?</p>}
               <div styleName="sign-up-modal__bottom-text-container">
-                Already a redditor?
-                <a styleName="sign-up-modal__bottom-text">LOG IN</a>
+                {(signInModalState && "New to Reddit?") ||
+                  (signUpModalState && " Already a redditor?")}
+                <a styleName="sign-up-modal__bottom-text">
+                  {(signInModalState && "SIGN UP") ||
+                    (signUpModalState && "LOG IN")}
+                </a>
               </div>
             </form>
           </div>
