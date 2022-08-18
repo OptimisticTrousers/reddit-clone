@@ -76,10 +76,16 @@ const AuthModal: React.FC = () => {
           <div styleName="sign-up-modal__image"></div>
           <div styleName="sign-up-modal__content">
             <form styleName="sign-up-modal__form" onSubmit={formSubmit}>
-              <h1 styleName="sign-up-modal__title">Sign up</h1>
+              <h1 styleName="sign-up-modal__title">
+                {(signInModalState && "Log In") ||
+                  (signUpModalState && "Sign Up")}
+              </h1>
               <p styleName="sign-up-modal__description">
-                By continuing, you are setting up a Reddit account and agree to
-                our{" "}
+                By continuing,{" "}
+                {(signInModalState && "you") ||
+                  (signUpModalState &&
+                    "you are setting up a Reddit account and")}{" "}
+                agree to our{" "}
                 <a
                   styleName="sign-up-modal__link"
                   href="https://www.redditinc.com/policies/user-agreement"
