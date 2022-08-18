@@ -12,36 +12,37 @@ import {
   getDocs,
   onSnapshot,
   query,
+  QueryDocumentSnapshot,
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAppDispatch } from "../../hooks/hooks";
-import { setSubredditData} from "../../features/subreddit/subredditSlice";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
-  const dispatch =  useAppDispatch();
+  const dispatch = useAppDispatch();
+  console.log(subredditName);
+
+
+  const [posts, setPosts] = useState<any>(undefined);
 
   useEffect(() => {
-    const subredditsRef = collection(db, "subreddits");
+    const subredditsRef = collection(db, "posts");
 
-    const q = query(subredditsRef, where("name", "==", subredditName));
+    const q = query(
+      subredditsRef,
+      where("subreddit_id", "==", "krnv57fgYupN9Kdvxit3")
+    );
 
-    onSnapshot(q, (snapshot) => {
-      if (snapshot.docs[0]?.data()) {
-        console.log(snapshot.docs[0]?.data())
-        dispatch(setSubredditData(snapshot.docs[0]?.data()));
-      } else {
-        alert("SUBREDDIT NOT FOUND");
-      }
-    });
-  }, [subredditName, dispatch]);
+    getDocs(q).then((subredditPosts) => setPosts(subredditPosts.docs));
 
+
+  }, []);
   return (
     <div styleName="subreddit">
       <Header />
       <main styleName="main">
-        <Posts />
+        <Posts posts={posts}/>
         <aside styleName="aside">
           <About />
         </aside>

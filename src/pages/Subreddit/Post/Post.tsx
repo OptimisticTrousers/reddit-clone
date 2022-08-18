@@ -9,17 +9,8 @@ import { DocumentData } from "firebase/firestore";
 import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
 
-const Post: React.FC<DocumentData> = (props) => {
-  let renderHover;
+const Post: React.FC<DocumentData> = ({renderHover, data: {description, title, voteStatus}}) => {
 
-  if (props?.renderHover) {
-    renderHover = true;
-  } else {
-    renderHover = false;
-  }
-  let voteStatus = 1;
-  let title = "bob";
-  let description = "bob";
   return (
     <div styleName={renderHover ? "post-excerpt-hover" : "post-excerpt"}>
       <Votes voteStatus={voteStatus} />

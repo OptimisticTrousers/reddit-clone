@@ -17,18 +17,15 @@ import { DocumentSnapshot, DocumentData } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
-import { selectSubredditData } from "../../../features/subreddit/subredditSlice";
 
-const Posts: React.FC = () => {
-  const [posts, setPosts] = useState<any>(null);
+interface Props {
+  posts?:any 
+}
 
-  const subredditId = useAppSelector(
-    (state) => state.subreddit.subredditData.id
-  );
-
+const Posts: React.FC<Props>= ({posts}) => {
   return (
     <div styleName="container">
-      {posts?.map(({ doc }: any) => {
+      {posts?.map((doc: DocumentData) => {
         const data = doc.data();
         return (
           <Link key={doc.id} to={`/r/subreddit/${doc.id}`} state={{ ...data }}>

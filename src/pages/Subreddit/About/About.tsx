@@ -2,27 +2,18 @@ import CSSModules from "react-css-modules";
 import { IoIosArrowDown } from "react-icons/io";
 import Card from "../../../components/Card/Card";
 import CardHeader from "../../../components/CardHeader/CardHeader";
-import { selectSubredditData } from "../../../features/subreddit/subredditSlice";
 import { useAppSelector } from "../../../hooks/hooks";
 import styles from "./About.module.css";
 
 const About: React.FC = () => {
-  const {
-    created_at,
-    creator_id,
-    description,
-    id,
-    name,
-    number_of_members,
-    privacy_type,
-  } = useAppSelector(selectSubredditData);
+
   return (
     <Card>
       <CardHeader />
-      <p styleName="about__description">{description}</p>
+      <p styleName="about__description">description</p>
       <div styleName="about__members">
         <div styleName="about__block">
-          <div styleName="about__number">{number_of_members}</div>
+          <div styleName="about__number">stuff</div>
           <div styleName="about__member">Members</div>
         </div>
         <div styleName="about__block">
