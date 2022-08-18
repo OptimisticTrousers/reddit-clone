@@ -1,0 +1,94 @@
+.sign-up-modal {
+  color: white;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sign-up-modal__container {
+  background-color: var(--primary-color);
+  box-sizing: border-box;
+  border-radius: 4px;
+  overflow-y: auto;
+  border: 1px solid #343536;
+  box-shadow: 0 2px 20px 0 rgb(0, 0, 0 / 30%);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  width: 850px;
+  height: 650px;
+}
+
+.sign-up-modal__title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.sign-up-modal__description {
+  margin-bottom: 48px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  margin-top: 8px;
+  font-family: inherit;
+  color: var(--secondary-color);
+}
+
+.sign-up-modal__link {
+  color: #0079d3;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sign-up-modal__image {
+  width: 156px;
+  background-image: url("https://www.redditstatic.com/accountmanager/bbb584033aa89e39bad69436c504c9bd.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sign-up-modal__content {
+  padding: 24px;
+}
+
+.sign-up-modal__form {
+  width: 280px;
+}
+
+.sign-up-modal__input {
+  outline: 0;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+  padding: 22px 12px 18px;
+  height: 12px;
+  box-sizing: border-box;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background-color: #fcfcfb;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  font-family: inherit;
+  border: 2px solid #24a0ed;
+  margin-top: 24px;
+}
+
+.sign-up-modal__button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 18px;
+  text-transform: unset;
+  background: #0079d3;
+  border-radius: 999px;
+  color: #fff;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  width: 100%;
+  margin-top: 12px;
+}
