@@ -1,5 +1,6 @@
 import React from "react";
 import CSSModules from "react-css-modules";
+import { Link } from "react-router-dom";
 import styles from "./PostAuthor.module.css";
 
 interface Props {
@@ -10,7 +11,9 @@ interface Props {
 const PostAuthor: React.FC<Props> = ({ subredditName, userId }) => {
   return (
     <div styleName="post-excerpt__info">
-      <span styleName="post-excerpt__posted-by">r/{subredditName}</span>
+      <Link to={`/r/${subredditName}`}>
+        <span styleName="post-excerpt__subreddit">r/{subredditName}</span>
+      </Link>
       <span styleName="post-excerpt__posted-by">Posted by</span>
       <p styleName="post-excerpt__author">/u/{userId}</p>
       <span styleName="post-excerpt__date">4 months ago</span>

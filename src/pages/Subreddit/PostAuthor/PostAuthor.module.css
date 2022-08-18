@@ -4,18 +4,31 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
+  column-gap: 8px;
 }
 
 .post-excerpt__posted-by {
-    flex: 0 0 auto;
-    margin-right: 3px;
+  flex: 0 0 auto;
 }
 
 .post-excerpt__author {
-    margin-right: 3px;
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .post-excerpt__date {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.post-excerpt__subreddit {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--secondary-color);
+  display: inline;
+  line-height: 20px;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
+.post-excerpt__subreddit:hover {
+  text-decoration: underline;
 }
