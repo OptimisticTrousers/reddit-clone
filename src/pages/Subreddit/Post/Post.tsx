@@ -19,15 +19,12 @@ const Post: React.FC<Props> = (props) => {
     <div styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"} data-testid="post">
       <Votes voteStatus={props.data.voteStatus} />
       <div styleName="post-excerpt__content">
-        {/* <span>Image goes here</span> */}
         <PostAuthor />
         <div styleName="post-excerpt__container">
           <h3 styleName="post-excerpt__title">{props.data.title}</h3>
           <p styleName="post-excerpt__description">{props.data.description}</p>
         </div>
-        {/* {conditional rendering for sticky post} */}
         <div styleName="post__buttons">
-          {/* <span>Expand</span> */}
           <div styleName="post-excerpt__divider"></div>
           <PostInteractions />
         </div>
