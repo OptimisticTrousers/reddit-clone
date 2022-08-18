@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./AuthModal.module.css";
 import exitIcon from "../../assets/exit-icon.svg";
+import googleIcon from "../../assets/google-logo.svg";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -106,7 +107,17 @@ const AuthModal: React.FC = () => {
                 </a>
                 .
               </p>
-              <button styleName="sign-up-modal__oauth">Continue with Google</button>
+              <button styleName="sign-up-modal__oauth">
+                <img
+                  styleName="sign-up-modal__icon"
+                  src={googleIcon}
+                  alt="google icon"
+                />
+                <p styleName="sign-up-modal__oauth-text">
+                  {" "}
+                  Continue with Google
+                </p>
+              </button>
               {signUpModalState && (
                 <input
                   type="email"
@@ -149,7 +160,10 @@ const AuthModal: React.FC = () => {
               <div styleName="sign-up-modal__bottom-text-container">
                 {(signInModalState && "New to Reddit?") ||
                   (signUpModalState && " Already a redditor?")}
-                <a styleName="sign-up-modal__bottom-text" onClick={handleModalSwitch}>
+                <a
+                  styleName="sign-up-modal__bottom-text"
+                  onClick={handleModalSwitch}
+                >
                   {(signInModalState && "SIGN UP") ||
                     (signUpModalState && "LOG IN")}
                 </a>

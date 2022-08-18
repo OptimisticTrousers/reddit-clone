@@ -30,13 +30,36 @@
   height: 24px;
   object-fit: contain;
   filter: brightness(0) invert(1);
+  flex-grow: 0;
 }
 
 .sign-up-modal__oauth {
-  font-family: 'Google Sans';
+  font-family: "Google Sans";
   font-weight: 500;
   text-overflow: ellipsis;
   overflow: hidden;
+  padding: 2px 10px;
+  width: 200px;
+  max-width: 400px;
+  min-width: min-content;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 20px;
+  height: 40px;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  border: 1px solid #dadce0;
+  color: black;
+  width: 100%;
+}
+.sign-up-modal__oauth:hover {
+  color: #3c4043;
+
+}
+
+.sign-up-modal__oauth-text {
+  flex-grow: 1;
 }
 
 .sign-up-modal__exit {
@@ -46,6 +69,10 @@
   right: 16px;
   top: 16px;
   cursor: pointer;
+}
+.sign-up-modal__icon {
+  width: 18px;
+  height: 18px;
 }
 
 .sign-up-modal__title {
