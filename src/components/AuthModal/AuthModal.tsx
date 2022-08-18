@@ -44,6 +44,11 @@ const AuthModal: React.FC = () => {
     setConfirmPassword(event.target.value);
   }
 
+  function handleModalSwitch() {
+    dispatch(toggleSignUpModal());
+    dispatch(toggleSignInModal());
+  }
+
   async function formSubmit(event: FormEvent) {
     event.preventDefault();
     dispatch(toggleSignUpModal());
@@ -143,7 +148,7 @@ const AuthModal: React.FC = () => {
               <div styleName="sign-up-modal__bottom-text-container">
                 {(signInModalState && "New to Reddit?") ||
                   (signUpModalState && " Already a redditor?")}
-                <a styleName="sign-up-modal__bottom-text">
+                <a styleName="sign-up-modal__bottom-text" onClick={handleModalSwitch}>
                   {(signInModalState && "SIGN UP") ||
                     (signUpModalState && "LOG IN")}
                 </a>
