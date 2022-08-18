@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
   }
 
   function handleSignInClick() {
-    dispatch(toggleSignInModal())
+    dispatch(toggleSignInModal());
   }
 
   return (
@@ -83,23 +83,21 @@ const Navbar: React.FC = () => {
         </div>
         <div styleName="header__right">
           <div styleName="header__buttons">
-            {/* {isLoggedIn ? (
-              <h2>User is logged in</h2>
-            ) : ( */}
-            <button
-              onClick={handleSignInClick}
-              styleName="header__button header__button_type_log-in"
-            >
-              Log In
-            </button>
-            {/* )} */}
             {isLoggedIn === false && (
-              <button
-                onClick={handleSignUpClick}
-                styleName="header__button header__button_type_sign-up"
-              >
-                Sign Up
-              </button>
+              <>
+                <button
+                  onClick={handleSignInClick}
+                  styleName="header__button header__button_type_log-in"
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={handleSignUpClick}
+                  styleName="header__button header__button_type_sign-up"
+                >
+                  Sign Up
+                </button>
+              </>
             )}
             <div className="header__dropdown-menu">
               <div
