@@ -27,7 +27,6 @@ const Posts: React.FC<Props>= ({posts}) => {
     <div styleName="container">
       {posts?.map((doc: DocumentData) => {
         const data = doc.data();
-        console.log(data)
         return (
           <Link key={doc.id} to={`comments/${doc.id}`} state={{ ...data }}>
             <Post key={doc.id} data={data} renderHover={true} />

@@ -7,7 +7,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { db, getUserId } from "../../../firebase";
 import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
@@ -20,20 +20,23 @@ import { AiOutlinePicture } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";
 import { BiPoll } from "react-icons/bi";
 import { HiOutlineMicrophone } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
-type FormEvent = React.FormEvent<HTMLFormElement>
+type FormEvent = React.FormEvent<HTMLFormElement>;
 
 const AddPostForm: React.FC = () => {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  const { id } = useAppSelector(selectCommunityData);
+  const { id, name } = useAppSelector(selectCommunityData);
 
   const handleTitleChange = (event: InputEvent) => {
     setTitle(event.target.value);
@@ -44,20 +47,23 @@ const AddPostForm: React.FC = () => {
   };
 
   const submitPost = async (event: FormEvent) => {
-    event.preventDefault()
+    event.preventDefault();
     if (isLoggedIn) {
       const postsRef = collection(db, "posts");
 
-      await addDoc(postsRef, {
+      const postRef = await addDoc(postsRef, {
         created_at: serverTimestamp(),
         id: nanoid(),
         subreddit_id: id,
         voteStatus: 0,
-        post_id: "lSXBVO-I64XcdFEljHGii",
+        post_id: nanoid(),
         user_id: getUserId(),
         title,
         description,
       });
+      setTimeout(() => {
+        navigate(`/r/${name}/comments/${postRef.id}`);
+      }, 1000);
     } else {
       alert("Sign in please!");
     }
@@ -130,7 +136,7 @@ const AddPostForm: React.FC = () => {
         </div> */}
           <div styleName="post-creator__post-buttons">
             {/* <button>Save Draft</button> */}
-            <button type="submit" styleName="post-creator__post-button" >
+            <button type="submit" styleName="post-creator__post-button">
               Post
             </button>
           </div>
