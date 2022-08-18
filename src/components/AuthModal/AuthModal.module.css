@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Google Sans";
+  src: url(../../assets/ProductSans-Regular.ttf);
+}
 .sign-up-modal {
   color: white;
   display: grid;
@@ -26,6 +30,13 @@
   height: 24px;
   object-fit: contain;
   filter: brightness(0) invert(1);
+}
+
+.sign-up-modal__oauth {
+  font-family: 'Google Sans';
+  font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .sign-up-modal__exit {

@@ -106,6 +106,7 @@ const AuthModal: React.FC = () => {
                 </a>
                 .
               </p>
+              <button styleName="sign-up-modal__oauth">Continue with Google</button>
               {signUpModalState && (
                 <input
                   type="email"
@@ -144,7 +145,7 @@ const AuthModal: React.FC = () => {
               <button styleName="sign-up-modal__button" type="submit">
                 Continue
               </button>
-              {signInModalState && <p>Forget your username or password?</p>}
+              {/* {signInModalState && <p>Forget your username or password?</p>} */}
               <div styleName="sign-up-modal__bottom-text-container">
                 {(signInModalState && "New to Reddit?") ||
                   (signUpModalState && " Already a redditor?")}
