@@ -19,13 +19,26 @@ import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
-  posts?: DocumentData
+  posts?: DocumentData;
 }
 
-const Posts: React.FC<Props>= ({posts}) => {
+const Posts: React.FC<Props> = ({ posts }) => {
+  const [randomPosts, setRandomPosts] = useState<DocumentData | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (posts === undefined) {
+      const postsRef = collection(db, "posts");
+
+      getDocs(postsRef).then((posts) =>
+        setRandomPosts(posts.docs.sort((a, b) => Math.random() - 0.5))
+      );
+    }
+  }, [posts]);
   return (
     <div styleName="container">
-      {posts?.map((doc: DocumentData) => {
+      {(posts ?? randomPosts)?.map((doc: DocumentData) => {
         const data = doc.data();
         return (
           <Link key={doc.id} to={`comments/${doc.id}`} state={{ ...data }}>
