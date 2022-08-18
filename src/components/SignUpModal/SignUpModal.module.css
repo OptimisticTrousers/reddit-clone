@@ -92,3 +92,22 @@
   width: 100%;
   margin-top: 12px;
 }
+
+.sign-up-modal__bottom-text-container {
+  margin-top: 24px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.sign-up-modal__bottom-text {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #0079d3;
+  text-decoration: none;
+  padding-left: 8px;
+  cursor: pointer;
+}

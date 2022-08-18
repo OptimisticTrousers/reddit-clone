@@ -35,6 +35,10 @@ const SignUpModal: React.FC = () => {
               <button styleName="sign-up-modal__button" type="submit">
                 Continue
               </button>
+              <div styleName="sign-up-modal__bottom-text-container">
+                Already a redditor?
+                <a styleName="sign-up-modal__bottom-text">LOG IN</a>    
+              </div>
             </form>
           </div>
         </div>
