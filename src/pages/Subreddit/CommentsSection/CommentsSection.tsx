@@ -42,6 +42,7 @@ const CommentsSection: React.FC<Props> = ({ postId }) => {
         updated_at: serverTimestamp(),
         user_id: getUserId(),
       });
+      setCommentText("");
     } else {
       alert("LOG IN SUCKER!!");
     }
@@ -92,7 +93,7 @@ const CommentsSection: React.FC<Props> = ({ postId }) => {
         </a>
       </div>
 
-      <Comments />
+      <Comments postId={postId} />
     </div>
   );
 };
