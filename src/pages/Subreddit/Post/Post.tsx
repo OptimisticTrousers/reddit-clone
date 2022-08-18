@@ -11,11 +11,12 @@ import { render } from "@testing-library/react";
 
 interface Props {
   data: DocumentData;
+  renderHover: boolean;
 }
 
-const Post: React.FC<any> = (props) => {
+const Post: React.FC<Props> = (props) => {
   return (
-    <div styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}>
+    <div styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"} data-testid="post">
       <Votes voteStatus={props.data.voteStatus} />
       <div styleName="post-excerpt__content">
         {/* <span>Image goes here</span> */}

@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="post-excerpt"
+    data-testid="post"
+  >
+    <div
+      class="votes"
+    >
+      <div
+        class="votes__vote votes__vote_type_upvote"
+      >
+        <svg
+          class="votes__icon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"
+          />
+        </svg>
+      </div>
+      <p
+        class="votes__likes"
+      >
+        0
+      </p>
+      <div
+        class="votes__vote votes__vote_type_downvote"
+      >
+        <svg
+          class="votes__icon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20.901 10.566A1.001 1.001 0 0 0 20 10h-4V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H4a1.001 1.001 0 0 0-.781 1.625l8 10a1 1 0 0 0 1.562 0l8-10c.24-.301.286-.712.12-1.059zM12 19.399 6.081 12H10V4h4v8h3.919L12 19.399z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="post-excerpt__content"
+    >
+      <div
+        class="post-excerpt__info"
+      >
+        <span
+          class="post-excerpt__posted-by"
+        >
+          Posted by
+        </span>
+        <p
+          class="post-excerpt__author"
+        >
+          /u/TheWatchingBug
+        </p>
+        <span
+          class="post-excerpt__date"
+        >
+          4 months ago
+        </span>
+      </div>
+      <div
+        class="post-excerpt__container"
+      >
+        <h3
+          class="post-excerpt__title"
+        >
+          mock title
+        </h3>
+        <p
+          class="post-excerpt__description"
+        >
+          mock description
+        </p>
+      </div>
+      <div
+        class="post__buttons"
+      >
+        <div
+          class="post-excerpt__divider"
+        />
+        <div
+          class="post-excerpt__interactions"
+        >
+          <div
+            class="post-excerpt__interaction"
+          >
+            <svg
+              class="post-excerpt__icon"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3v3.767L13.277 18H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14h-7.277L9 18.233V16H4V4h16v12z"
+              />
+            </svg>
+            <span
+              class="post-excerpt__action"
+            >
+              0 Comments
+            </span>
+          </div>
+          <div
+            class="post-excerpt__interaction"
+          >
+            <svg
+              class="post-excerpt__icon"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 512 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M448 248L288 96v85.334C138.666 202.667 85.333 309.334 64 416c53.333-74.666 117.333-108.802 224-108.802v87.469L448 248z"
+              />
+            </svg>
+            <span
+              class="post-excerpt__action"
+            >
+              Share
+            </span>
+          </div>
+          <div
+            class="post-excerpt__interaction"
+          >
+            <svg
+              class="post-excerpt__icon"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 384 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M336 0H48C21.49 0 0 21.49 0 48v464l192-112 192 112V48c0-26.51-21.49-48-48-48zm0 428.43l-144-84-144 84V54a6 6 0 0 1 6-6h276c3.314 0 6 2.683 6 5.996V428.43z"
+              />
+            </svg>
+            <span
+              class="post-excerpt__action"
+            >
+              Save
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
