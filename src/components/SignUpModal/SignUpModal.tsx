@@ -1,16 +1,23 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
+import { toggleSignUpModal } from "../../features/auth/authSlice";
+import { auth } from "../../firebase";
+import { useAppDispatch } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./SignUpModal.module.css";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
+
+type FormEvent = React.FormEvent<HTMLFormElement>;
 
 const SignUpModal: React.FC = () => {
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useAppDispatch();
 
   function handleEmail(event: InputEvent) {
     setEmail(event.target.value);
@@ -28,13 +35,23 @@ const SignUpModal: React.FC = () => {
     setConfirmPassword(event.target.value);
   }
 
+  async function formSubmit(event: FormEvent) {
+    event.preventDefault();
+    dispatch(toggleSignUpModal());
+    if (password === confirmPassword) {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } else {
+      alert("Please check your password again!");
+    }
+  }
+
   return (
     <Modal>
       <div styleName="sign-up-modal">
         <div styleName="sign-up-modal__container">
           <div styleName="sign-up-modal__image"></div>
           <div styleName="sign-up-modal__content">
-            <form styleName="sign-up-modal__form">
+            <form styleName="sign-up-modal__form" onSubmit={formSubmit}>
               <h1 styleName="sign-up-modal__title">Sign up</h1>
               <p styleName="sign-up-modal__description">
                 By continuing, you are setting up a Reddit account and agree to
@@ -55,6 +72,7 @@ const SignUpModal: React.FC = () => {
                 .
               </p>
               <input
+                type="email"
                 styleName="sign-up-modal__input"
                 placeholder="EMAIL"
                 value={email}
@@ -70,6 +88,7 @@ const SignUpModal: React.FC = () => {
               />
               <input
                 styleName="sign-up-modal__input"
+                type="password"
                 placeholder="PASSWORD"
                 value={password}
                 onChange={handlePassword}
@@ -77,6 +96,7 @@ const SignUpModal: React.FC = () => {
               />
               <input
                 styleName="sign-up-modal__input"
+                type="password"
                 placeholder="CONFIRM PASSWORD"
                 required
                 onChange={handleConfirmPassword}
