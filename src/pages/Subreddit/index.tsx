@@ -17,12 +17,16 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useAppDispatch } from "../../hooks/hooks";
-import { setCommunityData } from "../../features/subreddit/subredditSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import {
+  selectCommunityData,
+  setCommunityData,
+} from "../../features/subreddit/subredditSlice";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
   const dispatch = useAppDispatch();
+  const { id } = useAppSelector(selectCommunityData);
 
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
 
@@ -43,15 +47,14 @@ const Subreddit: React.FC = () => {
   }, [subredditName, dispatch]);
 
   useEffect(() => {
-    const postsRef = collection(db, "posts");
+    if (id) {
+      const postsRef = collection(db, "posts");
 
-    const q = query(
-      postsRef,
-      where("subreddit_id", "==", "krnv57fgYupN9Kdvxit3")
-    );
+      const q = query(postsRef, where("subreddit_id", "==", id));
 
-    getDocs(q).then((subredditPosts) => setPosts(subredditPosts.docs));
-  }, []);
+      getDocs(q).then((subredditPosts) => setPosts(subredditPosts.docs));
+    }
+  }, [id]);
   return (
     <div styleName="subreddit">
       <Header />

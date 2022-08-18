@@ -31,7 +31,7 @@ const Posts: React.FC<Props>= ({posts}) => {
       {posts?.map((doc: DocumentData) => {
         const data = doc.data();
         return (
-          <Link key={doc.id} to={`/r/subreddit/${doc.id}`} state={{ ...data }}>
+          <Link key={doc.id} to={`comments/${doc.id}`} state={{ ...data }}>
             <Post key={doc.id} data={data} renderHover={true} />
           </Link>
         );

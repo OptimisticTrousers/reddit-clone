@@ -1,5 +1,6 @@
 import CSSModules from "react-css-modules";
 import { IoIosArrowDown } from "react-icons/io";
+import { Link } from "react-router-dom";
 import Card from "../../../components/Card/Card";
 import CardHeader from "../../../components/CardHeader/CardHeader";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
@@ -31,9 +32,11 @@ const About: React.FC = () => {
           {new Date(created_at * 100).toDateString()}
         </p>
       </div>
-      <button styleName="about__button about__button_type_create">
-        Create Post
-      </button>
+      <Link to="submit">
+        <button styleName="about__button about__button_type_create">
+          Create Post
+        </button>
+      </Link>
       <hr styleName="about__thematic-break"></hr>
       <button styleName="about__button about__button_type_options">
         Community Options
