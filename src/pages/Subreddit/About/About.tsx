@@ -8,7 +8,7 @@ import { useAppSelector } from "../../../hooks/hooks";
 import styles from "./About.module.css";
 
 const About: React.FC = () => {
-  const { description, number_of_members, created_at } =
+  const { description, number_of_members, created_at, name } =
     useAppSelector(selectCommunityData);
 
   return (
@@ -32,7 +32,7 @@ const About: React.FC = () => {
           {new Date(created_at * 100).toDateString()}
         </p>
       </div>
-      <Link to="submit">
+      <Link to={`/r/${name}/submit`}>
         <button styleName="about__button about__button_type_create">
           Create Post
         </button>
