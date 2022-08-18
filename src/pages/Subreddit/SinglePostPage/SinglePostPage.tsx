@@ -24,17 +24,14 @@ type LocationState = {
 const SinglePostPage = () => {
   const location = useLocation();
 
-  const { title, description, voteStatus } = location.state as LocationState;
-
   return (
     <section styleName="post-page">
       <div styleName="post-page__container">
         <div styleName="post-page__post">
           <Post
-          styleName="post-page__post-component"
-            title={title}
-            description={description}
-            voteStatus={voteStatus}
+            styleName="post-page__post-component"
+            data={location.state}
+            renderHover={false}
           />
         </div>
         {/* <Votes voteStatus={voteStatus} />

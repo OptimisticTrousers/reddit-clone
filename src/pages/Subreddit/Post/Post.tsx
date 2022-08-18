@@ -9,17 +9,20 @@ import { DocumentData } from "firebase/firestore";
 import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
 
-const Post: React.FC<DocumentData> = ({renderHover, data: {description, title, voteStatus}}) => {
+interface Props {
+  data: DocumentData;
+}
 
+const Post: React.FC<any> = (props) => {
   return (
-    <div styleName={renderHover ? "post-excerpt-hover" : "post-excerpt"}>
-      <Votes voteStatus={voteStatus} />
+    <div styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}>
+      <Votes voteStatus={props.data.voteStatus} />
       <div styleName="post-excerpt__content">
         {/* <span>Image goes here</span> */}
         <PostAuthor />
         <div styleName="post-excerpt__container">
-          <h3 styleName="post-excerpt__title">{title}</h3>
-          <p styleName="post-excerpt__description">{description}</p>
+          <h3 styleName="post-excerpt__title">{props.data.title}</h3>
+          <p styleName="post-excerpt__description">{props.data.description}</p>
         </div>
         {/* {conditional rendering for sticky post} */}
         <div styleName="post__buttons">
