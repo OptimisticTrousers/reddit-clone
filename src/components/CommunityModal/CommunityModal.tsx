@@ -11,13 +11,15 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
 import {
   addDoc,
+  arrayUnion,
   collection,
   doc,
   getDoc,
   serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
-import { db, getUserName, isUserSignedIn } from "../../firebase";
+import { db, getUserId, getUserName, isUserSignedIn } from "../../firebase";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +57,13 @@ const CommunityModal: React.FC = () => {
         number_of_members: 1,
         privacy_type: communityType,
       });
+
+      const userRef = doc(db, "users", `${getUserId()}`);
+
+      await updateDoc(userRef, {
+        communities: arrayUnion({ subredditName }),
+      });
+      
       setTimeout(() => {
         navigate(`/r/${subredditName}`);
         dispatch(toggleCommunityModalState());

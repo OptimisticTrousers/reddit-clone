@@ -4,10 +4,22 @@ import classNames from "classnames";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db, getUserId } from "../../../firebase";
 
-const Header: React.FC = () => {
+interface Props {
+  subredditName: string | undefined;
+}
 
-  const {name} = useAppSelector(selectCommunityData)
+const Header: React.FC<Props> = ({ subredditName }) => {
+  const { name } = useAppSelector(selectCommunityData);
+
+  async function joinCommunity() {
+    const userRef = doc(db, "users", `${getUserId()}`);
+    await updateDoc(userRef, {
+      communities: arrayUnion({ subredditName }),
+    });
+  }
 
   return (
     <div styleName="header">
@@ -26,7 +38,7 @@ const Header: React.FC = () => {
             </div>
             <div styleName="header__buttons">
               {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}
-              <button styleName="header__button">Join</button>
+              <button styleName="header__button" onClick={joinCommunity}>Join</button>
             </div>
           </div>
         </div>

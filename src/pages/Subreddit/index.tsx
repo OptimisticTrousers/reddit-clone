@@ -57,7 +57,7 @@ const Subreddit: React.FC = () => {
   }, [id]);
   return (
     <div styleName="subreddit">
-      <Header />
+      <Header subredditName={subredditName}/>
       <main styleName="main">
         <Posts posts={posts} />
         <aside styleName="aside">

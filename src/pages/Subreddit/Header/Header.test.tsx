@@ -7,7 +7,7 @@ import Header from "./Header";
 
 describe("Header", () => {
   test("snapshot", () => {
-    const { asFragment } = render(<Header />);
+    const { asFragment } = render(<Header subredditName="bob jones"/>);
 
     expect(asFragment()).toMatchSnapshot();
   });
