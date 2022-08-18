@@ -4,11 +4,12 @@ import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";
 import Votes from "../Votes/Votes";
 import styles from "./SinglePost.module.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Location } from "react-router-dom";
 import CommentsSection from "../CommentsSection/CommentsSection";
 import CSSModules from "react-css-modules";
 import Post from "../Post/Post";
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 type LocationState = {
   title: string;
@@ -23,6 +24,7 @@ type LocationState = {
 
 const SinglePostPage = () => {
   const location = useLocation();
+  const { postId } = useParams();
 
   const data = location.state as LocationState;
 
@@ -42,7 +44,7 @@ const SinglePostPage = () => {
         </div>
       </article> */}
         <div styleName="post-page__comments">
-          <CommentsSection />
+          <CommentsSection postId={postId}/>
         </div>
       </div>
       <aside styleName="aside">

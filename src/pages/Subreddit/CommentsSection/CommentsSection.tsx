@@ -10,10 +10,14 @@ import CSSModules from "react-css-modules";
 import upsideDownTriangle from "../../../assets/upside-down-triangle.svg";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 
-const CommentsSection = () => {
+interface Props {
+  postId: string;
+}
+
+const CommentsSection: React.FC<Props> = ({ postId }) => {
   const [commentText, setCommentText] = useState("");
 
-  const {id}= useAppSelector(selectCommunityData);
+  const { id } = useAppSelector(selectCommunityData);
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
@@ -34,6 +38,7 @@ const CommentsSection = () => {
         created_at: serverTimestamp(),
         id: nanoid(),
         subreddit_id: id,
+        post_id: postId,
         updated_at: serverTimestamp(),
         user_id: getUserId(),
       });
@@ -60,7 +65,9 @@ const CommentsSection = () => {
           value={commentText}
         ></textarea>
         <div styleName="comments-section__comments-form-button-container">
-          <button styleName="comments-section__comments-form-button">Comment</button>
+          <button styleName="comments-section__comments-form-button">
+            Comment
+          </button>
         </div>
         {/* </form> */}
       </div>
