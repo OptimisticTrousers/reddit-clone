@@ -11,7 +11,7 @@ import upsideDownTriangle from "../../../assets/upside-down-triangle.svg";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 
 interface Props {
-  postId: string;
+  postId: string | undefined;
 }
 
 const CommentsSection: React.FC<Props> = ({ postId }) => {
@@ -56,29 +56,35 @@ const CommentsSection: React.FC<Props> = ({ postId }) => {
           </span>
         </span>
       </div>
-      <div styleName="comments-section__comments-form">
-        {/* <form onSubmit={formSubmit}> */}
-        <textarea
-          styleName="comments-section__comments-form-textarea"
-          placeholder="What are your thoughts"
-          onChange={handleCommentChange}
-          value={commentText}
-        ></textarea>
-        <div styleName="comments-section__comments-form-button-container">
-          <button styleName="comments-section__comments-form-button">
-            Comment
-          </button>
+      <form onSubmit={formSubmit}>
+        <div styleName="comments-section__comments-form">
+          {/* <form onSubmit={formSubmit}> */}
+          <textarea
+            styleName="comments-section__comments-form-textarea"
+            placeholder="What are your thoughts"
+            onChange={handleCommentChange}
+            value={commentText}
+            required
+          ></textarea>
+          <div styleName="comments-section__comments-form-button-container">
+            <button
+              type="submit"
+              styleName="comments-section__comments-form-button"
+            >
+              Comment
+            </button>
+          </div>
+          {/* </form> */}
         </div>
-        {/* </form> */}
-      </div>
-      <div styleName="comments-section__filter">
-        <button styleName="comments-section__button">Sort By: Best</button>
-        <img
-          styleName="comments-section__icon"
-          src={upsideDownTriangle}
-          alt="tiny upside down triangle"
-        />
-      </div>
+        <div styleName="comments-section__filter">
+          <button styleName="comments-section__button">Sort By: Best</button>
+          <img
+            styleName="comments-section__icon"
+            src={upsideDownTriangle}
+            alt="tiny upside down triangle"
+          />
+        </div>
+      </form>
       <hr />
       <div styleName="comments-section__discussion">
         <a styleName="comments-section__hyperlink">

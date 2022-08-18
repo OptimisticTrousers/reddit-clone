@@ -27,7 +27,7 @@
 }
 .comments-section__comments-form-button {
   background-color: #dfe1e3;
-  color: rgba(26, 26, 27, 0.5);
+  color: black;
   padding-left: 20px;
   padding-right: 20px;
   height: 24px;
@@ -37,7 +37,8 @@
   border-radius: 9999px;
 }
 .comments-section__comments-form-button:hover {
-  cursor: not-allowed;
+  color: rgba(26, 26, 27, 0.5);
+  cursor: pointer;
 }
 .comments-section__comments-form-textarea {
   width: 100%;
