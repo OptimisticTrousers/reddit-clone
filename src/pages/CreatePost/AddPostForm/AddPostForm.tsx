@@ -13,7 +13,7 @@ import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
-import { selectCommunityData} from "../../../features/subreddit/subredditSlice";
+import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 import CSSModules from "react-css-modules";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { AiOutlinePicture } from "react-icons/ai";
@@ -25,13 +25,15 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
+type FormEvent = React.FormEvent<HTMLFormElement>
+
 const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  const {id}= useAppSelector(selectCommunityData);
+  const { id } = useAppSelector(selectCommunityData);
 
   const handleTitleChange = (event: InputEvent) => {
     setTitle(event.target.value);
@@ -41,7 +43,8 @@ const AddPostForm: React.FC = () => {
     setDescription(event.target.value);
   };
 
-  const submitPost = async () => {
+  const submitPost = async (event: FormEvent) => {
+    event.preventDefault()
     if (isLoggedIn) {
       const postsRef = collection(db, "posts");
 
@@ -98,38 +101,40 @@ const AddPostForm: React.FC = () => {
             Talk
           </button>
         </div>
-        <div styleName="post-creator__inputs">
-          <div styleName="post-creator__input-container">
-            <input
-              styleName="post-creator__input post-creator__input_type_input"
-              placeholder="Title"
-              onChange={handleTitleChange}
-              value={description}
-              required
-            />
+        <form onSubmit={submitPost}>
+          <div styleName="post-creator__inputs">
+            <div styleName="post-creator__input-container">
+              <input
+                styleName="post-creator__input post-creator__input_type_input"
+                placeholder="Title"
+                onChange={handleTitleChange}
+                value={title}
+                required
+              />
+            </div>
+            <div styleName="post-creator__input-container">
+              <textarea
+                styleName="post-creator__input post-creator__input_type_textarea"
+                placeholder="Editor"
+                onChange={handleDescriptionChange}
+                value={description}
+                required
+              ></textarea>
+            </div>
           </div>
-          <div styleName="post-creator__input-container">
-            <textarea
-              styleName="post-creator__input post-creator__input_type_textarea"
-              placeholder="Editor"
-              onChange={handleDescriptionChange}
-              value={title}
-              required
-            ></textarea>
-          </div>
-        </div>
-        {/* <div styleName="post-creator__marks">
+          {/* <div styleName="post-creator__marks">
           <button>OC</button>
           <button>Spoiler</button>
           <button>NSFW</button>
           <button>Flair</button>
         </div> */}
-        <div styleName="post-creator__post-buttons">
-          {/* <button>Save Draft</button> */}
-          <button styleName="post-creator__post-button" onClick={submitPost}>
-            Post
-          </button>
-        </div>
+          <div styleName="post-creator__post-buttons">
+            {/* <button>Save Draft</button> */}
+            <button type="submit" styleName="post-creator__post-button" >
+              Post
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -81,6 +81,7 @@
   border-radius: 4px;
   overflow: hidden;
   padding: 8px 68px 8px 16px;
+  color: white;
 }
 
 .post-creator__input_type_input {
@@ -112,8 +113,13 @@
   min-height: 32px;
   min-width: 32px;
   padding: 4px 16px;
-  cursor: not-allowed;
-  color: rgba(26, 26, 27, 0.5);
+  /* cursor: not-allowed; */
+  /* color: rgba(26, 26, 27, 0.5); */
   border-radius: 9999px;
   border: none;
+}
+
+.post-creator__post-button:hover {
+  color: rgba(26, 26, 27, 0.5);
+  cursor: pointer;
 }
