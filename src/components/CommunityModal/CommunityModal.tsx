@@ -20,15 +20,17 @@ import {
 import { db, getUserName, isUserSignedIn } from "../../firebase";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-type FormEvent = React.FormEvent<HTMLFormElement>
+type FormEvent = React.FormEvent<HTMLFormElement>;
 
 const CommunityModal: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const [subredditName, setSubredditName] = useState("");
 
+  const navigate = useNavigate();
   const [communityType, setCommunityType] = useState("");
 
   function handleSubredditName(event: InputEvent) {
@@ -53,9 +55,12 @@ const CommunityModal: React.FC = () => {
         number_of_members: 1,
         privacy_type: communityType,
       });
-    }
-    else {
-      alert("SIGN IN DUDE!!!")
+      setTimeout(() => {
+        navigate(`/r/${subredditName}`);
+        dispatch(toggleCommunityModalState());
+      }, 1000);
+    } else {
+      alert("SIGN IN DUDE!!!");
     }
   }
 
