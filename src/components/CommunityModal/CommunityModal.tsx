@@ -22,6 +22,8 @@ import { nanoid } from "nanoid";
 import React, { useState } from "react";
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
+type FormEvent = React.FormEvent<HTMLFormElement>
+
 const CommunityModal: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -37,7 +39,7 @@ const CommunityModal: React.FC = () => {
     dispatch(toggleCommunityModalState());
   }
 
-  async function createSubreddit(event: any) {
+  async function createSubreddit(event: FormEvent) {
     event.preventDefault();
     const subredditsRef = collection(db, "subreddits");
 
@@ -57,7 +59,7 @@ const CommunityModal: React.FC = () => {
     }
   }
 
-  function handleRadio(event: any) {
+  function handleRadio(event: InputEvent) {
     setCommunityType(event.target.value);
   }
 

@@ -24,7 +24,7 @@ const Subreddit: React.FC = () => {
   console.log(subredditName);
 
 
-  const [posts, setPosts] = useState<any>(undefined);
+  const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
 
   useEffect(() => {
     const subredditsRef = collection(db, "posts");

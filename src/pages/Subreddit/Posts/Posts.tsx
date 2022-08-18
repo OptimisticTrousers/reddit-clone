@@ -19,7 +19,7 @@ import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
-  posts?:any 
+  posts?: DocumentData
 }
 
 const Posts: React.FC<Props>= ({posts}) => {
