@@ -6,7 +6,10 @@ import CSSModules from "react-css-modules";
 import styles from "./App.module.css";
 import { selectCommunityModalState } from "./features/subreddit/subredditSlice";
 import CommunityModal from "./components/CommunityModal/CommunityModal";
-import { selectSignUpModalState } from "./features/auth/authSlice";
+import {
+  selectSignInModalState,
+  selectSignUpModalState,
+} from "./features/auth/authSlice";
 import AuthModal from "./components/AuthModal/AuthModal";
 
 const App: React.FC = () => {
@@ -14,10 +17,13 @@ const App: React.FC = () => {
 
   const signUpModalState = useAppSelector(selectSignUpModalState);
 
+  const signInModalState = useAppSelector(selectSignInModalState);
+
   return (
     <>
       {communityModalState && <CommunityModal />}
-      {signUpModalState && <AuthModal/>}
+      {signUpModalState && <AuthModal />}
+      {signInModalState && <AuthModal />}
       <Navbar />
       <div styleName="container">
         <Outlet />
