@@ -7,7 +7,7 @@ import styles from "./App.module.css";
 import { selectCommunityModalState } from "./features/subreddit/subredditSlice";
 import CommunityModal from "./components/CommunityModal/CommunityModal";
 import { selectSignUpModalState } from "./features/auth/authSlice";
-import SignUpModal from "./components/SignUpModal/SignUpModal";
+import AuthModal from "./components/AuthModal/AuthModal";
 
 const App: React.FC = () => {
   const communityModalState = useAppSelector(selectCommunityModalState);
@@ -17,7 +17,7 @@ const App: React.FC = () => {
   return (
     <>
       {communityModalState && <CommunityModal />}
-      {signUpModalState && <SignUpModal />}
+      {signUpModalState && <AuthModal/>}
       <Navbar />
       <div styleName="container">
         <Outlet />

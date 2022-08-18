@@ -6,13 +6,13 @@ import { toggleSignUpModal } from "../../features/auth/authSlice";
 import { auth } from "../../firebase";
 import { useAppDispatch } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
-import styles from "./SignUpModal.module.css";
+import styles from "./AuthModal.module.css";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 type FormEvent = React.FormEvent<HTMLFormElement>;
 
-const SignUpModal: React.FC = () => {
+const AuthModal: React.FC = () => {
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -117,7 +117,7 @@ const SignUpModal: React.FC = () => {
   );
 };
 
-export default CSSModules(SignUpModal, styles, {
+export default CSSModules(AuthModal, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "log",
 });
