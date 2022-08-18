@@ -4,29 +4,35 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import Navbar from "./Navbar";
 import StoreProvider from "../../redux/provider";
+import { MemoryRouter } from "react-router-dom";
 
 describe("Navbar", () => {
   test("snapshot", () => {
     const { asFragment } = render(
-      <StoreProvider>
-        <Navbar />
-      </StoreProvider>
+      <MemoryRouter>
+        <StoreProvider>
+          <Navbar />
+        </StoreProvider>
+      </MemoryRouter>
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
-  test("clicking log in opens modal", async () => {
+  test("clicking Home tab opens commmunity tab", async () => {
     render(
-      <StoreProvider>
-        <Navbar />
-      </StoreProvider>
+      <MemoryRouter>
+        <StoreProvider>
+          <Navbar />
+        </StoreProvider>
+      </MemoryRouter>
     );
 
-    // // const user = userEvent.setup()
+    const user = userEvent.setup();
 
-    // // const modal = queryBy
+    const communityDropdown = screen.getByText("Home");
 
-    // await user.click()
+    await user.click(communityDropdown);
 
+    expect(screen.getByText("Create Community")).toBeInTheDocument();
   });
 });

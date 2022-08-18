@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar snapshot 1`] = `
+<DocumentFragment>
+  <header
+    class="header"
+  >
+    <div
+      class="header__content"
+    >
+      <div
+        class="header__left"
+      >
+        <a
+          class="header__links"
+          href="/"
+        >
+          <img
+            alt="reddit logo"
+            class="header__logo"
+            src="logo.svg"
+          />
+          <img
+            alt="the name reddit"
+            class="header__logo-name"
+            src="white-logo-name.svg"
+          />
+        </a>
+        <div
+          class="header__dropdown-container"
+        >
+          <div
+            class="header__dropdown"
+          >
+            <div
+              class="header__dropdown-left"
+            >
+              <svg
+                class="header__dropdown-icon"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 1024 1024"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3 0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8 24.9-25 24.9-65.5-.1-90.5z"
+                />
+              </svg>
+              <h1
+                class="header__dropdown-title"
+              >
+                Home
+              </h1>
+            </div>
+            <div
+              class="header__dropdown-right"
+            >
+              <svg
+                class="header__dropdown-icon"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M256 294.1L383 167c9.4-9.4 24.6-9.4 33.9 0s9.3 24.6 0 34L273 345c-9.1 9.1-23.7 9.3-33.1.7L95 201.1c-4.7-4.7-7-10.9-7-17s2.3-12.3 7-17c9.4-9.4 24.6-9.4 33.9 0l127.1 127z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="header__dropdown-menu"
+          />
+        </div>
+      </div>
+      <div
+        class="header__container"
+      >
+        <div
+          class="header__search-icon-container"
+        >
+          <svg
+            class="header__search-icon"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z"
+              />
+            </g>
+          </svg>
+        </div>
+        <input
+          class="header__search-input"
+          placeholder="Search Reddit"
+        />
+      </div>
+      <div
+        class="header__right"
+      >
+        <div
+          class="header__buttons"
+        >
+          <button
+            class="header__button header__button_type_log-in"
+          >
+            Log In
+          </button>
+          <button
+            class="header__button header__button_type_sign-up"
+          >
+            Sign Up
+          </button>
+          <div
+            class="header__dropdown-menu"
+          >
+            <div
+              class="header__dropdown-profile"
+            >
+              <div
+                class="profile"
+              >
+                <button
+                  class="profile__button"
+                >
+                  <svg
+                    class="profile__button-icon"
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+                    />
+                  </svg>
+                  <svg
+                    class="profile__button-icon"
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M256 294.1L383 167c9.4-9.4 24.6-9.4 33.9 0s9.3 24.6 0 34L273 345c-9.1 9.1-23.7 9.3-33.1.7L95 201.1c-4.7-4.7-7-10.9-7-17s2.3-12.3 7-17c9.4-9.4 24.6-9.4 33.9 0l127.1 127z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="header__dropdown-dropdown"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</DocumentFragment>
+`;
