@@ -8,6 +8,7 @@ import { getUser, signIn, signOutUser } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
   selectAuthStatus,
+  toggleSignInModal,
   toggleSignUpModal,
 } from "../../features/auth/authSlice";
 import { RiSearchLine } from "react-icons/ri";
@@ -39,6 +40,10 @@ const Navbar: React.FC = () => {
 
   function handleSignUpClick() {
     dispatch(toggleSignUpModal());
+  }
+
+  function handleSignInClick() {
+    dispatch(toggleSignInModal())
   }
 
   return (
@@ -82,9 +87,7 @@ const Navbar: React.FC = () => {
               <h2>User is logged in</h2>
             ) : ( */}
             <button
-              onClick={() => {
-                signIn();
-              }}
+              onClick={handleSignInClick}
               styleName="header__button header__button_type_log-in"
             >
               Log In

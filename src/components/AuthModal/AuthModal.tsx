@@ -2,9 +2,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
-import { toggleSignUpModal } from "../../features/auth/authSlice";
-import { auth } from "../../firebase";
-import { useAppDispatch } from "../../hooks/hooks";
+import {
+  selectSignInModalState,
+  selectSignUpModalState,
+  toggleSignInModal,
+  toggleSignUpModal,
+} from "../../features/auth/authSlice";
+import { auth, signIn } from "../../firebase";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./AuthModal.module.css";
 import exitIcon from "../../assets/exit-icon.svg";
@@ -19,6 +24,9 @@ const AuthModal: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const dispatch = useAppDispatch();
+
+  const signInModalState = useAppSelector(selectSignInModalState);
+  const signUpModalState = useAppSelector(selectSignUpModalState);
 
   function handleEmail(event: InputEvent) {
     setEmail(event.target.value);
@@ -45,12 +53,20 @@ const AuthModal: React.FC = () => {
       alert("Please check your password again!");
     }
   }
+  function handleModalExit() {
+    if (signInModalState === true) {
+      dispatch(toggleSignInModal());
+    }
+    if (signUpModalState === true) {
+      dispatch(toggleSignUpModal());
+    }
+  }
 
   return (
     <Modal>
       <div styleName="sign-up-modal">
         <div styleName="sign-up-modal__container">
-          <button styleName="sign-up-modal__exit">
+          <button styleName="sign-up-modal__exit" onClick={handleModalExit}>
             <img
               styleName="sign-up-modal__exit-icon"
               src={exitIcon}
