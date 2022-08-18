@@ -12,7 +12,7 @@ const initialState: AuthState = {
   communityData: {},
 };
 
-export const selectSubredditId = (state: RootState) =>
+export const selectCommunityData = (state: RootState) =>
   state.subreddit.communityData;
 
 export const selectCommunityModalState = (state: RootState) =>

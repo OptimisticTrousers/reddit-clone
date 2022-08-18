@@ -5,15 +5,15 @@ import React, { useState } from "react";
 import { db, getUserId } from "../../../firebase";
 import { useAppSelector } from "../../../hooks/hooks";
 import Comments from "../Comments/Comments";
-import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
 import CSSModules from "react-css-modules";
 import upsideDownTriangle from "../../../assets/upside-down-triangle.svg";
+import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 
 const CommentsSection = () => {
   const [commentText, setCommentText] = useState("");
 
-  const subredditId = useAppSelector(selectSubredditId);
+  const {id}= useAppSelector(selectCommunityData);
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
@@ -33,7 +33,7 @@ const CommentsSection = () => {
         content: commentText,
         created_at: serverTimestamp(),
         id: nanoid(),
-        subreddit_id: subredditId,
+        subreddit_id: id,
         updated_at: serverTimestamp(),
         user_id: getUserId(),
       });

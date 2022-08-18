@@ -13,7 +13,7 @@ import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
-import { selectSubredditId } from "../../../features/subreddit/subredditSlice";
+import { selectCommunityData} from "../../../features/subreddit/subredditSlice";
 import CSSModules from "react-css-modules";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { AiOutlinePicture } from "react-icons/ai";
@@ -31,7 +31,7 @@ const AddPostForm: React.FC = () => {
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
-  const subredditId = useAppSelector(selectSubredditId);
+  const {id}= useAppSelector(selectCommunityData);
 
   const handleTitleChange = (event: InputEvent) => {
     setTitle(event.target.value);
@@ -48,7 +48,7 @@ const AddPostForm: React.FC = () => {
       await addDoc(postsRef, {
         created_at: serverTimestamp(),
         id: nanoid(),
-        subreddit_id: subredditId,
+        subreddit_id: id,
         voteStatus: 0,
         post_id: "lSXBVO-I64XcdFEljHGii",
         user_id: getUserId(),
