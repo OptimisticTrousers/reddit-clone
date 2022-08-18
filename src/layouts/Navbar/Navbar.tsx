@@ -6,7 +6,10 @@ import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { getUser, signIn, signOutUser } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { selectAuthStatus } from "../../features/auth/authSlice";
+import {
+  selectAuthStatus,
+  toggleSignUpModal,
+} from "../../features/auth/authSlice";
 import { RiSearchLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
@@ -18,6 +21,7 @@ import CommunityDropdown from "../CommunityDropdown/CommunityDropdown";
 import ProfileDropdown from "../ProfileDropdown/ProfileDropdown";
 
 const Navbar: React.FC = () => {
+  const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const [isSubscriptionsDropdownOpen, setIsSubscriptionsDropdownOpen] =
@@ -31,6 +35,10 @@ const Navbar: React.FC = () => {
 
   function handleHomeDropdown() {
     setIsSubscriptionsDropdownOpen((prevValue) => !prevValue);
+  }
+
+  function handleSignUpClick() {
+    dispatch(toggleSignUpModal());
   }
 
   return (
@@ -84,9 +92,7 @@ const Navbar: React.FC = () => {
             {/* )} */}
             {isLoggedIn === false && (
               <button
-                onClick={() => {
-                  signOutUser();
-                }}
+                onClick={handleSignUpClick}
                 styleName="header__button header__button_type_sign-up"
               >
                 Sign Up
