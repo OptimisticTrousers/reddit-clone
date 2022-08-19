@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { isUserSignedIn } from "../../firebase";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../redux/store";
 
 interface AuthState {
