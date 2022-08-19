@@ -4,7 +4,7 @@ import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
-import { getUser, signIn, signOutUser } from "../../firebase";
+import { getUser, isUserSignedIn, signIn, signOutUser } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
   selectAuthStatus,
@@ -58,22 +58,24 @@ const Navbar: React.FC = () => {
               alt="the name reddit"
             />
           </Link>
-          <div styleName="header__dropdown-container">
-            <div styleName="header__dropdown" onClick={handleHomeDropdown}>
-              <div styleName="header__dropdown-left">
-                <AiFillHome styleName="header__dropdown-icon" />
-                <h1 styleName="header__dropdown-title">Home</h1>
+          {isUserSignedIn() && (
+            <div styleName="header__dropdown-container">
+              <div styleName="header__dropdown" onClick={handleHomeDropdown}>
+                <div styleName="header__dropdown-left">
+                  <AiFillHome styleName="header__dropdown-icon" />
+                  <h1 styleName="header__dropdown-title">Home</h1>
+                </div>
+                <div styleName="header__dropdown-right">
+                  <IoIosArrowDown styleName="header__dropdown-icon" />
+                </div>
               </div>
-              <div styleName="header__dropdown-right">
-                <IoIosArrowDown styleName="header__dropdown-icon" />
+              <div className="header__dropdown-menu">
+                {isSubscriptionsDropdownOpen && (
+                  <CommunityDropdown dropdown={"community"} />
+                )}
               </div>
             </div>
-            <div className="header__dropdown-menu">
-              {isSubscriptionsDropdownOpen && (
-                <CommunityDropdown dropdown={"community"} />
-              )}
-            </div>
-          </div>
+          )}
         </div>
         <div styleName="header__container">
           <div styleName="header__search-icon-container">
@@ -106,9 +108,7 @@ const Navbar: React.FC = () => {
               >
                 <Profile isLoggedIn={isLoggedIn} />
               </div>
-              <div
-                styleName="header__dropdown-dropdown"
-              >
+              <div styleName="header__dropdown-dropdown">
                 {isProfileDropdownOpen && isLoggedIn && (
                   <ProfileDropdown dropdown={"dropdown"} />
                 )}

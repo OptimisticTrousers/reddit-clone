@@ -13,6 +13,10 @@ interface Props {
   dropdown: string;
 }
 
+interface Community {
+  subredditName: string;
+}
+
 const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
   const dispatch = useAppDispatch();
 
@@ -41,8 +45,8 @@ const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
         </button>
       </div>
       <div>
-        {userCommunities?.map((userCommunity: any) => (
-          <p>{userCommunity}</p>
+        {userCommunities?.map((userCommunity: Community) => (
+          <p>{userCommunity.subredditName}</p>
         ))}
       </div>
     </Dropdown>
