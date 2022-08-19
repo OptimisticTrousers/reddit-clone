@@ -5,17 +5,17 @@ import styles from "./PostAuthor.module.css";
 
 interface Props {
   subredditName: string;
-  userId: string;
+  userName: string;
 }
 
-const PostAuthor: React.FC<Props> = ({ subredditName, userId }) => {
+const PostAuthor: React.FC<Props> = ({ subredditName, userName }) => {
   return (
     <div styleName="post-excerpt__info">
       <Link to={`/r/${subredditName}`}>
         <span styleName="post-excerpt__subreddit">r/{subredditName}</span>
       </Link>
       <span styleName="post-excerpt__posted-by">Posted by</span>
-      <p styleName="post-excerpt__author">/u/{userId}</p>
+      <p styleName="post-excerpt__author">/u/{userName}</p>
       <span styleName="post-excerpt__date">4 months ago</span>
     </div>
   );

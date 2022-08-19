@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import { db, getUserId } from "../../../firebase";
+import { db, getUserId, getUserName } from "../../../firebase";
 import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
@@ -59,6 +59,7 @@ const AddPostForm: React.FC = () => {
         voteStatus: 0,
         post_id: nanoid(),
         user_id: getUserId(),
+        user_name: getUserName(),
         title,
         description,
         commentsQuantity: 0,
