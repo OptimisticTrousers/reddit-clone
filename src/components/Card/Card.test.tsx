@@ -1,7 +1,5 @@
-import { queryByPlaceholderText, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import userEvent from "@testing-library/user-event";
-import each from "jest-each";
 import Card from "./Card";
 
 describe("Card", () => {
@@ -16,6 +14,14 @@ describe("Card", () => {
   });
 
   test("renders children", () => {
+    render(
+      <Card>
+        <div>Mock Children</div>
+      </Card>
+    );
 
-  })
+    const card = screen.getByText("Mock Children");
+
+    expect(card.textContent).toBe("Mock Children");
+  });
 });
