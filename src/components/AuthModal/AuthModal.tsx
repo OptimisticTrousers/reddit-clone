@@ -1,4 +1,10 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  updateCurrentUser,
+  updateProfile,
+} from "firebase/auth";
 import React, { useState } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
@@ -8,12 +14,13 @@ import {
   toggleSignInModal,
   toggleSignUpModal,
 } from "../../features/auth/authSlice";
-import { auth, signIn } from "../../firebase";
+import { auth, getUser, isUserSignedIn, signIn } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./AuthModal.module.css";
 import exitIcon from "../../assets/exit-icon.svg";
 import googleIcon from "../../assets/google-logo.svg";
+import { serverTimestamp } from "firebase/firestore";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -52,13 +59,25 @@ const AuthModal: React.FC = () => {
 
   async function formSubmit(event: FormEvent) {
     event.preventDefault();
-    dispatch(toggleSignUpModal());
-    if (password === confirmPassword) {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } else {
-      alert("Please check your password again!");
+
+    if (signUpModalState) {
+      if (password === confirmPassword) {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        updateProfile(userCredential.user, {
+          displayName: username,
+        });
+      } else {
+        alert("Please check your password again!");
+      }
+    } else if (signInModalState) {
+      await signInWithEmailAndPassword(auth, email, password);
     }
   }
+
   function handleModalExit() {
     if (signInModalState === true) {
       dispatch(toggleSignInModal());
@@ -66,6 +85,10 @@ const AuthModal: React.FC = () => {
     if (signUpModalState === true) {
       dispatch(toggleSignUpModal());
     }
+  }
+
+  function onOAuthClick() {
+    signIn();
   }
 
   return (
@@ -107,7 +130,7 @@ const AuthModal: React.FC = () => {
                 </a>
                 .
               </p>
-              <button styleName="sign-up-modal__oauth">
+              <button styleName="sign-up-modal__oauth" onClick={onOAuthClick}>
                 <img
                   styleName="sign-up-modal__icon"
                   src={googleIcon}
