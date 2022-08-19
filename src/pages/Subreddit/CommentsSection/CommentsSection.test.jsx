@@ -41,10 +41,10 @@ describe("CommentsSection", () => {
   //     updateDoc: mockUpdateDoc,
   //   }));
 
-  //   const mockUseAppSelector = jest.fn().mockReturnValue(true);
+  //   const mockUseAppSelector = jest.fn().mockReturnValue(true)
   //   jest.mock("../../../hooks/hooks", () => ({
-  //     useAppSelector: mockUseAppSelector,
-  //   }));
+  //     useAppSelector: mockUseAppSelector
+  //   }))
 
   //   const user = userEvent.setup();
 

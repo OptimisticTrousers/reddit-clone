@@ -44,4 +44,11 @@ describe("Post", () => {
     const post = screen.queryByTestId("post");
     expect(post?.classList.contains("post-excerpt-hover")).toBe(true);
   });
+  // test("Redirecting user to the post page when clicked", 9) => {
+  //   return (
+  //     <MemoryRouter>
+
+  //     </MemoryRouter>
+  //   )
+  // }
 });
