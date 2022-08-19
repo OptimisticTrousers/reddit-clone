@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersonalHomeCard snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <div
+      class="personal-home-card"
+    >
+      <div
+        class="personal-home-card__banner"
+      />
+      <div
+        class="personal-home-card__title"
+      >
+        <img
+          alt="redditor"
+          class="personal-home-card__image"
+          src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png"
+        />
+        <span
+          class="personal-home-card__text"
+        >
+          Home
+        </span>
+      </div>
+      <p
+        class="personal-home-card__description"
+      >
+        Your personal Reddit frontpage. Come here to check in with your favorite communities.
+      </p>
+      <div
+        class="personal-home-card__buttons"
+      >
+        <button
+          class="personal-home-card__button personal-home-card__button_type_create-post"
+        >
+          Create Post
+        </button>
+        <button
+          class="personal-home-card__button personal-home-card__button_type_create-community"
+        >
+          Create Community
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

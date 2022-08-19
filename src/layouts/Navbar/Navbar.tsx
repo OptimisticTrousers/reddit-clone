@@ -108,7 +108,6 @@ const Navbar: React.FC = () => {
               </div>
               <div
                 styleName="header__dropdown-dropdown"
-                onClick={() => signOutUser()}
               >
                 {isProfileDropdownOpen && isLoggedIn && (
                   <ProfileDropdown dropdown={"dropdown"} />

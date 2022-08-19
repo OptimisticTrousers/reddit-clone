@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="header"
+  >
+    <div
+      class="header__background"
+    />
+    <div
+      class="header__container"
+    >
+      <div
+        class="header__content"
+      >
+        <img
+          alt="default subreddit logo"
+          class="header__subreddit-picture"
+          src="subreddit-logo.svg"
+        />
+        <div
+          class="header__title-container"
+        >
+          <div
+            class="header__title"
+          >
+            <h1
+              class="header__subreddit-name"
+            />
+            <h2
+              class="header__subreddit-link"
+            >
+              r/
+            </h2>
+          </div>
+          <div
+            class="header__buttons"
+          >
+            <button
+              class="header__button"
+            >
+              Join
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

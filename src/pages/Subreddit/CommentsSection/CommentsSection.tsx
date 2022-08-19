@@ -82,7 +82,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
           {/* <form onSubmit={formSubmit}> */}
           <textarea
             styleName="comments-section__comments-form-textarea"
-            placeholder="What are your thoughts"
+            placeholder="What are your thoughts?"
             onChange={handleCommentChange}
             value={commentText}
             required

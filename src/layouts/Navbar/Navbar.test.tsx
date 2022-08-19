@@ -13,6 +13,8 @@ import Navbar from "./Navbar";
 import StoreProvider from "../../redux/provider";
 import { MemoryRouter } from "react-router-dom";
 import * as authSlice from "../../features/auth/authSlice";
+import * as hooks from "../../hooks/hooks";
+
 describe("Navbar", () => {
   test("snapshot", () => {
     const { asFragment } = render(
@@ -60,22 +62,22 @@ describe("Navbar", () => {
 
     expect(authSlice.toggleSignInModal).toHaveBeenCalledTimes(1);
   });
-  test("clicking Sign Up opens Modal", async () => {
-    render(
-      <MemoryRouter>
-        <StoreProvider>
-          <Navbar />
-        </StoreProvider>
-      </MemoryRouter>
-    );
+  // test("clicking Sign Up opens Modal", async () => {
+  //   render(
+  //     <MemoryRouter>
+  //       <StoreProvider>
+  //         <Navbar />
+  //       </StoreProvider>
+  //     </MemoryRouter>
+  //   );
 
-    jest.spyOn(authSlice, "toggleSignUpModal");
-    const user = userEvent.setup();
+  //   jest.spyOn(authSlice, "toggleSignUpModal");
+  //   const user = userEvent.setup();
 
-    const logInButton = screen.queryByText("Sign Up");
+  //   const logInButton = screen.queryByText("Sign Up");
 
-    await user.click(logInButton!);
+  //   await user.click(logInButton!);
 
-    expect(authSlice.toggleSignUpModal).toHaveBeenCalledTimes(1);
-  });
+  //   expect(authSlice.toggleSignUpModal).toHaveBeenCalledTimes(1);
+  // });
 });
