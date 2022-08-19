@@ -80,7 +80,7 @@ describe("AuthModal", () => {
     const user = userEvent.setup();
     const emailInput = screen.queryByPlaceholderText(
       "EMAIL"
-    ) as HTMLElement as HTMLInputElement;
+    ) as HTMLElement ;
     const userNameInput = screen.queryByPlaceholderText(
       "USERNAME"
     ) as HTMLInputElement;

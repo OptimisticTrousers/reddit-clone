@@ -1,11 +1,18 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import {
+  getByText,
+  queryByPlaceholderText,
+  queryByRole,
+  queryByText,
+  render,
+  screen,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import Navbar from "./Navbar";
 import StoreProvider from "../../redux/provider";
 import { MemoryRouter } from "react-router-dom";
-
+import * as authSlice from "../../features/auth/authSlice";
 describe("Navbar", () => {
   test("snapshot", () => {
     const { asFragment } = render(
@@ -27,12 +34,30 @@ describe("Navbar", () => {
       </MemoryRouter>
     );
 
-    // const user = userEvent.setup();
+    const user = userEvent.setup();
 
-    // const communityDropdown = screen.getByText("Home");
+    const communityDropdown = screen.getByText("Home");
 
-    // await user.click(communityDropdown);
+    await user.click(communityDropdown);
 
-    // expect(screen.getByText("Create Community")).toBeInTheDocument();
+    expect(screen.getByText("Create Community")).toBeInTheDocument();
+  });
+  test("clicking Log in opens Log in Modal", async () => {
+    render(
+      <MemoryRouter>
+        <StoreProvider>
+          <Navbar />
+        </StoreProvider>
+      </MemoryRouter>
+    );
+
+    jest.spyOn(authSlice, "toggleSignInModal");
+    const user = userEvent.setup();
+
+    const logInButton = screen.queryByText("Log In");
+
+    await user.click(logInButton!);
+
+    expect(authSlice.toggleSignInModal).toHaveBeenCalledTimes(1);
   });
 });
