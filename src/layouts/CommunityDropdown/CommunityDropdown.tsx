@@ -13,19 +13,10 @@ interface Props {
   dropdown: string;
 }
 
-function reducer(state: DocumentData, action: DocumentData) {
-  switch (action.type) {
-    case "STORE_COMMUNITIES":
-      return action.payload.data().communities;
-    default:
-      return state;
-  }
-}
-
 const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
   const dispatch = useAppDispatch();
 
-  const [userCommunities, userCommunitiesDispatch] = useReducer(reducer, 0);
+  const [userCommunities, setUserCommunities] = useState<DocumentData>();
 
   useEffect(() => {
     async function fetchUserCommunities() {
@@ -33,7 +24,7 @@ const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
 
       const data = await getDoc(userCommunities);
 
-      userCommunitiesDispatch({ type: "STORE_COMMUNITIES", payload: data });
+      setUserCommunities(data?.data()?.communities);
     }
     fetchUserCommunities();
   });

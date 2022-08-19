@@ -31,7 +31,9 @@ describe("AuthModal", () => {
 
     const user = userEvent.setup();
 
-    const emailInput = screen.queryByPlaceholderText("EMAIL") as HTMLInputElement;
+    const emailInput = screen.queryByPlaceholderText(
+      "EMAIL"
+    ) as HTMLInputElement;
     const userNameInput = screen.queryByPlaceholderText(
       "USERNAME"
     ) as HTMLInputElement;
@@ -76,16 +78,18 @@ describe("AuthModal", () => {
   });
   test("email and pasword auth", async () => {
     const user = userEvent.setup();
-    const emailInput = screen.queryByPlaceholderText("EMAIL") as HTMLElement;
+    const emailInput = screen.queryByPlaceholderText(
+      "EMAIL"
+    ) as HTMLElement as HTMLInputElement;
     const userNameInput = screen.queryByPlaceholderText(
       "USERNAME"
-    );
+    ) as HTMLInputElement;
     const passwordInput = screen.queryByPlaceholderText(
       "PASSWORD"
-    );
+    ) as HTMLInputElement;
     const confirmPasswordInput = screen.queryByPlaceholderText(
       "CONFIRM PASSWORD"
-    );
+    ) as HTMLInputElement;
 
     await user.type(emailInput, "bobjones@gmail.com");
     await user.type(userNameInput, "bobjones123");

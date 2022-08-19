@@ -1,4 +1,9 @@
-import { queryByPlaceholderText, render, screen } from "@testing-library/react";
+import {
+  queryByPlaceholderText,
+  queryByText,
+  render,
+  screen,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import each from "jest-each";
@@ -13,5 +18,16 @@ describe("Modal", () => {
     );
 
     expect(asFragment()).toMatchSnapshot();
+  });
+  test("renders children", () => {
+    render(
+      <Modal>
+        <div>Mock Children</div>
+      </Modal>
+    );
+
+    const modal = screen.queryByText("Mock Children");
+
+    expect(modal?.textContent).toEqual("Mock Children");
   });
 });

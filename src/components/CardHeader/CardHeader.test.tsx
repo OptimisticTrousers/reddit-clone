@@ -1,4 +1,4 @@
-import { queryByPlaceholderText, render, screen } from "@testing-library/react";
+import { queryByPlaceholderText, queryByTestId, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import each from "jest-each";
@@ -9,5 +9,13 @@ describe("CardHeader", () => {
     const { asFragment } = render(<CardHeader />);
 
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("renders correct text", () => {
+    render(<CardHeader />);
+
+    const cardHeader = screen.queryByText("About Community")
+
+    expect(cardHeader?.textContent).toEqual("About Community")
   });
 });
