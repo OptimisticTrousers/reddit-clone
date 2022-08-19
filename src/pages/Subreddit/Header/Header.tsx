@@ -4,8 +4,9 @@ import classNames from "classnames";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { db, getUserId, isUserSignedIn } from "../../../firebase";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
+import { useState } from "react";
 
 interface Props {
   subredditName: string | undefined;
@@ -13,6 +14,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({ subredditName }) => {
   const { name } = useAppSelector(selectCommunityData);
+  const [joinButtonText, setJoinButtonText] = useState("Join");
 
   async function joinCommunity() {
     if (isUserSignedIn()) {
@@ -20,10 +22,19 @@ const Header: React.FC<Props> = ({ subredditName }) => {
       await updateDoc(userRef, {
         communities: arrayUnion({ subredditName }),
       });
+      setJoinButtonText("Joined")
+    } else {
+      alert("SIGN IN TO JOIN COMMUNITY");
     }
-    else {
-      alert("SIGN IN TO JOIN COMMUNITY")
-    }
+  }
+
+  async function leaveCommunity() {
+    const userRef = doc(db, "users", `${getUser()}`)
+
+    // await updateDoc(userRef, {
+    //   communities: communities.filter()
+    // })
+
   }
 
   return (
@@ -44,7 +55,7 @@ const Header: React.FC<Props> = ({ subredditName }) => {
             <div styleName="header__buttons">
               {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}
               <button styleName="header__button" onClick={joinCommunity}>
-                Join
+                {joinButtonText}
               </button>
             </div>
           </div>

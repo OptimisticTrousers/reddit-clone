@@ -68,6 +68,11 @@
   border: none;
 }
 
+/* .header__button-hover:hover {
+  content: "Leave";
+  background-color: var(--secondary-color);
+} */
+
 .header__button:hover {
   background-color: var(--secondary-color);
   cursor: pointer;

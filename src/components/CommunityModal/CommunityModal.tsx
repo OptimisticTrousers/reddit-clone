@@ -15,6 +15,7 @@ import {
   collection,
   doc,
   getDoc,
+  runTransaction,
   serverTimestamp,
   updateDoc,
   where,
@@ -45,32 +46,59 @@ const CommunityModal: React.FC = () => {
 
   async function createSubreddit(event: FormEvent) {
     event.preventDefault();
-    const subredditsRef = collection(db, "subreddits");
+    try {
+      if (!isUserSignedIn()) throw new Error(`Sorry, you need to log in!`);
 
-    if (isUserSignedIn()) {
-      await addDoc(subredditsRef, {
-        created_at: serverTimestamp(),
-        creator_id: getUserName(),
-        description: "Add a description",
-        id: nanoid(),
-        name: subredditName,
-        number_of_members: 1,
-        privacy_type: communityType,
+      const subredditDocRef = doc(db, "subreddits", subredditName);
+
+      await runTransaction(db, async (transaction) => {
+        const subredditDoc = await transaction.get(subredditDocRef);
+
+        if (subredditDoc.exists()) {
+          throw new Error(`Sorry, r/${subredditName} is taken. Try another`);
+        }
+
+        transaction.set(subredditDocRef, {
+          creator_id: getUserId(),
+          created_at: serverTimestamp(),
+          number_of_members: 1,
+          privacy_type: communityType,
+        });
+
+        transaction.set(doc(db, `users/${getUserId()}/communities`), {
+          community_id: subredditName,
+          isModerator: true,
+        });
+
+        setTimeout(() => {
+          navigate(`/r/${subredditName}`);
+          dispatch(toggleCommunityModalState());
+        }, 1000);
       });
-
-      const userRef = doc(db, "users", `${getUserId()}`);
-
-      await updateDoc(userRef, {
-        communities: arrayUnion({ subredditName }),
-      });
-      
-      setTimeout(() => {
-        navigate(`/r/${subredditName}`);
-        dispatch(toggleCommunityModalState());
-      }, 1000);
-    } else {
-      alert("SIGN IN DUDE!!!");
+    } catch (error: any) {
+      alert("ERROR " + error);
     }
+    // const subredditsRef = collection(db, "subreddits");
+
+    // if (isUserSignedIn()) {
+    //   await addDoc(subredditsRef, {
+    //     created_at: serverTimestamp(),
+    //     creator_id: getUserName(),
+    //     description: "Add a description",
+    //     id: nanoid(),
+    //     name: subredditName,
+    //     number_of_members: 1,
+    //     privacy_type: communityType,
+    //   });
+
+    //   const userRef = doc(db, "users", `${getUserId()}`);
+
+    //   await updateDoc(userRef, {
+    //     communities: arrayUnion({ subredditName }),
+    //   });
+    // } else {
+    //   alert("SIGN IN DUDE!!!");
+    // }
   }
 
   function handleRadio(event: InputEvent) {

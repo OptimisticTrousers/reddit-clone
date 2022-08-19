@@ -18,6 +18,23 @@ describe("Header", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
+  test("user can join and leave community", () => {
+    render(
+      <StoreProvider>
+        <Header subredditName="bob jones" />
+      </StoreProvider>
+    );
+
+    jest.mock("../../../firebase", () => ({
+      isUserSignedIn: true,
+    }));
+
+    const joinCommunityButton = screen.queryByRole("button", { name: "Join" });
+
+    userEvent.click(joinCommunityButton!);
+
+    expect(joinCommunityButton?.textContent).toEqual("Joined");
+  });
 
   test("user can join community", () => {
     render(
