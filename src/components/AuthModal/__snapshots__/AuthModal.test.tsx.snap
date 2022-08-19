@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthModal snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="modal"
+  >
+    <div
+      class="sign-up-modal"
+    >
+      <div
+        class="sign-up-modal__container"
+      >
+        <button
+          class="sign-up-modal__exit"
+        >
+          <img
+            alt="exit button for modal"
+            class="sign-up-modal__exit-icon"
+            src="exit-icon.svg"
+          />
+        </button>
+        <div
+          class="sign-up-modal__image"
+        />
+        <div
+          class="sign-up-modal__content"
+        >
+          <form
+            class="sign-up-modal__form"
+          >
+            <h1
+              class="sign-up-modal__title"
+            />
+            <p
+              class="sign-up-modal__description"
+            >
+              By continuing,  agree to our 
+              <a
+                class="sign-up-modal__link"
+                href="https://www.redditinc.com/policies/user-agreement"
+              >
+                User Agreement
+              </a>
+               and 
+              <a
+                class="sign-up-modal__link"
+                href="https://www.reddit.com/policies/privacy-policy"
+              >
+                Privacy Policy
+              </a>
+              .
+            </p>
+            <button
+              class="sign-up-modal__oauth"
+            >
+              <img
+                alt="google icon"
+                class="sign-up-modal__icon"
+                src="google-logo.svg"
+              />
+              <p
+                class="sign-up-modal__oauth-text"
+              >
+                 Continue with Google
+              </p>
+            </button>
+            <div
+              class="sign-up-modal__divider"
+            >
+              <span
+                class="sign-up-modal__divider-line"
+              />
+              <span
+                class="sign-up-modal__divider-text"
+              >
+                OR
+              </span>
+              <span
+                class="sign-up-modal__divider-line"
+              />
+            </div>
+            <input
+              class="sign-up-modal__input"
+              placeholder="USERNAME"
+              required=""
+              value=""
+            />
+            <input
+              class="sign-up-modal__input"
+              placeholder="PASSWORD"
+              required=""
+              type="password"
+              value=""
+            />
+            <button
+              class="sign-up-modal__button"
+              type="submit"
+            >
+              Continue
+            </button>
+            <div
+              class="sign-up-modal__bottom-text-container"
+            >
+              <a
+                class="sign-up-modal__bottom-text"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

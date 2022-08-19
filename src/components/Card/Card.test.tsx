@@ -14,4 +14,8 @@ describe("Card", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
+
+  test("renders children", () => {
+
+  })
 });
