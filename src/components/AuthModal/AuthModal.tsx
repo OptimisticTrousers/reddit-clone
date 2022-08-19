@@ -14,7 +14,7 @@ import {
   toggleSignInModal,
   toggleSignUpModal,
 } from "../../features/auth/authSlice";
-import { auth, getUser, isUserSignedIn, signIn } from "../../firebase";
+import { auth, getUser, getUserName, isUserSignedIn, signIn } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./AuthModal.module.css";
@@ -67,14 +67,16 @@ const AuthModal: React.FC = () => {
           email,
           password
         );
-        updateProfile(userCredential.user, {
+        await updateProfile(userCredential.user, {
           displayName: username,
         });
+        dispatch(toggleSignUpModal());
       } else {
         alert("Please check your password again!");
       }
     } else if (signInModalState) {
       await signInWithEmailAndPassword(auth, email, password);
+      dispatch(toggleSignInModal());
     }
   }
 
@@ -88,6 +90,11 @@ const AuthModal: React.FC = () => {
   }
 
   function onOAuthClick() {
+    if (signUpModalState) {
+      dispatch(toggleSignUpModal());
+    } else if (signInModalState) {
+      dispatch(toggleSignInModal());
+    }
     signIn();
   }
 
@@ -146,7 +153,6 @@ const AuthModal: React.FC = () => {
                 <span styleName="sign-up-modal__divider-text">OR</span>
                 <span styleName="sign-up-modal__divider-line"></span>
               </div>
-              {signUpModalState && (
                 <input
                   type="email"
                   styleName="sign-up-modal__input"
@@ -155,14 +161,13 @@ const AuthModal: React.FC = () => {
                   onChange={handleEmail}
                   required
                 />
-              )}
-              <input
+              {signUpModalState && (<input
                 styleName="sign-up-modal__input"
                 placeholder="USERNAME"
                 value={username}
                 onChange={handleUserName}
                 required
-              />
+              />)}
               <input
                 styleName="sign-up-modal__input"
                 type="password"
