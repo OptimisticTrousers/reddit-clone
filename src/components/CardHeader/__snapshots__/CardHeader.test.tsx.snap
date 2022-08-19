@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardHeader snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="card-header__top"
+  >
+    <h2
+      class="card-header__title"
+    >
+      About Community
+    </h2>
+  </div>
+</DocumentFragment>
+`;

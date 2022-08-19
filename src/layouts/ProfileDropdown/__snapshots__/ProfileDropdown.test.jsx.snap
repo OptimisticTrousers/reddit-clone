@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileDropdown snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdown profile-width"
+  >
+    <div
+      class="dropdown__content"
+    >
+      <div
+        class="profile-dropdown"
+      >
+        <button
+          class="profile-dropdown__button"
+        >
+          <img
+            alt="log out icon"
+            class="profile-dropdown__icon"
+            src="log-out-icon.svg"
+          />
+          Log Out
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PremiumCard snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <div
+      class="premium-card"
+    >
+      <div
+        class="premium-card__content"
+      >
+        <img
+          alt="reddit premium shield icon"
+          class="premium-card__icon"
+          src="reddit-shield.png"
+        />
+        <div
+          class="premium-card__text"
+        >
+          <h3
+            class="premium-card__title"
+          >
+            Reddit Premium
+          </h3>
+          <p
+            class="premium-card__description"
+          >
+            The best Reddit experience, with monthly Coins
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="premium-card__button-container"
+    >
+      <button
+        class="premium-card__button"
+      >
+        Try Now
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

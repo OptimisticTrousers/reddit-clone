@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PostInteractions snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="post-excerpt__interactions"
+  >
+    <div
+      class="post-excerpt__interaction"
+    >
+      <svg
+        class="post-excerpt__icon"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20 2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3v3.767L13.277 18H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14h-7.277L9 18.233V16H4V4h16v12z"
+        />
+      </svg>
+      <span
+        class="post-excerpt__action"
+      >
+        0 Comments
+      </span>
+    </div>
+    <div
+      class="post-excerpt__interaction"
+    >
+      <svg
+        class="post-excerpt__icon"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 512 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M448 248L288 96v85.334C138.666 202.667 85.333 309.334 64 416c53.333-74.666 117.333-108.802 224-108.802v87.469L448 248z"
+        />
+      </svg>
+      <span
+        class="post-excerpt__action"
+      >
+        Share
+      </span>
+    </div>
+    <div
+      class="post-excerpt__interaction"
+    >
+      <svg
+        class="post-excerpt__icon"
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 384 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M336 0H48C21.49 0 0 21.49 0 48v464l192-112 192 112V48c0-26.51-21.49-48-48-48zm0 428.43l-144-84-144 84V54a6 6 0 0 1 6-6h276c3.314 0 6 2.683 6 5.996V428.43z"
+        />
+      </svg>
+      <span
+        class="post-excerpt__action"
+      >
+        Save
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;

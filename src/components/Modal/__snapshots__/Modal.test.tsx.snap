@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="modal"
+  >
+    <div>
+      Mock Children
+    </div>
+  </div>
+</DocumentFragment>
+`;
