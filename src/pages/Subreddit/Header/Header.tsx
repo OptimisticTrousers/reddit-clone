@@ -5,7 +5,7 @@ import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { db, getUserId } from "../../../firebase";
+import { db, getUserId, isUserSignedIn } from "../../../firebase";
 
 interface Props {
   subredditName: string | undefined;
@@ -15,10 +15,15 @@ const Header: React.FC<Props> = ({ subredditName }) => {
   const { name } = useAppSelector(selectCommunityData);
 
   async function joinCommunity() {
-    const userRef = doc(db, "users", `${getUserId()}`);
-    await updateDoc(userRef, {
-      communities: arrayUnion({ subredditName }),
-    });
+    if (isUserSignedIn()) {
+      const userRef = doc(db, "users", `${getUserId()}`);
+      await updateDoc(userRef, {
+        communities: arrayUnion({ subredditName }),
+      });
+    }
+    else {
+      alert("SIGN IN TO JOIN COMMUNITY")
+    }
   }
 
   return (
@@ -38,7 +43,9 @@ const Header: React.FC<Props> = ({ subredditName }) => {
             </div>
             <div styleName="header__buttons">
               {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}
-              <button styleName="header__button" onClick={joinCommunity}>Join</button>
+              <button styleName="header__button" onClick={joinCommunity}>
+                Join
+              </button>
             </div>
           </div>
         </div>
