@@ -42,7 +42,7 @@ describe("Navbar", () => {
 
     expect(screen.getByText("Create Community")).toBeInTheDocument();
   });
-  test("clicking Log in opens Log in Modal", async () => {
+  test("clicking Log in opens Modal", async () => {
     render(
       <MemoryRouter>
         <StoreProvider>
@@ -59,5 +59,23 @@ describe("Navbar", () => {
     await user.click(logInButton!);
 
     expect(authSlice.toggleSignInModal).toHaveBeenCalledTimes(1);
+  });
+  test("clicking Sign Up opens Modal", async () => {
+    render(
+      <MemoryRouter>
+        <StoreProvider>
+          <Navbar />
+        </StoreProvider>
+      </MemoryRouter>
+    );
+
+    jest.spyOn(authSlice, "toggleSignUpModal");
+    const user = userEvent.setup();
+
+    const logInButton = screen.queryByText("Sign Up");
+
+    await user.click(logInButton!);
+
+    expect(authSlice.toggleSignUpModal).toHaveBeenCalledTimes(1);
   });
 });
