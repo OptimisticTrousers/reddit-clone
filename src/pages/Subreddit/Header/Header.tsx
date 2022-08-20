@@ -56,14 +56,6 @@ const Header: React.FC<Props> = ({ subredditName }) => {
     fetchIfUserJoined();
   });
 
-  async function leaveCommunity() {
-    const userRef = doc(db, "users", `${getUser()}`);
-
-    // await updateDoc(userRef, {
-    //   communities: communities.filter()
-    // })
-  }
-
   return (
     <div styleName="header">
       <div styleName="header__background"></div>

@@ -76,8 +76,8 @@ const CommunityDropdown: React.FC<Props> = ({
           >
             <img
               styleName="community-dropdown__image"
-              src="https://styles.redditmedia.com/t5_3sulg5/styles/communityIcon_3gjyit8k2oo61.png"
-              alt="amc"
+              src="https://styles.redditmedia.com/t5_2r0ij/styles/communityIcon_yor9myhxz5x11.png"
+              alt="default reddit subreddit logo"
             />
             <span styleName="community-dropdown__community">
               r/{doc.data().communityId}
