@@ -3,7 +3,7 @@ import About from "./About/About";
 import Posts from "./Posts/Posts";
 import Header from "./Header/Header";
 import CSSModules from "react-css-modules";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -26,26 +26,33 @@ import {
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useAppSelector(selectCommunityData);
 
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
 
   useEffect(() => {
-    const subredditsRef = collection(db, "subreddits");
+    async function getSubredditData() {
+      try {
+        const subredditsRef = collection(db, "subreddits");
 
-    const q = query(subredditsRef, where("name", "==", subredditName));
+        const q = query(subredditsRef, where("name", "==", subredditName));
 
-    getDocs(q).then((subredditPosts) => {
-      if (!subredditPosts.empty) {
-        const communityData = subredditPosts.docs[0].data();
+        const {
+          docs: [communityData],
+        } = await getDocs(q);
+
         dispatch(
           setCommunityData({
-            ...communityData,
-            createdAt: communityData.createdAt.seconds,
+            ...communityData.data(),
+            createdAt: communityData.data().createdAt.seconds,
           })
         );
+      } catch (error) {
+        alert(`ERROR: ${error}`);
       }
-    });
+    }
+    getSubredditData();
   }, [subredditName, dispatch]);
 
   useEffect(() => {

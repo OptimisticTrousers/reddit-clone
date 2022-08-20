@@ -12,7 +12,6 @@ const About: React.FC = () => {
     useAppSelector(selectCommunityData);
 
     const data = useAppSelector(selectCommunityData);
-    console.log(data)
 
   return (
     <Card>

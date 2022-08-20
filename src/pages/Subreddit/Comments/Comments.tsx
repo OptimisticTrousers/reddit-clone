@@ -22,7 +22,6 @@ const Comments: React.FC<Props> = ({ comments }) => {
   return (
     <div styleName="comments">
       {comments?.map(({ doc }: DocumentData) => {
-        console.log(doc?.data());
         return <Comment key={doc.id} comment={doc.data()} />;
       })}
     </div>

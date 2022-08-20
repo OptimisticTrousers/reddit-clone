@@ -59,16 +59,22 @@ const CommunityModal: React.FC = () => {
         }
 
         transaction.set(subredditDocRef, {
+          name: subredditName,
           creatorId: getUserId(),
+          id: nanoid(),
           createdAt: serverTimestamp(),
           numberOfMembers: 1,
           privacyType: communityType,
+          description: "default description",
         });
 
-        transaction.set(doc(db, `users/${getUserId()}/communitySnippets`, subredditName), {
-          communityId: subredditName,
-          isModerator: true,
-        });
+        transaction.set(
+          doc(db, `users/${getUserId()}/communitySnippets`, subredditName),
+          {
+            communityId: subredditName,
+            isModerator: true,
+          }
+        );
 
         setTimeout(() => {
           navigate(`/r/${subredditName}`);
