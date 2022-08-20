@@ -17,6 +17,7 @@ import {
 } from "firebase/firestore";
 import { db, getUserId } from "../../firebase";
 import { Action } from "@reduxjs/toolkit";
+import { Link } from "react-router-dom";
 
 interface Props {
   dropdown: string;
@@ -60,7 +61,19 @@ const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
       </div>
       <div>
         {userCommunities?.map((doc: DocumentData) => (
-          <p>{doc.data().communityId}</p>
+          <Link
+            styleName="community-dropdown__link"
+            to={`/r/${doc.data().communityId}`}
+          >
+            <img
+              styleName="community-dropdown__image"
+              src="https://styles.redditmedia.com/t5_3sulg5/styles/communityIcon_3gjyit8k2oo61.png"
+              alt="amc"
+            />
+            <span styleName="community-dropdown__community">
+              r/{doc.data().communityId}
+            </span>
+          </Link>
         ))}
       </div>
     </Dropdown>

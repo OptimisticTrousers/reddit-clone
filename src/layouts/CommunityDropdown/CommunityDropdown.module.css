@@ -29,3 +29,27 @@
   background-color: rgba(255, 255, 255, 0.04);
   cursor: pointer;
 }
+
+.community-dropdown__link {
+  background-color: inherit;
+  padding: 8px 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.community-dropdown__image {
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+}
+
+.community-dropdown__community {
+  flex-grow: 1;
+  margin-left: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 18px;
+}
