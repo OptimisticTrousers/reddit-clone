@@ -1,11 +1,20 @@
 import CSSModules from "react-css-modules";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Dropdown from "../Dropdown/Dropdown";
 import styles from "./CommunityDropdown.module.css";
-import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
+import {
+  selectCommunityData,
+  toggleCommunityModalState,
+} from "../../features/subreddit/subredditSlice";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useDeferredValue, useEffect, useReducer, useState } from "react";
-import { doc, DocumentData, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  DocumentData,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 import { db, getUserId } from "../../firebase";
 import { Action } from "@reduxjs/toolkit";
 
@@ -14,24 +23,29 @@ interface Props {
 }
 
 interface Community {
-  subredditName: string;
+  communityId: string;
+  isModerator: boolean;
 }
 
 const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
   const dispatch = useAppDispatch();
 
+  const { name } = useAppSelector(selectCommunityData);
+
   const [userCommunities, setUserCommunities] = useState<DocumentData>();
 
   useEffect(() => {
     async function fetchUserCommunities() {
-      const userCommunities = doc(db, "users", `${getUserId()}`);
+      const userCommunities = collection(
+        db,
+        `users/${getUserId()}/communitySnippets`
+      );
 
-      const data = await getDoc(userCommunities);
-
-      setUserCommunities(data?.data()?.communities);
+      const communities = await getDocs(userCommunities);
+      setUserCommunities(communities.docs);
     }
     fetchUserCommunities();
-  });
+  }, [name]);
   return (
     <Dropdown dropdown={dropdown}>
       <div styleName="community__dropdown">
@@ -45,8 +59,8 @@ const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
         </button>
       </div>
       <div>
-        {userCommunities?.map((userCommunity: Community) => (
-          <p>{userCommunity.subredditName}</p>
+        {userCommunities?.map((doc: DocumentData) => (
+          <p>{doc.data().communityId}</p>
         ))}
       </div>
     </Dropdown>
