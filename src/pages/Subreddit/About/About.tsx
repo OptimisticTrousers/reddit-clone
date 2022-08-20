@@ -11,6 +11,9 @@ const About: React.FC = () => {
   const { description, numberOfMembers, createdAt, name } =
     useAppSelector(selectCommunityData);
 
+    const data = useAppSelector(selectCommunityData);
+    console.log(data)
+
   return (
     <Card>
       <CardHeader />

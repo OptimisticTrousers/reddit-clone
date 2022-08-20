@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ subredditName }) => {
-  const { name } = useAppSelector(selectCommunityData);
+  // const { name } = useAppSelector(selectCommunityData);
   const [joinButtonText, setJoinButtonText] = useState("Join");
 
   async function joinCommunity() {
@@ -49,8 +49,8 @@ const Header: React.FC<Props> = ({ subredditName }) => {
           />
           <div styleName="header__title-container">
             <div styleName="header__title">
-              <h1 styleName="header__subreddit-name">{name}</h1>
-              <h2 styleName="header__subreddit-link">r/{name}</h2>
+              <h1 styleName="header__subreddit-name">{subredditName}</h1>
+              <h2 styleName="header__subreddit-link">r/{subredditName}</h2>
             </div>
             <div styleName="header__buttons">
               {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}

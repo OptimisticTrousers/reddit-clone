@@ -36,13 +36,15 @@ const Subreddit: React.FC = () => {
     const q = query(subredditsRef, where("name", "==", subredditName));
 
     getDocs(q).then((subredditPosts) => {
-      const communityData = subredditPosts.docs[0].data();
-      dispatch(
-        setCommunityData({
-          ...communityData,
-          createdAt: communityData.createdAt.seconds,
-        })
-      );
+      if (!subredditPosts.empty) {
+        const communityData = subredditPosts.docs[0].data();
+        dispatch(
+          setCommunityData({
+            ...communityData,
+            createdAt: communityData.createdAt.seconds,
+          })
+        );
+      }
     });
   }, [subredditName, dispatch]);
 
@@ -57,7 +59,7 @@ const Subreddit: React.FC = () => {
   }, [id]);
   return (
     <div styleName="subreddit">
-      <Header subredditName={subredditName}/>
+      <Header subredditName={subredditName} />
       <main styleName="main">
         <Posts posts={posts} />
         <aside styleName="aside">

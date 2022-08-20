@@ -52,7 +52,7 @@ const AddPostForm: React.FC = () => {
       const postsRef = collection(db, "posts");
 
       const postRef = await addDoc(postsRef, {
-        created_at: serverTimestamp(),
+        createdAt: serverTimestamp(),
         id: nanoid(),
         subredditId: id,
         subredditName: name,
