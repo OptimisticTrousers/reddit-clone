@@ -12,6 +12,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  increment,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -37,6 +38,12 @@ const Header: React.FC<Props> = ({ subredditName }) => {
           communityId: subredditName,
           isModerator: false,
         });
+        const subredditRef = doc(db, `subreddits/${subredditName}`);
+
+        await updateDoc(subredditRef, {
+          numberOfMembers: increment(1),
+        });
+
         setJoinButtonText("Joined");
       } catch (error) {
         alert(`ERROR: ${error}`);
@@ -55,6 +62,12 @@ const Header: React.FC<Props> = ({ subredditName }) => {
 
       await deleteDoc(communityRef);
       setJoinButtonText("Join");
+
+      const subredditRef = doc(db, `subreddits/${subredditName}`);
+
+      await updateDoc(subredditRef, {
+        numberOfMembers: increment(-1),
+      });
     } catch (error) {
       alert(`ERROR: ${error}`);
     }
