@@ -21,14 +21,13 @@ import { Link } from "react-router-dom";
 
 interface Props {
   dropdown: string;
+  handleHomeDropdown: Function;
 }
 
-interface Community {
-  communityId: string;
-  isModerator: boolean;
-}
-
-const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
+const CommunityDropdown: React.FC<Props> = ({
+  dropdown,
+  handleHomeDropdown,
+}) => {
   const dispatch = useAppDispatch();
 
   const { name } = useAppSelector(selectCommunityData);
@@ -47,13 +46,22 @@ const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
     }
     fetchUserCommunities();
   }, [name]);
+
+  function toggleCommunity() {
+    dispatch(toggleCommunityModalState());
+  }
+
+  function toggleDropdown() {
+    handleHomeDropdown();
+  }
+
   return (
     <Dropdown dropdown={dropdown}>
       <div styleName="community__dropdown">
         <p styleName="community__dropdown-my-communities">MY COMMUNITIES</p>
         <button
           styleName="community__dropdown-button"
-          onClick={() => dispatch(toggleCommunityModalState())}
+          onClick={toggleCommunity}
         >
           <AiOutlinePlus styleName="community__dropdown-icon" />
           Create Community
@@ -62,6 +70,7 @@ const CommunityDropdown: React.FC<Props> = ({ dropdown }) => {
       <div>
         {userCommunities?.map((doc: DocumentData) => (
           <Link
+            onClick={toggleDropdown}
             styleName="community-dropdown__link"
             to={`/r/${doc.data().communityId}`}
           >

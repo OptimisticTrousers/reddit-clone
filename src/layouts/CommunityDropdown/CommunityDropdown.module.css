@@ -36,6 +36,11 @@
   color: white;
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+
+.community-dropdown__link:hover {
+  background-color: #272729;
 }
 
 .community-dropdown__image {

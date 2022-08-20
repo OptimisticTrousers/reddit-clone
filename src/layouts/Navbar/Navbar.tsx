@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
               </div>
               <div className="header__dropdown-menu">
                 {isSubscriptionsDropdownOpen && (
-                  <CommunityDropdown dropdown={"community"} />
+                  <CommunityDropdown dropdown={"community"} handleHomeDropdown={handleHomeDropdown}/>
                 )}
               </div>
             </div>

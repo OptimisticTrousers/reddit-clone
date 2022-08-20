@@ -15,7 +15,7 @@ describe("CommunityDropdown", () => {
   test("snapshot", () => {
     const { asFragment } = render(
       <StoreProvider>
-        <CommunityDropdown dropdown="community" />
+        <CommunityDropdown dropdown="community" handleHomeDropdown={jest.fn()}/>
       </StoreProvider>
     );
 
@@ -24,7 +24,7 @@ describe("CommunityDropdown", () => {
   test("opens community modal when user clicks", async () => {
     render(
       <StoreProvider>
-        <CommunityDropdown dropdown="community" />
+        <CommunityDropdown dropdown="community" handleHomeDropdown={jest.fn()}/>
       </StoreProvider>
     );
 
