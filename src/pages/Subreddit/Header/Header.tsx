@@ -5,11 +5,14 @@ import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 import {
+  addDoc,
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDocs,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
@@ -25,13 +28,35 @@ const Header: React.FC<Props> = ({ subredditName }) => {
 
   async function joinCommunity() {
     if (isUserSignedIn()) {
-      const userRef = doc(db, "users", `${getUserId()}`);
-      await updateDoc(userRef, {
-        communities: arrayUnion({ subredditName }),
-      });
-      setJoinButtonText("Joined");
+      try {
+        const userRef = doc(
+          db,
+          `users/${getUserId()}/communitySnippets/${subredditName}`
+        );
+        await setDoc(userRef, {
+          communityId: subredditName,
+          isModerator: false,
+        });
+        setJoinButtonText("Joined");
+      } catch (error) {
+        alert(`ERROR: ${error}`);
+      }
     } else {
       alert("SIGN IN TO JOIN COMMUNITY");
+    }
+  }
+
+  async function leaveCommunity() {
+    try {
+      const communityRef = doc(
+        db,
+        `users/${getUserId()}/communitySnippets/${subredditName}`
+      );
+
+      await deleteDoc(communityRef);
+      setJoinButtonText("Join");
+    } catch (error) {
+      alert(`ERROR: ${error}`);
     }
   }
 
@@ -73,7 +98,12 @@ const Header: React.FC<Props> = ({ subredditName }) => {
             </div>
             <div styleName="header__buttons">
               {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}
-              <button styleName="header__button" onClick={joinCommunity}>
+              <button
+                styleName="header__button"
+                onClick={
+                  joinButtonText === "Join" ? joinCommunity : leaveCommunity
+                }
+              >
                 {joinButtonText}
               </button>
             </div>
