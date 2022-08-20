@@ -65,7 +65,7 @@ const CommunityModal: React.FC = () => {
           privacy_type: communityType,
         });
 
-        transaction.set(doc(db, `users/${getUserId()}/communities`), {
+        transaction.set(doc(db, `users/${getUserId()}/communitySnippets`, subredditName), {
           community_id: subredditName,
           isModerator: true,
         });

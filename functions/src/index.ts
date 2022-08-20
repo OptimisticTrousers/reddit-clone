@@ -9,7 +9,10 @@ export const createUserDocument = functions.auth
   .user()
   .onCreate(async (user: UserRecord) => {
     const newUser = {
-      ...user,
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      providerData: user.providerData,
     };
     db.collection("users").doc(user.uid).set(newUser);
   });
