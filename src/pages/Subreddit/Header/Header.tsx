@@ -4,9 +4,16 @@ import classNames from "classnames";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   subredditName: string | undefined;
@@ -22,19 +29,39 @@ const Header: React.FC<Props> = ({ subredditName }) => {
       await updateDoc(userRef, {
         communities: arrayUnion({ subredditName }),
       });
-      setJoinButtonText("Joined")
+      setJoinButtonText("Joined");
     } else {
       alert("SIGN IN TO JOIN COMMUNITY");
     }
   }
 
+  useEffect(() => {
+    async function fetchIfUserJoined() {
+      const userCommunities = collection(
+        db,
+        `users/${getUserId()}/communitySnippets`
+      );
+
+      const communities = await getDocs(userCommunities);
+
+      const community = communities
+        .docChanges()
+        .find(
+          (community) => community.doc.data().communityId === subredditName
+        );
+      if (community) {
+        setJoinButtonText("Joined");
+      }
+    }
+    fetchIfUserJoined();
+  });
+
   async function leaveCommunity() {
-    const userRef = doc(db, "users", `${getUser()}`)
+    const userRef = doc(db, "users", `${getUser()}`);
 
     // await updateDoc(userRef, {
     //   communities: communities.filter()
     // })
-
   }
 
   return (
