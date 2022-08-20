@@ -48,12 +48,12 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
       const commentsRef = collection(db, "comments");
       await addDoc(commentsRef, {
         content: commentText,
-        created_at: serverTimestamp(),
+        createdAt: serverTimestamp(),
         id: nanoid(),
-        subreddit_id: id,
-        post_id: postId,
-        updated_at: serverTimestamp(),
-        user_id: getUserId(),
+        subredditId: id,
+        postId,
+        updatedAt: serverTimestamp(),
+        userId: getUserId(),
       });
 
       const postRef = doc(db, "posts", `${postId}`);

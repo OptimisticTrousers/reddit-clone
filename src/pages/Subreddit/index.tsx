@@ -40,7 +40,7 @@ const Subreddit: React.FC = () => {
       dispatch(
         setCommunityData({
           ...communityData,
-          created_at: communityData.created_at.seconds,
+          createdAt: communityData.createdAt.seconds,
         })
       );
     });
@@ -50,7 +50,7 @@ const Subreddit: React.FC = () => {
     if (id) {
       const postsRef = collection(db, "posts");
 
-      const q = query(postsRef, where("subreddit_id", "==", id));
+      const q = query(postsRef, where("subredditId", "==", id));
 
       getDocs(q).then((subredditPosts) => setPosts(subredditPosts.docs));
     }

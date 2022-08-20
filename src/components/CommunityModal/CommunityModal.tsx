@@ -59,14 +59,14 @@ const CommunityModal: React.FC = () => {
         }
 
         transaction.set(subredditDocRef, {
-          creator_id: getUserId(),
-          created_at: serverTimestamp(),
-          number_of_members: 1,
-          privacy_type: communityType,
+          creatorId: getUserId(),
+          createdAt: serverTimestamp(),
+          numberOfMembers: 1,
+          privacyType: communityType,
         });
 
         transaction.set(doc(db, `users/${getUserId()}/communitySnippets`, subredditName), {
-          community_id: subredditName,
+          communityId: subredditName,
           isModerator: true,
         });
 

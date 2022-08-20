@@ -26,11 +26,11 @@ import { db } from "../../../firebase";
 type LocationState = {
   title: string;
   description: string;
-  created_at: string;
+  createdAt: string;
   id: string;
-  subreddit_id: string;
-  updated_at: string;
-  user_id: string;
+  subredditId: string;
+  updatedAt: string;
+  userId: string;
   voteStatus: number;
   commentsQuantity: number;
 };
@@ -45,7 +45,7 @@ const SinglePostPage = () => {
 
   useEffect(() => {
     const commentsRef = collection(db, "comments");
-    const commentQuery = query(commentsRef, where("post_id", "==", postId));
+    const commentQuery = query(commentsRef, where("postId", "==", postId));
 
     onSnapshot(commentQuery, async (snapshot) => {
       const docChanges = snapshot.docChanges();

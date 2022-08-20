@@ -8,7 +8,7 @@ import { useAppSelector } from "../../../hooks/hooks";
 import styles from "./About.module.css";
 
 const About: React.FC = () => {
-  const { description, number_of_members, created_at, name } =
+  const { description, numberOfMembers, createdAt, name } =
     useAppSelector(selectCommunityData);
 
   return (
@@ -17,7 +17,7 @@ const About: React.FC = () => {
       <p styleName="about__description">{description}</p>
       <div styleName="about__members">
         <div styleName="about__block">
-          <div styleName="about__number">{number_of_members}</div>
+          <div styleName="about__number">{numberOfMembers}</div>
           <div styleName="about__member">Members</div>
         </div>
         <div styleName="about__block">
@@ -29,7 +29,7 @@ const About: React.FC = () => {
       <div styleName="about__cakeday">
         <span styleName="about__icon"></span>
         <p styleName="about__date">
-          {new Date(created_at * 100).toDateString()}
+          {new Date(createdAt * 100).toDateString()}
         </p>
       </div>
       <Link to={`/r/${name}/submit`}>
