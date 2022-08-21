@@ -15,6 +15,7 @@ import {
   increment,
   setDoc,
   updateDoc,
+  writeBatch,
 } from "firebase/firestore";
 import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
 import { useEffect, useState } from "react";
