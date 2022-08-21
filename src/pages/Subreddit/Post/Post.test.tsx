@@ -7,8 +7,8 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import Post from "./Post";
 import each from "jest-each";
+import Post from "./Post"
 
 describe("Post", () => {
   const mockProps = {
