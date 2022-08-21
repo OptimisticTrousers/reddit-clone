@@ -10,7 +10,7 @@ const initialState: Post = {
   postId: "",
 };
 
-export const selectPostId = (state: RootState) => state.postId;
+export const selectPostId = (state: RootState) => state.post.postId;
 
 const postSlice = createSlice({
   name: "post",
