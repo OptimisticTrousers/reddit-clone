@@ -38,7 +38,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
   }, [posts]);
   return (
     <div styleName="container">
-      {(posts ?? randomPosts)?.map(({doc}: DocumentData) => {
+      {(posts ?? randomPosts)?.map((doc: DocumentData) => {
         const data = doc.data();
         return (
           <Link key={doc.id} to={`/r/${data.subredditName}/comments/${doc.id}`} state={{ ...data }}>
