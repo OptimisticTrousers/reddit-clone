@@ -1,7 +1,8 @@
 import styles from "./Votes.module.css";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
+import { selectSignInModalState } from "../../../features/auth/authSlice";
 
 interface Props {
   voteStatus: number;
@@ -9,41 +10,30 @@ interface Props {
   postId: string;
 }
 
-interface Action {
-  type: string;
-}
-
-const UP_VOTE: Action = {
-  type: "UP_VOTE",
-};
-
-const DOWN_VOTE: Action = {
-  type: "DOWN_VOTE",
-};
-
-function reducer(state: number = 0, action: Action) {
-  switch (action.type) {
-    case "UP_VOTE":
-      if (state === 1) {
-        return state - 1;
-      } else if (state === -1) {
-        return state + 2;
-      }
-      return state + 1;
-    case "DOWN_VOTE":
-      if (state === -1) {
-        return state + 1;
-      } else if (state === 1) {
-        return state - 2;
-      }
-      return state - 1;
-    default:
-      return state;
-  }
-}
-
 const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
-  const [vote, dispatch] = useReducer(reducer, voteStatus);
+  const [vote, setVote] = useState(voteStatus);
+
+  function handleUpvote() {
+    setVote((prevVote) => {
+      if (prevVote === voteStatus + 1) {
+        return prevVote - 1;
+      } else if (prevVote === voteStatus - 1) {
+        return prevVote + 2;
+      }
+      return prevVote + 1;
+    });
+  }
+
+  function handleDownvote() {
+    setVote((prevVote) => {
+      if (prevVote === voteStatus - 1) {
+        return prevVote + 1;
+      } else if (prevVote === voteStatus + 1) {
+        return prevVote - 2;
+      }
+      return prevVote - 1;
+    });
+  }
 
   // const handleVote = async () => {
   //   try {
@@ -147,14 +137,14 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
       <div styleName="votes__vote votes__vote_type_upvote">
         <BiUpvote
           styleName="votes__icon "
-          onClick={() => dispatch({ ...UP_VOTE })}
+          onClick={handleUpvote}
         />
       </div>
       <p styleName="votes__likes">{vote}</p>
       <div styleName="votes__vote votes__vote_type_downvote">
         <BiDownvote
           styleName="votes__icon"
-          onClick={() => dispatch({ ...DOWN_VOTE })}
+          onClick={handleDownvote}
         />
       </div>
     </div>
