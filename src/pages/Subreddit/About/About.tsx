@@ -6,12 +6,14 @@ import CardHeader from "../../../components/CardHeader/CardHeader";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 import { useAppSelector } from "../../../hooks/hooks";
 import styles from "./About.module.css";
+import moment from "moment";
+import { TbCake } from "react-icons/tb";
 
 const About: React.FC = () => {
   const { description, numberOfMembers, createdAt, name } =
     useAppSelector(selectCommunityData);
 
-    const data = useAppSelector(selectCommunityData);
+  const data = useAppSelector(selectCommunityData);
 
   return (
     <Card>
@@ -19,7 +21,9 @@ const About: React.FC = () => {
       <p styleName="about__description">{description}</p>
       <div styleName="about__members">
         <div styleName="about__block">
-          <div styleName="about__number">{numberOfMembers}</div>
+          <div styleName="about__number">
+            {numberOfMembers?.toLocaleString()}
+          </div>
           <div styleName="about__member">Members</div>
         </div>
         <div styleName="about__block">
@@ -31,7 +35,8 @@ const About: React.FC = () => {
       <div styleName="about__cakeday">
         <span styleName="about__icon"></span>
         <p styleName="about__date">
-          {new Date(createdAt * 100).toDateString()}
+          <TbCake /> Created{" "}
+          {moment(new Date(createdAt * 1000)).format("MMM DD, YYYY")}
         </p>
       </div>
       <Link to={`/r/${name}/submit`}>
