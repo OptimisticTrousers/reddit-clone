@@ -5,9 +5,11 @@ import { BiMessage } from "react-icons/bi";
 import Votes from "../Votes/Votes";
 import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";
-import { DocumentData } from "firebase/firestore";
+import { collection, doc, DocumentData, writeBatch } from "firebase/firestore";
 import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
+import { db, getUserId } from "../../../firebase";
+import { useEffect, useReducer } from "react";
 
 interface Props {
   data: DocumentData;
@@ -15,12 +17,13 @@ interface Props {
 }
 
 const Post: React.FC<Props> = (props) => {
+
   return (
     <div
       styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}
       data-testid="post"
     >
-      <Votes voteStatus={props.data?.voteStatus} />
+      <Votes voteStatus={props.data?.voteStatus} subredditId={props.data?.subredditId} postId={props.data?.postId} />
       <div styleName="post-excerpt__content">
         <PostAuthor subredditName={props.data?.subredditName} userName={props.data?.user_name}/>
         <div styleName="post-excerpt__container">
