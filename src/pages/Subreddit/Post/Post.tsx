@@ -23,7 +23,7 @@ const Post: React.FC<Props> = (props) => {
       styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}
       data-testid="post"
     >
-      <Votes voteStatus={props.data?.voteStatus} subredditId={props.data?.subredditId} postId={props.data?.postId} />
+      <Votes voteStatus={props.data?.voteStatus} subredditId={props.data?.subredditId} />
       <div styleName="post-excerpt__content">
         <PostAuthor subredditName={props.data?.subredditName} userName={props.data?.user_name} createdAt={props.data?.createdAt}/>
         <div styleName="post-excerpt__container">
