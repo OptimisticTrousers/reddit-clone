@@ -25,7 +25,7 @@ const Post: React.FC<Props> = (props) => {
     >
       <Votes voteStatus={props.data?.voteStatus} subredditId={props.data?.subredditId} postId={props.data?.postId} />
       <div styleName="post-excerpt__content">
-        <PostAuthor subredditName={props.data?.subredditName} userName={props.data?.user_name}/>
+        <PostAuthor subredditName={props.data?.subredditName} userName={props.data?.user_name} createdAt={props.data?.createdAt}/>
         <div styleName="post-excerpt__container">
           <h3 styleName="post-excerpt__title">{props.data?.title}</h3>
           <p styleName="post-excerpt__description">{props.data?.description}</p>
