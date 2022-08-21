@@ -22,6 +22,8 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { useAppDispatch } from "../../../hooks/hooks";
+import { setPostId } from "../../../features/post/postSlice";
 
 type LocationState = {
   title: string;
@@ -39,11 +41,15 @@ const SinglePostPage = () => {
   const location = useLocation();
   const { postId } = useParams();
 
+  const dispatch = useAppDispatch();
+
   const data = location.state as LocationState;
 
   const [comments, setComments] = useState<DocumentData | undefined>(undefined);
 
   useEffect(() => {
+    dispatch(setPostId(postId));
+
     const commentsRef = collection(db, "comments");
     const commentQuery = query(commentsRef, where("postId", "==", postId));
 
@@ -68,10 +74,7 @@ const SinglePostPage = () => {
         </div>
       </article> */}
         <div styleName="post-page__comments">
-          <CommentsSection
-            postId={postId}
-            comments={comments}
-          />
+          <CommentsSection postId={postId} comments={comments} />
         </div>
       </div>
       <aside styleName="aside">
