@@ -1,11 +1,19 @@
 import styles from "./Votes.module.css";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
 import { selectSignInModalState } from "../../../features/auth/authSlice";
-import { collection, doc, increment, writeBatch } from "firebase/firestore";
-import { db, getUserId } from "../../../firebase";
+import {
+  collection,
+  doc,
+  increment,
+  runTransaction,
+  updateDoc,
+  writeBatch,
+} from "firebase/firestore";
+import { db, getUser, getUserId } from "../../../firebase";
 import { nanoid } from "nanoid";
+import { batch } from "react-redux";
 
 interface Props {
   voteStatus: number;
@@ -14,64 +22,136 @@ interface Props {
 }
 
 const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
-  const [vote, setVote] = useState(0);
+  // const [vote, setVote] = useState(0);
 
-  function handleUpvote() {
-    handleVote().then(() => {
-      setVote((prevVote) => {
-        if (prevVote === voteStatus + 1) {
-          return prevVote - 1;
-        } else if (prevVote === voteStatus - 1) {
-          return prevVote + 2;
-        }
-        return prevVote + 1;
-      });
-    });
-  }
+  // function handleUpvote() {
+  //   handleVote().then(() => {
+  //     setVote((prevVote) => {
+  //       if (prevVote === voteStatus + 1) {
+  //         return prevVote - 1;
+  //       } else if (prevVote === voteStatus - 1) {
+  //         return prevVote + 2;
+  //       }
+  //       return prevVote + 1;
+  //     });
+  //   });
+  // }
 
-  function handleDownvote() {
-    handleVote().then(() => {
-      setVote((prevVote) => {
-        if (prevVote === voteStatus - 1) {
-          return prevVote + 1;
-        } else if (prevVote === voteStatus + 1) {
-          return prevVote - 2;
-        }
-        return prevVote - 1;
-      });
-    });
-  }
+  // function handleDownvote() {
+  //   handleVote().then(() => {
+  //     setVote((prevVote) => {
+  //       if (prevVote === voteStatus - 1) {
+  //         return prevVote + 1;
+  //       } else if (prevVote === voteStatus + 1) {
+  //         return prevVote - 2;
+  //       }
+  //       return prevVote - 1;
+  //     });
+  //   });
+  // }
 
-  async function handleVote() {
+  useEffect(() => {
+    // const userPostVotesRef = collection(
+    //   db,
+    //   `users${getUserId()}/postVotes/${postId}`
+    // );
+    // const userPostVotes = await updateDoc(userPostVotesRef, {
+    // })
+  });
+
+  async function handleVote(vote: number) {
+    const postDocRef = doc(db, "posts", postId);
+    const userPostVotesRef = doc(
+      db,
+      "users",
+      `${getUserId()}/postVotes/${postId}`
+    );
+
     try {
-      const batch = writeBatch(db);
+      let voteChange = vote;
+      await runTransaction(db, async (transaction) => {
+        const postDoc = await transaction.get(postDocRef);
+        const userPostVotesDoc = await transaction.get(userPostVotesRef);
+        // const userVoteDoc = await transaction.get(userPostVotesRef);
 
-      const postsRef = doc(db, "posts", "WTEdhCbgKRjIIBtOnfD3");
+        if (!userPostVotesDoc.exists()) {
 
-      batch.update(postsRef, { voteStatus: increment(vote) });
+          const postVoteRef = doc(collection(db, "users", `${getUserId()}/postVotes`))
 
-      // const userRef = collection(db, "users", `/${getUserId()}/postVotes`);
-      const id = nanoid();
+          const newVote = {
+            id: postId,
+            postId,
+            subredditId,
+            voteValue: vote,
+          };
 
-      const postVoteRef = doc(
-        db, "users", `${getUserId()}/postVotes/${id}`
-      );
-      // const userPostVotes = doc(collection(db, "users"))
+          // transaction.set(postVoteRef, newVote)
 
-      const newVote = {
-        id,
-        postId,
-        subredditId,
-        voteValue: vote,
-      };
+          transaction.set(
+            doc(db, `users/${getUserId()}/postVotes`, postId),
+            newVote
+          );
+          transaction.update(doc(db, `posts/Q8XnQ82CsmMi47J1w056`), {
+            voteStatus: voteStatus + vote
+          })
+        } else {
 
-      batch.set(postVoteRef, newVote);
+          if(userPostVotesDoc.data().voteValue === vote) {
+            voteChange *= -1;
+            transaction.delete(userPostVotesRef)
+            transaction.update(doc(db, `posts/Q8XnQ82CsmMi47J1w056`), {
+              voteStatus: voteStatus + vote
+            })
+          } else {
+            voteChange = 2 * vote;
+            transaction.update(doc(db, `posts/Q8XnQ82CsmMi47J1w056`), {
+              voteStatus: voteStatus + vote
+            })
+            transaction.update(userPostVotesRef, {
+              voteValue: vote
+            })
+          }
+        }
 
-      await batch.commit();
+        // if(userVoteDoc.exists()) {
+        //   transaction.update(userVoteDoc, )
+        // }
+      });
     } catch (error) {
       console.log(`ERROR: ${error}`);
     }
   }
+
+  // async function handleVote() {
+  //   try {
+  //     const batch = writeBatch(db);
+
+  //     const postsRef = doc(db, "posts", "WTEdhCbgKRjIIBtOnfD3");
+
+  //     batch.update(postsRef, { voteStatus: increment(vote) });
+
+  //     // const userRef = collection(db, "users", `/${getUserId()}/postVotes`);
+  //     const id = nanoid();
+
+  //     const postVoteRef = doc(
+  //       db, "users", `${getUserId()}/postVotes/${id}`
+  //     );
+  //     // const userPostVotes = doc(collection(db, "users"))
+
+  //     const newVote = {
+  //       id,
+  //       postId,
+  //       subredditId,
+  //       voteValue: vote,
+  //     };
+
+  //     batch.set(postVoteRef, newVote);
+
+  //     await batch.commit();
+  //   } catch (error) {
+  //     console.log(`ERROR: ${error}`);
+  //   }
+  // }
 
   // const handleVote = async () => {
   //   try {
@@ -173,11 +253,11 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
   return (
     <div styleName="votes">
       <div styleName="votes__vote votes__vote_type_upvote">
-        <BiUpvote styleName="votes__icon " onClick={handleUpvote} />
+        <BiUpvote styleName="votes__icon " onClick={() => handleVote(voteStatus + 1)} />
       </div>
-      <p styleName="votes__likes">{vote}</p>
+      <p styleName="votes__likes">{voteStatus}</p>
       <div styleName="votes__vote votes__vote_type_downvote">
-        <BiDownvote styleName="votes__icon" onClick={handleDownvote} />
+        <BiDownvote styleName="votes__icon" onClick={() => handleVote(voteStatus - 1)} />
       </div>
     </div>
   );

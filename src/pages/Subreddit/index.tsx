@@ -61,7 +61,9 @@ const Subreddit: React.FC = () => {
 
       const q = query(postsRef, where("subredditId", "==", id));
 
-      getDocs(q).then((subredditPosts) => setPosts(subredditPosts.docs));
+      getDocs(q).then((subredditPosts) => {
+        setPosts(subredditPosts.docs);
+      });
     }
   }, [id]);
   return (
