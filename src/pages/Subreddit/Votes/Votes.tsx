@@ -3,8 +3,9 @@ import { BiUpvote, BiDownvote } from "react-icons/bi";
 import React, { useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
 import { selectSignInModalState } from "../../../features/auth/authSlice";
-import { writeBatch } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { collection, doc, increment, writeBatch } from "firebase/firestore";
+import { db, getUserId } from "../../../firebase";
+import { nanoid } from "nanoid";
 
 interface Props {
   voteStatus: number;
@@ -13,37 +14,64 @@ interface Props {
 }
 
 const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
-  const [vote, setVote] = useState(voteStatus);
+  const [vote, setVote] = useState(0);
 
   function handleUpvote() {
-    setVote((prevVote) => {
-      if (prevVote === voteStatus + 1) {
-        return prevVote - 1;
-      } else if (prevVote === voteStatus - 1) {
-        return prevVote + 2;
-      }
-      return prevVote + 1;
+    handleVote().then(() => {
+      setVote((prevVote) => {
+        if (prevVote === voteStatus + 1) {
+          return prevVote - 1;
+        } else if (prevVote === voteStatus - 1) {
+          return prevVote + 2;
+        }
+        return prevVote + 1;
+      });
     });
   }
 
   function handleDownvote() {
-    setVote((prevVote) => {
-      if (prevVote === voteStatus - 1) {
-        return prevVote + 1;
-      } else if (prevVote === voteStatus + 1) {
-        return prevVote - 2;
-      }
-      return prevVote - 1;
+    handleVote().then(() => {
+      setVote((prevVote) => {
+        if (prevVote === voteStatus - 1) {
+          return prevVote + 1;
+        } else if (prevVote === voteStatus + 1) {
+          return prevVote - 2;
+        }
+        return prevVote - 1;
+      });
     });
   }
 
-  const handleVote = async () => {
+  async function handleVote() {
     try {
       const batch = writeBatch(db);
+
+      const postsRef = doc(db, "posts", "WTEdhCbgKRjIIBtOnfD3");
+
+      batch.update(postsRef, { voteStatus: increment(vote) });
+
+      // const userRef = collection(db, "users", `/${getUserId()}/postVotes`);
+      const id = nanoid();
+
+      const postVoteRef = doc(
+        db, "users", `${getUserId()}/postVotes/${id}`
+      );
+      // const userPostVotes = doc(collection(db, "users"))
+
+      const newVote = {
+        id,
+        postId,
+        subredditId,
+        voteValue: vote,
+      };
+
+      batch.set(postVoteRef, newVote);
+
+      await batch.commit();
     } catch (error) {
       console.log(`ERROR: ${error}`);
     }
-  };
+  }
 
   // const handleVote = async () => {
   //   try {
