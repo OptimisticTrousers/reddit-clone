@@ -23,29 +23,29 @@ interface Props {
 }
 
 const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
-  const [vote, setVote] = useState(voteStatus);
+  const [vote, setVote] = useState(0);
 
   const postId = useAppSelector(selectPostId);
 
   function handleUpvote() {
     setVote((prevVote) => {
-      if (prevVote === voteStatus + 1) {
-        return prevVote - 1;
-      } else if (prevVote === voteStatus - 1) {
-        return prevVote + 2;
+      if (prevVote=== 1) {
+        return prevVote- 1;
+      } else if (prevVote=== -1) {
+        return prevVote+ 2;
       }
-      return prevVote + 1;
+      return prevVote+ 1;
     });
   }
 
   function handleDownvote() {
     setVote((prevVote) => {
-      if (prevVote === voteStatus - 1) {
-        return prevVote + 1;
-      } else if (prevVote === voteStatus + 1) {
-        return prevVote - 2;
+      if (prevVote=== - 1) {
+        return prevVote+ 1;
+      } else if (prevVote=== 1) {
+        return prevVote- 2;
       }
-      return prevVote - 1;
+      return prevVote- 1;
     });
   }
 
@@ -288,7 +288,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
       <div styleName="votes__vote votes__vote_type_upvote">
         <BiUpvote styleName="votes__icon " onClick={handleUpvote} />
       </div>
-      <p styleName="votes__likes">{vote}</p>
+      <p styleName="votes__likes">{voteStatus + vote}</p>
       <div styleName="votes__vote votes__vote_type_downvote">
         <BiDownvote styleName="votes__icon" onClick={handleDownvote} />
       </div>
