@@ -17,15 +17,21 @@ interface Props {
 }
 
 const Post: React.FC<Props> = (props) => {
-
   return (
     <div
       styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}
       data-testid="post"
     >
-      <Votes voteStatus={props.data?.voteStatus} subredditId={props.data?.subredditId} />
+      <Votes
+        voteStatus={props.data?.voteStatus}
+        subredditId={props.data?.subredditId}
+      />
       <div styleName="post-excerpt__content">
-        <PostAuthor subredditName={props.data?.subredditName} userName={props.data?.user_name} createdAt={props.data?.createdAt}/>
+        <PostAuthor
+          subredditName={props.data?.subredditName}
+          userName={props.data?.user_name}
+          createdAt={props.data?.createdAt}
+        />
         <div styleName="post-excerpt__container">
           <h3 styleName="post-excerpt__title">{props.data?.title}</h3>
           <p styleName="post-excerpt__description">{props.data?.description}</p>
