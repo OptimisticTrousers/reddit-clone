@@ -22,10 +22,10 @@ interface Props {
   subredditId: string;
 }
 
-const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
+const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
   const [vote, setVote] = useState(voteStatus);
 
-  const postId = useAppSelector(selectPostId());
+  const postId = useAppSelector(selectPostId);
 
   function handleUpvote() {
     setVote((prevVote) => {
@@ -56,8 +56,10 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
 
         // if(vote === voteStatus) {
         const postVoteRef = doc(
-          collection(db, "users", `${getUserId()}/postVotes`)
+          db, "users", `${getUserId()}/postVotes/${postId}`
         );
+
+        const postsVoteRef = doc(db, "posts", postId);
 
         const newVote = {
           id: postVoteRef.id,
@@ -67,6 +69,11 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
         };
 
         batch.set(postVoteRef, newVote);
+        batch.update(postsVoteRef, {
+          voteStatus: voteStatus + vote,
+        });
+
+        await batch.commit()
         // } else {
         //   const postVoteRef = doc(db, "users", `${getUserId()}/postVotes/${}`)
         // }
@@ -75,13 +82,15 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
       }
     }
 
+    updateData()
+
     // const userPostVotesRef = collection(
     //   db,
     //   `users${getUserId()}/postVotes/${postId}`
     // );
     // const userPostVotes = await updateDoc(userPostVotesRef, {
     // })
-  });
+  }, [vote, postId, subredditId, voteStatus]);
 
   // async function handleVote(vote: number) {
   //   const postDocRef = doc(db, "posts", postId);
