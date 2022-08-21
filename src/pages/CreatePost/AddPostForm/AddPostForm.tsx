@@ -50,29 +50,27 @@ const AddPostForm: React.FC = () => {
     event.preventDefault();
     if (isLoggedIn) {
       try {
+        const postsRef = collection(db, "posts");
 
-      const postsRef = collection(db, "posts");
+        const postId = nanoid();
 
-      const postId = nanoid()
-
-      const postRef = await addDoc(postsRef, {
-        createdAt: serverTimestamp(),
-        id: postId,
-        subredditId: id,
-        subredditName: name,
-        voteStatus: 0,
-        postId: nanoid(),
-        userId: getUserId(),
-        userName: getUserName(),
-        title,
-        description,
-        commentsQuantity: 0,
-      });
-      setTimeout(() => {
-        navigate(`/r/${name}/comments/${postRef.id}`);
-      }, 1000);
-      } catch(error) {
-        console.log(`ERROR: ${error}`)
+        addDoc(postsRef, {
+          createdAt: serverTimestamp(),
+          id: postId,
+          subredditId: id,
+          subredditName: name,
+          voteStatus: 0,
+          postId: nanoid(),
+          userId: getUserId(),
+          userName: getUserName(),
+          title,
+          description,
+          commentsQuantity: 0,
+        }).then((postRef) => {
+          navigate(`/r/${name}/comments/${postRef.id}`);
+        });
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
       }
     } else {
       alert("Sign in please!");
