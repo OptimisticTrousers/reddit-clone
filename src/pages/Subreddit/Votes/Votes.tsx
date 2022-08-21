@@ -3,6 +3,8 @@ import { BiUpvote, BiDownvote } from "react-icons/bi";
 import React, { useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
 import { selectSignInModalState } from "../../../features/auth/authSlice";
+import { writeBatch } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 interface Props {
   voteStatus: number;
@@ -34,6 +36,14 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
       return prevVote - 1;
     });
   }
+
+  const handleVote = async () => {
+    try {
+      const batch = writeBatch(db);
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
 
   // const handleVote = async () => {
   //   try {
@@ -135,17 +145,11 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
   return (
     <div styleName="votes">
       <div styleName="votes__vote votes__vote_type_upvote">
-        <BiUpvote
-          styleName="votes__icon "
-          onClick={handleUpvote}
-        />
+        <BiUpvote styleName="votes__icon " onClick={handleUpvote} />
       </div>
       <p styleName="votes__likes">{vote}</p>
       <div styleName="votes__vote votes__vote_type_downvote">
-        <BiDownvote
-          styleName="votes__icon"
-          onClick={handleDownvote}
-        />
+        <BiDownvote styleName="votes__icon" onClick={handleDownvote} />
       </div>
     </div>
   );
