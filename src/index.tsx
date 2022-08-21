@@ -20,9 +20,14 @@ root.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
-            <Route path="r/:subredditName" element={<Subreddit />} />
-            <Route path="r/:subredditName/comments/:postId" element={<SinglePostPage />} />
-            <Route path="r/:subredditName/submit" element={<CreatePost />} />
+            <Route path="r/">
+              <Route path=":subredditName" element={<Subreddit />} />
+              <Route
+                path=":subredditName/comments/:postId"
+                element={<SinglePostPage />}
+              />
+              <Route path=":subredditName/submit" element={<CreatePost />} />
+            </Route>
           </Route>
         </Routes>
       </React.StrictMode>
