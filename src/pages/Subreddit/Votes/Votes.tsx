@@ -16,8 +16,8 @@ import { nanoid } from "nanoid";
 import { batch } from "react-redux";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectPostId } from "../../../features/post/postSlice";
-import upVote from "../../../assets/upvote.svg"
-import downVote from "../../../assets/downvote.svg"
+import upVote from "../../../assets/upvote.svg";
+import downVote from "../../../assets/downvote.svg";
 
 interface Props {
   voteStatus: number;
@@ -88,12 +88,33 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
   return (
     <div styleName="votes">
       <div styleName="votes__vote votes__vote_type_upvote">
-        <img styleName="votes__icon votes__icon--active-upvote" src={upVote} alt="upvote icon" onClick={handleUpvote}/>
+        <img
+          styleName={`votes__icon ${
+            vote === 1 && "votes__icon--active-upvote"
+          }`}
+          src={upVote}
+          alt="upvote icon"
+          onClick={handleUpvote}
+        />
         {/* <BiUpvote styleName="votes__icon votes__icon--active-upvote" onClick={handleUpvote} /> */}
       </div>
-      <p styleName="votes__likes">{voteStatus + vote}</p>
-      <div styleName="votes__vote votes__vote_type_downvote">
-        <img styleName="votes__icon votes__icon--active-downvote" src={downVote} alt="downvote icon" onClick={handleDownvote}/>
+      <p
+        styleName={`votes__likes ${
+          (vote === 1 && "votes__likes--upvote") ||
+          (vote === -1 && "votes__likes--downvote")
+        }`}
+      >
+        {voteStatus + vote}
+      </p>
+      <div styleName="votes__vote">
+        <img
+          styleName={`votes__icon ${
+            vote === -1 && "votes__icon--active-downvote"
+          }`}
+          src={downVote}
+          alt="downvote icon"
+          onClick={handleDownvote}
+        />
         {/* <BiDownvote styleName="votes__icon" onClick={handleDownvote} /> */}
       </div>
     </div>

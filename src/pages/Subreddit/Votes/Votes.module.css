@@ -10,12 +10,15 @@
 .votes__icon {
   width: 20px;
   height: 20px;
-  fill: green;
-   /* filter: hue-rotate(300deg); */
 }
 
 .votes__icon--active-upvote {
-   /* color: red !important; */
+  filter: invert(100%) sepia() saturate(10000%) hue-rotate(0deg);
+}
+
+.votes__icon--active-downvote {
+
+  filter: sepia(100%) hue-rotate(190deg) saturate(500%);
 }
 
 .votes__vote:hover {
@@ -28,7 +31,7 @@
 }
 
 .votes__vote_type_downvote:hover {
-  /* color: #5a75cc; */
+  color: #5a75cc;
 }
 
 .votes__likes {
@@ -41,9 +44,9 @@
   /* color: rgb(215, 218, 220); */
 }
 
-.votes__likes--downvote{
-  color: #7193FF;
+.votes__likes--downvote {
+  color: #7193ff;
 }
-.votes__likes--upvote{
-  color: #FF4500;
+.votes__likes--upvote {
+  color: #ff4500;
 }
