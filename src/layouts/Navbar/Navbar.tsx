@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { getUser, isUserSignedIn, signIn, signOutUser } from "../../firebase";
@@ -21,14 +21,33 @@ import Dropdown from "../Dropdown/Dropdown";
 import CommunityDropdown from "../CommunityDropdown/CommunityDropdown";
 import ProfileDropdown from "../ProfileDropdown/ProfileDropdown";
 
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
+
+type FormEvent = React.FormEvent<HTMLFormElement>;
+
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const [isSubscriptionsDropdownOpen, setIsSubscriptionsDropdownOpen] =
     useState(false);
 
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const [searchInput, setSearchInput] = useState("");
+
+  function handleSearchInput(event: InputEvent) {
+    setSearchInput(event.target.value);
+  }
+
+  function submitSearch(event: FormEvent) {
+    event.preventDefault();
+    setTimeout(() => {
+      navigate(`/r/${searchInput}`);
+      setSearchInput("");
+    }, 500);
+  }
 
   function handleProfileDropdown() {
     setIsProfileDropdownOpen((prevValue) => !prevValue);
@@ -71,7 +90,10 @@ const Navbar: React.FC = () => {
               </div>
               <div className="header__dropdown-menu">
                 {isSubscriptionsDropdownOpen && (
-                  <CommunityDropdown dropdown={"community"} handleHomeDropdown={handleHomeDropdown}/>
+                  <CommunityDropdown
+                    dropdown={"community"}
+                    handleHomeDropdown={handleHomeDropdown}
+                  />
                 )}
               </div>
             </div>
@@ -81,7 +103,14 @@ const Navbar: React.FC = () => {
           <div styleName="header__search-icon-container">
             <RiSearchLine styleName="header__search-icon" />
           </div>
-          <input styleName="header__search-input" placeholder="Search Reddit" />
+          <form onSubmit={submitSearch}>
+            <input
+              styleName="header__search-input"
+              placeholder="Search Reddit"
+              onChange={handleSearchInput}
+              value={searchInput}
+            />
+          </form>
         </div>
         <div styleName="header__right">
           <div styleName="header__buttons">
