@@ -16,6 +16,8 @@ import { nanoid } from "nanoid";
 import { batch } from "react-redux";
 import { useAppSelector } from "../../../hooks/hooks";
 import { selectPostId } from "../../../features/post/postSlice";
+import upVote from "../../../assets/upvote.svg"
+import downVote from "../../../assets/downvote.svg"
 
 interface Props {
   voteStatus: number;
@@ -86,11 +88,13 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
   return (
     <div styleName="votes">
       <div styleName="votes__vote votes__vote_type_upvote">
-        <BiUpvote styleName="votes__icon " onClick={handleUpvote} />
+        <img styleName="votes__icon votes__icon--active-upvote" src={upVote} alt="upvote icon" onClick={handleUpvote}/>
+        {/* <BiUpvote styleName="votes__icon votes__icon--active-upvote" onClick={handleUpvote} /> */}
       </div>
       <p styleName="votes__likes">{voteStatus + vote}</p>
       <div styleName="votes__vote votes__vote_type_downvote">
-        <BiDownvote styleName="votes__icon" onClick={handleDownvote} />
+        <img styleName="votes__icon votes__icon--active-downvote" src={downVote} alt="downvote icon" onClick={handleDownvote}/>
+        {/* <BiDownvote styleName="votes__icon" onClick={handleDownvote} /> */}
       </div>
     </div>
   );

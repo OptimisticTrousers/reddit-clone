@@ -10,6 +10,12 @@
 .votes__icon {
   width: 20px;
   height: 20px;
+  fill: green;
+   /* filter: hue-rotate(300deg); */
+}
+
+.votes__icon--active-upvote {
+   /* color: red !important; */
 }
 
 .votes__vote:hover {
@@ -22,7 +28,7 @@
 }
 
 .votes__vote_type_downvote:hover {
-  color: #5a75cc;
+  /* color: #5a75cc; */
 }
 
 .votes__likes {
@@ -32,5 +38,12 @@
   line-height: 16px;
   pointer-events: none;
   word-break: normal;
-  color: rgb(215, 218, 220);
+  /* color: rgb(215, 218, 220); */
+}
+
+.votes__likes--downvote{
+  color: #7193FF;
+}
+.votes__likes--upvote{
+  color: #FF4500;
 }
