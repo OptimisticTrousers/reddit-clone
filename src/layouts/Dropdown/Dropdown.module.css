@@ -24,3 +24,11 @@
   padding-left: 24px;
   padding-right: 24px;
 }
+
+@media(max-width: 1210px) {
+  .profile-width{
+    width: fit-content;
+    padding: 0;
+    right: 20px;
+  }
+}

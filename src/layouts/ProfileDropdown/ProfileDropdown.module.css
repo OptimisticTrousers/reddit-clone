@@ -20,3 +20,11 @@
   height: 24px;
   filter: brightness(0) invert(1);
 }
+
+
+@media(max-width: 1210px) {
+
+  .profile-dropdown__button {
+    padding: 0;
+  }
+}
