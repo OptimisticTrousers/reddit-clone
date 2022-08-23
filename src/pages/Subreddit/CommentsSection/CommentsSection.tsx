@@ -16,9 +16,12 @@ import {
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { db, getUserId, getUserName } from "../../../firebase";
-import { useAppSelector } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Comments from "../Comments/Comments";
-import { selectAuthStatus } from "../../../features/auth/authSlice";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
 import CSSModules from "react-css-modules";
 import upsideDownTriangle from "../../../assets/upside-down-triangle.svg";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
@@ -32,6 +35,8 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const [commentText, setCommentText] = useState("");
 
   const { id } = useAppSelector(selectCommunityData);
+
+  const dispatch = useAppDispatch();
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
@@ -55,7 +60,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         updatedAt: serverTimestamp(),
         userName: getUserName(),
         userId: getUserId(),
-        voteStatus: 0
+        voteStatus: 0,
       });
 
       const postRef = doc(db, "posts", `${postId}`);
@@ -66,7 +71,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
 
       setCommentText("");
     } else {
-      alert("LOG IN SUCKER!!");
+      dispatch(toggleSignInModal());
     }
   };
   return (
@@ -115,7 +120,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         </a>
       </div>
 
-      <Comments comments={comments} postId={postId}/>
+      <Comments comments={comments} postId={postId} />
     </div>
   );
 };
