@@ -1,4 +1,5 @@
 import { DocumentData } from "firebase/firestore";
+import moment from "moment";
 import React from "react";
 import CSSModules from "react-css-modules";
 import { getUserName } from "../../../firebase";
@@ -22,10 +23,14 @@ const Comment: React.FC<DocumentData> = ({ comment }) => {
       <div styleName="comment__content">
         <div styleName="comment__body">
           <div styleName="comment__author">
-            {comment.userName === getUserName() && `${getUserName()}`}
+            <p>
+              {comment.userName === getUserName() && `${getUserName()}`}{" "}
+          
+              <span styleName="comment__date">{moment(new Date(comment.createdAt.seconds * 1000)).fromNow()}</span>
+            </p>
           </div>
           <div styleName="comment__message">{comment.content}</div>
-          <CommentInteractions voteStatus={comment.voteStatus}/>
+          <CommentInteractions voteStatus={comment.voteStatus} />
         </div>
       </div>
     </div>
