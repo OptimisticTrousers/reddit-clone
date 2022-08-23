@@ -13,13 +13,14 @@ import {
   query,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import UpworkJobLoader from "../../../components/Skeletons/UpworkJobLoader";
 
 const TopCommunitiesCard: React.FC = () => {
   const [topCommunities, setTopCommunities] = useState<
     DocumentData | undefined
   >();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const subredditsRef = collection(db, "subreddits");
@@ -32,8 +33,9 @@ const TopCommunitiesCard: React.FC = () => {
   }, []);
 
   function subredditLinkClick(subredditName: string) {
-    navigate(`/r/${subredditName}`)
+    navigate(`/r/${subredditName}`);
   }
+
   return (
     <Card>
       <div styleName="top-communities__top-community-image">
@@ -44,7 +46,7 @@ const TopCommunitiesCard: React.FC = () => {
       <ol styleName="top-communities__top-community-list">
         {topCommunities?.map((doc: DocumentData, index: number) => {
           return (
-            <li styleName="top-communities__top-community-item" >
+            <li styleName="top-communities__top-community-item">
               <a styleName="top-communities__top-community-details">
                 <p styleName="top-communities__top-community-rank">
                   {index + 1}
@@ -54,13 +56,25 @@ const TopCommunitiesCard: React.FC = () => {
                   {doc.data().name}
                 </span>
               </a>
-              <button styleName="top-communities__top-community-button top-communities__top-community-button_type_join" onClick={() => subredditLinkClick(doc.data().name)}>
+              <button
+                styleName="top-communities__top-community-button top-communities__top-community-button_type_join"
+                onClick={() => subredditLinkClick(doc.data().name)}
+              >
                 Join
               </button>
             </li>
           );
-        })}
-
+        }) ?? (
+          <>
+            <UpworkJobLoader
+              animate={true}
+              width={321}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+              speed={1}
+            />
+          </>
+        )}
       </ol>
       <button styleName="top-communities__top-community-button top-communities__top-community-button_type_view">
         View All
