@@ -179,6 +179,15 @@
   cursor: pointer;
 }
 
+@media(max-width: 1110px) {
+  .header_buttons {
+    width: 100%;
+  }
+  .header__button {
+    width: 85px;
+  }
+}
+
 @media(max-width: 1070px) {
   .header__logo-name {
     display: none;
@@ -191,7 +200,3 @@
   }
 }
 
-@media(max-width: 640px) {
-  .header__content {
-  }
-}
