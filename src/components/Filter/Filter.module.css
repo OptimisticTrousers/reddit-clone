@@ -11,8 +11,6 @@
   background-color: #272729;
   border: 1px solid transparent;
   margin-right: 8px;
-  min-height: unset;
-  min-width: unset;
   padding: 8px 10px;
   display: flex;
   align-items: center;
@@ -25,5 +23,8 @@
 .filter__icon {
     width: 24px;
     height: 24px;
+}
+
+@media(max-width: 670px) {
 }
 

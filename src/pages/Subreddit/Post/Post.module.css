@@ -1,7 +1,8 @@
 a {
   all: unset;
 }
-.post-excerpt, .post-excerpt-hover {
+.post-excerpt,
+.post-excerpt-hover {
   display: flex;
   color: rgb(215, 218, 220);
   background-color: rgb(26, 26, 27);
@@ -37,11 +38,17 @@ a {
 }
 
 .post-excerpt__description {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 .post__buttons {
 }
 
 .post-excerpt__divider {
+}
+
+@media (max-width: 640px) {
+  .post-excerpt, .post-excerpt-hover {
+    min-width: unset;
+  }
 }

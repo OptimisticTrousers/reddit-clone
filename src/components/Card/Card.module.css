@@ -10,3 +10,10 @@
   min-width: 312px;
   margin-bottom: 16px;
 }
+
+@media (max-width: 640px) {
+  .card {
+    min-width: unset;
+    max-width: 100%;
+  }
+}

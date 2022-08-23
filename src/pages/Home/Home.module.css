@@ -115,7 +115,9 @@
 
 @media(max-width: 640px) {
   .home {
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
   }
   .home__posts {
     max-width: 100%;
