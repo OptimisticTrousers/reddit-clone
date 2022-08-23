@@ -178,3 +178,9 @@
   background-color: rgb(215, 218, 220);
   cursor: pointer;
 }
+
+@media(max-width: 1070px) {
+  .header__logo-name {
+    display: none;
+  }
+}

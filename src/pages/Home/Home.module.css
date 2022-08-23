@@ -7,11 +7,13 @@
   display: grid;
   place-items: center;
   padding: 20px 24px;
+  max-width: 100%;
 }
 .home__content {
   display: flex;
 }
 .home__posts {
+  max-width: 640px;
 }
 
 .home__top-community-image {

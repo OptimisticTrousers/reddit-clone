@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   return (
     <div styleName="home">
       <div styleName="home__content">
-        <div className="home__posts">
+        <div styleName="home__posts">
           <PostCreatorCard />
           <Filter />
           <Posts />

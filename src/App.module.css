@@ -1,4 +1,5 @@
 .container {
     background-color: black;
     min-height: 100%;
+    max-width: 100%;
 }
