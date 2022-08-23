@@ -66,5 +66,6 @@
 @media(max-width: 640px) {
   .profile__button {
     margin: 0;
+    margin-left: 2px;
   }
 }
