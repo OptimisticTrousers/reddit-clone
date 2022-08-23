@@ -27,7 +27,7 @@ const Comments: React.FC<Props> = ({ comments, postId }) => {
       })
   return (
     <div styleName="comments">
-      {renderedComments.length === 0 ? <EmptyComments /> : renderedComments}
+      {renderedComments == false ? <EmptyComments /> : renderedComments}
     </div>
   );
 };
