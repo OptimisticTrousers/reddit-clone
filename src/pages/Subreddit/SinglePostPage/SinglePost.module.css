@@ -44,3 +44,17 @@
 
 .aside {
 }
+
+@media (max-width: 1070px) {
+  .aside {
+    display: none;
+  }
+  .post-page__post {
+    display: block;
+    width: 100%;
+  }
+  .post-page {
+    display: block;
+    width: 100%;
+  }
+}
