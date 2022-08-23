@@ -17,6 +17,7 @@ import { DocumentSnapshot, DocumentData } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
+import AuthorsList from "../../../components/Skeletons/AuthorsList";
 
 interface Props {
   posts?: DocumentData;
@@ -36,13 +37,30 @@ const Posts: React.FC<Props> = ({ posts }) => {
       );
     }
   }, [posts]);
+
+  if (posts === undefined && randomPosts === undefined) {
+    return (<AuthorsList
+      animate={true}
+      backgroundColor={"#333"}
+      foregroundColor={"#999"}
+      speed={1}
+    />)
+  }
   return (
     <div styleName="container">
       {(posts ?? randomPosts)?.map((doc: DocumentData) => {
         const data = doc.data();
         return (
-          <Link key={doc.id} to={`/r/${data.subredditName}/comments/${doc.id}`} state={{ ...data }}>
-            <Post key={doc.id} data={{...data, id: doc.id}} renderHover={true} />
+          <Link
+            key={doc.id}
+            to={`/r/${data.subredditName}/comments/${doc.id}`}
+            state={{ ...data }}
+          >
+            <Post
+              key={doc.id}
+              data={{ ...data, id: doc.id }}
+              renderHover={true}
+            />
           </Link>
         );
       })}
