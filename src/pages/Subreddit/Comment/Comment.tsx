@@ -1,6 +1,7 @@
 import { DocumentData } from "firebase/firestore";
 import React from "react";
 import CSSModules from "react-css-modules";
+import { getUser, getUserName } from "../../../firebase";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
 import styles from "./Comment.module.css";
 
@@ -17,8 +18,8 @@ const Comment: React.FC<DocumentData> = ({ comment }) => {
       </div>
       <div styleName="comment__content">
         <div styleName="comment__body">
-          <div styleName="comment__author">OptimisticTrousers</div>
-          <div styleName="comment__message">not rendering</div>
+          <div styleName="comment__author">{comment.userName === getUserName() && getUserName()}</div>
+          <div styleName="comment__message">{comment.content}</div>
           <CommentInteractions />
         </div>
       </div>

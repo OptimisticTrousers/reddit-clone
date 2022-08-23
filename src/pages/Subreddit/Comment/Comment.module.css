@@ -1,11 +1,21 @@
 .comment {
     color: white;
     display: flex;
+    column-gap: 8px;
 }
 
 .comment__content {
     display: flex;
     align-items: center;
+}
+
+.comment__author {
+    margin-bottom: 6px;
+}
+
+.comment__message {
+
+    margin-bottom: 6px;
 }
 
 .comment__treadline {
@@ -16,8 +26,8 @@
 }
 
 .comment__icon {
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
 }
 
 .comment__author {

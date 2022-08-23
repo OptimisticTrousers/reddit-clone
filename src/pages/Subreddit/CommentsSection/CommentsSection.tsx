@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
-import { db, getUserId } from "../../../firebase";
+import { db, getUserId, getUserName } from "../../../firebase";
 import { useAppSelector } from "../../../hooks/hooks";
 import Comments from "../Comments/Comments";
 import { selectAuthStatus } from "../../../features/auth/authSlice";
@@ -53,6 +53,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         subredditId: id,
         postId,
         updatedAt: serverTimestamp(),
+        userName: getUserName(),
         userId: getUserId(),
       });
 
