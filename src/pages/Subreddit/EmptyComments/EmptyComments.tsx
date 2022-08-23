@@ -3,8 +3,10 @@ import styles from "./EmptyComments.module.css";
 
 const EmptyComments: React.FC = () => {
   return (
-    <div>
-      <h1>Okay</h1>
+    <div styleName="empty-comments">
+      <div styleName="empty-comments__content">
+        
+      </div>
     </div>
   );
 };
