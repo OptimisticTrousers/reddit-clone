@@ -79,6 +79,7 @@
   color: black;
   border-radius: 9999px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .top-communities__top-community-button_type_join {
   min-height: 24px;

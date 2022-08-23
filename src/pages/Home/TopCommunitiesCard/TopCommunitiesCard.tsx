@@ -2,8 +2,38 @@ import CSSModules from "react-css-modules";
 import Card from "../../../components/Card/Card";
 import styles from "./TopCommunities.module.css";
 import { IoIosArrowUp } from "react-icons/io";
+import { useEffect, useState } from "react";
+import { db } from "../../../firebase";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const TopCommunitiesCard: React.FC = () => {
+  const [topCommunities, setTopCommunities] = useState<
+    DocumentData | undefined
+  >();
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const subredditsRef = collection(db, "subreddits");
+
+    const q = query(subredditsRef, orderBy("numberOfMembers", "asc"), limit(5));
+    getDocs(q).then((data) => {
+      console.log(data);
+      setTopCommunities(data.docs);
+    });
+  }, []);
+
+  function subredditLinkClick(subredditName: string) {
+    navigate(`/r/${subredditName}`)
+  }
   return (
     <Card>
       <div styleName="top-communities__top-community-image">
@@ -12,70 +42,25 @@ const TopCommunitiesCard: React.FC = () => {
         </h2>
       </div>
       <ol styleName="top-communities__top-community-list">
-        <li styleName="top-communities__top-community-item">
-          <a styleName="top-communities__top-community-details">
-            <p styleName="top-communities__top-community-rank">1</p>
-            <IoIosArrowUp styleName="top-communities__top-community-icon" />
-            <span styleName="top-communities__top-community-name">
-              r/gaming
-            </span>
-          </a>
-          <button styleName="top-communities__top-community-button top-communities__top-community-button_type_join">
-            Join
-          </button>
-        </li>
+        {topCommunities?.map((doc: DocumentData, index: number) => {
+          return (
+            <li styleName="top-communities__top-community-item" >
+              <a styleName="top-communities__top-community-details">
+                <p styleName="top-communities__top-community-rank">
+                  {index + 1}
+                </p>
+                <IoIosArrowUp styleName="top-communities__top-community-icon" />
+                <span styleName="top-communities__top-community-name">
+                  {doc.data().name}
+                </span>
+              </a>
+              <button styleName="top-communities__top-community-button top-communities__top-community-button_type_join" onClick={() => subredditLinkClick(doc.data().name)}>
+                Join
+              </button>
+            </li>
+          );
+        })}
 
-        <li styleName="top-communities__top-community-item">
-          <a styleName="top-communities__top-community-details">
-            <p styleName="top-communities__top-community-rank">1</p>
-            <IoIosArrowUp styleName="top-communities__top-community-icon" />
-            <span styleName="top-communities__top-community-name">
-              r/gaming
-            </span>
-          </a>
-          <button styleName="top-communities__top-community-button top-communities__top-community-button_type_join">
-            Join
-          </button>
-        </li>
-
-        <li styleName="top-communities__top-community-item">
-          <a styleName="top-communities__top-community-details">
-            <p styleName="top-communities__top-community-rank">1</p>
-            <IoIosArrowUp styleName="top-communities__top-community-icon" />
-            <span styleName="top-communities__top-community-name">
-              r/gaming
-            </span>
-          </a>
-          <button styleName="top-communities__top-community-button top-communities__top-community-button_type_join">
-            Join
-          </button>
-        </li>
-
-        <li styleName="top-communities__top-community-item">
-          <a styleName="top-communities__top-community-details">
-            <p styleName="top-communities__top-community-rank">1</p>
-            <IoIosArrowUp styleName="top-communities__top-community-icon" />
-            <span styleName="top-communities__top-community-name">
-              r/gaming
-            </span>
-          </a>
-          <button styleName="top-communities__top-community-button top-communities__top-community-button_type_join">
-            Join
-          </button>
-        </li>
-
-        <li styleName="top-communities__top-community-item">
-          <a styleName="top-communities__top-community-details">
-            <p styleName="top-communities__top-community-rank">1</p>
-            <IoIosArrowUp styleName="top-communities__top-community-icon" />
-            <span styleName="top-communities__top-community-name">
-              r/gaming
-            </span>
-          </a>
-          <button styleName="top-communities__top-community-button top-communities__top-community-button_type_join">
-            Join
-          </button>
-        </li>
       </ol>
       <button styleName="top-communities__top-community-button top-communities__top-community-button_type_view">
         View All
