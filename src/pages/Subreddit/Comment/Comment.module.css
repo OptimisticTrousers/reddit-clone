@@ -11,10 +11,14 @@
 
 .comment__author {
     margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
 }
 
 .comment__message {
 
+    font-size: 14px;
     margin-bottom: 6px;
 }
 
@@ -28,6 +32,20 @@
 .comment__icon {
     width: 36px;
     height: 36px;
+    margin: 0 auto;
+}
+
+.comment__profile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transform-origin: bottom center;
+    background-color: #343536;
+    margin-bottom: 12px;
+
 }
 
 .comment__author {
