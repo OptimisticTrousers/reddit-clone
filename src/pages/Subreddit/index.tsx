@@ -22,6 +22,7 @@ import {
   selectCommunityData,
   setCommunityData,
 } from "../../features/subreddit/subredditSlice";
+import Filter from "../../components/Filter/Filter";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
@@ -46,7 +47,10 @@ const Subreddit: React.FC = () => {
     <div styleName="subreddit">
       <Header subredditName={subredditName} />
       <main styleName="main">
-        <Posts posts={posts} />
+        <div styleName="content">
+          <Filter />
+          <Posts posts={posts} />
+        </div>
         <aside styleName="aside">
           <About />
         </aside>
