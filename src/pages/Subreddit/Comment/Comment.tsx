@@ -7,6 +7,7 @@ const Comment: React.FC<DocumentData> = ({ comment }) => {
   return (
     <div styleName="comment">
       <div styleName="comment__author">{comment.content}</div>
+      <div styleName="comment__body">not rendering</div>
     </div>
   );
 };
