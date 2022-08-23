@@ -123,3 +123,23 @@
   color: rgba(26, 26, 27, 0.5);
   cursor: pointer;
 }
+
+@media(max-width: 1070px) {
+  .post-creator {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media(max-width: 550px) {
+  .post-creator__button {
+    padding: 7.5px 8.5px;
+    gap: 2px;
+  }
+}
+
+@media(max-width: 410px) {
+  .post-creator__button {
+    padding: 3.75px 4.75px;
+  }
+}

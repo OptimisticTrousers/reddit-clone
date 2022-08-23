@@ -1,6 +1,16 @@
 .section {
-    display: flex;
-    justify-content: center;
-    padding: 24px 20px;
-    column-gap: 16px;
+  display: flex;
+  justify-content: center;
+  padding: 24px 20px;
+  column-gap: 16px;
+}
+
+@media (max-width: 1070px) {
+  .aside {
+    display: none;
+  }
+  .section {
+    padding: 0;
+    padding-top: 24px;
+  }
 }

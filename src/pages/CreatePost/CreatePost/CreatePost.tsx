@@ -7,7 +7,9 @@ const CreatePost: React.FC = () => {
   return (
     <section styleName="section">
       <AddPostForm />
-      <About />
+      <aside styleName="aside">
+        <About />
+      </aside>
     </section>
   );
 };
