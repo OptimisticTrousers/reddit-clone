@@ -1,0 +1,41 @@
+.interactions {
+    display: flex;
+    column-gap: 4px;
+    align-items: center;
+}
+
+.interactions__reply {
+    display: flex;
+    column-gap: 4px;
+    align-items: center;
+}
+
+.interactions__vote {
+    width: auto;
+    color: rgb(215, 218, 220);
+    line-height: 15px;;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    pointer-events: none;
+    word-break: normal;
+}
+
+.interactions__button {
+    color: rgb(129, 131, 132);
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    line-height: 20px;
+    padding: 6px 4px;
+    text-align: left;
+    white-space: nowrap;
+    height: 100%;
+    border-radius: 2px;
+}
+
+.interactions__icon {
+    width: 24px;
+    height: 24px;
+    color: rgb(129, 131, 132);
+}

@@ -7,17 +7,17 @@ import { BiMessage } from "react-icons/bi";
 const CommentInteractions = () => {
   return (
     <div styleName="interactions">
-      <BiUpvote />
-      <p>1</p>
-      <BiDownvote />
+      <BiUpvote styleName="interactions__icon"/>
+      <p styleName="interactions__vote">1</p>
+      <BiDownvote styleName="interactions__icon"/>
       <div styleName="interactions__reply">
-        <BiMessage />
-        <p>Reply</p>
+        <BiMessage styleName="interactions__icon"/>
+        <button styleName="interactions__button">Reply</button>
       </div>
-      <p>Share</p>
-      <p>Report</p>
-      <p>Save</p>
-      <p>Follow</p>
+      <button styleName="interactions__button">Share</button>
+      <button styleName="interactions__button">Report</button>
+      <button styleName="interactions__button">Save</button>
+      <button styleName="interactions__button">Follow</button>
     </div>
   );
 };

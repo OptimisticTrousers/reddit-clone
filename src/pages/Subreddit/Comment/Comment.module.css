@@ -1,5 +1,23 @@
 .comment {
     color: white;
+    display: flex;
+}
+
+.comment__content {
+    display: flex;
+    align-items: center;
+}
+
+.comment__treadline {
+    height: 50px;
+    border-right: 2px solid #343536;
+    display: block;
+    width: 50%;
+}
+
+.comment__icon {
+    width: 28px;
+    height: 28px;
 }
 
 .comment__author {
