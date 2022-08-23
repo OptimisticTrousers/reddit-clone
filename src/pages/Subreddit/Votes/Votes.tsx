@@ -2,7 +2,10 @@ import styles from "./Votes.module.css";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import React, { useEffect, useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
-import { selectSignInModalState } from "../../../features/auth/authSlice";
+import {
+  selectSignInModalState,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
 import {
   collection,
   doc,
@@ -11,10 +14,10 @@ import {
   updateDoc,
   writeBatch,
 } from "firebase/firestore";
-import { db, getUser, getUserId } from "../../../firebase";
+import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
 import { nanoid } from "nanoid";
 import { batch } from "react-redux";
-import { useAppSelector } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { selectPostId } from "../../../features/post/postSlice";
 import upVote from "../../../assets/upvote.svg";
 import downVote from "../../../assets/downvote.svg";
@@ -29,26 +32,36 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
 
   const postId = useAppSelector(selectPostId);
 
+  const dispatch = useAppDispatch();
+
   function handleUpvote() {
-    setVote((prevVote) => {
-      if (prevVote === 1) {
-        return prevVote - 1;
-      } else if (prevVote === -1) {
-        return prevVote + 2;
-      }
-      return prevVote + 1;
-    });
+    if (isUserSignedIn() === false) {
+      dispatch(toggleSignInModal());
+    } else {
+      setVote((prevVote) => {
+        if (prevVote === 1) {
+          return prevVote - 1;
+        } else if (prevVote === -1) {
+          return prevVote + 2;
+        }
+        return prevVote + 1;
+      });
+    }
   }
 
   function handleDownvote() {
-    setVote((prevVote) => {
-      if (prevVote === -1) {
-        return prevVote + 1;
-      } else if (prevVote === 1) {
-        return prevVote - 2;
-      }
-      return prevVote - 1;
-    });
+    if (isUserSignedIn() === false) {
+      dispatch(toggleSignInModal());
+    } else {
+      setVote((prevVote) => {
+        if (prevVote === -1) {
+          return prevVote + 1;
+        } else if (prevVote === 1) {
+          return prevVote - 2;
+        }
+        return prevVote - 1;
+      });
+    }
   }
 
   useEffect(() => {
@@ -81,8 +94,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
         console.log(`ERROR: ${error}`);
       }
     }
-
-    updateData();
   }, [vote, postId, subredditId, voteStatus]);
 
   return (
