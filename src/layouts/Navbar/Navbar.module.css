@@ -193,6 +193,5 @@
 
 @media(max-width: 640px) {
   .header__content {
-    width: 89%;
   }
 }

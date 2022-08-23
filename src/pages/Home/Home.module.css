@@ -7,7 +7,7 @@
   display: grid;
   place-items: center;
   padding: 20px 24px;
-  max-width: 100%;
+  width: 100%;
 }
 .home__content {
   display: flex;
@@ -109,7 +109,7 @@
     width: 100%;
   }
   .home__posts {
-    max-width: 95%;
+    max-width: 97%;
   }
 }
 
@@ -120,9 +120,10 @@
     padding-bottom: 0;
   }
   .home__content {
-    width: 100%;
+    max-width: 100%;
   }
   .home__posts {
+    max-width: 100%;
   }
 }
 
