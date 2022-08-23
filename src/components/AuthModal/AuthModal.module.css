@@ -188,3 +188,9 @@
   padding-left: 8px;
   cursor: pointer;
 }
+
+@media(max-width: 930px) {
+  .sign-up-modal__container {
+    width: 85%;
+  }
+}
