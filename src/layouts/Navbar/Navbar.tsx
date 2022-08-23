@@ -103,7 +103,7 @@ const Navbar: React.FC = () => {
           <div styleName="header__search-icon-container">
             <RiSearchLine styleName="header__search-icon" />
           </div>
-          <form onSubmit={submitSearch}>
+          <form onSubmit={submitSearch} styleName="header__search-form">
             <input
               styleName="header__search-input"
               placeholder="Search Reddit"
