@@ -29,7 +29,7 @@ const Post: React.FC<Props> = (props) => {
       <div styleName="post-excerpt__content">
         <PostAuthor
           subredditName={props.data?.subredditName}
-          userName={props.data?.user_name}
+          userName={props.data?.userName}
           createdAt={props.data?.createdAt}
         />
         <div styleName="post-excerpt__container">
