@@ -6,7 +6,7 @@ import { getUserName } from "../../../firebase";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
 import styles from "./Comment.module.css";
 
-const Comment: React.FC<DocumentData> = ({ comment }) => {
+const Comment: React.FC<DocumentData> = ({ comment, postId }) => {
   return (
     <div styleName="comment">
       <div styleName="comment__user">
@@ -30,7 +30,7 @@ const Comment: React.FC<DocumentData> = ({ comment }) => {
             </p>
           </div>
           <div styleName="comment__message">{comment.content}</div>
-          <CommentInteractions voteStatus={comment.voteStatus} />
+          <CommentInteractions voteStatus={comment.voteStatus} id={comment.id} postId={postId}/>
         </div>
       </div>
     </div>

@@ -16,13 +16,14 @@ import CSSModules from "react-css-modules";
 
 interface Props {
   comments: DocumentData | undefined;
+  postId: string | undefined;
 }
 
-const Comments: React.FC<Props> = ({ comments }) => {
+const Comments: React.FC<Props> = ({ comments, postId }) => {
   return (
     <div styleName="comments">
       {comments?.map(({ doc }: DocumentData) => {
-        return <Comment key={doc.id} comment={doc.data()} />;
+        return <Comment key={doc.id} comment={doc.data()} postId={postId}/>;
       })}
     </div>
   );

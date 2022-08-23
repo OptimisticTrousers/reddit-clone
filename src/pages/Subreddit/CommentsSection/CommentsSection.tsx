@@ -115,7 +115,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         </a>
       </div>
 
-      <Comments comments={comments} />
+      <Comments comments={comments} postId={postId}/>
     </div>
   );
 };

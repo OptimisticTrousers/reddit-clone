@@ -4,12 +4,31 @@ import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
 import React from "react";
+import { doc, writeBatch } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 interface Props {
   voteStatus: number;
+  id: string;
+  postId: string;
 }
 
-const CommentInteractions: React.FC<Props> = ({ voteStatus }) => {
+const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId}) => {
+
+  const onDeleteComment = async() => {
+    try {
+      const batch = writeBatch(db)
+
+      const commentDocRef = doc(db, "comments", id)
+
+      batch.delete(commentDocRef)
+
+      const postDocRef = doc(db, "posts", postId)
+
+    } catch(error) {
+      console.log(`ERROR: ${error}`)
+    }
+  }
   return (
     <div styleName="interactions">
       <BiUpvote styleName="interactions__icon" />
@@ -23,6 +42,7 @@ const CommentInteractions: React.FC<Props> = ({ voteStatus }) => {
       <button styleName="interactions__button">Report</button>
       <button styleName="interactions__button">Save</button>
       <button styleName="interactions__button">Follow</button>
+      <button styleName="interactions__button">Delete</button>
     </div>
   );
 };
