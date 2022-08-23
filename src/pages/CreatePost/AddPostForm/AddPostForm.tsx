@@ -11,8 +11,11 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import { db, getUserId, getUserName } from "../../../firebase";
 import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
-import { useAppSelector } from "../../../hooks/hooks";
-import { selectAuthStatus } from "../../../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 import CSSModules from "react-css-modules";
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -37,6 +40,8 @@ const AddPostForm: React.FC = () => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const { id, name } = useAppSelector(selectCommunityData);
+
+  const dispatch = useAppDispatch();
 
   const handleTitleChange = (event: InputEvent) => {
     setTitle(event.target.value);
@@ -73,7 +78,7 @@ const AddPostForm: React.FC = () => {
         console.log(`ERROR: ${error}`);
       }
     } else {
-      alert("Sign in please!");
+      dispatch(toggleSignInModal());
     }
   };
 
