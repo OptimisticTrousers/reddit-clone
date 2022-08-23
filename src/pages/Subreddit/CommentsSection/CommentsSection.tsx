@@ -80,7 +80,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         <span styleName="comments-section__comment-as">
           Comment as{" "}
           <span styleName="comments-section__username">
-            OptimisticTrousers1
+            {getUserName()}
           </span>
         </span>
       </div>

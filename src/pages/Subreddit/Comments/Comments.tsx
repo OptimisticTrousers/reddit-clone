@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase";
 import CSSModules from "react-css-modules";
+import EmptyComments from "../EmptyComments/EmptyComments";
 
 
 interface Props {
@@ -20,11 +21,14 @@ interface Props {
 }
 
 const Comments: React.FC<Props> = ({ comments, postId }) => {
+
+  const renderedComments = comments?.map(({ doc }: DocumentData) => {
+        return <Comment key={doc.id} comment={doc.data()} postId={postId}/>;
+      })
   return (
     <div styleName="comments">
-      {comments?.map(({ doc }: DocumentData) => {
-        return <Comment key={doc.id} comment={doc.data()} postId={postId}/>;
-      })}
+      {}
+      {renderedComments.length === 0 ? <EmptyComments /> : renderedComments}
     </div>
   );
 };
