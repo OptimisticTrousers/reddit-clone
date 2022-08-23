@@ -27,7 +27,7 @@ const PostAuthor: React.FC<Props> = ({
       </Link>
       <span styleName="post-excerpt__posted-by">Posted by</span>
       <p styleName="post-excerpt__author">/u/{userName}</p>
-      <span styleName="post-excerpt__date">{moment(new Date(createdAt.seconds * 1000)).fromNow()}</span>
+      <span styleName="post-excerpt__date">{moment(new Date(createdAt?.seconds * 1000)).fromNow()}</span>
     </div>
   );
 };
