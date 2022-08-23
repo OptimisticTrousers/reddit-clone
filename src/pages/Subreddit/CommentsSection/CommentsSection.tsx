@@ -55,6 +55,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         updatedAt: serverTimestamp(),
         userName: getUserName(),
         userId: getUserId(),
+        voteStatus: 0
       });
 
       const postRef = doc(db, "posts", `${postId}`);
