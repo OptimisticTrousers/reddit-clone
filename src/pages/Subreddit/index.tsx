@@ -32,30 +32,6 @@ const Subreddit: React.FC = () => {
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
 
   useEffect(() => {
-    async function getSubredditData() {
-      try {
-        const subredditsRef = collection(db, "subreddits");
-
-        const q = query(subredditsRef, where("name", "==", subredditName));
-
-        const {
-          docs: [communityData],
-        } = await getDocs(q);
-
-        dispatch(
-          setCommunityData({
-            ...communityData.data(),
-            createdAt: communityData.data().createdAt.seconds,
-          })
-        );
-      } catch (error) {
-        alert(`ERROR: ${error}`);
-      }
-    }
-    getSubredditData();
-  }, [subredditName, dispatch]);
-
-  useEffect(() => {
     if (id) {
       const postsRef = collection(db, "posts");
 

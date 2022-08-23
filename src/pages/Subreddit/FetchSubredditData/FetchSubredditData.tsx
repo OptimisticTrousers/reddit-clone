@@ -1,16 +1,55 @@
-import { useEffect } from "react"
-import CSSModules from "react-css-modules"
+import { collection, query, where, getDocs } from "firebase/firestore";
+import React, { useEffect } from "react";
+import CSSModules from "react-css-modules";
 import { Outlet, useParams } from "react-router-dom";
-import styles from "./FetchSubredditData.module.css"
+import {
+  selectCommunityData,
+  setCommunityData,
+} from "../../../features/subreddit/subredditSlice";
+import { db } from "../../../firebase";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import styles from "./FetchSubredditData.module.css";
 
-const FetchSubredditData = () => {
-
+const FetchSubredditData: React.FC = () => {
   const { subredditName } = useParams();
-  console.log(subredditName)
-  // useeffect(() => {
+  console.log(subredditName);
 
-  // })
-  return <Outlet />
-}
+  const dispatch = useAppDispatch();
 
-export default CSSModules(FetchSubredditData, styles, {allowMultiple: true, handleNotFoundStyleName: "log"})
+  const communityData = useAppSelector(selectCommunityData);
+
+  useEffect(() => {
+    async function getSubredditData() {
+      try {
+        const subredditsRef = collection(db, "subreddits");
+
+        const q = query(subredditsRef, where("name", "==", subredditName));
+
+        const {
+          docs: [communityData],
+        } = await getDocs(q);
+
+        dispatch(
+          setCommunityData({
+            ...communityData.data(),
+            createdAt: communityData.data().createdAt.seconds,
+          })
+        );
+      } catch (error) {
+        alert(`ERROR: ${error}`);
+      }
+    }
+
+    // Only fetching data if the communityData is empty
+    if (Object.keys(communityData).length === 0) {
+      getSubredditData();
+    }
+  }, [subredditName, dispatch]);
+
+  return <Outlet />;
+};
+
+export default CSSModules(FetchSubredditData, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "log",
+});
