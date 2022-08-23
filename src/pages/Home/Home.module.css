@@ -7,7 +7,7 @@
   display: grid;
   place-items: center;
   padding: 20px 24px;
-  max-width: 100%;
+  width: 100%;
 }
 .home__content {
   display: flex;
@@ -99,3 +99,17 @@
   background-color: var(--secondary-color);
   cursor: pointer;
 }
+
+@media(max-width: 1070px) {
+  .aside {
+    display: none;
+  }
+  .home__content {
+    display: block;
+    width: 100%;
+  }
+  .home__posts {
+    max-width: 95%;
+  }
+}
+

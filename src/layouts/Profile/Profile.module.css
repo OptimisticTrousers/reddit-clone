@@ -1,5 +1,4 @@
 .profile {
-  
 }
 .profile__button {
   background-color: #1a1a1b;
@@ -55,4 +54,10 @@
   line-height: 20px;
   vertical-align: middle;
   width: 20px;
+}
+
+@media(max-width: 1210px) {
+  .profile__content {
+    display: none;
+  }
 }

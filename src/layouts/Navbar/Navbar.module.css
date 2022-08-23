@@ -34,7 +34,7 @@
 .header__dropdown {
   display: flex;
   align-items: center;
-  width: 270px;
+  max-width: 270px;
   justify-content: space-between;
   padding: 0.5rem 0.25rem;
   box-sizing: border-box;
@@ -181,6 +181,12 @@
 
 @media(max-width: 1070px) {
   .header__logo-name {
+    display: none;
+  }
+}
+
+@media(max-width: 995px) {
+  .header__dropdown-title {
     display: none;
   }
 }
