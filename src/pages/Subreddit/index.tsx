@@ -4,7 +4,7 @@ import Posts from "./Posts/Posts";
 import Header from "./Header/Header";
 import CSSModules from "react-css-modules";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import {
   collection,
   DocumentData,
@@ -23,6 +23,9 @@ import {
   setCommunityData,
 } from "../../features/subreddit/subredditSlice";
 import Filter from "../../components/Filter/Filter";
+import { List } from "react-content-loader";
+import Reddit from "../../components/Skeletons/AuthorsList";
+import AuthorsList from "../../components/Skeletons/AuthorsList";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
@@ -43,13 +46,23 @@ const Subreddit: React.FC = () => {
       });
     }
   }, [id]);
+
   return (
     <div styleName="subreddit">
       <Header subredditName={subredditName} />
       <main styleName="main">
         <div styleName="content">
           <Filter />
-          <Posts posts={posts} />
+          {posts ? (
+            <Posts posts={posts} />
+          ) : (
+            <AuthorsList
+              animate={true}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+              speed={1}
+            />
+          )}
         </div>
         <aside styleName="aside">
           <About />
