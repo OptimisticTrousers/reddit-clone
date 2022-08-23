@@ -1,4 +1,4 @@
 .container {
     background-color: black;
-    height: 100%;
+    min-height: 100%;
 }
