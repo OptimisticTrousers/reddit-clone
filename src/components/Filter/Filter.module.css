@@ -25,6 +25,12 @@
     height: 24px;
 }
 
-@media(max-width: 670px) {
+@media(max-width: 640px) {
+  .filter__category{
+    display: none;
+  }
+  .filter__category:nth-child(1){
+    display: flex;
+  }
 }
 

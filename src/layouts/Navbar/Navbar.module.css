@@ -4,7 +4,7 @@
 }
 
 .header__content {
-  width: 97%;
+  max-width: 97%;
   display: flex;
   align-items: center;
   padding-left: 20px;
@@ -188,5 +188,11 @@
 @media(max-width: 995px) {
   .header__dropdown-title {
     display: none;
+  }
+}
+
+@media(max-width: 640px) {
+  .header__content {
+    width: 89%;
   }
 }

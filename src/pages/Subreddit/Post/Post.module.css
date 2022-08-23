@@ -50,5 +50,9 @@ a {
 @media (max-width: 640px) {
   .post-excerpt, .post-excerpt-hover {
     min-width: unset;
+    width: 100%;
+  }
+  .post-excerpt-hover > div:first-child {
+    display: none;
   }
 }

@@ -1,4 +1,5 @@
 .profile {
+  width: fit-content;
 }
 .profile__button {
   background-color: #1a1a1b;
@@ -59,5 +60,11 @@
 @media(max-width: 1210px) {
   .profile__content {
     display: none;
+  }
+}
+
+@media(max-width: 640px) {
+  .profile__button {
+    margin: 0;
   }
 }
