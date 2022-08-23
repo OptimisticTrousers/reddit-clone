@@ -25,7 +25,7 @@ const Comment: React.FC<DocumentData> = ({ comment }) => {
             {comment.userName === getUserName() && `${getUserName()}`}
           </div>
           <div styleName="comment__message">{comment.content}</div>
-          <CommentInteractions />
+          <CommentInteractions voteStatus={comment.voteStatus}/>
         </div>
       </div>
     </div>

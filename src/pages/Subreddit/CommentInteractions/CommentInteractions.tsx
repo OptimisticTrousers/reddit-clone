@@ -3,15 +3,20 @@ import styles from "./CommentInteractions.module.css";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
+import React from "react";
 
-const CommentInteractions = () => {
+interface Props {
+  voteStatus: number;
+}
+
+const CommentInteractions: React.FC<Props> = ({ voteStatus }) => {
   return (
     <div styleName="interactions">
-      <BiUpvote styleName="interactions__icon"/>
-      <p styleName="interactions__vote">1</p>
-      <BiDownvote styleName="interactions__icon"/>
+      <BiUpvote styleName="interactions__icon" />
+      <p styleName="interactions__vote">{voteStatus}</p>
+      <BiDownvote styleName="interactions__icon" />
       <div styleName="interactions__reply">
-        <BiMessage styleName="interactions__icon"/>
+        <BiMessage styleName="interactions__icon" />
         <button styleName="interactions__button">Reply</button>
       </div>
       <button styleName="interactions__button">Share</button>
