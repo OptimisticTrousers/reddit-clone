@@ -113,3 +113,12 @@
   }
 }
 
+@media(max-width: 640px) {
+  .home {
+    padding: 0;
+  }
+  .home__posts {
+    max-width: 100%;
+  }
+}
+
