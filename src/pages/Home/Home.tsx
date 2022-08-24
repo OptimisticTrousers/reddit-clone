@@ -68,7 +68,7 @@ const Home: React.FC = () => {
       <div styleName="home__content">
         <div styleName="home__posts">
           <PostCreatorCard />
-          <Filter />
+          <Filter filterRising={filterRising} filterTop={filterTop} filterNew={filterNew}/>
           <Posts />
         </div>
         <aside styleName="aside">

@@ -5,8 +5,14 @@ import each from "jest-each";
 import Filter from "./Filter";
 
 describe("Filter", () => {
+
+  const mockProps = {
+    filterRising: jest.fn(),
+    filterNew: jest.fn(),
+    filterTop: jest.fn()
+  }
   test("snapshot", () => {
-    const { asFragment } = render(<Filter />);
+    const { asFragment } = render(<Filter {...mockProps} />);
 
     expect(asFragment()).toMatchSnapshot();
   });

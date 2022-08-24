@@ -8,25 +8,32 @@ import { MdOutlineLeaderboard } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 import { BsFillInboxesFill } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
+import { DocumentData } from "firebase/firestore";
 
-const Filter: React.FC = () => {
+interface Props {
+  filterRising: () => Promise<void>;
+  filterNew: () => Promise<void>;
+  filterTop: () => Promise<void>;
+}
+
+const Filter: React.FC<Props> = ({ filterRising, filterNew, filterTop }) => {
   return (
     <Card>
       <div styleName="filter">
         <div styleName="filter__categories">
-          <a styleName="filter__category">
+          {/* <a styleName="filter__category" onClick={}>
             <AiOutlineRocket styleName="filter__icon" />
             <span>Best</span>
-          </a>
-          <a styleName="filter__category">
+          </a> */}
+          <a styleName="filter__category" onClick={filterRising}>
             <HiOutlineFire styleName="filter__icon" />
-            <span>Hot</span>
+            <span>Rising</span>
           </a>
-          <a styleName="filter__category">
+          <a styleName="filter__category" onClick={filterNew}>
             <MdOutlineNewReleases styleName="filter__icon" />
             <span>New</span>
           </a>
-          <a styleName="filter__category">
+          <a styleName="filter__category" onClick={filterTop}>
             <MdOutlineLeaderboard styleName="filter__icon" />
             <span>Top</span>
           </a>
