@@ -24,6 +24,7 @@ import {
 import { db } from "../../../firebase";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setPostId } from "../../../features/post/postSlice";
+import NestedList from "../../../components/Skeletons/AvatarWithText";
 
 type LocationState = {
   title: string;
@@ -58,6 +59,7 @@ const SinglePostPage = () => {
       setComments(docChanges);
     });
   }, [postId]);
+
   return (
     <section styleName="post-page">
       <div styleName="post-page__container">

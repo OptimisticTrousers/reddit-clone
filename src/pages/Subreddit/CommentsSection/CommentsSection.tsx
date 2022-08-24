@@ -25,6 +25,8 @@ import {
 import CSSModules from "react-css-modules";
 import upsideDownTriangle from "../../../assets/upside-down-triangle.svg";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
+import NestedList from "../../../components/Skeletons/AvatarWithText";
+import AvatarWithText from "../../../components/Skeletons/AvatarWithText";
 
 interface Props {
   postId: string | undefined;
@@ -79,9 +81,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
       <div styleName="comments-section__user">
         <span styleName="comments-section__comment-as">
           Comment as{" "}
-          <span styleName="comments-section__username">
-            {getUserName()}
-          </span>
+          <span styleName="comments-section__username">{getUserName()}</span>
         </span>
       </div>
       <form onSubmit={formSubmit}>
@@ -120,7 +120,28 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         </a>
       </div>
 
-      <Comments comments={comments} postId={postId} />
+      {comments ? (
+        <Comments comments={comments} postId={postId} />
+      ) : (
+        <>
+          <AvatarWithText
+            width="100%"
+            height="100%"
+            animate={true}
+            backgroundColor={"#333"}
+            foregroundColor={"#999"}
+            speed={1}
+          />
+          <AvatarWithText
+            width="100%"
+            height="100%"
+            animate={true}
+            backgroundColor={"#333"}
+            foregroundColor={"#999"}
+            speed={1}
+          />
+        </>
+      )}
     </div>
   );
 };
