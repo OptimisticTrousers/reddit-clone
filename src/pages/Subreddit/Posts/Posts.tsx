@@ -28,11 +28,13 @@ const Posts: React.FC<Props> = ({ posts }) => {
     undefined
   );
 
-  const { subredditId } = useParams();
+  const { subredditName } = useParams();
 
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    if(!subredditName && posts !== undefined) return
     if (posts === undefined) {
       const postsRef = collection(db, "posts");
 
@@ -41,13 +43,28 @@ const Posts: React.FC<Props> = ({ posts }) => {
           if (posts) {
             setRandomPosts(posts.docs.sort((a, b) => Math.random() - 0.5));
           } else {
-            alert("Subreddit does not exist!")
-            navigate("/")
+            alert("Subreddit does not exist!");
+            navigate("/");
+          }
+        })
+        .catch((error) => alert(`ERROR: ${error}`));
+    } else if (subredditName) {
+      const postsRef = collection(db, "posts");
+
+      const q = query(postsRef, where("subredditName", "==", subredditName));
+
+      getDocs(q)
+        .then((posts) => {
+          if (posts) {
+            setRandomPosts(posts.docs.sort((a, b) => Math.random() - 0.5));
+          } else {
+            alert("Subreddit does not exist!");
+            navigate("/");
           }
         })
         .catch((error) => alert(`ERROR: ${error}`));
     }
-  }, [posts]);
+  }, [posts, subredditName, navigate]);
 
   if (posts === undefined && randomPosts === undefined) {
     return (
