@@ -24,6 +24,7 @@ interface State {
   comments: boolean;
   upvotes: boolean;
   downvotes: boolean;
+  saved: boolean;
 }
 
 interface Action {
@@ -38,6 +39,7 @@ function reducer(state: State, action: Action) {
         comments: false,
         upvotes: false,
         downvotes: false,
+        saved: false,
       };
     case "COMMENTS":
       return {
@@ -45,6 +47,7 @@ function reducer(state: State, action: Action) {
         comments: true,
         upvotes: false,
         downvotes: false,
+        saved: false,
       };
     case "UPVOTES":
       return {
@@ -52,6 +55,7 @@ function reducer(state: State, action: Action) {
         comments: false,
         upvotes: true,
         downvotes: false,
+        saved: false,
       };
     case "DOWNVOTES":
       return {
@@ -59,6 +63,7 @@ function reducer(state: State, action: Action) {
         comments: false,
         upvotes: false,
         downvotes: true,
+        saved: false,
       };
     default:
       return state;
@@ -85,6 +90,7 @@ const Profile: React.FC = () => {
     comments: false,
     upvotes: false,
     downvotes: false,
+    saved: false,
   });
 
   useEffect(() => {
@@ -168,7 +174,7 @@ const Profile: React.FC = () => {
 
   return (
     <div>
-      <Header />
+      <Header dispatch={dispatch} activeSection={activeSection} />
       <main styleName="main">
         <div styleName="content">
           {/* {activeSection.posts && <Filter {...filter} addPosts={addstuff} />} */}
