@@ -49,15 +49,14 @@ export const useFilter = () => {
   async function filterRising() {
     const postsDocsRef = collection(db, "posts");
 
-    const startOfDay = new Date();
-
-    startOfDay.setHours(0, 0, 0, 0);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
 
     const q = query(
       postsDocsRef,
-      orderBy("voteStatus", "desc"),
-      where("createdAt", ">=", startOfDay),
+      where("createdAt", ">=", yesterday)
     );
+
 
     // getDocs(q)
     //   .then((data: DocumentData) => {
@@ -65,7 +64,9 @@ export const useFilter = () => {
     //   })
     //   .catch((error) => alert(`ERROR: ${error}`));
     const data = await getDocs(q);
-    return data.docs;
+
+    const newData = data.docs.sort((a, b) => a.data().voteStatus - b.data().voteStatus)
+    return newData;
   }
 
   return {
