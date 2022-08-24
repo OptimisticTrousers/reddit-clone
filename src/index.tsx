@@ -10,6 +10,7 @@ import CreatePost from "./pages/CreatePost/CreatePost/CreatePost";
 import StoreProvider from "./redux/provider";
 import SinglePostPage from "./pages/Subreddit/SinglePostPage/SinglePostPage";
 import FetchSubredditData from "./pages/Subreddit/FetchSubredditData/FetchSubredditData";
+import Profile from "./pages/Profile/Profile";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,7 +20,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="users/:userName" />
+          <Route path="user/:userName" element={<Profile />} />
           <Route index element={<Home />} />
           <Route path="r/">
             <Route path=":subredditName" element={<FetchSubredditData />}>
