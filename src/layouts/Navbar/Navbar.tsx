@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
   function submitSearch(event: FormEvent) {
     event.preventDefault();
     setTimeout(() => {
-      navigate(`/r/${searchInput}`);
+      navigate(`${searchInput}`);
       setSearchInput("");
     }, 500);
   }
@@ -109,6 +109,7 @@ const Navbar: React.FC = () => {
               placeholder="Search Reddit"
               onChange={handleSearchInput}
               value={searchInput}
+              pattern="(?:^| )(/?r/[a-z]+)"
             />
           </form>
         </div>
