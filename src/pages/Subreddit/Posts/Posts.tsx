@@ -56,7 +56,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
       getDocs(q)
         .then((posts) => {
           if (posts) {
-            setRandomPosts(posts.docs.sort((a, b) => Math.random() - 0.5));
+            setRandomPosts(posts.docs.slice(0, 10).sort((a, b) => Math.random() - 0.5));
           } else {
             alert("Subreddit does not exist!");
             navigate("/");

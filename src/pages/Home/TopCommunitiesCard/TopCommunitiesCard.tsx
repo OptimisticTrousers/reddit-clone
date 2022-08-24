@@ -65,7 +65,7 @@ const TopCommunitiesCard: React.FC = () => {
             </li>
           );
         }) ?? (
-          <>
+          <div styleName="top-communities__skeletons">
             <UpworkJobLoader
               animate={true}
               width={321}
@@ -73,7 +73,21 @@ const TopCommunitiesCard: React.FC = () => {
               foregroundColor={"#999"}
               speed={1}
             />
-          </>
+            <UpworkJobLoader
+              animate={true}
+              width={321}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+              speed={1}
+            />
+            <UpworkJobLoader
+              animate={true}
+              width={321}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+              speed={1}
+            />
+          </div>
         )}
       </ol>
       <button styleName="top-communities__top-community-button top-communities__top-community-button_type_view">

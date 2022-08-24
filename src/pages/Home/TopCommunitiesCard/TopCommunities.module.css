@@ -81,6 +81,11 @@
   box-sizing: border-box;
   cursor: pointer;
 }
+
+.top-communities__skeletons {
+  display: flex;
+  flex-direction: column;
+}
 .top-communities__top-community-button_type_join {
   min-height: 24px;
   min-width: 24px;
