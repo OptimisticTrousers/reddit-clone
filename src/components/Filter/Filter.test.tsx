@@ -9,7 +9,8 @@ describe("Filter", () => {
   const mockProps = {
     filterRising: jest.fn(),
     filterNew: jest.fn(),
-    filterTop: jest.fn()
+    filterTop: jest.fn(),
+    addPosts: jest.fn(),
   }
   test("snapshot", () => {
     const { asFragment } = render(<Filter {...mockProps} />);

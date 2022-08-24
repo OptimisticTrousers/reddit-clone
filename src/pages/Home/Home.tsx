@@ -16,60 +16,31 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useFilter } from "../../hooks/hooks";
 
 const Home: React.FC = () => {
-  const [filteredPosts, setFilteredPosts] = useState();
+  const [filteredPosts, setFilteredPosts] = useState<DocumentData | undefined>();
 
-  async function filterNew() {
-    const postsDocsRef = collection(db, "posts");
+  const { filterRising, filterTop, filterNew } = useFilter();
 
-    const q = query(postsDocsRef, orderBy("createdAt", "desc"));
+  async function addPosts(promise: Promise<DocumentData>) {
 
-    getDocs(q)
-      .then((data: DocumentData) => {
-        setFilteredPosts(data.docs);
-      })
-      .catch((error) => alert(`ERROR: ${error}`));
+    const data = await promise;
+    setFilteredPosts(data);
   }
 
-  async function filterTop() {
-    const postsDocsRef = collection(db, "posts");
-
-    const q = query(postsDocsRef, orderBy("voteStatus", "desc"));
-
-    getDocs(q)
-      .then((data: DocumentData) => {
-        setFilteredPosts(data.docs);
-      })
-      .catch((error) => alert(`ERROR: ${error}`));
-  }
-
-  async function filterRising() {
-    const postsDocsRef = collection(db, "posts");
-
-    const startOfDay = new Date();
-
-    startOfDay.setHours(0, 0, 0, 0);
-
-    const q = query(
-      postsDocsRef,
-      where("createdAt", ">=", startOfDay),
-      orderBy("voteStatus", "desc")
-    );
-
-    getDocs(q)
-      .then((data: DocumentData) => {
-        setFilteredPosts(data.docs);
-      })
-      .catch((error) => alert(`ERROR: ${error}`));
-  }
   return (
     <div styleName="home">
       <div styleName="home__content">
         <div styleName="home__posts">
           <PostCreatorCard />
-          <Filter filterRising={filterRising} filterTop={filterTop} filterNew={filterNew}/>
-          <Posts />
+          <Filter
+            addPosts={addPosts}
+            filterRising={filterRising}
+            filterTop={filterTop}
+            filterNew={filterNew}
+          />
+          <Posts posts={filteredPosts} />
         </div>
         <aside styleName="aside">
           <TopCommunitiesCard />

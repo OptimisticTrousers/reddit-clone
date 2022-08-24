@@ -17,7 +17,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector, useFilter } from "../../hooks/hooks";
 import {
   selectCommunityData,
   setCommunityData,
@@ -34,9 +34,16 @@ const Subreddit: React.FC = () => {
   const navigate = useNavigate();
   const { id, name } = useAppSelector(selectCommunityData);
 
+  const { filterNew, filterRising, filterTop } = useFilter();
+
   // console.log(name);
 
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
+
+  async function filterPosts(promise: Promise<DocumentData>) {
+    const data = await promise;
+    setPosts(data);
+  }
 
   useEffect(() => {
     if (!id || !subredditName) return;
@@ -58,7 +65,12 @@ const Subreddit: React.FC = () => {
       <main styleName="main">
         <div styleName="content">
           <PostCreatorCard />
-          <Filter />
+          <Filter
+            addPosts={filterPosts}
+            filterNew={filterNew}
+            filterTop={filterTop}
+            filterRising={filterRising}
+          />
           {posts ? (
             <Posts posts={posts} />
           ) : (

@@ -11,12 +11,18 @@ import { IoIosArrowDown } from "react-icons/io";
 import { DocumentData } from "firebase/firestore";
 
 interface Props {
-  filterRising: () => Promise<void>;
-  filterNew: () => Promise<void>;
-  filterTop: () => Promise<void>;
+  filterRising: () => Promise<DocumentData>;
+  filterNew: () => Promise<DocumentData>;
+  filterTop: () => Promise<DocumentData>;
+  addPosts: (promise: Promise<DocumentData>) => void;
 }
 
-const Filter: React.FC<Props> = ({ filterRising, filterNew, filterTop }) => {
+const Filter: React.FC<Props> = ({
+  filterRising,
+  filterNew,
+  filterTop,
+  addPosts,
+}) => {
   return (
     <Card>
       <div styleName="filter">
@@ -25,21 +31,24 @@ const Filter: React.FC<Props> = ({ filterRising, filterNew, filterTop }) => {
             <AiOutlineRocket styleName="filter__icon" />
             <span>Best</span>
           </a> */}
-          <a styleName="filter__category" onClick={filterRising}>
+          <a
+            styleName="filter__category"
+            onClick={() => addPosts(filterRising())}
+          >
             <HiOutlineFire styleName="filter__icon" />
             <span>Rising</span>
           </a>
-          <a styleName="filter__category" onClick={filterNew}>
+          <a styleName="filter__category" onClick={() => addPosts(filterNew())}>
             <MdOutlineNewReleases styleName="filter__icon" />
             <span>New</span>
           </a>
-          <a styleName="filter__category" onClick={filterTop}>
+          <a styleName="filter__category" onClick={() => addPosts(filterTop())}>
             <MdOutlineLeaderboard styleName="filter__icon" />
             <span>Top</span>
           </a>
-          <a styleName="filter__category">
+          {/* <a styleName="filter__category">
             <BsThreeDots />
-          </a>
+          </a> */}
         </div>
         <div styleName="filter__category">
           <BsFillInboxesFill styleName="filter__icon" />
