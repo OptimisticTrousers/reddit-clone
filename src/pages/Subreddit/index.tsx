@@ -48,6 +48,11 @@ const Subreddit: React.FC = () => {
   useEffect(() => {
     if (!id || !subredditName) return;
 
+    if (name !== subredditName) {
+      alert("Subreddit does not exist");
+      navigate("/");
+    }
+
     const postsRef = collection(db, "posts");
 
     const q = query(postsRef, where("subredditName", "==", subredditName));
