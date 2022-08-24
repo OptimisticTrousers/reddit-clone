@@ -63,6 +63,7 @@ const Profile: React.FC = () => {
           <Filter {...filter} addPosts={addstuff} />
           {/* <Posts posts={userPosts} /> */}
           <Card>
+
             <Comments
               comments={userComments}
               postId={commentsPostId}
