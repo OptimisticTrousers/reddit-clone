@@ -10,24 +10,26 @@ import { db } from "../../../firebase";
 interface Props {
   voteStatus: number;
   id: string;
-  postId: string;
+  postId: string | undefined;
 }
 
 const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
   const onDeleteComment = async () => {
     try {
-      const batch = writeBatch(db);
+      if (postId) {
+        const batch = writeBatch(db);
 
-      const commentDocRef = doc(db, "comments", id);
+        const commentDocRef = doc(db, "comments", id);
 
-      batch.delete(commentDocRef);
+        batch.delete(commentDocRef);
 
-      const postDocRef = doc(db, "posts", postId);
-      batch.update(postDocRef, {
-        numberOfComments: increment(-1),
-      });
+        const postDocRef = doc(db, "posts", postId);
+        batch.update(postDocRef, {
+          numberOfComments: increment(-1),
+        });
 
-      await batch.commit();
+        await batch.commit();
+      }
     } catch (error) {
       console.log(`ERROR: ${error}`);
     }
@@ -45,7 +47,9 @@ const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
       <button styleName="interactions__button">Report</button>
       <button styleName="interactions__button">Save</button>
       <button styleName="interactions__button">Follow</button>
-      <button styleName="interactions__button" onClick={onDeleteComment}>Delete</button>
+      <button styleName="interactions__button" onClick={onDeleteComment}>
+        Delete
+      </button>
     </div>
   );
 };

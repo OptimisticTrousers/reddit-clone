@@ -13,7 +13,7 @@ import {
 import { db } from "../../../firebase";
 import CSSModules from "react-css-modules";
 import EmptyComments from "../EmptyComments/EmptyComments";
-
+import CommentInteractions from "../CommentInteractions/CommentInteractions";
 
 interface Props {
   comments: DocumentData | undefined;
@@ -21,10 +21,13 @@ interface Props {
 }
 
 const Comments: React.FC<Props> = ({ comments, postId }) => {
-
   const renderedComments = comments?.map(({ doc }: DocumentData) => {
-        return <Comment key={doc.id} comment={doc.data()} postId={postId}/>;
-      })
+    return (
+      <Comment key={doc.id} comment={doc.data()}>
+        <CommentInteractions postId={postId} voteStatus={doc.data().voteStatus} id={doc.data().id} />
+      </Comment>
+    );
+  });
   return (
     <div styleName="comments">
       {renderedComments == false ? <EmptyComments /> : renderedComments}

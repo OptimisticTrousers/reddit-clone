@@ -1,0 +1,58 @@
+.user-card {
+  position: relative;
+  text-align: center;
+}
+.user-card__header {
+  background-color: #2d97e5;
+  border-radius: 4px 4px 0 0;
+  height: 94px;
+  left: 1px;
+  position: absolute;
+  top: 1px;
+  width: calc(100% - 2px);
+}
+
+.user-card__avatar {
+  height: 160px;
+  width: 125px;
+  text-align: center;
+  position: relative;
+  margin: auto;
+}
+
+.user-card__detail-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--secondary-color);
+  margin-bottom: 4px;
+}
+
+.user-card__image {
+  height: 160px;
+  z-index: 1;
+  position: relative;
+}
+
+.user-card__cake-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4px;
+}
+
+.user-card__icon {
+  color: #24a0ed;
+  font-size: 14px;
+  width: 12px;
+}
+
+.user-card__text {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: #818384;
+}
