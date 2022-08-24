@@ -123,24 +123,41 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
       {comments ? (
         <Comments comments={comments} postId={postId} />
       ) : (
-        <>
-          <AvatarWithText
-            width="100%"
-            height="100%"
-            animate={true}
-            backgroundColor={"#333"}
-            foregroundColor={"#999"}
-            speed={1}
-          />
-          <AvatarWithText
-            width="100%"
-            height="100%"
-            animate={true}
-            backgroundColor={"#333"}
-            foregroundColor={"#999"}
-            speed={1}
-          />
-        </>
+        <div styleName="comments-section__skeletons">
+          <div>
+            <AvatarWithText
+              styleName="comments-section__skeleton"
+              width="100%"
+              height={100}
+              animate={true}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+              speed={1}
+            />
+          </div>
+          <div>
+            <AvatarWithText
+              styleName="comments-section__skeleton"
+              width="100%"
+              height={100}
+              animate={true}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+              speed={1}
+            />
+          </div>
+          <div>
+            <AvatarWithText
+              styleName="comments-section__skeleton"
+              width="100%"
+              height={100}
+              animate={true}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+              speed={1}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

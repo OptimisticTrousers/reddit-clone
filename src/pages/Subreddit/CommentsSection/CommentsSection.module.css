@@ -90,8 +90,14 @@
 .comments-section__discussion {
   text-align: right;
   padding-top: 6px;
-  margin-bottom: 
+  margin-bottom: 16px;
 }
 .comments-section__hyperlink {
   color: #4fbcff;
+}
+
+.comments-section__skeletons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
