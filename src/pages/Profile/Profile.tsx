@@ -7,7 +7,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
 import { db, getUserId, isUserSignedIn } from "../../firebase";
 import Filter from "../../components/Filter/Filter";
@@ -18,6 +18,52 @@ import styles from "./Profile.module.css";
 import UserCard from "./UserCard/UserCard";
 import { useFilter } from "../../hooks/hooks";
 import Card from "../../components/Card/Card";
+
+interface State {
+  posts: boolean;
+  comments: boolean;
+  upvotes: boolean;
+  downvotes: boolean;
+}
+
+interface Action {
+  type: string;
+}
+
+function reducer(state: State, action: Action) {
+  switch (action.type) {
+    case "POSTS":
+      return {
+        posts: true,
+        comments: false,
+        upvotes: false,
+        downvotes: false,
+      };
+    case "COMMENTS":
+      return {
+        posts: false,
+        comments: true,
+        upvotes: false,
+        downvotes: false,
+      };
+    case "UPVOTES":
+      return {
+        posts: false,
+        comments: false,
+        upvotes: true,
+        downvotes: false,
+      };
+    case "DOWNVOTES":
+      return {
+        posts: false,
+        comments: false,
+        upvotes: false,
+        downvotes: true,
+      };
+    default:
+      return state;
+  }
+}
 
 const Profile: React.FC = () => {
   const filter = useFilter();
@@ -33,6 +79,13 @@ const Profile: React.FC = () => {
   const [downVotesPosts, setDownVotesPosts] = useState<
     DocumentData | undefined
   >();
+
+  const [activeSection, dispatch] = useReducer(reducer, {
+    posts: false,
+    comments: false,
+    upvotes: false,
+    downvotes: false,
+  });
 
   useEffect(() => {
     const userPostsRef = collection(db, "posts");
@@ -118,17 +171,19 @@ const Profile: React.FC = () => {
       <Header />
       <main styleName="main">
         <div styleName="content">
-          {/* <Filter {...filter} addPosts={addstuff} /> */}
-          {/* <Posts posts={userPosts} /> */}
-          {/* <Card>
-            <Comments
-              comments={userComments}
-              postId={commentsPostId}
-              renderCommentPost={true}
-            />
-          </Card> */}
-          <Posts posts={upVotesPosts} />
-          {/* <Posts posts={downVotesPosts} /> */}
+          {/* {activeSection.posts && <Filter {...filter} addPosts={addstuff} />} */}
+          {activeSection.posts && <Posts posts={userPosts} />}
+          {activeSection.comments && (
+            <Card>
+              <Comments
+                comments={userComments}
+                postId={commentsPostId}
+                renderCommentPost={true}
+              />
+            </Card>
+          )}
+          {activeSection.upvotes && <Posts posts={upVotesPosts} />}
+          {activeSection.downvotes && <Posts posts={downVotesPosts} />}
         </div>
         <aside styleName="aside">
           <UserCard />
