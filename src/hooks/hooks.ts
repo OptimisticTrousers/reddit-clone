@@ -27,7 +27,6 @@ export const useFilter = () => {
     //   .catch((error) => alert(`ERROR: ${error}`));
 
     const data = await getDocs(q);
-    // console.log(data)
     return data.docs;
   }
 
@@ -42,7 +41,6 @@ export const useFilter = () => {
     //   })
     //   .catch((error) => alert(`ERROR: ${error}`));
     const data = await getDocs(q);
-    // console.log(data)
     return data.docs;
   }
 

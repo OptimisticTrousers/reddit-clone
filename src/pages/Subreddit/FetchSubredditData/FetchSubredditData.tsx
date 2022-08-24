@@ -12,7 +12,6 @@ import styles from "./FetchSubredditData.module.css";
 
 const FetchSubredditData: React.FC = () => {
   const { subredditName } = useParams();
-  console.log(subredditName);
 
   const dispatch = useAppDispatch();
 

@@ -27,7 +27,6 @@ const TopCommunitiesCard: React.FC = () => {
 
     const q = query(subredditsRef, orderBy("numberOfMembers", "asc"), limit(5));
     getDocs(q).then((data) => {
-      console.log(data);
       setTopCommunities(data.docs);
     });
   }, []);

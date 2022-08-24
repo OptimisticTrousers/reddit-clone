@@ -30,8 +30,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
 
   const { subredditName } = useParams();
 
-  console.log(subredditName)
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,7 +80,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
   }
   return (
     <div styleName="container">
-      {console.log(posts)}
       {(posts ?? randomPosts)?.map((doc: DocumentData) => {
         const data = doc.data();
         return (

@@ -1,6 +1,8 @@
 import {
   collection,
+  doc,
   DocumentData,
+  getDoc,
   getDocs,
   query,
   where,
@@ -26,7 +28,11 @@ const Profile: React.FC = () => {
 
   const [commentsPostId, setCommentsPostId] = useState<string | undefined>();
 
-  function addstuff() {}
+  const [upVotesPosts, setUpVotesPosts] = useState<DocumentData | undefined>();
+
+  const [downVotesPosts, setDownVotesPosts] = useState<
+    DocumentData | undefined
+  >();
 
   useEffect(() => {
     const userPostsRef = collection(db, "posts");
@@ -55,21 +61,74 @@ const Profile: React.FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    async function fetchPostsFromUpVotes() {
+      const upVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
+
+      const q = query(upVotesRef, where("voteStatus", "==", 1));
+
+      const { docs } = await getDocs(q);
+
+      const newDocs = docs.map(async (document: DocumentData) => {
+        const postId = document.data().postId;
+
+        const postRef = doc(db, "posts", postId);
+
+        const data = await getDoc(postRef);
+
+        return data;
+      });
+
+      const resolvedData = await Promise.all(newDocs);
+
+      setUpVotesPosts(resolvedData);
+    }
+
+    fetchPostsFromUpVotes();
+  }, []);
+
+  useEffect(() => {
+    async function fetchPostsFromDownVotes() {
+      const downVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
+
+      const q = query(downVotesRef, where("voteStatus", "==", -1));
+
+      const { docs } = await getDocs(q);
+
+      const newDocs = docs.map(async (document: DocumentData) => {
+        const postId = document.data().postId;
+
+        const postRef = doc(db, "posts", postId);
+
+        const data = await getDoc(postRef);
+
+        return data;
+      });
+
+      const resolvedData = await Promise.all(newDocs);
+
+      setUpVotesPosts(resolvedData);
+    }
+
+    fetchPostsFromDownVotes();
+  }, []);
+
   return (
     <div>
       <Header />
       <main styleName="main">
         <div styleName="content">
-          <Filter {...filter} addPosts={addstuff} />
+          {/* <Filter {...filter} addPosts={addstuff} /> */}
           {/* <Posts posts={userPosts} /> */}
-          <Card>
-
+          {/* <Card>
             <Comments
               comments={userComments}
               postId={commentsPostId}
               renderCommentPost={true}
             />
-          </Card>
+          </Card> */}
+          <Posts posts={upVotesPosts} />
+          {/* <Posts posts={downVotesPosts} /> */}
         </div>
         <aside styleName="aside">
           <UserCard />

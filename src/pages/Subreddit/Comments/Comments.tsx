@@ -38,7 +38,6 @@ const Comments: React.FC<Props> = ({
   useEffect(() => {
     if (renderCommentPost) {
       if (postId) {
-        console.log(postId);
         const postsDocRef = doc(db, "posts", postId);
 
         getDoc(postsDocRef).then((data: DocumentData) => {
