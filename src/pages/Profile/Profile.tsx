@@ -18,6 +18,7 @@ import styles from "./Profile.module.css";
 import UserCard from "./UserCard/UserCard";
 import { useFilter } from "../../hooks/hooks";
 import Card from "../../components/Card/Card";
+import ProfileNotFound from "./ProfileNotFound/ProfileNotFound";
 
 interface State {
   posts: boolean;
@@ -80,6 +81,8 @@ const Profile: React.FC = () => {
   const [commentsPostId, setCommentsPostId] = useState<string | undefined>();
 
   const [upVotesPosts, setUpVotesPosts] = useState<DocumentData | undefined>();
+
+  function addPosts() {}
 
   const [downVotesPosts, setDownVotesPosts] = useState<
     DocumentData | undefined
@@ -177,9 +180,13 @@ const Profile: React.FC = () => {
       <Header dispatch={dispatch} activeSection={activeSection} />
       <main styleName="main">
         <div styleName="content">
-          {/* {activeSection.posts && <Filter {...filter} addPosts={addstuff} />} */}
-          {activeSection.posts && <Posts posts={userPosts} />}
-          {activeSection.comments && (
+          <Filter {...filter} addPosts={addPosts} />
+          {activeSection.posts ? (
+            <Posts posts={userPosts} />
+          ) : (
+            <ProfileNotFound />
+          )}
+          {activeSection.comments ? (
             <Card>
               <Comments
                 comments={userComments}
@@ -187,9 +194,19 @@ const Profile: React.FC = () => {
                 renderCommentPost={true}
               />
             </Card>
+          ) : (
+            <ProfileNotFound />
           )}
-          {activeSection.upvotes && <Posts posts={upVotesPosts} />}
-          {activeSection.downvotes && <Posts posts={downVotesPosts} />}
+          {activeSection.upvotes ? (
+            <Posts posts={upVotesPosts} />
+          ) : (
+            <ProfileNotFound />
+          )}
+          {activeSection.downvotes ? (
+            <Posts posts={downVotesPosts} />
+          ) : (
+            <ProfileNotFound />
+          )}
         </div>
         <aside styleName="aside">
           <UserCard />
