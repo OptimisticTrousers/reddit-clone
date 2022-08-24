@@ -65,7 +65,7 @@ const Profile: React.FC = () => {
     async function fetchPostsFromUpVotes() {
       const upVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
 
-      const q = query(upVotesRef, where("voteStatus", "==", 1));
+      const q = query(upVotesRef, where("voteValue", "==", 1));
 
       const { docs } = await getDocs(q);
 
@@ -91,7 +91,7 @@ const Profile: React.FC = () => {
     async function fetchPostsFromDownVotes() {
       const downVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
 
-      const q = query(downVotesRef, where("voteStatus", "==", -1));
+      const q = query(downVotesRef, where("voteValue", "==", -1));
 
       const { docs } = await getDocs(q);
 
@@ -107,7 +107,7 @@ const Profile: React.FC = () => {
 
       const resolvedData = await Promise.all(newDocs);
 
-      setUpVotesPosts(resolvedData);
+      setDownVotesPosts(resolvedData);
     }
 
     fetchPostsFromDownVotes();
