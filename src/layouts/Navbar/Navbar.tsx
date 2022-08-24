@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
           <form onSubmit={submitSearch} styleName="header__search-form">
             <input
               styleName="header__search-input"
-              placeholder="Search Reddit"
+              placeholder="Search Reddit ie. (r/dogs)"
               onChange={handleSearchInput}
               value={searchInput}
               pattern="(?:^| )(/?r/[a-z]+)"

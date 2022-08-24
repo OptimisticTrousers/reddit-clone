@@ -32,21 +32,25 @@ const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { id } = useAppSelector(selectCommunityData);
+  const { id, name } = useAppSelector(selectCommunityData);
+
+  // console.log(name);
 
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
 
   useEffect(() => {
-    if (id) {
-      const postsRef = collection(db, "posts");
+    if (!id || !subredditName) return;
 
-      const q = query(postsRef, where("subredditId", "==", id));
+    const postsRef = collection(db, "posts");
 
-      getDocs(q).then((subredditPosts) => {
+    const q = query(postsRef, where("subredditName", "==", subredditName));
+
+    getDocs(q)
+      .then((subredditPosts) => {
         setPosts(subredditPosts.docs);
       })
-    }
-  }, [id]);
+      .catch((error) => alert(`ERROR: ${error}`));
+  }, [id, subredditName]);
 
   return (
     <div styleName="subreddit">

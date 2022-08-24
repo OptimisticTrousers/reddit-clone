@@ -33,8 +33,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    if(!subredditName && posts !== undefined) return
+    if (!subredditName && posts !== undefined) return;
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
 
@@ -56,7 +55,9 @@ const Posts: React.FC<Props> = ({ posts }) => {
       getDocs(q)
         .then((posts) => {
           if (posts) {
-            setRandomPosts(posts.docs.slice(0, 10).sort((a, b) => Math.random() - 0.5));
+            setRandomPosts(
+              posts.docs.slice(0, 10).sort((a, b) => Math.random() - 0.5)
+            );
           } else {
             alert("Subreddit does not exist!");
             navigate("/");
@@ -69,6 +70,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
   if (posts === undefined && randomPosts === undefined) {
     return (
       <AuthorsList
+        width="100%"
         animate={true}
         backgroundColor={"#333"}
         foregroundColor={"#999"}

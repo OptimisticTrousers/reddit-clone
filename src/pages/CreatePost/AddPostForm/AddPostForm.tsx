@@ -89,6 +89,10 @@ const AddPostForm: React.FC = () => {
           <div styleName="post-creator__title">Create a post</div>
           {/* <button styleName="post-creator__button_type_drafts">Drafts</button> */}
         </div>
+        {/* <div styleName="post-creator__subreddit-choice-container">
+          <div styleName="post-creator__subreddit-choice">
+          </div>
+        </div> */}
         <div styleName="post-creator__subreddit-description">
           {/* New to the trade and have a question you need answered? Try the
           **Beginner Questions** thread posted at the top of the subreddit!
