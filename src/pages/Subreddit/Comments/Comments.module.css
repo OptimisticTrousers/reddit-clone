@@ -1,3 +1,27 @@
 .comments {
-    
+}
+
+.comments__description {
+  color: rgb(129, 131, 132);
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.comments__user {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--secondary-color);
+  line-height: 16px;
+  text-decoration: none;
+}
+
+.comments__text {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--secondary-color);
+  line-height: 20px;
+  text-decoration: none;
+  vertical-align: baseline;
 }

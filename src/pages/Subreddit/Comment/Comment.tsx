@@ -24,12 +24,12 @@ const Comment: React.FC<DocumentData> = ({ comment, postId, children }) => {
         <div styleName="comment__body">
           <div styleName="comment__author">
             <p>
-              {comment.userName === getUserName() && `${getUserName()}`}{" "}
+              {comment?.userName === getUserName() && `${getUserName()}`}{" "}
           
-              <span styleName="comment__date">{moment(new Date(comment.createdAt?.seconds * 1000)).fromNow()}</span>
+              <span styleName="comment__date">{moment(new Date(comment?.createdAt?.seconds * 1000)).fromNow()}</span>
             </p>
           </div>
-          <div styleName="comment__message">{comment.content}</div>
+          <div styleName="comment__message">{comment?.content}</div>
           {children}
         </div>
       </div>

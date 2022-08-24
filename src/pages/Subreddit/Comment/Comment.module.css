@@ -2,6 +2,7 @@
     color: white;
     display: flex;
     column-gap: 8px;
+    margin-bottom: 10px;
 }
 
 .comment__content {
