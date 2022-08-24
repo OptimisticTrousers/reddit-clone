@@ -43,7 +43,7 @@ const Subreddit: React.FC = () => {
 
       getDocs(q).then((subredditPosts) => {
         setPosts(subredditPosts.docs);
-      });
+      })
     }
   }, [id]);
 

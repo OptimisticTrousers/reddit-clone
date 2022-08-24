@@ -1,7 +1,7 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
 import React, { useEffect } from "react";
 import CSSModules from "react-css-modules";
-import { Outlet, useParams } from "react-router-dom";
+import { Navigate, Outlet, useNavigate, useParams } from "react-router-dom";
 import {
   selectCommunityData,
   setCommunityData,
@@ -15,6 +15,8 @@ const FetchSubredditData: React.FC = () => {
   console.log(subredditName);
 
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const communityData = useAppSelector(selectCommunityData);
 
@@ -36,7 +38,8 @@ const FetchSubredditData: React.FC = () => {
           })
         );
       } catch (error) {
-        alert(`ERROR: ${error}`);
+        alert(`Subreddit does not exist!`);
+        navigate("/");
       }
     }
 
@@ -44,7 +47,7 @@ const FetchSubredditData: React.FC = () => {
     if (Object.keys(communityData).length === 0) {
       getSubredditData();
     }
-  }, [subredditName, dispatch]);
+  }, [subredditName, dispatch, communityData, navigate]);
 
   return <Outlet />;
 };

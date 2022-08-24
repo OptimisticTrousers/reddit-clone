@@ -17,7 +17,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <StoreProvider>
     <BrowserRouter>
-      <React.StrictMode>
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
@@ -33,7 +32,6 @@ root.render(
             </Route>
           </Route>
         </Routes>
-      </React.StrictMode>
     </BrowserRouter>
   </StoreProvider>
 );
