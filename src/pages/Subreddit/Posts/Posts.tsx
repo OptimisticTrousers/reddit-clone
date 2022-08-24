@@ -35,7 +35,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
   useEffect(() => {
 
     if(!subredditName && posts !== undefined) return
-    if (posts === undefined) {
+    else if (posts === undefined) {
       const postsRef = collection(db, "posts");
 
       getDocs(postsRef)

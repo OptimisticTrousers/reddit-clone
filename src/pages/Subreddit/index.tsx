@@ -26,6 +26,7 @@ import Filter from "../../components/Filter/Filter";
 import { List } from "react-content-loader";
 import Reddit from "../../components/Skeletons/AuthorsList";
 import AuthorsList from "../../components/Skeletons/AuthorsList";
+import PostCreatorCard from "../../components/PostCreatorCard/PostCreatorCard";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
@@ -52,6 +53,7 @@ const Subreddit: React.FC = () => {
       <Header subredditName={subredditName} />
       <main styleName="main">
         <div styleName="content">
+          <PostCreatorCard />
           <Filter />
           {posts ? (
             <Posts posts={posts} />
