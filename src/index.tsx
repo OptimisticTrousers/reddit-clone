@@ -17,21 +17,19 @@ const root = ReactDOM.createRoot(
 root.render(
   <StoreProvider>
     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
-            <Route path="r/">
-              <Route path=":subredditName" element={<FetchSubredditData />}>
-                <Route index element={<Subreddit />} />
-                <Route
-                  path="comments/:postId"
-                  element={<SinglePostPage />}
-                />
-                <Route path="submit" element={<CreatePost />} />
-              </Route>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="users/:userName" />
+          <Route index element={<Home />} />
+          <Route path="r/">
+            <Route path=":subredditName" element={<FetchSubredditData />}>
+              <Route index element={<Subreddit />} />
+              <Route path="comments/:postId" element={<SinglePostPage />} />
+              <Route path="submit" element={<CreatePost />} />
             </Route>
           </Route>
-        </Routes>
+        </Route>
+      </Routes>
     </BrowserRouter>
   </StoreProvider>
 );
