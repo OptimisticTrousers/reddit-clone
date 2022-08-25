@@ -6,7 +6,10 @@ const ProfileNotFound: React.FC = () => {
   return (
     <div styleName="profile-not-found">
       <h2 styleName="profile-not-found__text">hmm... /uLocoOptimisticPollo hasn't commented anything</h2>
-      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1}/>
+      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} />
+      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} />
+      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} />
+      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} />
     </div>
   );
 };

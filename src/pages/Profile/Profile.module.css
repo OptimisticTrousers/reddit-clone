@@ -5,3 +5,16 @@
     column-gap: 24px;
 }
 
+
+@media(max-width: 1070px) {
+    .aside {
+        display: none;
+    }
+    .content {
+        width: 100%;
+    }
+    .main {
+        padding: 0;
+        padding-top: 24px;
+    }
+}

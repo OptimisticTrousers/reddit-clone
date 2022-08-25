@@ -175,31 +175,24 @@ const Profile: React.FC = () => {
     fetchPostsFromDownVotes();
   }, []);
 
-  console.log(downVotesPosts);
-  console.log(userPosts);
   return (
     <div>
       <Header dispatch={dispatch} activeSection={activeSection} />
       <main styleName="main">
         <div styleName="content">
           <Filter {...filter} addPosts={addPosts} />
-          {activeSection.posts && <Posts posts={userPosts} /> &&
-            userPosts?.length === 0 && <ProfileNotFound />}
+          {activeSection.posts && <Posts posts={userPosts} />}
           {activeSection.comments && (
-              <Card>
-                <Comments
-                  comments={userComments}
-                  postId={commentsPostId}
-                  renderCommentPost={true}
-                />
-              </Card>
-            ) &&
-            userComments?.length === 0 && <ProfileNotFound />}
-          {activeSection.upvotes && <Posts posts={upVotesPosts} /> &&
-            upVotesPosts?.length === 0 && <ProfileNotFound />}
-          {activeSection.downvotes && <Posts posts={downVotesPosts} /> &&
-            downVotesPosts?.length === 0 && <ProfileNotFound />}
-          {/* {contentRef.current?.childNodes.length === 1 && <ProfileNotFound />} */}
+            <Card>
+              <Comments
+                comments={userComments}
+                postId={commentsPostId}
+                renderCommentPost={true}
+              />
+            </Card>
+          )}
+          {activeSection.upvotes && <Posts posts={upVotesPosts} />}
+          {activeSection.downvotes && <Posts posts={downVotesPosts} />}
         </div>
         <aside styleName="aside">
           <UserCard />
