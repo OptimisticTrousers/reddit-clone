@@ -12,3 +12,8 @@
     text-align: center;
     width: 100%;
 }
+
+.profile-not-found__skeletons {
+    display: flex;
+    flex-direction: column;
+}

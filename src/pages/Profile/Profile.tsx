@@ -88,6 +88,8 @@ const Profile: React.FC = () => {
     DocumentData | undefined
   >();
 
+  const contentRef = useRef<HTMLDivElement | null>(null)
+
   const [activeSection, dispatch] = useReducer(reducer, {
     posts: false,
     comments: false,
@@ -179,7 +181,7 @@ const Profile: React.FC = () => {
     <div>
       <Header dispatch={dispatch} activeSection={activeSection} />
       <main styleName="main">
-        <div styleName="content">
+        <div styleName="content" ref={contentRef}>
           <Filter {...filter} addPosts={addPosts} />
           {activeSection.posts && <Posts posts={userPosts} />}
           {activeSection.comments && (
@@ -193,6 +195,7 @@ const Profile: React.FC = () => {
           )}
           {activeSection.upvotes && <Posts posts={upVotesPosts} />}
           {activeSection.downvotes && <Posts posts={downVotesPosts} />}
+          <ProfileNotFound />
         </div>
         <aside styleName="aside">
           <UserCard />
