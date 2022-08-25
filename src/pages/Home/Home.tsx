@@ -16,12 +16,15 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useFilter } from "../../hooks/hooks";
+import { useAppSelector, useFilter } from "../../hooks/hooks";
+import { selectCommunityData } from "../../features/subreddit/subredditSlice";
 
 const Home: React.FC = () => {
   const [filteredPosts, setFilteredPosts] = useState<DocumentData | undefined>();
 
   const { filterRising, filterTop, filterNew } = useFilter();
+
+  const {name} = useAppSelector(selectCommunityData)
 
   async function addPosts(promise: Promise<DocumentData>) {
 
@@ -33,7 +36,7 @@ const Home: React.FC = () => {
     <div styleName="home">
       <div styleName="home__content">
         <div styleName="home__posts">
-          <PostCreatorCard />
+          {name && <PostCreatorCard />}
           <Filter
             addPosts={addPosts}
             filterRising={filterRising}
