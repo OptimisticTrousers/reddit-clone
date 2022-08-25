@@ -16,23 +16,25 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <StoreProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="user/:userName" element={<Profile />} />
-          <Route index element={<Home />} />
-          <Route path="r/">
-            <Route path=":subredditName" element={<FetchSubredditData />}>
-              <Route index element={<Subreddit />} />
-              <Route path="comments/:postId" element={<SinglePostPage />} />
-              <Route path="submit" element={<CreatePost />} />
+  <React.StrictMode>
+    <StoreProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="user/:userName" element={<Profile />} />
+            <Route index element={<Home />} />
+            <Route path="r/">
+              <Route path=":subredditName" element={<FetchSubredditData />}>
+                <Route index element={<Subreddit />} />
+                <Route path="comments/:postId" element={<SinglePostPage />} />
+                <Route path="submit" element={<CreatePost />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </StoreProvider>
+        </Routes>
+      </BrowserRouter>
+    </StoreProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
