@@ -23,6 +23,21 @@
 }
 
 .post-creator__subreddit-description {
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 18px;
+  outline: none;
+  box-sizing: border-box;
+  padding: 15px 17px;
+  color: #818384;
+  margin-bottom: 12px;
+}
+
+.post-creator__subreddit-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
 }
 
 .post-creator__form {

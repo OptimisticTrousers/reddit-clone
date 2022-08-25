@@ -94,6 +94,7 @@ const AddPostForm: React.FC = () => {
           </div>
         </div> */}
         <div styleName="post-creator__subreddit-description">
+          Creating a post to the <span styleName="post-creator__subreddit-name">{`'${name}'`}</span> subreddit
           {/* New to the trade and have a question you need answered? Try the
           **Beginner Questions** thread posted at the top of the subreddit!
           Looking for feedback? Try our weekly **Feedback Thread** instead! If
