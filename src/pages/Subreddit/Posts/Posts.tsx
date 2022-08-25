@@ -79,7 +79,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
     );
   }
   return (
-    <div styleName="container">
+    <>
       {(posts ?? randomPosts)?.map((doc: DocumentData) => {
         const data = doc.data();
         return (
@@ -96,7 +96,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
           </Link>
         );
       })}
-    </div>
+    </>
   );
 };
 

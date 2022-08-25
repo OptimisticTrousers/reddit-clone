@@ -7,7 +7,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import CSSModules from "react-css-modules";
 import { db, getUserId, isUserSignedIn } from "../../firebase";
 import Filter from "../../components/Filter/Filter";
@@ -175,38 +175,31 @@ const Profile: React.FC = () => {
     fetchPostsFromDownVotes();
   }, []);
 
+  console.log(downVotesPosts);
+  console.log(userPosts);
   return (
     <div>
       <Header dispatch={dispatch} activeSection={activeSection} />
       <main styleName="main">
         <div styleName="content">
           <Filter {...filter} addPosts={addPosts} />
-          {activeSection.posts ? (
-            <Posts posts={userPosts} />
-          ) : (
-            <ProfileNotFound />
-          )}
-          {activeSection.comments ? (
-            <Card>
-              <Comments
-                comments={userComments}
-                postId={commentsPostId}
-                renderCommentPost={true}
-              />
-            </Card>
-          ) : (
-            <ProfileNotFound />
-          )}
-          {activeSection.upvotes ? (
-            <Posts posts={upVotesPosts} />
-          ) : (
-            <ProfileNotFound />
-          )}
-          {activeSection.downvotes ? (
-            <Posts posts={downVotesPosts} />
-          ) : (
-            <ProfileNotFound />
-          )}
+          {activeSection.posts && <Posts posts={userPosts} /> &&
+            userPosts?.length === 0 && <ProfileNotFound />}
+          {activeSection.comments && (
+              <Card>
+                <Comments
+                  comments={userComments}
+                  postId={commentsPostId}
+                  renderCommentPost={true}
+                />
+              </Card>
+            ) &&
+            userComments?.length === 0 && <ProfileNotFound />}
+          {activeSection.upvotes && <Posts posts={upVotesPosts} /> &&
+            upVotesPosts?.length === 0 && <ProfileNotFound />}
+          {activeSection.downvotes && <Posts posts={downVotesPosts} /> &&
+            downVotesPosts?.length === 0 && <ProfileNotFound />}
+          {/* {contentRef.current?.childNodes.length === 1 && <ProfileNotFound />} */}
         </div>
         <aside styleName="aside">
           <UserCard />
