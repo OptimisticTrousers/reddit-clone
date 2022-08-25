@@ -41,6 +41,8 @@ const AddPostForm: React.FC = () => {
 
   const { id, name } = useAppSelector(selectCommunityData);
 
+  const [selectedTab, setSelectedTab] = useState("post")
+
   const dispatch = useAppDispatch();
 
   const handleTitleChange = (event: InputEvent) => {
@@ -104,23 +106,23 @@ const AddPostForm: React.FC = () => {
       </div>
       <div styleName="post-creator__form">
         <div styleName="post-creator__post-types">
-          <button styleName="post-creator__button">
+          <button styleName={`post-creator__button ${selectedTab === "post" && "post-creator__button--active"}`} onClick={() => setSelectedTab("post")}>
             <HiOutlineDocumentText styleName="post-creator__icon" />
             Post
           </button>
-          <button styleName="post-creator__button">
+          <button styleName={`post-creator__button ${selectedTab === "video" && "post-creator__button--active"}`}onClick={() => setSelectedTab("video")}>
             <AiOutlinePicture styleName="post-creator__icon" />
             Video
           </button>
-          <button styleName="post-creator__button">
+          <button styleName={`post-creator__button ${selectedTab === "link" && "post-creator__button--active"}`} onClick={() => setSelectedTab("link")}>
             <BsLink45Deg styleName="post-creator__icon" />
             Link
           </button>
-          <button styleName="post-creator__button">
+          <button styleName={`post-creator__button ${selectedTab === "poll" && "post-creator__button--active"}`} onClick={() => setSelectedTab("poll")}>
             <BiPoll styleName="post-creator__icon" />
             Poll
           </button>
-          <button styleName="post-creator__button">
+          <button styleName={`post-creator__button ${selectedTab === "talk" && "post-creator__button--active"}`} onClick={() => setSelectedTab("talk")}>
             <HiOutlineMicrophone styleName="post-creator__icon" />
             Talk
           </button>

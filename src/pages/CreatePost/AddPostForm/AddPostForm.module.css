@@ -40,6 +40,12 @@
   color: white;
 }
 
+.post-creator__button--active {
+  border-width: 0px 1px 2px 0px !important;
+  border-bottom-color: #3182ce !important;
+  color: #3182ce !important;
+}
+
 .post-creator__form {
   margin-bottom: 12px;
   border-radius: 5px;
