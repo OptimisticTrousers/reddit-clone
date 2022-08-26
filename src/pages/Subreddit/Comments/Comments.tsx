@@ -50,6 +50,12 @@ const Comments: React.FC<Props> = ({
     }
   }, [postId, renderCommentPost]);
   const renderedComments = comments?.map((doc: DocumentData) => {
+    let docData;
+    if (doc?.data) {
+      docData = doc?.data();
+    } else {
+      docData = doc?.doc?.data();
+    }
     return (
       <>
         {renderCommentPost && (
@@ -65,12 +71,12 @@ const Comments: React.FC<Props> = ({
             <span styleName="comments__description">{postCreator}</span>
           </div>
         )}
-        <Comment key={doc?.id} comment={(doc?.data()) || doc.doc.data()}>
+        <Comment key={doc?.id} comment={docData}>
           {renderInteractions && (
             <CommentInteractions
               postId={postId}
-              voteStatus={doc?.data()?.voteStatus}
-              id={doc?.data()?.id}
+              voteStatus={docData?.voteStatus}
+              id={docData?.id}
             />
           )}
         </Comment>
