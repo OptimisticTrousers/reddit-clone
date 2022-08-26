@@ -101,7 +101,7 @@ const Profile: React.FC = () => {
   const navigate = useNavigate();
 
   const [activeSection, dispatch] = useReducer(reducer, {
-    posts: false,
+    posts: true,
     comments: false,
     upvotes: false,
     downvotes: false,
@@ -209,22 +209,22 @@ const Profile: React.FC = () => {
           )}
           {activeSection.downvotes && <Posts posts={downVotesPosts} />}
           {activeSection.upvotes && <Posts posts={upVotesPosts} />}
-          {activeSection.downvotes && downVotesPosts!.length == false && (
+          {activeSection.downvotes && downVotesPosts?.length == false && (
             <ProfileNotFound
               text={`hmm... looks like you haven't downvoted anything yet`}
             />
           )}
-          {activeSection.upvotes && upVotesPosts!.length == false && (
+          {activeSection.upvotes && upVotesPosts?.length == false && (
             <ProfileNotFound
               text={`hmm... looks like you haven't upvoted anything yet`}
             />
           )}
-          {activeSection.posts && userPosts!.length == false && (
+          {activeSection.posts && userPosts?.length == false && (
             <ProfileNotFound
               text={`hmm... u/${getUserName()} hasn't posted anything`}
             />
           )}
-          {activeSection.comments && userComments!.length == false && (
+          {activeSection.comments && userComments?.length == false && (
             <ProfileNotFound
               text={`hmm... u/${getUserName()}hasn't commented on anything`}
             />
