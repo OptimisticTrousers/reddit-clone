@@ -5,18 +5,17 @@ import styles from "./ImageSelector.module.css";
 interface Props {
   selectedFile?: string;
   onSelectImage: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  setSelectedTab: (value: string) => void;
+  handleTabChange: (value: string) => void;
   setSelectedFile: (value: string) => void;
 }
 
 const ImageSelector: React.FC<Props> = ({
   selectedFile,
-  setSelectedTab,
+  handleTabChange,
   setSelectedFile,
   onSelectImage,
 }) => {
   const selectedFileRef = useRef<HTMLInputElement | null>(null);
-  console.log(selectedFile)
   return (
     <div styleName="image-selector__upload">
       {selectedFile ? (
@@ -25,7 +24,7 @@ const ImageSelector: React.FC<Props> = ({
           <div styleName="image-selector__buttons">
             <button
               styleName="image-selector__button"
-              onClick={() => setSelectedTab("post")}
+              onClick={() => handleTabChange("post")}
             >
               Back To Post
             </button>

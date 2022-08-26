@@ -92,6 +92,17 @@ const Post: React.FC<Props> = (props) => {
           <p styleName="post-excerpt__description">
             {props.data?.description ?? postData?.description}
           </p>
+          {props.data?.imageURL && (
+            <div styleName="post-excerpt__image-container">
+
+            <img
+              styleName="post-excerpt__image"
+              src={postData?.imageURL || props.data?.imageURL}
+              alt="post"
+            />
+            </div>
+
+          )}
         </div>
         <div styleName="post__buttons">
           <div styleName="post-excerpt__divider"></div>

@@ -25,6 +25,8 @@ import { BiPoll } from "react-icons/bi";
 import { HiOutlineMicrophone } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import ImageSelector from "../CreatePost/ImageSelector/ImageSelector";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { storage } from "../../../firebase/firebase-config";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -78,7 +80,7 @@ const AddPostForm: React.FC = () => {
 
         const postId = nanoid();
 
-        addDoc(postsRef, {
+        const postDocRef = await addDoc(postsRef, {
           createdAt: serverTimestamp(),
           id: postId,
           subredditId: id,
@@ -90,9 +92,19 @@ const AddPostForm: React.FC = () => {
           title,
           description,
           commentsQuantity: 0,
-        }).then((postRef) => {
-          navigate(`/r/${name}/comments/${postRef.id}`);
         });
+
+        if (selectedFile) {
+          const imageRef = ref(storage, `posts/${postDocRef.id}`);
+          await uploadString(imageRef, selectedFile, "data_url");
+          const downloadURL = await getDownloadURL(imageRef);
+
+          await updateDoc(postDocRef, {
+            imageURL: downloadURL,
+          });
+        }
+
+        navigate(`/r/${name}/comments/${postDocRef.id}`);
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
@@ -101,8 +113,9 @@ const AddPostForm: React.FC = () => {
     }
   };
 
-  const selectedFileRef = useRef<HTMLInputElement | null>(null);
-
+  function handleTabChange(type: string) {
+    setSelectedTab(type);
+  }
   return (
     <div styleName="post-creator">
       <div styleName="post-creator__header">
@@ -131,7 +144,7 @@ const AddPostForm: React.FC = () => {
             styleName={`post-creator__button ${
               selectedTab === "post" && "post-creator__button--active"
             }`}
-            onClick={() => setSelectedTab("post")}
+            onClick={() => handleTabChange("post")}
           >
             <HiOutlineDocumentText styleName="post-creator__icon" />
             Post
@@ -140,7 +153,7 @@ const AddPostForm: React.FC = () => {
             styleName={`post-creator__button ${
               selectedTab === "image" && "post-creator__button--active"
             }`}
-            onClick={() => setSelectedTab("image")}
+            onClick={() => handleTabChange("image")}
           >
             <AiOutlinePicture styleName="post-creator__icon" />
             Media
@@ -149,7 +162,7 @@ const AddPostForm: React.FC = () => {
             styleName={`post-creator__button ${
               selectedTab === "link" && "post-creator__button--active"
             }`}
-            onClick={() => setSelectedTab("link")}
+            onClick={() => handleTabChange("link")}
           >
             <BsLink45Deg styleName="post-creator__icon" />
             Link
@@ -158,7 +171,7 @@ const AddPostForm: React.FC = () => {
             styleName={`post-creator__button ${
               selectedTab === "poll" && "post-creator__button--active"
             }`}
-            onClick={() => setSelectedTab("poll")}
+            onClick={() => handleTabChange("poll")}
           >
             <BiPoll styleName="post-creator__icon" />
             Poll
@@ -167,7 +180,7 @@ const AddPostForm: React.FC = () => {
             styleName={`post-creator__button ${
               selectedTab === "talk" && "post-creator__button--active"
             }`}
-            onClick={() => setSelectedTab("talk")}
+            onClick={() => handleTabChange("talk")}
           >
             <HiOutlineMicrophone styleName="post-creator__icon" />
             Talk
@@ -198,7 +211,7 @@ const AddPostForm: React.FC = () => {
             {selectedTab === "image" && (
               <ImageSelector
                 onSelectImage={onSelectImage}
-                setSelectedTab={setSelectedTab}
+                handleTabChange={handleTabChange}
                 setSelectedFile={setSelectedFile}
                 selectedFile={selectedFile}
               />

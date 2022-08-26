@@ -17,28 +17,41 @@ a {
   cursor: pointer;
 }
 
+.post-excerpt__image {
+  max-height: 460px;
+  width: 100%;
+}
+
 .post-excerpt__content {
 }
 
 .post-excerpt__container {
   padding: 5px 8px 10px;
   overflow: hidden;
-  max-height: 250px;
 }
 
 .post-excerpt__title {
   font-size: 18px;
-  font-weight: 500;
+  font-weight:600;
   line-height: 22px;
   word-wrap: break-word;
   display: inline;
-  color: var(--secondary-color);
+  color: white;
   padding-right: 5px;
   word-wrap: break-word;
 }
 
+.post-excerpt__image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
 .post-excerpt__description {
   margin-top: 8px;
+  font-size: 16px;
+  color: var(--secondary-color);
 }
 
 .post__buttons {
