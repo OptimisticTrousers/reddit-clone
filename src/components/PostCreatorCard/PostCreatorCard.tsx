@@ -43,13 +43,13 @@ const PostCreatorCard: React.FC = () => {
             />
             <a
               styleName="post-creator-card__icon-link"
-              onClick={() => navigate(`/${name}/submit`)}
+              onClick={() => navigate(`/r/${name}/submit`)}
             >
               <AiOutlinePicture styleName="post-creator-card__icon" />
             </a>
             <a
               styleName="post-creator-card__icon-link"
-              onClick={() => navigate(`/${name}/submit`)}
+              onClick={() => navigate(`/r/${name}/submit`)}
             >
               <BsLink45Deg styleName="post-creator-card__icon" />
             </a>

@@ -41,7 +41,7 @@ const PersonalHomeCard: React.FC = () => {
             styleName="personal-home-card__button personal-home-card__button_type_create-post"
             onClick={() => {
               if (name) {
-                navigate(`/${name}/submit`);
+                navigate(`/r/${name}/submit`);
               }
             }}
           >
