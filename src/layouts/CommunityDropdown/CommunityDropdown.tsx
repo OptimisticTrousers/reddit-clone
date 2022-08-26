@@ -4,6 +4,8 @@ import Dropdown from "../Dropdown/Dropdown";
 import styles from "./CommunityDropdown.module.css";
 import {
   selectCommunityData,
+  selectUserCommunitiesData,
+  setUserCommunities,
   toggleCommunityModalState,
 } from "../../features/subreddit/subredditSlice";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -14,6 +16,7 @@ import {
   DocumentData,
   getDoc,
   getDocs,
+  onSnapshot,
 } from "firebase/firestore";
 import { db, getUserId } from "../../firebase";
 import { Action } from "@reduxjs/toolkit";
@@ -32,7 +35,7 @@ const CommunityDropdown: React.FC<Props> = ({
 
   const { name } = useAppSelector(selectCommunityData);
 
-  const [userCommunities, setUserCommunities] = useState<DocumentData>();
+  const userCommunities = useAppSelector(selectUserCommunitiesData);
 
   useEffect(() => {
     async function fetchUserCommunities() {
@@ -41,8 +44,11 @@ const CommunityDropdown: React.FC<Props> = ({
         `users/${getUserId()}/communitySnippets`
       );
 
-      const communities = await getDocs(userCommunities);
-      setUserCommunities(communities.docs);
+      onSnapshot(userCommunities, (snapshot) => {
+        dispatch(setUserCommunities(snapshot.docs));
+      });
+
+      // const communities = await getDocs(userCommunities);
     }
     fetchUserCommunities();
   }, [name]);
