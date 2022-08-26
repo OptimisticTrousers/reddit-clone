@@ -16,14 +16,15 @@ const ImageSelector: React.FC<Props> = ({
   onSelectImage,
 }) => {
   const selectedFileRef = useRef<HTMLInputElement | null>(null);
+  console.log(selectedFile)
   return (
-    <>
+    <div styleName="image-selector__upload">
       {selectedFile ? (
-        <div styleName="image-selector__upload">
+        <div styleName="image-selector__file-selector">
           <img styleName="image-selector__file-image" src={selectedFile} />
-          <div>
+          <div styleName="image-selector__buttons">
             <button
-              styleName="image-selector__post-button"
+              styleName="image-selector__button"
               onClick={() => setSelectedTab("post")}
             >
               Back To Post
@@ -37,8 +38,9 @@ const ImageSelector: React.FC<Props> = ({
           </div>
         </div>
       ) : (
-        <div styleName="image-selector__upload">
+        <div styleName="image-selector__buttons">
           <button
+            type="button"
             styleName="image-selector__button"
             onClick={() => selectedFileRef.current?.click()}
           >
@@ -52,7 +54,7 @@ const ImageSelector: React.FC<Props> = ({
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

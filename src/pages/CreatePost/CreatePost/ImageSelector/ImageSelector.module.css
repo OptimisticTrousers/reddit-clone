@@ -5,6 +5,7 @@
   display: block;
   margin-bottom: 16px;
   margin-top: 16px;
+  margin: 0 auto;
 }
 .image-selector-file-selector {
   display: flex;
@@ -28,6 +29,12 @@
   /* color: rgba(26, 26, 27, 0.5); */
   border-radius: 9999px;
   border: none;
+}
+
+.image-selector__buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
 }
 
 .image-selector__upload{

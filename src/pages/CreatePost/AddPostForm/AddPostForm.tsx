@@ -195,7 +195,14 @@ const AddPostForm: React.FC = () => {
                 ></textarea>
               </div>
             )}
-            {selectedTab === "image" && <ImageSelector onSelectImage={onSelectImage} setSelectedTab={setSelectedTab} setSelectedFile={setSelectedFile} />}
+            {selectedTab === "image" && (
+              <ImageSelector
+                onSelectImage={onSelectImage}
+                setSelectedTab={setSelectedTab}
+                setSelectedFile={setSelectedFile}
+                selectedFile={selectedFile}
+              />
+            )}
           </div>
           {/* <div styleName="post-creator__marks">
           <button>OC</button>
