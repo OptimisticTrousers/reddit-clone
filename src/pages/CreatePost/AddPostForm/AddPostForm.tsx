@@ -44,7 +44,6 @@ const AddPostForm: React.FC = () => {
 
   const { id, name } = useAppSelector(selectCommunityData);
 
-
   const [selectedTab, setSelectedTab] = useState("post");
 
   const [selectedFile, setSelectedFile] = useState<string>("");
@@ -91,6 +90,7 @@ const AddPostForm: React.FC = () => {
           userName: getUserName(),
           title,
           description,
+          link,
           commentsQuantity: 0,
         });
 
@@ -116,6 +116,8 @@ const AddPostForm: React.FC = () => {
   function handleTabChange(type: string) {
     setSelectedTab(type);
   }
+
+  const [link, setLink] = useState("");
   return (
     <div styleName="post-creator">
       <div styleName="post-creator__header">
@@ -197,6 +199,7 @@ const AddPostForm: React.FC = () => {
                 required
               />
             </div>
+
             {selectedTab === "post" && (
               <div styleName="post-creator__input-container">
                 <textarea
@@ -215,6 +218,18 @@ const AddPostForm: React.FC = () => {
                 setSelectedFile={setSelectedFile}
                 selectedFile={selectedFile}
               />
+            )}
+            {selectedTab === "link" && (
+              <div styleName="post-creator__input-container">
+                <input
+                  styleName="post-creator__input post-creator__input_type_input"
+                  placeholder="Link"
+                  onChange={(e) => setLink(e.target.value)}
+                  value={link}
+                  pattern="/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;"
+                  required
+                ></input>
+              </div>
             )}
           </div>
           {/* <div styleName="post-creator__marks">
