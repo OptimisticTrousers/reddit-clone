@@ -28,7 +28,8 @@ const About: React.FC = () => {
     );
 
     getDoc(communitySnippetsRef).then((doc: DocumentData) => {
-      setIsUserModerator(doc.data().isModerator);
+      console.log(doc)
+      setIsUserModerator(doc?.data()?.isModerator);
     });
   }, [communityData.name]);
 
@@ -70,10 +71,19 @@ const About: React.FC = () => {
             </button>
           </Link>
           <hr styleName="about__thematic-break"></hr>
-          <button styleName="about__button about__button_type_options">
+          {/* <button styleName="about__button about__button_type_options">
             Community Options
             <IoIosArrowDown />
-          </button>
+          </button> */}
+          {/* <hr styleName="about__thematic-break"></hr> */}
+          <div styleName="about__admin">
+            <p styleName="about__admin-text">Admin</p>
+            <div styleName="about__admin-functions">
+              <p styleName="about__admin-change-image">Change Image</p>
+              <img styleName="about__admin-image" src="http://localhost:3000/static/media/subreddit-logo.910a6fc9f2865d1e3010dba7866d6b6a.svg" alt="current profile picture" />
+            </div>
+            <input type="file" accept="image/x-png, image/gif, image/jpeg" hidden />
+          </div>
         </>
       ) : (
         <Article

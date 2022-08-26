@@ -12,6 +12,25 @@
   margin-bottom: 8px;
 }
 
+.about__admin {
+  display: flex;
+  flex-direction: column;
+  font-size: 10pt;
+  margin-top: 4px;
+  word-wrap: break-word;
+}
+
+.about__admin-text {
+  font-weight: 600;
+  word-wrap: break-word;;
+}
+
+.about__admin-functions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .about__members {
   display: grid;
   grid-template-columns: auto auto 42px;

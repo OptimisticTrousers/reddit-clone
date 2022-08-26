@@ -45,7 +45,7 @@ const TopCommunitiesCard: React.FC = () => {
       <ol styleName="top-communities__top-community-list">
         {topCommunities?.map((doc: DocumentData, index: number) => {
           return (
-            <li styleName="top-communities__top-community-item">
+            <li key={doc.id} styleName="top-communities__top-community-item">
               <a styleName="top-communities__top-community-details">
                 <p styleName="top-communities__top-community-rank">
                   {index + 1}
