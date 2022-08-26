@@ -3,7 +3,10 @@ import subredditLogo from "../../../assets/subreddit-logo.svg";
 import classNames from "classnames";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
-import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
+import {
+  selectCommunityData,
+  setCommunityData,
+} from "../../../features/subreddit/subredditSlice";
 import {
   addDoc,
   arrayRemove,
@@ -21,46 +24,45 @@ import {
 } from "firebase/firestore";
 import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
 import { useEffect, useState } from "react";
+import { FaReddit } from "react-icons/fa";
 
 interface Props {
   subredditName: string | undefined;
 }
 
 const Header: React.FC<Props> = ({ subredditName }) => {
-  const { name } = useAppSelector(selectCommunityData);
+  const { name, imageURL } = useAppSelector(selectCommunityData);
   const [joinButtonText, setJoinButtonText] = useState("Join");
 
   async function joinCommunity() {
     if (isUserSignedIn()) {
       try {
-
         await runTransaction(db, async (transaction) => {
-        const userRef = doc(
-          db,
-          `users/${getUserId()}/communitySnippets/${subredditName}`
-        );
-        const communityDocRef = doc(db, "subreddits", name);
+          const userRef = doc(
+            db,
+            `users/${getUserId()}/communitySnippets/${subredditName}`
+          );
+          const communityDocRef = doc(db, "subreddits", name);
 
-        const docData  = await transaction.get(communityDocRef);
+          const docData = await transaction.get(communityDocRef);
 
-        if (docData.data()?.creatorId === getUserId()) {
-          transaction.set(userRef, {
-            communityId: subredditName,
-            isModerator: true,
+          if (docData.data()?.creatorId === getUserId()) {
+            transaction.set(userRef, {
+              communityId: subredditName,
+              isModerator: true,
+            });
+          } else {
+            transaction.set(userRef, {
+              communityId: subredditName,
+              isModerator: false,
+            });
+          }
+          const subredditRef = doc(db, `subreddits/${subredditName}`);
+
+          transaction.set(subredditRef, {
+            numberOfMembers: increment(1),
           });
-        } else {
-          transaction.set(userRef, {
-            communityId: subredditName,
-            isModerator: false,
-          });
-        }
-        const subredditRef = doc(db, `subreddits/${subredditName}`);
-
-        transaction.set(subredditRef, {
-          numberOfMembers: increment(1),
         });
-
-        })
 
         setJoinButtonText("Joined");
       } catch (error) {
@@ -117,11 +119,15 @@ const Header: React.FC<Props> = ({ subredditName }) => {
       <div styleName="header__background"></div>
       <div styleName="header__container">
         <div styleName="header__content">
-          <img
-            styleName="header__subreddit-picture"
-            src={subredditLogo}
-            alt="default subreddit logo"
-          />
+          {imageURL ? (
+            <img
+              styleName="header__subreddit-picture"
+              src={imageURL}
+              alt="subreddit logo"
+            />
+          ) : (
+            <FaReddit styleName="header__subreddit-picture" />
+          )}
           <div styleName="header__title-container">
             <div styleName="header__title">
               <h1 styleName="header__subreddit-name">{subredditName}</h1>

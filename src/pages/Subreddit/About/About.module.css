@@ -35,7 +35,6 @@
   height: 40px;
   width: 40px;
   border-radius: 9999px;
-  filter: brightness(0) invert(1);
 }
 
 .about__admin-change-image {

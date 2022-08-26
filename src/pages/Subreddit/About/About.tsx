@@ -1,24 +1,42 @@
 import CSSModules from "react-css-modules";
 import { IoIosArrowDown } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Card from "../../../components/Card/Card";
 import CardHeader from "../../../components/CardHeader/CardHeader";
-import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
-import { useAppSelector } from "../../../hooks/hooks";
+import {
+  selectCommunityData,
+  setCommunityData,
+} from "../../../features/subreddit/subredditSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import styles from "./About.module.css";
 import moment from "moment";
 import { TbCake } from "react-icons/tb";
 import Article from "../../../components/Skeletons/Article";
-import { useEffect, useState } from "react";
-import { collection, doc, DocumentData, getDoc } from "firebase/firestore";
+import { useEffect, useRef, useState } from "react";
+import {
+  collection,
+  doc,
+  DocumentData,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db, getUserId } from "../../../firebase";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { storage } from "../../../firebase/firebase-config";
+import { FaReddit } from "react-icons/fa";
 
 const About: React.FC = () => {
   const communityData = useAppSelector(selectCommunityData);
 
   const data = useAppSelector(selectCommunityData);
 
+  const { subredditName } = useParams();
+
   const [isUserModerator, setIsUserModerator] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState<string>("");
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const communitySnippetsRef = doc(
@@ -28,10 +46,41 @@ const About: React.FC = () => {
     );
 
     getDoc(communitySnippetsRef).then((doc: DocumentData) => {
-      console.log(doc)
-      // setIsUserModerator(doc?.data()?.isModerator);
+      setIsUserModerator(doc?.data()?.isModerator);
     });
-  }, []);
+  }, [communityData.name]);
+
+  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+
+    if (event.target.files?.[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      if (readerEvent.target?.result) {
+        setSelectedFile(readerEvent.target.result as string);
+      }
+    };
+  };
+
+  const onUpdateImage = async () => {
+    if (!selectedFile) return;
+    try {
+      const imageRef = ref(storage, `communities/${communityData.id}/image`);
+      await uploadString(imageRef, selectedFile, "data_url");
+      const downloadURL = await getDownloadURL(imageRef);
+      await updateDoc(doc(db, "subreddits", communityData.name), {
+        imageURL: downloadURL,
+      });
+
+      dispatch(setCommunityData({ ...communityData, imageURL: downloadURL }));
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
+
+  const selectedFileRef = useRef<HTMLInputElement>(null);
 
   return (
     <Card>
@@ -76,14 +125,39 @@ const About: React.FC = () => {
             <IoIosArrowDown />
           </button> */}
           {/* <hr styleName="about__thematic-break"></hr> */}
-          <div styleName="about__admin">
-            <p styleName="about__admin-text">Admin</p>
-            <div styleName="about__admin-functions">
-              <p styleName="about__admin-change-image">Change Image</p>
-              <img styleName="about__admin-image" src="http://localhost:3000/static/media/subreddit-logo.910a6fc9f2865d1e3010dba7866d6b6a.svg" alt="current profile picture" />
+          {isUserModerator && (
+            <div styleName="about__admin">
+              <p styleName="about__admin-text">Admin</p>
+              <div styleName="about__admin-functions">
+                <p
+                  styleName="about__admin-change-image"
+                  onClick={() => selectedFileRef.current?.click()}
+                >
+                  Change Image
+                </p>
+                <img
+                  styleName="about__admin-image"
+                  src={selectedFile || communityData.imageURL}
+                  alt="current profile picture"
+                />
+              </div>
+              {selectedFile && (
+                <p
+                  styleName="about__admin-change-image"
+                  onClick={onUpdateImage}
+                >
+                  Save Changes
+                </p>
+              )}
+              <input
+                ref={selectedFileRef}
+                type="file"
+                accept="image/x-png, image/gif, image/jpeg"
+                hidden
+                onChange={onSelectImage}
+              />
             </div>
-            <input type="file" accept="image/x-png, image/gif, image/jpeg" hidden />
-          </div>
+          )}
         </>
       ) : (
         <Article

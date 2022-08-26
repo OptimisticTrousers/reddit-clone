@@ -19,9 +19,11 @@
 .header__subreddit-picture {
   height: 72px;
   width: 72px;
-  filter: brightness(0) invert(1);
+  color: #FF3C00;
+  background-color: transparent;
   margin-top: -7px;
   margin-bottom: 6px;
+  border-radius: 9999px;
 }
 .header__title-container {
   padding-left: 16px;

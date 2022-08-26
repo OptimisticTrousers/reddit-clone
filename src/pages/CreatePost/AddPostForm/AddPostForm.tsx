@@ -44,10 +44,10 @@ const AddPostForm: React.FC = () => {
 
   const { id, name } = useAppSelector(selectCommunityData);
 
-  const [selectedFile, setSelectedFile] = useState<string>("");
 
   const [selectedTab, setSelectedTab] = useState("post");
 
+  const [selectedFile, setSelectedFile] = useState<string>("");
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
 
