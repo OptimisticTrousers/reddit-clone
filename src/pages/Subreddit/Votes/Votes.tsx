@@ -76,29 +76,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
   const loggedIn = isUserSignedIn();
 
   useEffect(() => {
-    async function getInitialVote() {
-      try {
-        const postVotesDocRef = doc(
-          db,
-          "users",
-          `${getUserId()}/postVotes/${postId}`
-        );
-
-        const docData = await getDoc(postVotesDocRef);
-
-        // console.log(docData.data()!.voteValue)
-        setVote(docData.data()!.voteValue);
-      } catch (error) {
-        console.log(`ERROR: ${error}`);
-      }
-    }
-
-    if (loggedIn) {
-      getInitialVote();
-    }
-  }, [postId, loggedIn]);
-
-  useEffect(() => {
     async function updateData() {
       try {
         // const batch = writeBatch(db);
@@ -154,6 +131,29 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
       updateData();
     }
   }, [vote, postId, subredditId, voteStatus, params.postId, loggedIn]);
+
+  useEffect(() => {
+    async function getInitialVote() {
+      try {
+        const postVotesDocRef = doc(
+          db,
+          "users",
+          `${getUserId()}/postVotes/${postId}`
+        );
+
+        const docData = await getDoc(postVotesDocRef);
+
+        // console.log(docData.data()!.voteValue)
+        setVote(docData.data()!.voteValue);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+
+    if (loggedIn) {
+      getInitialVote();
+    }
+  }, [postId, loggedIn]);
 
   return (
     <div styleName="votes">
