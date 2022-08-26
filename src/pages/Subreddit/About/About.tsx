@@ -29,9 +29,9 @@ const About: React.FC = () => {
 
     getDoc(communitySnippetsRef).then((doc: DocumentData) => {
       console.log(doc)
-      setIsUserModerator(doc?.data()?.isModerator);
+      // setIsUserModerator(doc?.data()?.isModerator);
     });
-  }, [communityData.name]);
+  }, []);
 
   return (
     <Card>

@@ -31,6 +31,19 @@
   justify-content: space-between;
 }
 
+.about__admin-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 9999px;
+  filter: brightness(0) invert(1);
+}
+
+.about__admin-change-image {
+  cursor: pointer;
+  word-wrap: break-word;
+  color: #3182ce;
+}
+
 .about__members {
   display: grid;
   grid-template-columns: auto auto 42px;
