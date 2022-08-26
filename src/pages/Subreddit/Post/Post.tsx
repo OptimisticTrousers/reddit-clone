@@ -11,8 +11,11 @@ import {
   doc,
   DocumentData,
   getDoc,
+  getDocs,
+  query,
   runTransaction,
   serverTimestamp,
+  where,
   writeBatch,
 } from "firebase/firestore";
 import CSSModules from "react-css-modules";
@@ -32,20 +35,22 @@ interface Props {
 const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
 
-  console.log(postId)
+  console.log(postId);
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchPost() {
-      const postDocRef = doc(db, "posts", postId!);
+      const postDocRef = collection(db, "posts");
 
-      const postDoc = await getDoc(postDocRef);
+      const q = query(postDocRef, where("id", "==", postId));
+
+      const postDoc = await getDocs(q);
 
       // console.log(postDoc.data())
 
-      setPostData(postDoc.data());
+      setPostData(postDoc.docs[0].data());
     }
 
     props.data ?? fetchPost();
@@ -76,10 +81,12 @@ const Post: React.FC<Props> = (props) => {
       styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}
       data-testid="post"
     >
-      {postId && <Votes
-        voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
-        subredditId={props.data?.subredditId ?? postData?.subredditId}
-      />}
+      {postId && (
+        <Votes
+          voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
+          subredditId={props.data?.subredditId ?? postData?.subredditId}
+        />
+      )}
       <div styleName="post-excerpt__content">
         <PostAuthor
           subredditName={props.data?.subredditName ?? postData?.subredditName}
@@ -98,14 +105,12 @@ const Post: React.FC<Props> = (props) => {
           </p>
           {props.data?.imageURL && (
             <div styleName="post-excerpt__image-container">
-
-            <img
-              styleName="post-excerpt__image"
-              src={postData?.imageURL || props.data?.imageURL}
-              alt="post"
-            />
+              <img
+                styleName="post-excerpt__image"
+                src={postData?.imageURL || props.data?.imageURL}
+                alt="post"
+              />
             </div>
-
           )}
         </div>
         <div styleName="post__buttons">

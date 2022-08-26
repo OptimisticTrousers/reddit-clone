@@ -10,6 +10,7 @@ import {
   collection,
   doc,
   DocumentData,
+  getDoc,
   increment,
   query,
   runTransaction,
@@ -26,6 +27,7 @@ import upVote from "../../../assets/upvote.svg";
 import downVote from "../../../assets/downvote.svg";
 import { Collection } from "typescript";
 import { useParams } from "react-router-dom";
+import { getInitialValue } from "@testing-library/user-event/dist/types/document/UI";
 
 interface Props {
   voteStatus: number;
@@ -71,6 +73,31 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
     }
   }
 
+  const loggedIn = isUserSignedIn();
+
+  useEffect(() => {
+    async function getInitialVote() {
+      try {
+        const postVotesDocRef = doc(
+          db,
+          "users",
+          `${getUserId()}/postVotes/${postId}`
+        );
+
+        const docData = await getDoc(postVotesDocRef);
+
+        // console.log(docData.data()!.voteValue)
+        setVote(docData.data()!.voteValue);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+
+    if (loggedIn) {
+      getInitialVote();
+    }
+  }, [postId, loggedIn]);
+
   useEffect(() => {
     async function updateData() {
       try {
@@ -86,10 +113,9 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
 
           // const q = query(postsVoteRef, where("postId", "==", postId));
 
-          const postVotesDoc = await transaction.get(postVotesDocRef);
+          // const postVotesDoc = await transaction.get(postVotesDocRef);
 
           // if (postVotesDoc.data()?.voteValue !== 0) {
-          // setVote(postVotesDoc.data()?.voteValue);
           //   return;
           // } else {
           const newVote = {
@@ -125,7 +151,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
     }
 
     if (isUserSignedIn()) {
-      updateData();
+      // updateData();
     }
   }, [vote, postId, subredditId, voteStatus, params.postId]);
 

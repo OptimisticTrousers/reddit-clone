@@ -58,7 +58,7 @@ const SinglePostPage = () => {
       const docChanges = snapshot.docChanges();
       setComments(docChanges);
     });
-  }, [postId]);
+  }, [postId, dispatch]);
 
   return (
     <section styleName="post-page">

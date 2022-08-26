@@ -41,7 +41,6 @@ const Subreddit: React.FC = () => {
 
   // console.log(name);
 
-
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
 
   async function filterPosts(promise: Promise<DocumentData>) {
@@ -85,7 +84,9 @@ const Subreddit: React.FC = () => {
             filterTop={filterTop}
             filterRising={filterRising}
           />
-          {posts?.length === 0 && <ProfileNotFound text="hmm...it seems that there are no posts"/>}
+          {posts?.length === 0 && (
+            <ProfileNotFound text="hmm...it seems that there are no posts" />
+          )}
           {posts ? (
             <Posts posts={posts} />
           ) : (
