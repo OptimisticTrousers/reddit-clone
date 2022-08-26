@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import { configureStore } from "@reduxjs/toolkit";
 import { User } from "firebase/auth";
 import authReducer from "../features/auth/authSlice";

@@ -17,7 +17,7 @@ import {
   QueryDocumentSnapshot,
   where,
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, isUserSignedIn } from "../../firebase";
 import { useAppDispatch, useAppSelector, useFilter } from "../../hooks/hooks";
 import {
   selectCommunityData,
@@ -29,6 +29,7 @@ import Reddit from "../../components/Skeletons/AuthorsList";
 import AuthorsList from "../../components/Skeletons/AuthorsList";
 import PostCreatorCard from "../../components/PostCreatorCard/PostCreatorCard";
 import ProfileNotFound from "../Profile/ProfileNotFound/ProfileNotFound";
+import { selectAuthStatus } from "../../features/auth/authSlice";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
@@ -39,6 +40,7 @@ const Subreddit: React.FC = () => {
   const { filterNew, filterRising, filterTop } = useFilter();
 
   // console.log(name);
+
 
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
 

@@ -2,11 +2,12 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import React, { useEffect } from "react";
 import CSSModules from "react-css-modules";
 import { Navigate, Outlet, useNavigate, useParams } from "react-router-dom";
+import { selectAuthStatus } from "../../../features/auth/authSlice";
 import {
   selectCommunityData,
   setCommunityData,
 } from "../../../features/subreddit/subredditSlice";
-import { db } from "../../../firebase";
+import { db, isUserSignedIn } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import styles from "./FetchSubredditData.module.css";
 

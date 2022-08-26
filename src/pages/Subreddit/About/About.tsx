@@ -1,5 +1,6 @@
+/* eslint-disable no-restricted-globals */
 import CSSModules from "react-css-modules";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosLogIn } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import Card from "../../../components/Card/Card";
 import CardHeader from "../../../components/CardHeader/CardHeader";
@@ -18,18 +19,19 @@ import {
   doc,
   DocumentData,
   getDoc,
+  onSnapshot,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db, getUserId } from "../../../firebase";
+import { db, getUserId, isUserSignedIn } from "../../../firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { storage } from "../../../firebase/firebase-config";
 import { FaReddit } from "react-icons/fa";
+import { HiOutlinePencil } from "react-icons/hi";
+import { toggleSignInModal } from "../../../features/auth/authSlice";
 
 const About: React.FC = () => {
   const communityData = useAppSelector(selectCommunityData);
-
-  const data = useAppSelector(selectCommunityData);
 
   const { subredditName } = useParams();
 
@@ -67,6 +69,10 @@ const About: React.FC = () => {
 
   const onUpdateImage = async () => {
     if (!selectedFile) return;
+    if (!isUserSignedIn()) {
+      alert("Please sign in to upload an image!");
+      dispatch(toggleSignInModal());
+    }
     try {
       const imageRef = ref(storage, `communities/${communityData.id}/image`);
       await uploadString(imageRef, selectedFile, "data_url");
@@ -83,7 +89,8 @@ const About: React.FC = () => {
 
   const selectedFileRef = useRef<HTMLInputElement>(null);
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(communityData.description);
+  console.log(communityData);
 
   const onDescriptionSubmit = async () => {
     if (subredditName) {
@@ -99,25 +106,80 @@ const About: React.FC = () => {
     }
   };
 
+  const [toggleDescription, setToggleDescription] = useState(false);
+
+  const changeDescription = async () => {
+    if (isUserSignedIn()) {
+      try {
+        const communityDocRef = doc(db, "subreddits", subredditName!);
+
+        await updateDoc(communityDocRef, {
+          description,
+        });
+
+        setToggleDescription((prevValue) => !prevValue);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    } else {
+      alert("Please sign in if you are the creator of this community");
+      dispatch(toggleSignInModal());
+    }
+  };
+
   return (
     <Card>
       <CardHeader />
       {Object.keys(communityData).length !== 0 ? (
         <>
           {isUserModerator ? (
-            <form styleName="about__form" onClick={onDescriptionSubmit}>
-              <input
-                styleName="about__input"
-                type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <button styleName="about__button-description">
+            <div styleName="about__admin-description">
+              {toggleDescription === false && (
+                <>
+                  <div styleName="about__admin-description-text">
+                    {communityData.description}
+                  </div>
+                  <HiOutlinePencil
+                    styleName="about__admin-image"
+                    onClick={() =>
+                      setToggleDescription((prevValue) => !prevValue)
+                    }
+                  />
+                </>
+              )}
+              {toggleDescription && (
+                // <form onSubmit={changeDescription}>
+                <>
+                  <textarea
+                    styleName="about__admin-input"
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Tell us about your community"
+                    maxLength={500}
+                    value={description}
+                  >
+                    {description}
+                  </textarea>
+                  <button styleName="about__admin-button">
+                    <HiOutlinePencil onClick={changeDescription} />
+                  </button>
+                </>
+                // </form>
+              )}
+              {/* <div styleName="about__admin-description-details"></div> */}
+            </div>
+          ) : (
+            // <form styleName="about__form" onClick={onDescriptionSubmit}>
+            //   <input
+            //     styleName="about__input"
+            //     type="text"
+            //     value={description || communityData.description}
+            //     onChange={(e) => setDescription(e.target.value)}
+            //   />
+            /* <button styleName="about__button-description">
                 Save Description
               </button>
-              <button styleName="about__button-description">Cancel</button>
-            </form>
-          ) : (
+              <button styleName="about__button-description">Cancel</button> */
+            /* </form> */
             <p styleName="about__description">{communityData.description}</p>
           )}
           <div styleName="about__members">
@@ -170,7 +232,7 @@ const About: React.FC = () => {
                     alt="current profile picture"
                   />
                 ) : (
-                  <FaReddit styleName="about__admin-image"/>
+                  <FaReddit styleName="about__admin-image" />
                 )}
               </div>
               {selectedFile && (
