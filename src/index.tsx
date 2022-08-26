@@ -21,7 +21,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route path="user/:userName" element={<Profile />} />
+            <Route path="user" element={<Profile />} />
             <Route index element={<Home />} />
             <Route path="r/">
               <Route path=":subredditName" element={<FetchSubredditData />}>

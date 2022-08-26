@@ -19,6 +19,7 @@ import UserCard from "./UserCard/UserCard";
 import { useFilter } from "../../hooks/hooks";
 import Card from "../../components/Card/Card";
 import ProfileNotFound from "./ProfileNotFound/ProfileNotFound";
+import { Navigate, useNavigate } from "react-router-dom";
 
 interface State {
   posts: boolean;
@@ -90,6 +91,8 @@ const Profile: React.FC = () => {
 
   const contentRef = useRef<HTMLDivElement | null>(null)
 
+  const navigate = useNavigate();
+
   const [activeSection, dispatch] = useReducer(reducer, {
     posts: false,
     comments: false,
@@ -97,6 +100,11 @@ const Profile: React.FC = () => {
     downvotes: false,
     saved: false,
   });
+
+  if(!isUserSignedIn()) {
+    alert("Please sign in to view a profile!")
+    navigate("/")
+  }
 
   useEffect(() => {
     const userPostsRef = collection(db, "posts");

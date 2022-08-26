@@ -14,7 +14,7 @@ const ProfileDropdown: React.FC<Props> = ({ dropdown }) => {
   const navigate = useNavigate();
 
   function profileNavigate() {
-    navigate(`/user/${getUserName()}`);
+    navigate(`/user`);
   }
 
   return (

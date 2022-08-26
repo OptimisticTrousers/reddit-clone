@@ -3,6 +3,8 @@ import CSSModules from "react-css-modules";
 import styles from "./UserCard.module.css";
 import { TbCake } from "react-icons/tb";
 import Card from "../../../components/Card/Card";
+import { getUser, getUserName } from "../../../firebase";
+import moment from "moment";
 
 const UserCard: React.FC = () => {
   return (
@@ -16,13 +18,18 @@ const UserCard: React.FC = () => {
             alt="default avatar profile"
           />
         </div>
-        <h1 styleName="user-card__title">OptimisticTrousers</h1>
-        <span styleName="user-card__text">u/OptimisticTrousers1 · 5y</span>
+        <h1 styleName="user-card__title">{getUserName()}</h1>
+        <span styleName="user-card__text">
+          u/{getUserName()} ·{" "}
+          {moment(new Date(getUser()!.metadata.creationTime!)).fromNow()}
+        </span>
         <div styleName="user-card__details">
           <h5 styleName="user-card__detail-title">Cake day</h5>
           <div styleName="user-card__cake-day">
             <TbCake styleName="user-card__icon" />
-            <h5 styleName="user-card__detail-title">February 21, 2018</h5>
+            <h5 styleName="user-card__detail-title">
+              {getUser()?.metadata.creationTime}.
+            </h5>
           </div>
         </div>
       </div>
