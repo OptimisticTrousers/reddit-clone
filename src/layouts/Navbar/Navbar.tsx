@@ -1,7 +1,8 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
 import { getUser, isUserSignedIn, signIn, signOutUser } from "../../firebase";
@@ -20,6 +21,7 @@ import { AiFillHome } from "react-icons/ai";
 import Dropdown from "../Dropdown/Dropdown";
 import CommunityDropdown from "../CommunityDropdown/CommunityDropdown";
 import ProfileDropdown from "../ProfileDropdown/ProfileDropdown";
+import { selectCommunityData } from "../../features/subreddit/subredditSlice";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -29,6 +31,10 @@ const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useAppSelector(selectAuthStatus);
+
+  const { name } = useAppSelector(selectCommunityData);
+
+  const params = useParams();
 
   const [isSubscriptionsDropdownOpen, setIsSubscriptionsDropdownOpen] =
     useState(false);
@@ -82,7 +88,9 @@ const Navbar: React.FC = () => {
               <div styleName="header__dropdown" onClick={handleHomeDropdown}>
                 <div styleName="header__dropdown-left">
                   <AiFillHome styleName="header__dropdown-icon" />
-                  <h1 styleName="header__dropdown-title">Home</h1>
+                  <h1 styleName="header__dropdown-title">
+                    {Object.keys(params).length === 0 ? "Home" : name}
+                  </h1>
                 </div>
                 <div styleName="header__dropdown-right">
                   <IoIosArrowDown styleName="header__dropdown-icon" />
