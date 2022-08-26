@@ -27,6 +27,8 @@ import { useFilter } from "../../hooks/hooks";
 import Card from "../../components/Card/Card";
 import ProfileNotFound from "./ProfileNotFound/ProfileNotFound";
 import { Navigate, useNavigate } from "react-router-dom";
+import { displayPartsToString } from "typescript";
+import { toggleSignInModal } from "../../features/auth/authSlice";
 
 interface State {
   posts: boolean;
@@ -106,30 +108,33 @@ const Profile: React.FC = () => {
     saved: false,
   });
 
-  if (!isUserSignedIn()) {
-    alert("Please sign in to view a profile!");
-    navigate("/");
-  }
-
   useEffect(() => {
-    const userPostsRef = collection(db, "posts");
+    if (isUserSignedIn()) {
+      const userPostsRef = collection(db, "posts");
 
-    const q = query(userPostsRef, where("userId", "==", getUserId()));
+      const q = query(userPostsRef, where("userId", "==", getUserId()));
 
-    getDocs(q).then((data: DocumentData) => {
-      setUserPosts(data.docs);
-    });
+      getDocs(q).then((data: DocumentData) => {
+        setUserPosts(data.docs);
+      });
+    } else {
+      alert("Sign in to see your user profile!");
+      navigate("/");
+      dispatch(toggleSignInModal());
+    }
   }, []);
 
   useEffect(() => {
-    const userCommentsRef = collection(db, "comments");
+    if (isUserSignedIn()) {
+      const userCommentsRef = collection(db, "comments");
 
-    const q = query(userCommentsRef, where("userId", "==", getUserId()));
+      const q = query(userCommentsRef, where("userId", "==", getUserId()));
 
-    getDocs(q).then((data: DocumentData) => {
-      setCommentsPostId(data.docs[0].data().postId);
-      setUserComments(data.docs);
-    });
+      getDocs(q).then((data: DocumentData) => {
+        setCommentsPostId(data.docs[0].data().postId);
+        setUserComments(data.docs);
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -185,6 +190,7 @@ const Profile: React.FC = () => {
   }, []);
 
   const contentRef = useRef<HTMLDivElement>(null);
+
   return (
     <div>
       <Header dispatch={dispatch} activeSection={activeSection} />
