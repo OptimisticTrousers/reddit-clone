@@ -10,7 +10,13 @@ import {
 } from "firebase/firestore";
 import { useEffect, useReducer, useRef, useState } from "react";
 import CSSModules from "react-css-modules";
-import { db, getUser, getUserId, isUserSignedIn } from "../../firebase";
+import {
+  db,
+  getUser,
+  getUserId,
+  getUserName,
+  isUserSignedIn,
+} from "../../firebase";
 import Filter from "../../components/Filter/Filter";
 import Comments from "../Subreddit/Comments/Comments";
 import Posts from "../Subreddit/Posts/Posts";
@@ -198,16 +204,24 @@ const Profile: React.FC = () => {
           {activeSection.downvotes && <Posts posts={downVotesPosts} />}
           {activeSection.upvotes && <Posts posts={upVotesPosts} />}
           {activeSection.downvotes && downVotesPosts!.length == false && (
-            <ProfileNotFound />
+            <ProfileNotFound
+              text={`hmm... looks like you haven't downvoted anything yet`}
+            />
           )}
           {activeSection.upvotes && upVotesPosts!.length == false && (
-            <ProfileNotFound />
+            <ProfileNotFound
+              text={`hmm... looks like you haven't upvoted anything yet`}
+            />
           )}
           {activeSection.posts && userPosts!.length == false && (
-            <ProfileNotFound />
+            <ProfileNotFound
+              text={`hmm... u/${getUserName()} hasn't posted anything`}
+            />
           )}
           {activeSection.comments && userComments!.length == false && (
-            <ProfileNotFound />
+            <ProfileNotFound
+              text={`hmm... u/${getUserName()}hasn't commented on anything`}
+            />
           )}
         </div>
         <aside styleName="aside">
