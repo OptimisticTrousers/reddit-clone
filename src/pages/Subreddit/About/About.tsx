@@ -18,6 +18,7 @@ import {
   doc,
   DocumentData,
   getDoc,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { db, getUserId } from "../../../firebase";
@@ -82,13 +83,40 @@ const About: React.FC = () => {
 
   const selectedFileRef = useRef<HTMLInputElement>(null);
 
+  const [description, setDescription] = useState("");
+
+  const onDescriptionSubmit = async () => {
+    if (subredditName) {
+      try {
+        const subredditDocRef = doc(db, "subreddits", subredditName);
+
+        await updateDoc(subredditDocRef, {
+          description: description,
+        });
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+  };
+
   return (
     <Card>
       <CardHeader />
       {Object.keys(communityData).length !== 0 ? (
         <>
           {isUserModerator ? (
-            <h1>Bob</h1>
+            <form styleName="about__form" onClick={onDescriptionSubmit}>
+              <input
+                styleName="about__input"
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <button styleName="about__button-description">
+                Save Description
+              </button>
+              <button styleName="about__button-description">Cancel</button>
+            </form>
           ) : (
             <p styleName="about__description">{communityData.description}</p>
           )}
@@ -135,11 +163,15 @@ const About: React.FC = () => {
                 >
                   Change Image
                 </p>
-                <img
-                  styleName="about__admin-image"
-                  src={selectedFile || communityData.imageURL}
-                  alt="current profile picture"
-                />
+                {selectedFile || communityData.imageURL ? (
+                  <img
+                    styleName="about__admin-image"
+                    src={selectedFile || communityData.imageURL}
+                    alt="current profile picture"
+                  />
+                ) : (
+                  <FaReddit styleName="about__admin-image"/>
+                )}
               </div>
               {selectedFile && (
                 <p
