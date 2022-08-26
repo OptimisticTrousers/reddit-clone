@@ -9,6 +9,8 @@
   border-radius: 9999px;
   color: white;
   border: none;
+  margin-bottom: 16px;
+  justify-content: center;
 }
 .profile-dropdown__button:hover {
   background-color: #242424;
