@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import {
   collection,
   doc,
@@ -9,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useReducer, useRef, useState } from "react";
 import CSSModules from "react-css-modules";
-import { db, getUserId, isUserSignedIn } from "../../firebase";
+import { db, getUser, getUserId, isUserSignedIn } from "../../firebase";
 import Filter from "../../components/Filter/Filter";
 import Comments from "../Subreddit/Comments/Comments";
 import Posts from "../Subreddit/Posts/Posts";
@@ -89,8 +90,6 @@ const Profile: React.FC = () => {
     DocumentData | undefined
   >();
 
-  const contentRef = useRef<HTMLDivElement | null>(null)
-
   const navigate = useNavigate();
 
   const [activeSection, dispatch] = useReducer(reducer, {
@@ -101,18 +100,15 @@ const Profile: React.FC = () => {
     saved: false,
   });
 
-  if(!isUserSignedIn()) {
-    alert("Please sign in to view a profile!")
-    navigate("/")
+  if (!isUserSignedIn()) {
+    alert("Please sign in to view a profile!");
+    navigate("/");
   }
 
   useEffect(() => {
     const userPostsRef = collection(db, "posts");
 
-    const q = query(
-      userPostsRef,
-      where("userId", "==", "fUKdoF2TCBcVFEzIaQaa2NJtcEn1")
-    );
+    const q = query(userPostsRef, where("userId", "==", getUserId()));
 
     getDocs(q).then((data: DocumentData) => {
       setUserPosts(data.docs);
@@ -122,10 +118,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     const userCommentsRef = collection(db, "comments");
 
-    const q = query(
-      userCommentsRef,
-      where("userId", "==", "fUKdoF2TCBcVFEzIaQaa2NJtcEn1")
-    );
+    const q = query(userCommentsRef, where("userId", "==", getUserId()));
 
     getDocs(q).then((data: DocumentData) => {
       setCommentsPostId(data.docs[0].data().postId);
@@ -185,6 +178,7 @@ const Profile: React.FC = () => {
     fetchPostsFromDownVotes();
   }, []);
 
+  const contentRef = useRef<HTMLDivElement>(null);
   return (
     <div>
       <Header dispatch={dispatch} activeSection={activeSection} />
@@ -201,9 +195,8 @@ const Profile: React.FC = () => {
               />
             </Card>
           )}
-          {activeSection.upvotes && <Posts posts={upVotesPosts} />}
           {activeSection.downvotes && <Posts posts={downVotesPosts} />}
-          <ProfileNotFound />
+          {activeSection.upvotes && <Posts posts={upVotesPosts} />}
         </div>
         <aside styleName="aside">
           <UserCard />

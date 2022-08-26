@@ -21,7 +21,7 @@ const UserCard: React.FC = () => {
         <h1 styleName="user-card__title">{getUserName()}</h1>
         <span styleName="user-card__text">
           u/{getUserName()} ·{" "}
-          {moment(new Date(getUser()!.metadata.creationTime!)).fromNow()}
+          {moment(new Date(getUser()?.metadata.creationTime!)).fromNow()}
         </span>
         <div styleName="user-card__details">
           <h5 styleName="user-card__detail-title">Cake day</h5>
