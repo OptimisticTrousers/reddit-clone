@@ -28,7 +28,7 @@ const UserCard: React.FC = () => {
           <div styleName="user-card__cake-day">
             <TbCake styleName="user-card__icon" />
             <h5 styleName="user-card__detail-title">
-              {getUser()?.metadata.creationTime}.
+              {getUser()?.metadata.creationTime!}.
             </h5>
           </div>
         </div>
