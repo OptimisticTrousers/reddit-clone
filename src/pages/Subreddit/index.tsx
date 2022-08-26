@@ -28,6 +28,7 @@ import { List } from "react-content-loader";
 import Reddit from "../../components/Skeletons/AuthorsList";
 import AuthorsList from "../../components/Skeletons/AuthorsList";
 import PostCreatorCard from "../../components/PostCreatorCard/PostCreatorCard";
+import ProfileNotFound from "../Profile/ProfileNotFound/ProfileNotFound";
 
 const Subreddit: React.FC = () => {
   const { subredditName } = useParams();
@@ -82,6 +83,7 @@ const Subreddit: React.FC = () => {
             filterTop={filterTop}
             filterRising={filterRising}
           />
+          {posts?.length === 0 && <ProfileNotFound text="hmm...it seems that there are no posts"/>}
           {posts ? (
             <Posts posts={posts} />
           ) : (
