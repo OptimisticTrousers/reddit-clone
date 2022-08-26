@@ -1,18 +1,24 @@
 import CSSModules from "react-css-modules";
+import { useNavigate } from "react-router-dom";
 import Card from "../../../components/Card/Card";
 import {
+  selectCommunityData,
   selectCommunityModalState,
   toggleCommunityModalState,
 } from "../../../features/subreddit/subredditSlice";
-import { useAppDispatch } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import styles from "./PersonalHomeCard.module.css";
 
 const PersonalHomeCard: React.FC = () => {
   const dispatch = useAppDispatch();
 
   function handleCommunityClick() {
-dispatch(toggleCommunityModalState())
+    dispatch(toggleCommunityModalState());
   }
+
+  const { name } = useAppSelector(selectCommunityData);
+
+  const navigate = useNavigate();
 
   return (
     <Card>
@@ -31,7 +37,14 @@ dispatch(toggleCommunityModalState())
           favorite communities.
         </p>
         <div styleName="personal-home-card__buttons">
-          <button styleName="personal-home-card__button personal-home-card__button_type_create-post">
+          <button
+            styleName="personal-home-card__button personal-home-card__button_type_create-post"
+            onClick={() => {
+              if (name) {
+                navigate(`/${name}/submit`);
+              }
+            }}
+          >
             Create Post
           </button>
           <button
