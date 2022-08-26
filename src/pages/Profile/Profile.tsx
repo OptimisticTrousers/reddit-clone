@@ -197,6 +197,18 @@ const Profile: React.FC = () => {
           )}
           {activeSection.downvotes && <Posts posts={downVotesPosts} />}
           {activeSection.upvotes && <Posts posts={upVotesPosts} />}
+          {activeSection.downvotes && downVotesPosts!.length == false && (
+            <ProfileNotFound />
+          )}
+          {activeSection.upvotes && upVotesPosts!.length == false && (
+            <ProfileNotFound />
+          )}
+          {activeSection.posts && userPosts!.length == false && (
+            <ProfileNotFound />
+          )}
+          {activeSection.comments && userComments!.length == false && (
+            <ProfileNotFound />
+          )}
         </div>
         <aside styleName="aside">
           <UserCard />
