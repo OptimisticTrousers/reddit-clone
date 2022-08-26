@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import {
   collection,
+  doc,
   DocumentData,
   DocumentReference,
   getDoc,
@@ -46,22 +47,27 @@ const Subreddit: React.FC = () => {
   }
 
   useEffect(() => {
-    if (!id || !subredditName) return;
+    async function communityExistance() {
+      if (!id || !subredditName) return;
 
-    if (name !== subredditName) {
-      alert("Subreddit does not exist");
-      navigate("/");
+      const communityDocRef = doc(db, "subreddits", subredditName);
+
+      const docData = await getDoc(communityDocRef);
+
+      if (!docData.exists()) return;
+
+      const postsRef = collection(db, "posts");
+
+      const q = query(postsRef, where("subredditName", "==", subredditName));
+
+      getDocs(q)
+        .then((subredditPosts) => {
+          setPosts(subredditPosts.docs);
+        })
+        .catch((error) => alert(`ERROR: ${error}`));
     }
 
-    const postsRef = collection(db, "posts");
-
-    const q = query(postsRef, where("subredditName", "==", subredditName));
-
-    getDocs(q)
-      .then((subredditPosts) => {
-        setPosts(subredditPosts.docs);
-      })
-      .catch((error) => alert(`ERROR: ${error}`));
+    communityExistance();
   }, [id, subredditName]);
 
   return (

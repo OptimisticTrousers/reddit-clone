@@ -11,8 +11,10 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   increment,
+  runTransaction,
   setDoc,
   updateDoc,
   writeBatch,
@@ -25,25 +27,40 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ subredditName }) => {
-  // const { name } = useAppSelector(selectCommunityData);
+  const { name } = useAppSelector(selectCommunityData);
   const [joinButtonText, setJoinButtonText] = useState("Join");
 
   async function joinCommunity() {
     if (isUserSignedIn()) {
       try {
+
+        await runTransaction(db, async (transaction) => {
         const userRef = doc(
           db,
           `users/${getUserId()}/communitySnippets/${subredditName}`
         );
-        await setDoc(userRef, {
-          communityId: subredditName,
-          isModerator: false,
-        });
+        const communityDocRef = doc(db, "subreddits", name);
+
+        const docData  = await transaction.get(communityDocRef);
+
+        if (docData.data()?.creatorId === getUserId()) {
+          transaction.set(userRef, {
+            communityId: subredditName,
+            isModerator: true,
+          });
+        } else {
+          transaction.set(userRef, {
+            communityId: subredditName,
+            isModerator: false,
+          });
+        }
         const subredditRef = doc(db, `subreddits/${subredditName}`);
 
-        await updateDoc(subredditRef, {
+        transaction.set(subredditRef, {
           numberOfMembers: increment(1),
         });
+
+        })
 
         setJoinButtonText("Joined");
       } catch (error) {

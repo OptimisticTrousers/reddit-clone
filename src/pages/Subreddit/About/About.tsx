@@ -9,18 +9,39 @@ import styles from "./About.module.css";
 import moment from "moment";
 import { TbCake } from "react-icons/tb";
 import Article from "../../../components/Skeletons/Article";
+import { useEffect, useState } from "react";
+import { collection, doc, DocumentData, getDoc } from "firebase/firestore";
+import { db, getUserId } from "../../../firebase";
 
 const About: React.FC = () => {
   const communityData = useAppSelector(selectCommunityData);
 
   const data = useAppSelector(selectCommunityData);
 
+  const [isUserModerator, setIsUserModerator] = useState(false);
+
+  useEffect(() => {
+    const communitySnippetsRef = doc(
+      db,
+      "users",
+      `/${getUserId()}/communitySnippets/${communityData.name}`
+    );
+
+    getDoc(communitySnippetsRef).then((doc: DocumentData) => {
+      setIsUserModerator(doc.data().isModerator);
+    });
+  }, [communityData.name]);
+
   return (
     <Card>
       <CardHeader />
       {Object.keys(communityData).length !== 0 ? (
         <>
-          <p styleName="about__description">{communityData.description}</p>
+          {isUserModerator ? (
+            <h1>Bob</h1>
+          ) : (
+            <p styleName="about__description">{communityData.description}</p>
+          )}
           <div styleName="about__members">
             <div styleName="about__block">
               <div styleName="about__number">
