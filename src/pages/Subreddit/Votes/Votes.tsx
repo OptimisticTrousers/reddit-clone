@@ -9,9 +9,12 @@ import {
 import {
   collection,
   doc,
+  DocumentData,
   increment,
+  query,
   runTransaction,
   updateDoc,
+  where,
   writeBatch,
 } from "firebase/firestore";
 import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
@@ -21,6 +24,8 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { selectPostId } from "../../../features/post/postSlice";
 import upVote from "../../../assets/upvote.svg";
 import downVote from "../../../assets/downvote.svg";
+import { Collection } from "typescript";
+import { useParams } from "react-router-dom";
 
 interface Props {
   voteStatus: number;
@@ -28,9 +33,11 @@ interface Props {
 }
 
 const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
-  const [vote, setVote] = useState(0);
+  const [vote, setVote] = useState<number>(0);
 
   const postId = useAppSelector(selectPostId);
+
+  const params = useParams();
 
   const dispatch = useAppDispatch();
 
@@ -75,12 +82,14 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
             "users",
             `${getUserId()}/postVotes/${postId}`
           );
-          const postsVoteRef = doc(db, "posts", postId);
+          const postsVoteRef = doc(db, "posts", params.postId!);
+
+          // const q = query(postsVoteRef, where("postId", "==", postId));
 
           const postVotesDoc = await transaction.get(postVotesDocRef);
 
           // if (postVotesDoc.data()?.voteValue !== 0) {
-          //   setVote(postVotesDoc.data()?.voteValue);
+          // setVote(postVotesDoc.data()?.voteValue);
           //   return;
           // } else {
           const newVote = {
@@ -115,10 +124,10 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
       }
     }
 
-    // if (isUserSignedIn()) {
-    //   updateData();
-    // }
-  }, [vote, postId, subredditId, voteStatus]);
+    if (isUserSignedIn()) {
+      updateData();
+    }
+  }, [vote, postId, subredditId, voteStatus, params.postId]);
 
   return (
     <div styleName="votes">
