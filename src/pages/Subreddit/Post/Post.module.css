@@ -23,6 +23,7 @@ a {
 }
 
 .post-excerpt__content {
+  padding-left: 8px;
 }
 
 .post-excerpt__container {
