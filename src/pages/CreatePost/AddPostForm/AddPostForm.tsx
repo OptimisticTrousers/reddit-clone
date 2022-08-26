@@ -7,7 +7,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { db, getUserId, getUserName } from "../../../firebase";
 import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
@@ -24,6 +24,7 @@ import { BsLink45Deg } from "react-icons/bs";
 import { BiPoll } from "react-icons/bi";
 import { HiOutlineMicrophone } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import ImageSelector from "../CreatePost/ImageSelector/ImageSelector";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -41,7 +42,23 @@ const AddPostForm: React.FC = () => {
 
   const { id, name } = useAppSelector(selectCommunityData);
 
-  const [selectedTab, setSelectedTab] = useState("post")
+  const [selectedFile, setSelectedFile] = useState<string>("");
+
+  const [selectedTab, setSelectedTab] = useState("post");
+
+  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+
+    if (event.target.files?.[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      if (readerEvent.target?.result) {
+        setSelectedFile(readerEvent.target.result as string);
+      }
+    };
+  };
 
   const dispatch = useAppDispatch();
 
@@ -84,6 +101,8 @@ const AddPostForm: React.FC = () => {
     }
   };
 
+  const selectedFileRef = useRef<HTMLInputElement | null>(null);
+
   return (
     <div styleName="post-creator">
       <div styleName="post-creator__header">
@@ -96,7 +115,9 @@ const AddPostForm: React.FC = () => {
           </div>
         </div> */}
         <div styleName="post-creator__subreddit-description">
-          Creating a post to the <span styleName="post-creator__subreddit-name">{`'${name}'`}</span> subreddit
+          Creating a post to the{" "}
+          <span styleName="post-creator__subreddit-name">{`'${name}'`}</span>{" "}
+          subreddit
           {/* New to the trade and have a question you need answered? Try the
           **Beginner Questions** thread posted at the top of the subreddit!
           Looking for feedback? Try our weekly **Feedback Thread** instead! If
@@ -106,23 +127,48 @@ const AddPostForm: React.FC = () => {
       </div>
       <div styleName="post-creator__form">
         <div styleName="post-creator__post-types">
-          <button styleName={`post-creator__button ${selectedTab === "post" && "post-creator__button--active"}`} onClick={() => setSelectedTab("post")}>
+          <button
+            styleName={`post-creator__button ${
+              selectedTab === "post" && "post-creator__button--active"
+            }`}
+            onClick={() => setSelectedTab("post")}
+          >
             <HiOutlineDocumentText styleName="post-creator__icon" />
             Post
           </button>
-          <button styleName={`post-creator__button ${selectedTab === "video" && "post-creator__button--active"}`}onClick={() => setSelectedTab("video")}>
+          <button
+            styleName={`post-creator__button ${
+              selectedTab === "image" && "post-creator__button--active"
+            }`}
+            onClick={() => setSelectedTab("image")}
+          >
             <AiOutlinePicture styleName="post-creator__icon" />
-            Video
+            Media
           </button>
-          <button styleName={`post-creator__button ${selectedTab === "link" && "post-creator__button--active"}`} onClick={() => setSelectedTab("link")}>
+          <button
+            styleName={`post-creator__button ${
+              selectedTab === "link" && "post-creator__button--active"
+            }`}
+            onClick={() => setSelectedTab("link")}
+          >
             <BsLink45Deg styleName="post-creator__icon" />
             Link
           </button>
-          <button styleName={`post-creator__button ${selectedTab === "poll" && "post-creator__button--active"}`} onClick={() => setSelectedTab("poll")}>
+          <button
+            styleName={`post-creator__button ${
+              selectedTab === "poll" && "post-creator__button--active"
+            }`}
+            onClick={() => setSelectedTab("poll")}
+          >
             <BiPoll styleName="post-creator__icon" />
             Poll
           </button>
-          <button styleName={`post-creator__button ${selectedTab === "talk" && "post-creator__button--active"}`} onClick={() => setSelectedTab("talk")}>
+          <button
+            styleName={`post-creator__button ${
+              selectedTab === "talk" && "post-creator__button--active"
+            }`}
+            onClick={() => setSelectedTab("talk")}
+          >
             <HiOutlineMicrophone styleName="post-creator__icon" />
             Talk
           </button>
@@ -138,15 +184,18 @@ const AddPostForm: React.FC = () => {
                 required
               />
             </div>
-            <div styleName="post-creator__input-container">
-              <textarea
-                styleName="post-creator__input post-creator__input_type_textarea"
-                placeholder="Editor"
-                onChange={handleDescriptionChange}
-                value={description}
-                required
-              ></textarea>
-            </div>
+            {selectedTab === "post" && (
+              <div styleName="post-creator__input-container">
+                <textarea
+                  styleName="post-creator__input post-creator__input_type_textarea"
+                  placeholder="Editor"
+                  onChange={handleDescriptionChange}
+                  value={description}
+                  required
+                ></textarea>
+              </div>
+            )}
+            {selectedTab === "image" && <ImageSelector onSelectImage={onSelectImage} setSelectedTab={setSelectedTab} setSelectedFile={setSelectedFile} />}
           </div>
           {/* <div styleName="post-creator__marks">
           <button>OC</button>

@@ -1,0 +1,40 @@
+
+.image-selector__file-image {
+  max-width: 400px;
+  max-height: 400px;
+  display: block;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+.image-selector-file-selector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-selector__button {
+  background-color: #dfe1e3;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 17px;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+  /* cursor: not-allowed; */
+  cursor: pointer;
+  /* color: rgba(26, 26, 27, 0.5); */
+  border-radius: 9999px;
+  border: none;
+}
+
+.image-selector__upload{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+  border: 1px dashed var(--secondary-color);
+  border-radius: 4px;
+}

@@ -46,6 +46,10 @@
   color: #3182ce !important;
 }
 
+.post-creator__upload-button {
+
+}
+
 .post-creator__form {
   margin-bottom: 12px;
   border-radius: 5px;
