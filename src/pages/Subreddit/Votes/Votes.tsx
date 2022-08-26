@@ -150,10 +150,10 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
       }
     }
 
-    if (isUserSignedIn()) {
-      // updateData();
+    if (loggedIn) {
+      updateData();
     }
-  }, [vote, postId, subredditId, voteStatus, params.postId]);
+  }, [vote, postId, subredditId, voteStatus, params.postId, loggedIn]);
 
   return (
     <div styleName="votes">

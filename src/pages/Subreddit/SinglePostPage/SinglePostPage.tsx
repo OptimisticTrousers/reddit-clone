@@ -25,6 +25,8 @@ import { db } from "../../../firebase";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { setPostId } from "../../../features/post/postSlice";
 import NestedList from "../../../components/Skeletons/AvatarWithText";
+import Reddit from "../../../components/Skeletons/Reddit";
+import UpworkJobLoader from "../../../components/Skeletons/UpworkJobLoader";
 
 type LocationState = {
   title: string;
@@ -64,7 +66,17 @@ const SinglePostPage = () => {
     <section styleName="post-page">
       <div styleName="post-page__container">
         <div styleName="post-page__post">
-          <Post data={data} renderHover={false} />
+          {comments ? (
+            <Post data={data} renderHover={false} />
+          ) : (
+            <UpworkJobLoader
+              width={700}
+              height={134}
+              animate={true}
+              backgroundColor={"#333"}
+              foregroundColor={"#999"}
+            />
+          )}
         </div>
         {/* <Votes voteStatus={voteStatus} />
       <article styleName="post-page__content">
