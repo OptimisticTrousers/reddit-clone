@@ -32,6 +32,7 @@ interface Props {
 const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
 
+  console.log(postId)
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
   const dispatch = useDispatch();
@@ -75,10 +76,10 @@ const Post: React.FC<Props> = (props) => {
       styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}
       data-testid="post"
     >
-      <Votes
+      {postId && <Votes
         voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
         subredditId={props.data?.subredditId ?? postData?.subredditId}
-      />
+      />}
       <div styleName="post-excerpt__content">
         <PostAuthor
           subredditName={props.data?.subredditName ?? postData?.subredditName}

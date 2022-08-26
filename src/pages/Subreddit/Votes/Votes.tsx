@@ -67,33 +67,57 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
   useEffect(() => {
     async function updateData() {
       try {
-        const batch = writeBatch(db);
+        // const batch = writeBatch(db);
 
-        const postVoteRef = doc(
-          db,
-          "users",
-          `${getUserId()}/postVotes/${postId}`
-        );
+        await runTransaction(db, async (transaction) => {
+          const postVotesDocRef = doc(
+            db,
+            "users",
+            `${getUserId()}/postVotes/${postId}`
+          );
+          const postsVoteRef = doc(db, "posts", postId);
 
-        const postsVoteRef = doc(db, "posts", postId);
+          const postVotesDoc = await transaction.get(postVotesDocRef);
 
-        const newVote = {
-          id: postVoteRef.id,
-          postId: postId,
-          subredditId,
-          voteValue: vote,
-        };
+          // if (postVotesDoc.data()?.voteValue !== 0) {
+          //   setVote(postVotesDoc.data()?.voteValue);
+          //   return;
+          // } else {
+          const newVote = {
+            id: postVotesDocRef.id,
+            postId: postId,
+            subredditId,
+            voteValue: vote,
+          };
 
-        batch.set(postVoteRef, newVote);
-        batch.update(postsVoteRef, {
-          voteStatus: voteStatus + vote,
+          transaction.set(postVotesDocRef, newVote);
+          transaction.update(postsVoteRef, {
+            voteStatus: voteStatus + vote,
+          });
         });
 
-        await batch.commit();
+        // const postVoteRef = doc(
+        //   db,
+        //   "users",
+        //   `${getUserId()}/postVotes/${postId}`
+        // );
+
+        // const postsVoteRef = doc(db, "posts", postId);
+
+        // batch.set(postVoteRef, newVote);
+        // batch.update(postsVoteRef, {
+        //   voteStatus: voteStatus + vote,
+        // });
+
+        // await batch.commit();
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
     }
+
+    // if (isUserSignedIn()) {
+    //   updateData();
+    // }
   }, [vote, postId, subredditId, voteStatus]);
 
   return (
