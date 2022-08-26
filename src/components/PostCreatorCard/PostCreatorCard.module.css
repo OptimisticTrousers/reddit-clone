@@ -44,6 +44,7 @@
   border-radius: 50%;
   margin-right: 8px;
   flex-basis: 38px;
+  cursor: pointer;
 }
 .post-creator-card__profile-icon {
   width: 38px;
