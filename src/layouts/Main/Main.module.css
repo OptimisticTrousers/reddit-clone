@@ -1,0 +1,9 @@
+main {
+  padding: 20px 24px;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  max-width: 100%;
+  background-color: black;
+  height: 100%;
+}
