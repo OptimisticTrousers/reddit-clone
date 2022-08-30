@@ -7,7 +7,7 @@ import personIcon from "../../assets/person-icon.svg";
 import eyeIcon from "../../assets/eye-icon.svg";
 import lockIcon from "../../assets/lock-icon.svg";
 import exitIcon from "../../assets/exit-icon.svg";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { toggleCommunityModalState } from "../../features/subreddit/subredditSlice";
 import {
   addDoc,
@@ -20,10 +20,11 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db, getUserId, getUserName, isUserSignedIn } from "../../firebase";
+import { db, getUserId, getUserName} from "../../firebase";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { selectAuthStatus } from "../../features/auth/authSlice";
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 type FormEvent = React.FormEvent<HTMLFormElement>;
@@ -31,6 +32,8 @@ type FormEvent = React.FormEvent<HTMLFormElement>;
 const CommunityModal: React.FC = () => {
   const [subredditName, setSubredditName] = useState("");
   const [communityType, setCommunityType] = useState("");
+
+  const isLoggedIn = useAppSelector(selectAuthStatus)
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -50,7 +53,7 @@ const CommunityModal: React.FC = () => {
   async function createSubreddit(event: FormEvent) {
     event.preventDefault();
     try {
-      if (!isUserSignedIn()) throw new Error(`Sorry, you need to log in!`);
+      if (!isLoggedIn) throw new Error(`Sorry, you need to log in!`);
 
       const subredditDocRef = doc(db, "subreddits", subredditName);
 

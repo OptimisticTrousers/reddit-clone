@@ -8,11 +8,12 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { db, getUserId, getUserName, isUserSignedIn } from "../../../firebase";
+import { db, getUserId, getUserName} from "../../../firebase";
 import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import {
+  selectAuthStatus,
   toggleSignInModal,
 } from "../../../features/auth/authSlice";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
@@ -41,6 +42,7 @@ const AddPostForm: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState("post");
 
   const { id, name } = useAppSelector(selectCommunityData);
+  const isLoggedIn = useAppSelector(selectAuthStatus)
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -73,7 +75,7 @@ const AddPostForm: React.FC = () => {
 
   const submitPost = async (event: FormEvent) => {
     event.preventDefault();
-    if (isUserSignedIn()) {
+    if (isLoggedIn) {
       try {
         const postsRef = collection(db, "posts");
 

@@ -6,7 +6,7 @@ import {
   selectCommunityData,
   setCommunityData,
 } from "../../../features/subreddit/subredditSlice";
-import { db, isUserSignedIn } from "../../../firebase";
+import { db} from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import styles from "./FetchSubredditData.module.css";
 

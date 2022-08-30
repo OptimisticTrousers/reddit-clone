@@ -23,12 +23,12 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db, getUserId, isUserSignedIn } from "../../firebase";
+import { db, getUserId} from "../../firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { storage } from "../../firebase/firebase-config";
 import { FaReddit } from "react-icons/fa";
 import { HiOutlinePencil } from "react-icons/hi";
-import { toggleSignInModal } from "../../features/auth/authSlice";
+import { selectAuthStatus, toggleSignInModal } from "../../features/auth/authSlice";
 
 const About: React.FC = () => {
   const communityData = useAppSelector(selectCommunityData);
@@ -38,6 +38,8 @@ const About: React.FC = () => {
   const [isUserModerator, setIsUserModerator] = useState(false);
 
   const [selectedFile, setSelectedFile] = useState<string>("");
+
+  const isLoggedIn = useAppSelector(selectAuthStatus)
 
   const dispatch = useAppDispatch();
 
@@ -69,7 +71,7 @@ const About: React.FC = () => {
 
   const onUpdateImage = async () => {
     if (!selectedFile) return;
-    if (!isUserSignedIn()) {
+    if (!isLoggedIn) {
       alert("Please sign in to upload an image!");
       dispatch(toggleSignInModal());
     }
@@ -109,7 +111,7 @@ const About: React.FC = () => {
   const [toggleDescription, setToggleDescription] = useState(false);
 
   const changeDescription = async () => {
-    if (isUserSignedIn()) {
+    if (isLoggedIn) {
       try {
         const communityDocRef = doc(db, "subreddits", subredditName!);
 

@@ -22,9 +22,10 @@ import {
   updateDoc,
   writeBatch,
 } from "firebase/firestore";
-import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
+import { db, getUser, getUserId} from "../../../firebase";
 import { useEffect, useState } from "react";
 import { FaReddit } from "react-icons/fa";
+import { selectAuthStatus } from "../../../features/auth/authSlice";
 
 interface Props {
   subredditName: string | undefined;
@@ -34,8 +35,10 @@ const Header: React.FC<Props> = ({ subredditName }) => {
   const { name, imageURL } = useAppSelector(selectCommunityData);
   const [joinButtonText, setJoinButtonText] = useState("Join");
 
+  const isLoggedIn = useAppSelector(selectAuthStatus)
+
   async function joinCommunity() {
-    if (isUserSignedIn()) {
+    if (isLoggedIn) {
       try {
         await runTransaction(db, async (transaction) => {
           const userRef = doc(

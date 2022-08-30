@@ -3,6 +3,7 @@ import { BiUpvote, BiDownvote } from "react-icons/bi";
 import React, { useEffect, useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
 import {
+  selectAuthStatus,
   selectSignInModalState,
   toggleSignInModal,
 } from "../../../features/auth/authSlice";
@@ -18,7 +19,7 @@ import {
   where,
   writeBatch,
 } from "firebase/firestore";
-import { db, getUser, getUserId, isUserSignedIn } from "../../../firebase";
+import { db, getUser, getUserId } from "../../../firebase";
 import { nanoid } from "nanoid";
 import { batch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
@@ -41,10 +42,11 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
 
   const params = useParams();
 
+  const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useAppDispatch();
 
   function handleUpvote() {
-    if (isUserSignedIn() === false) {
+    if (isLoggedIn === false) {
       dispatch(toggleSignInModal());
     } else {
       setVote((prevVote) => {
@@ -59,7 +61,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
   }
 
   function handleDownvote() {
-    if (isUserSignedIn() === false) {
+    if (isLoggedIn === false) {
       dispatch(toggleSignInModal());
     } else {
       setVote((prevVote) => {
@@ -72,8 +74,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
       });
     }
   }
-
-  const loggedIn = isUserSignedIn();
 
   useEffect(() => {
     async function updateData() {
@@ -102,10 +102,10 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
       }
     }
 
-    if (loggedIn) {
+    if (isLoggedIn) {
       updateData();
     }
-  }, [vote, postId, subredditId, voteStatus, params.postId, loggedIn]);
+  }, [vote, postId, subredditId, voteStatus, params.postId, isLoggedIn]);
 
   useEffect(() => {
     async function getInitialVote() {
@@ -124,10 +124,10 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
       }
     }
 
-    if (loggedIn) {
+    if (isLoggedIn) {
       getInitialVote();
     }
-  }, [postId, loggedIn]);
+  }, [postId, isLoggedIn]);
 
   return (
     <div styleName="votes">

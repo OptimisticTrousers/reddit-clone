@@ -20,12 +20,13 @@ import {
 } from "firebase/firestore";
 import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
-import { db, getUserId, isUserSignedIn } from "../../../firebase";
+import { db, getUserId} from "../../../firebase";
 import { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { toggleSignInModal } from "../../../features/auth/authSlice";
+import { selectAuthStatus, toggleSignInModal } from "../../../features/auth/authSlice";
 import { nanoid } from "nanoid";
+import { useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
   data: DocumentData;
@@ -38,6 +39,7 @@ const Post: React.FC<Props> = (props) => {
   console.log(postId);
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
+  const isLoggedIn = useAppSelector(selectAuthStatus)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const Post: React.FC<Props> = (props) => {
   }, []);
 
   async function savePosts() {
-    if (isUserSignedIn()) {
+    if (isLoggedIn) {
       try {
         await runTransaction(db, async (transaction) => {
           const savedPostsRef = collection(db, "savedPosts");

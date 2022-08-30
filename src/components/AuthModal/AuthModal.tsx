@@ -18,7 +18,6 @@ import {
   auth,
   getUser,
   getUserName,
-  isUserSignedIn,
   signIn,
 } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";

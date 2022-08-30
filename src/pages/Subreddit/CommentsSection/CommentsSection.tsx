@@ -15,10 +15,11 @@ import {
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
-import { db, getUserId, getUserName, isUserSignedIn } from "../../../firebase";
+import { db, getUserId, getUserName} from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Comments from "../Comments/Comments";
 import {
+  selectAuthStatus,
   toggleSignInModal,
 } from "../../../features/auth/authSlice";
 import CSSModules from "react-css-modules";
@@ -36,6 +37,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const [commentText, setCommentText] = useState("");
 
   const { id } = useAppSelector(selectCommunityData);
+  const isLoggedIn = useAppSelector(selectAuthStatus)
 
   const dispatch = useAppDispatch();
 
@@ -48,7 +50,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const formSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    if (isUserSignedIn()) {
+    if (isLoggedIn) {
       const commentsRef = collection(db, "comments");
       await addDoc(commentsRef, {
         content: commentText,

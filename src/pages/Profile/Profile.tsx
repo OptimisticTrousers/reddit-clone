@@ -15,7 +15,6 @@ import {
   getUser,
   getUserId,
   getUserName,
-  isUserSignedIn,
 } from "../../firebase";
 import Filter from "../../components/Filter/Filter";
 import Comments from "../Subreddit/Comments/Comments";
@@ -23,12 +22,12 @@ import Posts from "../Subreddit/Posts/Posts";
 import Header from "./Header/Header";
 import styles from "./Profile.module.css";
 import UserCard from "./UserCard/UserCard";
-import { useFilter } from "../../hooks/hooks";
+import { useAppSelector, useFilter } from "../../hooks/hooks";
 import Card from "../../components/Card/Card";
 import ProfileNotFound from "./ProfileNotFound/ProfileNotFound";
 import { Navigate, useNavigate } from "react-router-dom";
 import { displayPartsToString } from "typescript";
-import { toggleSignInModal } from "../../features/auth/authSlice";
+import { selectAuthStatus, toggleSignInModal } from "../../features/auth/authSlice";
 import Main from "../../layouts/Main/Main";
 import Aside from "../../layouts/Aside/Aside";
 
@@ -100,6 +99,7 @@ const Profile: React.FC = () => {
     DocumentData | undefined
   >();
 
+  const isLoggedIn = useAppSelector(selectAuthStatus)
   const navigate = useNavigate();
 
   const [activeSection, dispatch] = useReducer(reducer, {
@@ -111,7 +111,7 @@ const Profile: React.FC = () => {
   });
 
   useEffect(() => {
-    if (isUserSignedIn()) {
+    if (isLoggedIn) {
       const userPostsRef = collection(db, "posts");
 
       const q = query(userPostsRef, where("userId", "==", getUserId()));
@@ -127,7 +127,7 @@ const Profile: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (isUserSignedIn()) {
+    if (isLoggedIn) {
       const userCommentsRef = collection(db, "comments");
 
       const q = query(userCommentsRef, where("userId", "==", getUserId()));

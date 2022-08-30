@@ -5,9 +5,10 @@ import logo from "../../assets/logo.svg";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import logoName from "../../assets/white-logo-name.svg";
 import classNames from "classnames";
-import { getUser, isUserSignedIn, signIn, signOutUser } from "../../firebase";
+import { getUser, signIn, signOutUser } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
+  selectAuthStatus,
   toggleSignInModal,
   toggleSignUpModal,
 } from "../../features/auth/authSlice";
@@ -30,6 +31,7 @@ const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { name } = useAppSelector(selectCommunityData);
+  const isLoggedIn = useAppSelector(selectAuthStatus)
 
   const params = useParams();
 
@@ -80,7 +82,7 @@ const Navbar: React.FC = () => {
               alt="the name reddit"
             />
           </Link>
-          {isUserSignedIn() && (
+          {isLoggedIn && (
             <div styleName="header__dropdown-container">
               <div styleName="header__dropdown" onClick={handleHomeDropdown}>
                 <div styleName="header__dropdown-left">
@@ -121,7 +123,7 @@ const Navbar: React.FC = () => {
         </div>
         <div styleName="header__right">
           <div styleName="header__buttons">
-            {isUserSignedIn() === false && (
+            {isLoggedIn === false && (
               <>
                 <button
                   onClick={handleSignInClick}
@@ -142,10 +144,10 @@ const Navbar: React.FC = () => {
                 styleName="header__dropdown-profile"
                 onClick={handleProfileDropdown}
               >
-                <Profile isLoggedIn={isUserSignedIn()} />
+                <Profile isLoggedIn={isLoggedIn} />
               </div>
               <div styleName="header__dropdown-dropdown">
-                {isProfileDropdownOpen && isUserSignedIn() && (
+                {isProfileDropdownOpen && isLoggedIn && (
                   <ProfileDropdown dropdown={"dropdown"} />
                 )}
               </div>

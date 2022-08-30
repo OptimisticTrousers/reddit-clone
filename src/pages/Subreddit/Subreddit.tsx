@@ -16,7 +16,7 @@ import {
   QueryDocumentSnapshot,
   where,
 } from "firebase/firestore";
-import { db, isUserSignedIn } from "../../firebase";
+import { db} from "../../firebase";
 import { useAppDispatch, useAppSelector, useFilter } from "../../hooks/hooks";
 import {
   selectCommunityData,

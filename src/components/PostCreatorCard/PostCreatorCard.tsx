@@ -4,15 +4,16 @@ import Card from "../Card/Card";
 import styles from "./PostCreatorCard.module.css";
 import { AiOutlinePicture } from "react-icons/ai";
 import { BsLink45Deg } from "react-icons/bs";
-import { isUserSignedIn } from "../../firebase";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
 import { selectCommunityData } from "../../features/subreddit/subredditSlice";
+import { selectAuthStatus } from "../../features/auth/authSlice";
 
 const PostCreatorCard: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const isLoggedIn = useAppSelector(selectAuthStatus)
   const { name } = useAppSelector(selectCommunityData);
 
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const PostCreatorCard: React.FC = () => {
   }
   return (
     <>
-      {isUserSignedIn() && (
+      {isLoggedIn && (
         <Card>
           <div styleName="post-creator-card">
             <div
