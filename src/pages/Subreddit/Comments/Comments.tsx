@@ -35,6 +35,7 @@ const Comments: React.FC<Props> = ({
   const [subredditName, setSubredditName] = useState();
   const [postCreator, setPostCreator] = useState();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (renderCommentPost) {
       if (postId) {
@@ -49,6 +50,11 @@ const Comments: React.FC<Props> = ({
       }
     }
   }, [postId, renderCommentPost]);
+
+  function navigateToPost() {
+    navigate(`/r/${subredditName}/comments/${postId}`);
+  }
+
   const renderedComments = comments?.map((doc: DocumentData) => {
     let docData;
     if (doc?.data) {
@@ -59,15 +65,10 @@ const Comments: React.FC<Props> = ({
     return (
       <>
         {renderCommentPost && (
-          <div
-            styleName="comments__description"
-            onClick={() => {
-              navigate(`/r/${subredditName}/comments/${postId}`);
-            }}
-          >
-            <a styleName="comments__user">{getUserName()}</a>
+          <div styleName="comments__description" onClick={navigateToPost}>
+            <p styleName="comments__user">{getUserName()}</p>
             <span styleName="comments__description">{`commented on '${postTitle}'`}</span>
-            <a styleName="comments__text">{`r/${subredditName}`}</a>
+            <p styleName="comments__text">{`r/${subredditName}`}</p>
             <span styleName="comments__description">{postCreator}</span>
           </div>
         )}
@@ -85,7 +86,7 @@ const Comments: React.FC<Props> = ({
   });
   return (
     <div styleName="comments">
-      {renderedComments == false ? <EmptyComments /> : renderedComments}
+      {renderedComments?.length === 0 ? <EmptyComments /> : renderedComments}
     </div>
   );
 };
