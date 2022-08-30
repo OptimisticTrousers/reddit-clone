@@ -24,6 +24,9 @@
   min-width: 40px;
   display: grid;
   place-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .post-creator-card__icon-link:hover {

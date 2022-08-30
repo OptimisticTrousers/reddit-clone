@@ -41,18 +41,18 @@ const PostCreatorCard: React.FC = () => {
               placeholder="Create Post"
               onFocus={inputFocus}
             />
-            <a
+            <button
               styleName="post-creator-card__icon-link"
               onClick={() => navigate(`/r/${name}/submit`)}
             >
               <AiOutlinePicture styleName="post-creator-card__icon" />
-            </a>
-            <a
+            </button>
+            <button
               styleName="post-creator-card__icon-link"
               onClick={() => navigate(`/r/${name}/submit`)}
             >
               <BsLink45Deg styleName="post-creator-card__icon" />
-            </a>
+            </button>
           </div>
         </Card>
       )}
