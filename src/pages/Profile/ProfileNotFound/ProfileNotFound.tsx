@@ -43,10 +43,6 @@ const ProfileNotFound: React.FC<Props> = ({ text }) => {
           speed={1}
         />
       </div>
-      {/* <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} />
-      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} />
-      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} />
-      <TaskList backgroundColor={"#333"} foregroundColor={"#999"} animate={true} speed={1} /> */}
     </div>
   );
 };

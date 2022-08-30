@@ -2,15 +2,17 @@ import About from "../../Subreddit/About/About";
 import styles from "./CreatePost.module.css";
 import AddPostForm from "../AddPostForm/AddPostForm";
 import CSSModules from "react-css-modules";
+import Main from "../../../layouts/Main/Main";
+import Aside from "../../../layouts/Aside/Aside";
 
 const CreatePost: React.FC = () => {
   return (
-    <section styleName="section">
+    <Main>
       <AddPostForm />
-      <aside styleName="aside">
+      <Aside>
         <About />
-      </aside>
-    </section>
+      </Aside>
+    </Main>
   );
 };
 
