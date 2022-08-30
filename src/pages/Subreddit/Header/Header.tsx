@@ -115,7 +115,7 @@ const Header: React.FC<Props> = ({ subredditName }) => {
       }
     }
     fetchIfUserJoined();
-  });
+  }, []);
 
   return (
     <div styleName="header">

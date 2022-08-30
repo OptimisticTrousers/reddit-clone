@@ -23,37 +23,32 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db, getUserId} from "../../firebase";
+import { db, getUserId } from "../../firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { storage } from "../../firebase/firebase-config";
 import { FaReddit } from "react-icons/fa";
 import { HiOutlinePencil } from "react-icons/hi";
-import { selectAuthStatus, toggleSignInModal } from "../../features/auth/authSlice";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../features/auth/authSlice";
 
 const About: React.FC = () => {
+  const isLoggedIn = useAppSelector(selectAuthStatus);
   const communityData = useAppSelector(selectCommunityData);
-
-  const { subredditName } = useParams();
 
   const [isUserModerator, setIsUserModerator] = useState(false);
 
   const [selectedFile, setSelectedFile] = useState<string>("");
 
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const [description, setDescription] = useState(communityData.description);
 
+  const [toggleDescription, setToggleDescription] = useState(false);
+
+  const { subredditName } = useParams();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const communitySnippetsRef = doc(
-      db,
-      "users",
-      `/${getUserId()}/communitySnippets/${communityData.name}`
-    );
-
-    getDoc(communitySnippetsRef).then((doc: DocumentData) => {
-      setIsUserModerator(doc?.data()?.isModerator);
-    });
-  }, [communityData.name]);
+  const selectedFileRef = useRef<HTMLInputElement>(null);
 
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
@@ -89,27 +84,6 @@ const About: React.FC = () => {
     }
   };
 
-  const selectedFileRef = useRef<HTMLInputElement>(null);
-
-  const [description, setDescription] = useState(communityData.description);
-  console.log(communityData);
-
-  const onDescriptionSubmit = async () => {
-    if (subredditName) {
-      try {
-        const subredditDocRef = doc(db, "subreddits", subredditName);
-
-        await updateDoc(subredditDocRef, {
-          description: description,
-        });
-      } catch (error) {
-        console.log(`ERROR: ${error}`);
-      }
-    }
-  };
-
-  const [toggleDescription, setToggleDescription] = useState(false);
-
   const changeDescription = async () => {
     if (isLoggedIn) {
       try {
@@ -129,12 +103,24 @@ const About: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const communitySnippetsRef = doc(
+      db,
+      "users",
+      `/${getUserId()}/communitySnippets/${communityData.name}`
+    );
+
+    getDoc(communitySnippetsRef).then((doc: DocumentData) => {
+      setIsUserModerator(doc?.data()?.isModerator);
+    });
+  }, [communityData.name]);
+
   return (
     <Card>
       <CardHeader />
       {Object.keys(communityData).length !== 0 ? (
         <>
-          {isUserModerator ? (
+          {isUserModerator && isLoggedIn ? (
             <div styleName="about__admin-description">
               {toggleDescription === false && (
                 <>
@@ -150,7 +136,6 @@ const About: React.FC = () => {
                 </>
               )}
               {toggleDescription && (
-                // <form onSubmit={changeDescription}>
                 <>
                   <textarea
                     styleName="about__admin-input"
@@ -165,9 +150,7 @@ const About: React.FC = () => {
                     <HiOutlinePencil onClick={changeDescription} />
                   </button>
                 </>
-                // </form>
               )}
-              {/* <div styleName="about__admin-description-details"></div> */}
             </div>
           ) : (
             // <form styleName="about__form" onClick={onDescriptionSubmit}>
