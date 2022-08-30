@@ -6,7 +6,7 @@ import { getUserName } from "../../../firebase";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
 import styles from "./Comment.module.css";
 
-const Comment: React.FC<DocumentData> = ({ comment, postId, children }) => {
+const Comment: React.FC<DocumentData> = ({ comment, children }) => {
   return (
     <div styleName="comment">
       <div styleName="comment__user">
@@ -17,7 +17,6 @@ const Comment: React.FC<DocumentData> = ({ comment, postId, children }) => {
             alt="default profile icon"
           />
         </div>
-
         <div styleName="comment__treadline"></div>
       </div>
       <div styleName="comment__content">
@@ -25,8 +24,9 @@ const Comment: React.FC<DocumentData> = ({ comment, postId, children }) => {
           <div styleName="comment__author">
             <p>
               {comment?.userName === getUserName() && `${getUserName()}`}{" "}
-          
-              <span styleName="comment__date">{moment(new Date(comment?.createdAt?.seconds * 1000)).fromNow()}</span>
+              <span styleName="comment__date">
+                {moment(new Date(comment?.createdAt?.seconds * 1000)).fromNow()}
+              </span>
             </p>
           </div>
           <div styleName="comment__message">{comment?.content}</div>
