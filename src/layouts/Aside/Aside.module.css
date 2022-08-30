@@ -1,3 +1,9 @@
 aside {
-    margin-left: 24px;
+  margin-left: 24px;
+}
+
+@media (max-width: 1070px) {
+  aside {
+    display: none;
+  }
 }

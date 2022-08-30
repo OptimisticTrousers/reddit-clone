@@ -2,30 +2,8 @@
   height: 100%;
 }
 
-.main {
-  padding: 20px 24px;
-  display: flex;
-  box-sizing: border-box;
-  justify-content: center;
-  max-width: 100%;
-  background-color: black;
-  height: 100%;
-}
-.aside {
-  margin-left: 24px;
-}
-
 @media (max-width: 1070px) {
-  .aside {
-    display: none;
-  }
   .subreddit {
     width: 100%;
-  }
-  .main {
-    display: block;
-    max-width: 100%;
-    padding: 0;
-    padding-top: 20px;
   }
 }
