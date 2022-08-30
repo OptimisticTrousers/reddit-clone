@@ -78,8 +78,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
   useEffect(() => {
     async function updateData() {
       try {
-        // const batch = writeBatch(db);
-
         await runTransaction(db, async (transaction) => {
           const postVotesDocRef = doc(
             db,
@@ -87,14 +85,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
             `${getUserId()}/postVotes/${postId}`
           );
           const postsVoteRef = doc(db, "posts", params.postId!);
-
-          // const q = query(postsVoteRef, where("postId", "==", postId));
-
-          // const postVotesDoc = await transaction.get(postVotesDocRef);
-
-          // if (postVotesDoc.data()?.voteValue !== 0) {
-          //   return;
-          // } else {
           const newVote = {
             id: postVotesDocRef.id,
             postId: postId,
@@ -107,21 +97,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
             voteStatus: voteStatus + vote,
           });
         });
-
-        // const postVoteRef = doc(
-        //   db,
-        //   "users",
-        //   `${getUserId()}/postVotes/${postId}`
-        // );
-
-        // const postsVoteRef = doc(db, "posts", postId);
-
-        // batch.set(postVoteRef, newVote);
-        // batch.update(postsVoteRef, {
-        //   voteStatus: voteStatus + vote,
-        // });
-
-        // await batch.commit();
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
@@ -143,7 +118,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
 
         const docData = await getDoc(postVotesDocRef);
 
-        // console.log(docData.data()!.voteValue)
         setVote(docData.data()!.voteValue);
       } catch (error) {
         console.log(`ERROR: ${error}`);
@@ -166,7 +140,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
           alt="upvote icon"
           onClick={handleUpvote}
         />
-        {/* <BiUpvote styleName="votes__icon votes__icon--active-upvote" onClick={handleUpvote} /> */}
       </div>
       <p
         styleName={`votes__likes ${
@@ -185,7 +158,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId }) => {
           alt="downvote icon"
           onClick={handleDownvote}
         />
-        {/* <BiDownvote styleName="votes__icon" onClick={handleDownvote} /> */}
       </div>
     </div>
   );

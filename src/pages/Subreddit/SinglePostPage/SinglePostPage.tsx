@@ -80,15 +80,6 @@ const SinglePostPage = () => {
             />
           )}
         </div>
-        {/* <Votes voteStatus={voteStatus} />
-      <article styleName="post-page__content">
-        <div styleName="post-page__post">
-          <PostAuthor />
-          <h2 styleName="post-page__title">{title}</h2>
-          <p styleName="post-page__description">{description}</p>
-          <PostInteractions />
-        </div>
-      </article> */}
         <div styleName="post-page__comments">
           <CommentsSection postId={postId} comments={comments} />
         </div>
