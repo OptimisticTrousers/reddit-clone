@@ -10,15 +10,20 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import styles from "./PersonalHomeCard.module.css";
 
 const PersonalHomeCard: React.FC = () => {
+  const { name } = useAppSelector(selectCommunityData);
+
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   function handleCommunityClick() {
     dispatch(toggleCommunityModalState());
   }
 
-  const { name } = useAppSelector(selectCommunityData);
-
-  const navigate = useNavigate();
+  function navigateToCreatePostPage() {
+    if (name) {
+      navigate(`/r/${name}/submit`);
+    }
+  }
 
   return (
     <Card>
@@ -39,11 +44,7 @@ const PersonalHomeCard: React.FC = () => {
         <div styleName="personal-home-card__buttons">
           <button
             styleName="personal-home-card__button personal-home-card__button_type_create-post"
-            onClick={() => {
-              if (name) {
-                navigate(`/r/${name}/submit`);
-              }
-            }}
+            onClick={navigateToCreatePostPage}
           >
             Create Post
           </button>
