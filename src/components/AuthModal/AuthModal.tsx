@@ -37,10 +37,11 @@ const AuthModal: React.FC = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const dispatch = useAppDispatch();
 
   const signInModalState = useAppSelector(selectSignInModalState);
   const signUpModalState = useAppSelector(selectSignUpModalState);
+
+  const dispatch = useAppDispatch();
 
   function handleEmail(event: InputEvent) {
     setEmail(event.target.value);

@@ -31,11 +31,10 @@ const CommunityDropdown: React.FC<Props> = ({
   dropdown,
   handleHomeDropdown,
 }) => {
-  const dispatch = useAppDispatch();
-
   const { name } = useAppSelector(selectCommunityData);
-
   const userCommunities = useAppSelector(selectUserCommunitiesData);
+
+  const dispatch = useAppDispatch();
 
   function toggleCommunity() {
     dispatch(toggleCommunityModalState());
@@ -46,19 +45,14 @@ const CommunityDropdown: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    async function fetchUserCommunities() {
-      const userCommunities = collection(
-        db,
-        `users/${getUserId()}/communitySnippets`
-      );
+    const userCommunities = collection(
+      db,
+      `users/${getUserId()}/communitySnippets`
+    );
 
-      onSnapshot(userCommunities, (snapshot) => {
-        dispatch(setUserCommunities(snapshot.docs));
-      });
-
-      // const communities = await getDocs(userCommunities);
-    }
-    fetchUserCommunities();
+    onSnapshot(userCommunities, (snapshot) => {
+      dispatch(setUserCommunities(snapshot.docs));
+    });
   }, [name, dispatch]);
 
   return (

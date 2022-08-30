@@ -13,9 +13,9 @@ import { selectCommunityData } from "../../features/subreddit/subredditSlice";
 const PostCreatorCard: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const navigate = useNavigate();
-
   const { name } = useAppSelector(selectCommunityData);
+
+  const navigate = useNavigate();
 
   function inputFocus() {
     navigate(`/r/${name}/submit`);
