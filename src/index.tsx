@@ -5,7 +5,7 @@ import "./assets/global.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Subreddit from "./pages/Subreddit";
+import Subreddit from "./pages/Subreddit/Subreddit";
 import CreatePost from "./pages/CreatePost/CreatePost";
 import StoreProvider from "./redux/provider";
 import SinglePostPage from "./pages/Subreddit/SinglePostPage/SinglePostPage";

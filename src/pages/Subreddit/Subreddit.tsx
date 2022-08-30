@@ -1,4 +1,4 @@
-import styles from "./index.module.css";
+import styles from "./Subreddit.module.css";
 import About from "../../layouts/About/About";
 import Posts from "./Posts/Posts";
 import Header from "./Header/Header";
