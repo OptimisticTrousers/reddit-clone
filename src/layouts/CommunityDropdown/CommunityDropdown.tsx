@@ -37,6 +37,14 @@ const CommunityDropdown: React.FC<Props> = ({
 
   const userCommunities = useAppSelector(selectUserCommunitiesData);
 
+  function toggleCommunity() {
+    dispatch(toggleCommunityModalState());
+  }
+
+  function toggleDropdown() {
+    handleHomeDropdown();
+  }
+
   useEffect(() => {
     async function fetchUserCommunities() {
       const userCommunities = collection(
@@ -51,15 +59,7 @@ const CommunityDropdown: React.FC<Props> = ({
       // const communities = await getDocs(userCommunities);
     }
     fetchUserCommunities();
-  }, [name]);
-
-  function toggleCommunity() {
-    dispatch(toggleCommunityModalState());
-  }
-
-  function toggleDropdown() {
-    handleHomeDropdown();
-  }
+  }, [name, dispatch]);
 
   return (
     <Dropdown dropdown={dropdown}>
