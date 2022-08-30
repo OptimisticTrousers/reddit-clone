@@ -20,7 +20,7 @@ const ImageSelector: React.FC<Props> = ({
     <div styleName="image-selector__upload">
       {selectedFile ? (
         <div styleName="image-selector__file-selector">
-          <img styleName="image-selector__file-image" src={selectedFile} />
+          <img styleName="image-selector__file-image" src={selectedFile} alt="user generated"/>
           <div styleName="image-selector__buttons">
             <button
               styleName="image-selector__button"

@@ -24,7 +24,7 @@ import { BsLink45Deg } from "react-icons/bs";
 import { BiPoll } from "react-icons/bi";
 import { HiOutlineMicrophone } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import ImageSelector from "../CreatePost/ImageSelector/ImageSelector";
+import ImageSelector from "../ImageSelector/ImageSelector";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { storage } from "../../../firebase/firebase-config";
 
