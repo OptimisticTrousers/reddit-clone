@@ -27,28 +27,21 @@ const Filter: React.FC<Props> = ({
     <Card>
       <div styleName="filter">
         <div styleName="filter__categories">
-          {/* <a styleName="filter__category" onClick={}>
-            <AiOutlineRocket styleName="filter__icon" />
-            <span>Best</span>
-          </a> */}
-          <a
+          <button
             styleName="filter__category"
             onClick={() => addPosts(filterRising())}
           >
             <HiOutlineFire styleName="filter__icon" />
             <span>Rising</span>
-          </a>
-          <a styleName="filter__category" onClick={() => addPosts(filterNew())}>
+          </button>
+          <button styleName="filter__category" onClick={() => addPosts(filterNew())}>
             <MdOutlineNewReleases styleName="filter__icon" />
             <span>New</span>
-          </a>
-          <a styleName="filter__category" onClick={() => addPosts(filterTop())}>
+          </button >
+          <button styleName="filter__category" onClick={() => addPosts(filterTop())}>
             <MdOutlineLeaderboard styleName="filter__icon" />
             <span>Top</span>
-          </a>
-          {/* <a styleName="filter__category">
-            <BsThreeDots />
-          </a> */}
+          </button>
         </div>
         <div styleName="filter__category">
           <BsFillInboxesFill styleName="filter__icon" />
