@@ -35,18 +35,30 @@ type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>;
 type FormEvent = React.FormEvent<HTMLFormElement>;
 
 const AddPostForm: React.FC = () => {
-  const navigate = useNavigate();
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  const isLoggedIn = useAppSelector(selectAuthStatus);
-
-  const { id, name } = useAppSelector(selectCommunityData);
-
+  const [link, setLink] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
   const [selectedTab, setSelectedTab] = useState("post");
 
-  const [selectedFile, setSelectedFile] = useState<string>("");
+  const isLoggedIn = useAppSelector(selectAuthStatus);
+  const { id, name } = useAppSelector(selectCommunityData);
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleTitleChange = (event: InputEvent) => {
+    setTitle(event.target.value);
+  };
+
+  const handleDescriptionChange = (event: TextAreaEvent) => {
+    setDescription(event.target.value);
+  };
+
+  function handleTabChange(type: string) {
+    setSelectedTab(type);
+  }
+
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
 
@@ -59,16 +71,6 @@ const AddPostForm: React.FC = () => {
         setSelectedFile(readerEvent.target.result as string);
       }
     };
-  };
-
-  const dispatch = useAppDispatch();
-
-  const handleTitleChange = (event: InputEvent) => {
-    setTitle(event.target.value);
-  };
-
-  const handleDescriptionChange = (event: TextAreaEvent) => {
-    setDescription(event.target.value);
   };
 
   const submitPost = async (event: FormEvent) => {
@@ -113,31 +115,16 @@ const AddPostForm: React.FC = () => {
     }
   };
 
-  function handleTabChange(type: string) {
-    setSelectedTab(type);
-  }
-
-  const [link, setLink] = useState("");
   return (
     <div styleName="post-creator">
       <div styleName="post-creator__header">
         <div styleName="post-creator__top">
           <div styleName="post-creator__title">Create a post</div>
-          {/* <button styleName="post-creator__button_type_drafts">Drafts</button> */}
         </div>
-        {/* <div styleName="post-creator__subreddit-choice-container">
-          <div styleName="post-creator__subreddit-choice">
-          </div>
-        </div> */}
         <div styleName="post-creator__subreddit-description">
           Creating a post to the{" "}
           <span styleName="post-creator__subreddit-name">{`'${name}'`}</span>{" "}
           subreddit
-          {/* New to the trade and have a question you need answered? Try the
-          **Beginner Questions** thread posted at the top of the subreddit!
-          Looking for feedback? Try our weekly **Feedback Thread** instead! If
-          you're posting something you made or want feedback on, do so On
-          Saturday. */}
         </div>
       </div>
       <div styleName="post-creator__form">
@@ -232,14 +219,7 @@ const AddPostForm: React.FC = () => {
               </div>
             )}
           </div>
-          {/* <div styleName="post-creator__marks">
-          <button>OC</button>
-          <button>Spoiler</button>
-          <button>NSFW</button>
-          <button>Flair</button>
-        </div> */}
           <div styleName="post-creator__post-buttons">
-            {/* <button>Save Draft</button> */}
             <button type="submit" styleName="post-creator__post-button">
               Post
             </button>
