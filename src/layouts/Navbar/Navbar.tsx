@@ -118,6 +118,7 @@ const Navbar: React.FC = () => {
               onChange={handleSearchInput}
               value={searchInput}
               pattern="(?:^| )(/?r/[a-z]+)"
+              title={`${searchInput} is not valid. Please enter a 'r/', followed by a subreddit name in the format 'r/dogs'`}
             />
           </form>
         </div>
