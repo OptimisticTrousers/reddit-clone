@@ -18,6 +18,8 @@ import {
 import { db } from "../../firebase";
 import { useAppSelector, useFilter } from "../../hooks/hooks";
 import { selectCommunityData } from "../../features/subreddit/subredditSlice";
+import Main from "../../layouts/Main/Main";
+import Aside from "../../layouts/Aside/Aside";
 
 const Home: React.FC = () => {
   const [filteredPosts, setFilteredPosts] = useState<DocumentData | undefined>();
@@ -34,7 +36,7 @@ const Home: React.FC = () => {
 
   return (
     <div styleName="home">
-      <div styleName="home__content">
+      <Main>
         <div styleName="home__posts">
           {name && <PostCreatorCard />}
           <Filter
@@ -45,12 +47,12 @@ const Home: React.FC = () => {
           />
           <Posts posts={filteredPosts} />
         </div>
-        <aside styleName="aside">
+        <Aside>
           <TopCommunitiesCard />
           <PremiumCard />
           <PersonalHomeCard />
-        </aside>
-      </div>
+        </Aside>
+      </Main>
     </div>
   );
 };
