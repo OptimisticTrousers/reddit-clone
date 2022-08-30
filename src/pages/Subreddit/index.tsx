@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import About from "./About/About";
+import About from "../../layouts/About/About";
 import Posts from "./Posts/Posts";
 import Header from "./Header/Header";
 import CSSModules from "react-css-modules";

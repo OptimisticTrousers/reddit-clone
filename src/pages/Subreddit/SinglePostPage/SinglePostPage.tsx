@@ -1,4 +1,4 @@
-import About from "../About/About";
+import About from "../../../layouts/About/About";
 import Comments from "../Comments/Comments";
 import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";

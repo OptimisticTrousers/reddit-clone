@@ -2,17 +2,17 @@
 import CSSModules from "react-css-modules";
 import { IoIosArrowDown, IoIosLogIn } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
-import Card from "../../../components/Card/Card";
-import CardHeader from "../../../components/CardHeader/CardHeader";
+import Card from "../../components/Card/Card";
+import CardHeader from "../../components/CardHeader/CardHeader";
 import {
   selectCommunityData,
   setCommunityData,
-} from "../../../features/subreddit/subredditSlice";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+} from "../../features/subreddit/subredditSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import styles from "./About.module.css";
 import moment from "moment";
 import { TbCake } from "react-icons/tb";
-import Article from "../../../components/Skeletons/Article";
+import Article from "../../components/Skeletons/Article";
 import { useEffect, useRef, useState } from "react";
 import {
   collection,
@@ -23,12 +23,12 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db, getUserId, isUserSignedIn } from "../../../firebase";
+import { db, getUserId, isUserSignedIn } from "../../firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { storage } from "../../../firebase/firebase-config";
+import { storage } from "../../firebase/firebase-config";
 import { FaReddit } from "react-icons/fa";
 import { HiOutlinePencil } from "react-icons/hi";
-import { toggleSignInModal } from "../../../features/auth/authSlice";
+import { toggleSignInModal } from "../../features/auth/authSlice";
 
 const About: React.FC = () => {
   const communityData = useAppSelector(selectCommunityData);
