@@ -24,36 +24,36 @@ const Header: React.FC<Props> = ({
   return (
     <div styleName="header">
       <div styleName="header__tabs">
-        <a
+        <button
           styleName={`header__tab ${posts && "header__tab--active"}`}
           onClick={() => dispatch({ type: "POSTS" })}
         >
           Posts
-        </a>
-        <a
+        </button>
+        <button
           styleName={`header__tab ${comments && "header__tab--active"}`}
           onClick={() => dispatch({ type: "COMMENTS" })}
         >
           Comments
-        </a>
-        <a
+        </button>
+        <button
           styleName={`header__tab ${saved && "header__tab--active"}`}
           onClick={() => dispatch({ type: "SAVED" })}
         >
           Saved
-        </a>
-        <a
+        </button>
+        <button
           styleName={`header__tab ${upvotes && "header__tab--active"}`}
           onClick={() => dispatch({ type: "UPVOTES" })}
         >
           Upvoted
-        </a>
-        <a
+        </button>
+        <button
           styleName={`header__tab ${downvotes && "header__tab--active"}`}
           onClick={() => dispatch({ type: "DOWNVOTES" })}
         >
           Downvotes
-        </a>
+        </button>
       </div>
     </div>
   );

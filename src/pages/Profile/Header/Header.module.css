@@ -4,7 +4,6 @@
   border-top: 1px solid #343536;
   background-color: var(--primary-color);
   width: 100%;
-  text-transform: uppercase;
   display: flex;
   justify-content: center;
 }
@@ -23,7 +22,10 @@
   line-height: 18px;
   padding: 0 8px;
   white-space: nowrap;
+  text-transform: uppercase;
   height: 100%;
+  background-color: transparent;
+  border: none;
   display: flex;
   align-items: center;
   cursor: pointer;
