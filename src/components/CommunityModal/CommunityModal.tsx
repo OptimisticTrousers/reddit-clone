@@ -84,27 +84,6 @@ const CommunityModal: React.FC = () => {
     } catch (error: any) {
       alert("ERROR " + error);
     }
-    // const subredditsRef = collection(db, "subreddits");
-
-    // if (isUserSignedIn()) {
-    //   await addDoc(subredditsRef, {
-    //     created_at: serverTimestamp(),
-    //     creator_id: getUserName(),
-    //     description: "Add a description",
-    //     id: nanoid(),
-    //     name: subredditName,
-    //     number_of_members: 1,
-    //     privacy_type: communityType,
-    //   });
-
-    //   const userRef = doc(db, "users", `${getUserId()}`);
-
-    //   await updateDoc(userRef, {
-    //     communities: arrayUnion({ subredditName }),
-    //   });
-    // } else {
-    //   alert("SIGN IN DUDE!!!");
-    // }
   }
 
   function handleRadio(event: InputEvent) {
