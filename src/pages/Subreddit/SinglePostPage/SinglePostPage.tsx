@@ -69,7 +69,7 @@ const SinglePostPage = () => {
       <div styleName="post-page__container">
         <div styleName="post-page__post">
           {comments ? (
-            <Post data={data} renderHover={false} />
+            <Post data={data} />
           ) : (
             <UpworkJobLoader
               width={700}

@@ -30,7 +30,6 @@ import { useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
   data: DocumentData;
-  renderHover: boolean;
 }
 
 const Post: React.FC<Props> = (props) => {
@@ -80,7 +79,7 @@ const Post: React.FC<Props> = (props) => {
   }
   return (
     <div
-      styleName={props.renderHover ? "post-excerpt-hover" : "post-excerpt"}
+      styleName={postId ? "post-excerpt": "post-excerpt-hover" }
       data-testid="post"
     >
       {postId && (

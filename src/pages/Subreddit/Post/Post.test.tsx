@@ -17,7 +17,6 @@ describe("Post", () => {
       description: "mock description",
       voteStatus: 0,
     },
-    renderHover: false,
     commentsQuantity: 0,
   };
 
@@ -39,7 +38,7 @@ describe("Post", () => {
   });
 
   test("post having hover border", () => {
-    render(<Post {...mockProps} renderHover={true} />);
+    render(<Post {...mockProps} />);
 
     const post = screen.queryByTestId("post");
     expect(post?.classList.contains("post-excerpt-hover")).toBe(true);

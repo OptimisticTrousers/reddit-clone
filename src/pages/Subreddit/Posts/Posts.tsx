@@ -91,7 +91,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
             <Post
               key={doc.id}
               data={{ ...data, id: doc.id }}
-              renderHover={true}
             />
           </Link>
         );
