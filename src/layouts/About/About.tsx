@@ -104,15 +104,23 @@ const About: React.FC = () => {
   };
 
   useEffect(() => {
-    const communitySnippetsRef = doc(
-      db,
-      "users",
-      `/${getUserId()}/communitySnippets/${communityData.name}`
-    );
+    async function isUserModerator() {
+      try {
+        const communitySnippetsRef = doc(
+          db,
+          "users",
+          `/${getUserId()}/communitySnippets/${communityData.name}`
+        );
 
-    getDoc(communitySnippetsRef).then((doc: DocumentData) => {
-      setIsUserModerator(doc?.data()?.isModerator);
-    });
+        const communitySnippetsDoc = await getDoc(communitySnippetsRef);
+
+        setIsUserModerator(communitySnippetsDoc?.data()?.isModerator);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+
+    isUserModerator();
   }, [communityData.name]);
 
   return (

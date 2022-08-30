@@ -23,12 +23,25 @@ const TopCommunitiesCard: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const subredditsRef = collection(db, "subreddits");
+    async function fetchTopCommunities() {
+      try {
+        const subredditsRef = collection(db, "subreddits");
 
-    const q = query(subredditsRef, orderBy("numberOfMembers", "asc"), limit(5));
-    getDocs(q).then((data) => {
-      setTopCommunities(data.docs);
-    });
+        const q = query(
+          subredditsRef,
+          orderBy("numberOfMembers", "asc"),
+          limit(5)
+        );
+
+        const subredditsDocs = await getDocs(q);
+
+        setTopCommunities(subredditsDocs.docs);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+
+    fetchTopCommunities();
   }, []);
 
   function subredditLinkClick(subredditName: string) {

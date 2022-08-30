@@ -10,12 +10,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useReducer, useRef, useState } from "react";
 import CSSModules from "react-css-modules";
-import {
-  db,
-  getUser,
-  getUserId,
-  getUserName,
-} from "../../firebase";
+import { db, getUser, getUserId, getUserName } from "../../firebase";
 import Filter from "../../components/Filter/Filter";
 import Comments from "../Subreddit/Comments/Comments";
 import Posts from "../Subreddit/Posts/Posts";
@@ -27,9 +22,13 @@ import Card from "../../components/Card/Card";
 import ProfileNotFound from "./ProfileNotFound/ProfileNotFound";
 import { Navigate, useNavigate } from "react-router-dom";
 import { displayPartsToString } from "typescript";
-import { selectAuthStatus, toggleSignInModal } from "../../features/auth/authSlice";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../features/auth/authSlice";
 import Main from "../../layouts/Main/Main";
 import Aside from "../../layouts/Aside/Aside";
+import { createHash } from "crypto";
 
 interface State {
   posts: boolean;
@@ -99,7 +98,7 @@ const Profile: React.FC = () => {
     DocumentData | undefined
   >();
 
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
   const navigate = useNavigate();
 
   const [activeSection, dispatch] = useReducer(reducer, {
@@ -111,18 +110,20 @@ const Profile: React.FC = () => {
   });
 
   useEffect(() => {
-    if (isLoggedIn) {
-      const userPostsRef = collection(db, "posts");
+    async function getUserPosts() {
+      if (isLoggedIn) {
+        const userPostsRef = collection(db, "posts");
 
-      const q = query(userPostsRef, where("userId", "==", getUserId()));
+        const q = query(userPostsRef, where("userId", "==", getUserId()));
 
-      getDocs(q).then((data: DocumentData) => {
-        setUserPosts(data.docs);
-      });
-    } else {
-      alert("Sign in to see your user profile!");
-      navigate("/");
-      dispatch(toggleSignInModal());
+        getDocs(q).then((data: DocumentData) => {
+          setUserPosts(data.docs);
+        });
+      } else {
+        alert("Sign in to see your user profile!");
+        navigate("/");
+        dispatch(toggleSignInModal());
+      }
     }
   }, []);
 
@@ -141,25 +142,28 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     async function fetchPostsFromUpVotes() {
-      const upVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
+      try {
+        const upVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
 
-      const q = query(upVotesRef, where("voteValue", "==", 1));
+        const q = query(upVotesRef, where("voteValue", "==", 1));
 
-      const { docs } = await getDocs(q);
+        const { docs } = await getDocs(q);
 
-      const newDocs = docs.map(async (document: DocumentData) => {
-        const postId = document.data().postId;
+        const newDocs = docs.map(async (document: DocumentData) => {
+          const postId = document.data().postId;
+          const postRef = doc(db, "posts", postId);
 
-        const postRef = doc(db, "posts", postId);
+          const data = await getDoc(postRef);
 
-        const data = await getDoc(postRef);
+          return data;
+        });
 
-        return data;
-      });
+        const resolvedData = await Promise.all(newDocs);
 
-      const resolvedData = await Promise.all(newDocs);
-
-      setUpVotesPosts(resolvedData);
+        setUpVotesPosts(resolvedData);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
     }
 
     fetchPostsFromUpVotes();
@@ -167,25 +171,33 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     async function fetchPostsFromDownVotes() {
-      const downVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
+      try {
+        const downVotesRef = collection(
+          db,
+          "users",
+          `${getUserId()}/postVotes`
+        );
 
-      const q = query(downVotesRef, where("voteValue", "==", -1));
+        const q = query(downVotesRef, where("voteValue", "==", -1));
 
-      const { docs } = await getDocs(q);
+        const { docs } = await getDocs(q);
 
-      const newDocs = docs.map(async (document: DocumentData) => {
-        const postId = document.data().postId;
+        const newDocs = docs.map(async (document: DocumentData) => {
+          const postId = document.data().postId;
 
-        const postRef = doc(db, "posts", postId);
+          const postRef = doc(db, "posts", postId);
 
-        const data = await getDoc(postRef);
+          const data = await getDoc(postRef);
 
-        return data;
-      });
+          return data;
+        });
 
-      const resolvedData = await Promise.all(newDocs);
+        const resolvedData = await Promise.all(newDocs);
 
-      setDownVotesPosts(resolvedData);
+        setDownVotesPosts(resolvedData);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
     }
 
     fetchPostsFromDownVotes();
