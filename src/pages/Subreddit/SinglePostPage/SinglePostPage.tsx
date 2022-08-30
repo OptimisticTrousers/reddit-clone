@@ -27,6 +27,8 @@ import { setPostId } from "../../../features/post/postSlice";
 import NestedList from "../../../components/Skeletons/AvatarWithText";
 import Reddit from "../../../components/Skeletons/Reddit";
 import UpworkJobLoader from "../../../components/Skeletons/UpworkJobLoader";
+import Main from "../../../layouts/Main/Main";
+import Aside from "../../../layouts/Aside/Aside";
 
 type LocationState = {
   title: string;
@@ -63,7 +65,7 @@ const SinglePostPage = () => {
   }, [postId, dispatch]);
 
   return (
-    <section styleName="post-page">
+    <Main>
       <div styleName="post-page__container">
         <div styleName="post-page__post">
           {comments ? (
@@ -91,10 +93,10 @@ const SinglePostPage = () => {
           <CommentsSection postId={postId} comments={comments} />
         </div>
       </div>
-      <aside styleName="aside">
+      <Aside>
         <About />
-      </aside>
-    </section>
+      </Aside>
+    </Main>
   );
 };
 
