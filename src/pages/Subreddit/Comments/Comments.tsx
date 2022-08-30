@@ -38,27 +38,25 @@ const Comments: React.FC<Props> = ({
 
   useEffect(() => {
     async function fetchPosts() {
-
       try {
+        if (renderCommentPost) {
+          if (postId) {
+            const postsDocRef = doc(db, "posts", postId);
 
-    if (renderCommentPost) {
-      if (postId) {
-        const postsDocRef = doc(db, "posts", postId);
+            const postsDoc = await getDoc(postsDocRef);
 
-        const postsDoc = await getDoc(postsDocRef)
+            const docData = postsDoc?.data();
 
-          const docData = postsDoc?.data();
-
-          setPostTitle(docData?.title);
-          setSubredditName(docData?.subredditName);
-          setPostCreator(docData?.userName);
-
+            setPostTitle(docData?.title);
+            setSubredditName(docData?.subredditName);
+            setPostCreator(docData?.userName);
+          }
+        }
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
       }
     }
-      } catch(error) {
-        console.log(`ERROR: ${error}`)
-      }
-    }
+    fetchPosts();
   }, [postId, renderCommentPost]);
 
   function navigateToPost() {

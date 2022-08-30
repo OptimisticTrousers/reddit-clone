@@ -98,20 +98,24 @@ const Header: React.FC<Props> = ({ subredditName }) => {
 
   useEffect(() => {
     async function fetchIfUserJoined() {
-      const userCommunities = collection(
-        db,
-        `users/${getUserId()}/communitySnippets`
-      );
-
-      const communities = await getDocs(userCommunities);
-
-      const community = communities
-        .docChanges()
-        .find(
-          (community) => community.doc.data().communityId === subredditName
+      try {
+        const userCommunities = collection(
+          db,
+          `users/${getUserId()}/communitySnippets`
         );
-      if (community) {
-        setJoinButtonText("Joined");
+
+        const communities = await getDocs(userCommunities);
+
+        const community = communities
+          .docChanges()
+          .find(
+            (community) => community.doc.data().communityId === subredditName
+          );
+        if (community) {
+          setJoinButtonText("Joined");
+        }
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
       }
     }
     fetchIfUserJoined();

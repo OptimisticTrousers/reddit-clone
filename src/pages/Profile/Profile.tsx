@@ -226,7 +226,6 @@ const Profile: React.FC = () => {
       <Header dispatch={dispatch} activeSection={activeSection} />
       <Main>
         <div styleName="content" ref={contentRef}>
-          {/* <Filter {...filter} addPosts={addPosts} /> */}
           {activeSection.posts && <Posts posts={userPosts} />}
           {activeSection.comments && (
             <Card>
