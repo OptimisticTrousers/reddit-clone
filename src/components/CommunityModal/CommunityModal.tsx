@@ -29,12 +29,11 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 type FormEvent = React.FormEvent<HTMLFormElement>;
 
 const CommunityModal: React.FC = () => {
-  const dispatch = useAppDispatch();
-
   const [subredditName, setSubredditName] = useState("");
-
-  const navigate = useNavigate();
   const [communityType, setCommunityType] = useState("");
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function handleSubredditName(event: InputEvent) {
     setSubredditName(event.target.value);
@@ -42,6 +41,10 @@ const CommunityModal: React.FC = () => {
 
   function onToggleModalClick() {
     dispatch(toggleCommunityModalState());
+  }
+
+  function handleRadio(event: InputEvent) {
+    setCommunityType(event.target.value);
   }
 
   async function createSubreddit(event: FormEvent) {
@@ -81,13 +84,9 @@ const CommunityModal: React.FC = () => {
           dispatch(toggleCommunityModalState());
         }, 1000);
       });
-    } catch (error: any) {
+    } catch (error) {
       alert("ERROR " + error);
     }
-  }
-
-  function handleRadio(event: InputEvent) {
-    setCommunityType(event.target.value);
   }
 
   return (
@@ -103,7 +102,6 @@ const CommunityModal: React.FC = () => {
               onClick={onToggleModalClick}
             />
           </div>
-          {/* <div styleName="community-modal__container"> */}
           <div styleName="community-modal__instructions">
             <h3 styleName="community-modal__name">Name</h3>
             <div styleName="community-modal__description-container">
@@ -132,9 +130,6 @@ const CommunityModal: React.FC = () => {
                 <p styleName="community-modal__characters-remaining">
                   21 Characters remaining
                 </p>
-                {/* <p styleName="community-modal__feedback-message">
-                A community name is required
-              </pr */}
               </div>
             </div>
             <div styleName="community-modal__radio">
@@ -149,11 +144,6 @@ const CommunityModal: React.FC = () => {
                   required
                   onChange={handleRadio}
                 />
-                {/* <img
-                styleName="community-modal__icon"
-                src={selectedRadio}
-                alt="user selected radio button"
-              /> */}
                 <img
                   styleName="community-modal__icon"
                   src={personIcon}
@@ -174,11 +164,6 @@ const CommunityModal: React.FC = () => {
                   required
                   onChange={handleRadio}
                 />
-                {/* <img
-                styleName="community-modal__icon"
-                src={selectedRadio}
-                alt="user selected radio button"
-              /> */}
                 <img
                   styleName="community-modal__icon"
                   src={personIcon}
@@ -200,11 +185,6 @@ const CommunityModal: React.FC = () => {
                   required
                   onChange={handleRadio}
                 />
-                {/* <img
-                styleName="community-modal__icon"
-                src={selectedRadio}
-                alt="user selected radio button"
-              /> */}
                 <img
                   styleName="community-modal__icon"
                   src={personIcon}
