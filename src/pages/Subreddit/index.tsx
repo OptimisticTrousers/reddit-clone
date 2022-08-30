@@ -29,6 +29,8 @@ import AuthorsList from "../../components/Skeletons/AuthorsList";
 import PostCreatorCard from "../../components/PostCreatorCard/PostCreatorCard";
 import ProfileNotFound from "../Profile/ProfileNotFound/ProfileNotFound";
 import { selectAuthStatus } from "../../features/auth/authSlice";
+import Main from "../../layouts/Main/Main";
+import Aside from "../../layouts/Aside/Aside";
 
 const Subreddit: React.FC = () => {
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
@@ -71,7 +73,7 @@ const Subreddit: React.FC = () => {
   return (
     <div styleName="subreddit">
       <Header subredditName={subredditName} />
-      <main styleName="main">
+      <Main>
         <div styleName="content">
           <PostCreatorCard />
           <Filter
@@ -94,10 +96,10 @@ const Subreddit: React.FC = () => {
             />
           )}
         </div>
-        <aside styleName="aside">
+        <Aside>
           <About />
-        </aside>
-      </main>
+        </Aside>
+      </Main>
     </div>
   );
 };
