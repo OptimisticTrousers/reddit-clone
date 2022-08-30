@@ -29,6 +29,8 @@ import ProfileNotFound from "./ProfileNotFound/ProfileNotFound";
 import { Navigate, useNavigate } from "react-router-dom";
 import { displayPartsToString } from "typescript";
 import { toggleSignInModal } from "../../features/auth/authSlice";
+import Main from "../../layouts/Main/Main";
+import Aside from "../../layouts/Aside/Aside";
 
 interface State {
   posts: boolean;
@@ -194,7 +196,7 @@ const Profile: React.FC = () => {
   return (
     <div>
       <Header dispatch={dispatch} activeSection={activeSection} />
-      <main styleName="main">
+      <Main>
         <div styleName="content" ref={contentRef}>
           {/* <Filter {...filter} addPosts={addPosts} /> */}
           {activeSection.posts && <Posts posts={userPosts} />}
@@ -230,10 +232,10 @@ const Profile: React.FC = () => {
             />
           )}
         </div>
-        <aside styleName="aside">
+        <Aside>
           <UserCard />
-        </aside>
-      </main>
+        </Aside>
+      </Main>
     </div>
   );
 };
