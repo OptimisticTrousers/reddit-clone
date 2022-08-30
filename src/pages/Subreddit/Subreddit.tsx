@@ -28,7 +28,6 @@ import Reddit from "../../components/Skeletons/AuthorsList";
 import AuthorsList from "../../components/Skeletons/AuthorsList";
 import PostCreatorCard from "../../components/PostCreatorCard/PostCreatorCard";
 import ProfileNotFound from "../Profile/ProfileNotFound/ProfileNotFound";
-import { selectAuthStatus } from "../../features/auth/authSlice";
 import Main from "../../layouts/Main/Main";
 import Aside from "../../layouts/Aside/Aside";
 

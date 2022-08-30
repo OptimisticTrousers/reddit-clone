@@ -2,7 +2,6 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import React, { useEffect } from "react";
 import CSSModules from "react-css-modules";
 import { Navigate, Outlet, useNavigate, useParams } from "react-router-dom";
-import { selectAuthStatus } from "../../../features/auth/authSlice";
 import {
   selectCommunityData,
   setCommunityData,

@@ -8,7 +8,6 @@ import classNames from "classnames";
 import { getUser, isUserSignedIn, signIn, signOutUser } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
-  selectAuthStatus,
   toggleSignInModal,
   toggleSignUpModal,
 } from "../../features/auth/authSlice";
@@ -30,8 +29,6 @@ type FormEvent = React.FormEvent<HTMLFormElement>;
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector(selectAuthStatus);
-
   const { name } = useAppSelector(selectCommunityData);
 
   const params = useParams();
@@ -124,7 +121,7 @@ const Navbar: React.FC = () => {
         </div>
         <div styleName="header__right">
           <div styleName="header__buttons">
-            {isLoggedIn === false && (
+            {isUserSignedIn() === false && (
               <>
                 <button
                   onClick={handleSignInClick}
@@ -145,10 +142,10 @@ const Navbar: React.FC = () => {
                 styleName="header__dropdown-profile"
                 onClick={handleProfileDropdown}
               >
-                <Profile isLoggedIn={isLoggedIn} />
+                <Profile isLoggedIn={isUserSignedIn()} />
               </div>
               <div styleName="header__dropdown-dropdown">
-                {isProfileDropdownOpen && isLoggedIn && (
+                {isProfileDropdownOpen && isUserSignedIn() && (
                   <ProfileDropdown dropdown={"dropdown"} />
                 )}
               </div>
