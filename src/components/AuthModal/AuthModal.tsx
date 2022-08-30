@@ -14,7 +14,13 @@ import {
   toggleSignInModal,
   toggleSignUpModal,
 } from "../../features/auth/authSlice";
-import { auth, getUser, getUserName, isUserSignedIn, signIn } from "../../firebase";
+import {
+  auth,
+  getUser,
+  getUserName,
+  isUserSignedIn,
+  signIn,
+} from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./AuthModal.module.css";
@@ -57,29 +63,6 @@ const AuthModal: React.FC = () => {
     dispatch(toggleSignInModal());
   }
 
-  async function formSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    if (signUpModalState) {
-      if (password === confirmPassword) {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        await updateProfile(userCredential.user, {
-          displayName: username,
-        });
-        dispatch(toggleSignUpModal());
-      } else {
-        alert("Please check your password again!");
-      }
-    } else if (signInModalState) {
-      await signInWithEmailAndPassword(auth, email, password);
-      dispatch(toggleSignInModal());
-    }
-  }
-
   function handleModalExit() {
     if (signInModalState === true) {
       dispatch(toggleSignInModal());
@@ -96,6 +79,37 @@ const AuthModal: React.FC = () => {
       dispatch(toggleSignInModal());
     }
     signIn();
+  }
+
+  async function formSubmit(event: FormEvent) {
+    event.preventDefault();
+
+    if (signUpModalState) {
+      if (password === confirmPassword) {
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          await updateProfile(userCredential.user, {
+            displayName: username,
+          });
+          dispatch(toggleSignUpModal());
+        } catch (error) {
+          console.log(`ERROR: ${error}`);
+        }
+      } else {
+        alert("Please check your password again!");
+      }
+    } else if (signInModalState) {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        dispatch(toggleSignInModal());
+      } catch (error) {
+        alert(`ERROR: ${error}`);
+      }
+    }
   }
 
   return (
@@ -153,21 +167,23 @@ const AuthModal: React.FC = () => {
                 <span styleName="sign-up-modal__divider-text">OR</span>
                 <span styleName="sign-up-modal__divider-line"></span>
               </div>
+              <input
+                type="email"
+                styleName="sign-up-modal__input"
+                placeholder="EMAIL"
+                value={email}
+                onChange={handleEmail}
+                required
+              />
+              {signUpModalState && (
                 <input
-                  type="email"
                   styleName="sign-up-modal__input"
-                  placeholder="EMAIL"
-                  value={email}
-                  onChange={handleEmail}
+                  placeholder="USERNAME"
+                  value={username}
+                  onChange={handleUserName}
                   required
                 />
-              {signUpModalState && (<input
-                styleName="sign-up-modal__input"
-                placeholder="USERNAME"
-                value={username}
-                onChange={handleUserName}
-                required
-              />)}
+              )}
               <input
                 styleName="sign-up-modal__input"
                 type="password"
@@ -193,13 +209,13 @@ const AuthModal: React.FC = () => {
               <div styleName="sign-up-modal__bottom-text-container">
                 {(signInModalState && "New to Reddit?") ||
                   (signUpModalState && " Already a redditor?")}
-                <a
+                <button
                   styleName="sign-up-modal__bottom-text"
                   onClick={handleModalSwitch}
                 >
                   {(signInModalState && "SIGN UP") ||
                     (signUpModalState && "LOG IN")}
-                </a>
+                </button>
               </div>
             </form>
           </div>

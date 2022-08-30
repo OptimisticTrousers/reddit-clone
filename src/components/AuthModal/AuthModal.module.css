@@ -186,6 +186,8 @@
   color: #0079d3;
   text-decoration: none;
   padding-left: 8px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 }
 
