@@ -9,7 +9,6 @@ import {
   collection,
   doc,
   DocumentData,
-  DocumentReference,
   getDoc,
   getDocs,
   onSnapshot,
@@ -32,16 +31,11 @@ import ProfileNotFound from "../Profile/ProfileNotFound/ProfileNotFound";
 import { selectAuthStatus } from "../../features/auth/authSlice";
 
 const Subreddit: React.FC = () => {
-  const { subredditName } = useParams();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { id, name } = useAppSelector(selectCommunityData);
-
-  const { filterNew, filterRising, filterTop } = useFilter();
-
-  // console.log(name);
-
   const [posts, setPosts] = useState<DocumentData | undefined>(undefined);
+  const { id } = useAppSelector(selectCommunityData);
+
+  const { subredditName } = useParams();
+  const { filterNew, filterRising, filterTop } = useFilter();
 
   async function filterPosts(promise: Promise<DocumentData>) {
     const data = await promise;
@@ -52,21 +46,23 @@ const Subreddit: React.FC = () => {
     async function communityExistance() {
       if (!id || !subredditName) return;
 
-      const communityDocRef = doc(db, "subreddits", subredditName);
+      try {
+        const communityDocRef = doc(db, "subreddits", subredditName);
 
-      const docData = await getDoc(communityDocRef);
+        const docData = await getDoc(communityDocRef);
 
-      if (!docData.exists()) return;
+        if (!docData.exists()) return;
 
-      const postsRef = collection(db, "posts");
+        const postsRef = collection(db, "posts");
 
-      const q = query(postsRef, where("subredditName", "==", subredditName));
+        const q = query(postsRef, where("subredditName", "==", subredditName));
 
-      getDocs(q)
-        .then((subredditPosts) => {
-          setPosts(subredditPosts.docs);
-        })
-        .catch((error) => alert(`ERROR: ${error}`));
+        const communityDocs = await getDocs(q);
+
+        setPosts(communityDocs.docs);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
     }
 
     communityExistance();

@@ -46,7 +46,7 @@ const TopCommunitiesCard: React.FC = () => {
         {topCommunities?.map((doc: DocumentData, index: number) => {
           return (
             <li key={doc.id} styleName="top-communities__top-community-item">
-              <a styleName="top-communities__top-community-details">
+              <div styleName="top-communities__top-community-details">
                 <p styleName="top-communities__top-community-rank">
                   {index + 1}
                 </p>
@@ -54,7 +54,7 @@ const TopCommunitiesCard: React.FC = () => {
                 <span styleName="top-communities__top-community-name">
                   {doc.data().name}
                 </span>
-              </a>
+              </div>
               <button
                 styleName="top-communities__top-community-button top-communities__top-community-button_type_join"
                 onClick={() => subredditLinkClick(doc.data().name)}
