@@ -15,6 +15,10 @@ const ImageSelector: React.FC<Props> = ({
   setSelectedFile,
   onSelectImage,
 }) => {
+
+  function uploadImage() {
+    selectedFileRef.current?.click()
+  }
   const selectedFileRef = useRef<HTMLInputElement | null>(null);
   return (
     <div styleName="image-selector__upload">
@@ -41,7 +45,7 @@ const ImageSelector: React.FC<Props> = ({
           <button
             type="button"
             styleName="image-selector__button"
-            onClick={() => selectedFileRef.current?.click()}
+            onClick={uploadImage}
           >
             Upload
           </button>

@@ -23,6 +23,7 @@ const Filter: React.FC<Props> = ({
   filterTop,
   addPosts,
 }) => {
+
   return (
     <Card>
       <div styleName="filter">

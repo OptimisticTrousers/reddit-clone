@@ -101,7 +101,6 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
               Comment
             </button>
           </div>
-          {/* </form> */}
         </div>
         <div styleName="comments-section__filter">
           <button styleName="comments-section__button">Sort By: Best</button>

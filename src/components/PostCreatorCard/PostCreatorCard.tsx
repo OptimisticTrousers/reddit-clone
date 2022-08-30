@@ -21,6 +21,14 @@ const PostCreatorCard: React.FC = () => {
   function inputFocus() {
     navigate(`/r/${name}/submit`);
   }
+
+  function navigateToUser() {
+    navigate("/user")
+  }
+
+  function navigateToCreatePostPage() {
+    navigate(`/r/${name}/submit`)
+  }
   return (
     <>
       {isLoggedIn && (
@@ -28,7 +36,7 @@ const PostCreatorCard: React.FC = () => {
           <div styleName="post-creator-card">
             <div
               styleName="post-creator-card__picture"
-              onClick={() => navigate("/user")}
+              onClick={navigateToUser}
             >
               <img
                 styleName="post-creator-card__profile-icon"
@@ -44,13 +52,13 @@ const PostCreatorCard: React.FC = () => {
             />
             <button
               styleName="post-creator-card__icon-link"
-              onClick={() => navigate(`/r/${name}/submit`)}
+              onClick={navigateToCreatePostPage}
             >
               <AiOutlinePicture styleName="post-creator-card__icon" />
             </button>
             <button
               styleName="post-creator-card__icon-link"
-              onClick={() => navigate(`/r/${name}/submit`)}
+              onClick={navigateToCreatePostPage}
             >
               <BsLink45Deg styleName="post-creator-card__icon" />
             </button>

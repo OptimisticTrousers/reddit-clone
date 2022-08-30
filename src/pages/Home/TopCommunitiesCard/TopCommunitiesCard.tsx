@@ -48,6 +48,7 @@ const TopCommunitiesCard: React.FC = () => {
     navigate(`/r/${subredditName}`);
   }
 
+
   return (
     <Card>
       <div styleName="top-communities__top-community-image">
