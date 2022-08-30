@@ -26,15 +26,6 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity }) => {
         <FaRegBookmark styleName="post-excerpt__icon" />
         <span styleName="post-excerpt__action">Save</span>
       </div>
-      {/* <div styleName="post-excerpt__interaction">
-        <span>Icon</span>
-        <span styleName="post-excerpt__action">Hide</span>
-      </div> */}
-      {/* <div styleName="post-excerpt__interaction">
-        <span>Icon</span>
-        <span styleName="post-excerpt__action">Report</span>
-      </div> */}
-      {/* {conditional rendering for live chat} */}
     </div>
   );
 };

@@ -112,32 +112,48 @@ const Profile: React.FC = () => {
   useEffect(() => {
     async function getUserPosts() {
       if (isLoggedIn) {
+        try {
+
         const userPostsRef = collection(db, "posts");
 
         const q = query(userPostsRef, where("userId", "==", getUserId()));
 
-        getDocs(q).then((data: DocumentData) => {
-          setUserPosts(data.docs);
-        });
+        const userPostsDoc = await getDocs(q)
+        setUserPosts(userPostsDoc.docs)
+        } catch(error) {
+          console.log(`ERROR: ${error}`)
+        }
+
       } else {
         alert("Sign in to see your user profile!");
         navigate("/");
         dispatch(toggleSignInModal());
       }
     }
+    getUserPosts();
   }, []);
 
   useEffect(() => {
+     async function fetchComments() {
+
     if (isLoggedIn) {
+      try {
+
       const userCommentsRef = collection(db, "comments");
 
       const q = query(userCommentsRef, where("userId", "==", getUserId()));
 
-      getDocs(q).then((data: DocumentData) => {
-        setCommentsPostId(data.docs[0].data().postId);
-        setUserComments(data.docs);
-      });
+      const userCommentsDoc = await getDocs(q)
+
+      
+        setCommentsPostId(userCommentsDoc.docs[0].data().postId);
+        setUserComments(userCommentsDoc.docs);
+
+      } catch(error) {
+        console.log(`ERROR: ${error}`)
+      }
     }
+     }
   }, []);
 
   useEffect(() => {
