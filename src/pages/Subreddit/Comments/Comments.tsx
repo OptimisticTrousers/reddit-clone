@@ -23,31 +23,28 @@ interface Props {
   commentsPostId?: string;
 }
 
-const Comments: React.FC<Props> = ({
-  comments,
-  commentsPostId
-}) => {
+const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
   const [postTitle, setPostTitle] = useState();
   const [subredditName, setSubredditName] = useState();
   const [postCreator, setPostCreator] = useState();
   const navigate = useNavigate();
 
-  const {postId} = useParams();
+  const { postId } = useParams();
 
   useEffect(() => {
     async function fetchPosts() {
       try {
-          if (postId || commentsPostId) {
-            const postsDocRef = doc(db, "posts", (postId || commentsPostId)!);
+        if (postId || commentsPostId) {
+          const postsDocRef = doc(db, "posts", (postId || commentsPostId)!);
 
-            const postsDoc = await getDoc(postsDocRef);
+          const postsDoc = await getDoc(postsDocRef);
 
-            const docData = postsDoc?.data();
+          const docData = postsDoc?.data();
 
-            setPostTitle(docData?.title);
-            setSubredditName(docData?.subredditName);
-            setPostCreator(docData?.userName);
-          }
+          setPostTitle(docData?.title);
+          setSubredditName(docData?.subredditName);
+          setPostCreator(docData?.userName);
+        }
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
@@ -77,13 +74,11 @@ const Comments: React.FC<Props> = ({
           </div>
         )}
         <Comment key={doc?.id} comment={docData}>
-          {postId && (
-            <CommentInteractions
-              postId={postId}
-              voteStatus={docData?.voteStatus}
-              id={docData?.id}
-            />
-          )}
+          <CommentInteractions
+            postId={postId}
+            voteStatus={docData?.voteStatus}
+            id={docData?.id}
+          />
         </Comment>
       </>
     );

@@ -131,7 +131,7 @@ const Profile: React.FC = () => {
       }
     }
     getUserPosts();
-  }, []);
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
      async function fetchComments() {
@@ -155,7 +155,7 @@ const Profile: React.FC = () => {
     }
      }
      fetchComments();
-  }, []);
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     async function fetchPostsFromUpVotes() {

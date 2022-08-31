@@ -32,6 +32,7 @@ import Aside from "../../../layouts/Aside/Aside";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 
 type LocationState = {
+  length: number;
   title: string;
   description: string;
   createdAt: string;
@@ -68,17 +69,11 @@ const SinglePostPage = () => {
     });
   }, [postId, dispatch]);
 
-  if (!data) {
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
-  }
-
   return (
     <Main>
       <div styleName="post-page__container">
         <div styleName="post-page__post">
-          {data ? (
+          {data?.length !== 0 ? (
             <Post data={data} />
           ) : (
             <>
@@ -92,6 +87,9 @@ const SinglePostPage = () => {
                 backgroundColor={"#333"}
                 foregroundColor={"#999"}
               />
+              {setTimeout(() => {
+                navigate("/");
+              }, 1000)}
             </>
           )}
         </div>

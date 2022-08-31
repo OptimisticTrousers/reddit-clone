@@ -79,8 +79,6 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
 
   return (
     <div styleName="comments-section">
-      {comments?.length !== 0 && (
-        <>
           <div styleName="comments-section__user">
             <span styleName="comments-section__comment-as">
               Comment as{" "}
@@ -124,8 +122,6 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
               View discussions in 1 other community
             </a>
           </div>
-        </>
-      )}
       {comments ? (
         <Comments comments={comments} />
       ) : (

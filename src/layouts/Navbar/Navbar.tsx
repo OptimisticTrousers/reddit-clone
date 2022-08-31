@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
