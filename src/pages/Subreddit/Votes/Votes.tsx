@@ -1,6 +1,6 @@
 import styles from "./Votes.module.css";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
 import {
   selectAuthStatus,
@@ -35,10 +35,9 @@ import { toggleCommunityModalState } from "../../../features/subreddit/subreddit
 interface Props {
   voteStatus: number;
   subredditId: string;
-  userVoteValue: number;
 }
 
-const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
+const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
   const [postVote, setPostVote] = useState<number>(voteStatus);
   const [vote, setVote] = useState(0);
 
@@ -49,7 +48,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useAppDispatch();
 
-  async function makeVote() {
+  const makeVote = useCallback(async () => {
     try {
       const batch = writeBatch(db);
 
@@ -73,7 +72,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
     } catch (error) {
       console.log(`ERROR: ${error}`);
     }
-  }
+  }, [postId, subredditId, vote, voteStatus])
 
   function handleUpvote() {
     if (!isLoggedIn) {
@@ -103,7 +102,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
       }
       return prevVote - 1;
     });
-    // makeVote();
   }
 
   useEffect(() => {

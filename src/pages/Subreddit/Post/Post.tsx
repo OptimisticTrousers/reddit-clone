@@ -33,7 +33,6 @@ import { useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
   data: DocumentData;
-  userVoteValue: number;
 }
 
 const Post: React.FC<Props> = (props) => {
@@ -87,7 +86,6 @@ const Post: React.FC<Props> = (props) => {
       <Votes
         voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
         subredditId={props.data?.subredditId ?? postData?.subredditId}
-        userVoteValue={props?.userVoteValue ?? postData?.voteValue}
       />
       <div styleName="post-excerpt__content">
         <PostAuthor

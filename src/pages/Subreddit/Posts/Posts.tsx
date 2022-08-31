@@ -40,7 +40,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
     if (!subredditName && posts !== undefined) return;
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
-      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
+      // const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
 
       const q = query(postsRef, orderBy("voteStatus", "desc"), limit(10))
 
@@ -54,15 +54,15 @@ const Posts: React.FC<Props> = ({ posts }) => {
           }
         })
         .catch((error) => alert(`ERROR: ${error}`));
-      getDocs(userPostsVoteRef).then((postVotes) => {
-        setPostVotes(postVotes)
-      }).catch((error) => alert(`ERROR: ${error}`))
+      // getDocs(userPostsVoteRef).then((postVotes) => {
+      //   setPostVotes(postVotes)
+      // }).catch((error) => alert(`ERROR: ${error}`))
     } else if (subredditName === undefined) {
       const postsRef = collection(db, "posts");
 
       const q = query(postsRef, where("subredditName", "==", subredditName));
 
-      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
+      // const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
       getDocs(q)
         .then((posts) => {
           if (posts) {
@@ -75,9 +75,9 @@ const Posts: React.FC<Props> = ({ posts }) => {
           }
         })
         .catch((error) => alert(`ERROR: ${error}`));
-      getDocs(userPostsVoteRef).then((postVotes) => {
-        setPostVotes(postVotes)
-      }).catch((error) => alert(`ERROR: ${error}`))
+      // getDocs(userPostsVoteRef).then((postVotes) => {
+      //   setPostVotes(postVotes)
+      // }).catch((error) => alert(`ERROR: ${error}`))
     }
   }, [posts, subredditName, navigate]);
 
@@ -104,7 +104,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
           >
             <Post
               key={doc.id}
-              userVoteValue={postVotes?.docs.find((vote: DocumentData) => vote.data().postId === doc.id)?.voteValue}
               data={{ ...data, id: doc.id }}
             />
           </Link>
