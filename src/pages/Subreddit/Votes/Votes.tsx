@@ -1,6 +1,6 @@
 import styles from "./Votes.module.css";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React, { MouseEventHandler, useCallback, useEffect, useReducer, useState } from "react";
 import CSSModules from "react-css-modules";
 import {
   selectAuthStatus,
@@ -35,11 +35,15 @@ import { toggleCommunityModalState } from "../../../features/subreddit/subreddit
 interface Props {
   voteStatus: number;
   subredditId: string;
+  userVoteValue: number;
 }
 
-const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
+type Event = React.MouseEvent<HTMLImageElement, MouseEvent>
+
+const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
+  console.log("GEE", userVoteValue)
   const [postVote, setPostVote] = useState<number>(voteStatus);
-  const [vote, setVote] = useState(0);
+  const [vote, setVote] = useState((userVoteValue ?? 0));
 
   const postId = useAppSelector(selectPostId);
 
@@ -74,7 +78,8 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
     }
   }, [postId, subredditId, vote, voteStatus])
 
-  function handleUpvote() {
+  function handleUpvote(event: Event) {
+    event.preventDefault();
     if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;
@@ -89,7 +94,8 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId}) => {
     });
   }
 
-  function handleDownvote() {
+  function handleDownvote(event: Event) {
+    event.preventDefault();
     if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;

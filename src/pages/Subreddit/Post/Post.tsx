@@ -33,12 +33,14 @@ import { useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
   data: DocumentData;
+  userVoteValue?: number;
 }
 
 const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
 
   const [postData, setPostData] = useState<DocumentData | undefined>();
+  const [userPostVote, setUserPostVote] = useState<DocumentData | undefined>()
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useDispatch();
@@ -56,6 +58,21 @@ const Post: React.FC<Props> = (props) => {
 
     props.data ?? fetchPost();
   }, [postId, props.data]);
+
+  useEffect(() => {
+    async function fetchVote() {
+      if (!props.userVoteValue) {
+        const userPostVoteRef = doc(db, `users/${getUserId()}/postVotes/${postId}`);
+
+        const userPostVote= await getDoc(userPostVoteRef)
+
+        setUserPostVote(userPostVote.data())
+
+      }
+    }
+
+    fetchVote();
+  }, [postId, props.userVoteValue]);
 
   async function savePosts() {
     if (isLoggedIn) {
@@ -86,6 +103,7 @@ const Post: React.FC<Props> = (props) => {
       <Votes
         voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
         subredditId={props.data?.subredditId ?? postData?.subredditId}
+        userVoteValue={props?.userVoteValue ?? userPostVote?.voteValue}
       />
       <div styleName="post-excerpt__content">
         <PostAuthor

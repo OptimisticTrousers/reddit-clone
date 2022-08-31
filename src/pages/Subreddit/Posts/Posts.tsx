@@ -30,7 +30,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
     undefined
   );
 
-  const [postVotes, setPostVotes] = useState<DocumentData | null>(null)
+  const [postVotes, setPostVotes] = useState<DocumentData | null>(null);
 
   const { subredditName } = useParams();
 
@@ -40,9 +40,9 @@ const Posts: React.FC<Props> = ({ posts }) => {
     if (!subredditName && posts !== undefined) return;
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
-      // const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
+      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`);
 
-      const q = query(postsRef, orderBy("voteStatus", "desc"), limit(10))
+      const q = query(postsRef, orderBy("voteStatus", "desc"), limit(10));
 
       getDocs(q)
         .then((posts) => {
@@ -54,15 +54,17 @@ const Posts: React.FC<Props> = ({ posts }) => {
           }
         })
         .catch((error) => alert(`ERROR: ${error}`));
-      // getDocs(userPostsVoteRef).then((postVotes) => {
-      //   setPostVotes(postVotes)
-      // }).catch((error) => alert(`ERROR: ${error}`))
+      getDocs(userPostsVoteRef)
+        .then((postVotes) => {
+          setPostVotes(postVotes);
+        })
+        .catch((error) => alert(`ERROR: ${error}`));
     } else if (subredditName === undefined) {
       const postsRef = collection(db, "posts");
 
       const q = query(postsRef, where("subredditName", "==", subredditName));
 
-      // const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
+      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`);
       getDocs(q)
         .then((posts) => {
           if (posts) {
@@ -75,9 +77,11 @@ const Posts: React.FC<Props> = ({ posts }) => {
           }
         })
         .catch((error) => alert(`ERROR: ${error}`));
-      // getDocs(userPostsVoteRef).then((postVotes) => {
-      //   setPostVotes(postVotes)
-      // }).catch((error) => alert(`ERROR: ${error}`))
+      getDocs(userPostsVoteRef)
+        .then((postVotes) => {
+          setPostVotes(postVotes);
+        })
+        .catch((error) => alert(`ERROR: ${error}`));
     }
   }, [posts, subredditName, navigate]);
 
@@ -92,6 +96,12 @@ const Posts: React.FC<Props> = ({ posts }) => {
       />
     );
   }
+  console.log(postVotes?.docs[0].data());
+  console.log(
+    postVotes?.docs.find(
+      (vote: any) => vote.data().postId === "sd8jSeV6QIQx6FFzmpsqY"
+    )
+  );
   return (
     <>
       {(posts ?? randomPosts)?.map((doc: DocumentData) => {
@@ -104,6 +114,12 @@ const Posts: React.FC<Props> = ({ posts }) => {
           >
             <Post
               key={doc.id}
+              // userVoteValue={0}
+              userVoteValue={
+                postVotes?.docs.find(
+                  (doc: DocumentData) => doc.data().postId === doc.id
+                )?.voteValue
+              }
               data={{ ...data, id: doc.id }}
             />
           </Link>
