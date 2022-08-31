@@ -4,7 +4,9 @@ import {
   DocumentChange,
   getDoc,
   getDocs,
+  limit,
   onSnapshot,
+  orderBy,
   query,
   QuerySnapshot,
   where,
@@ -37,10 +39,12 @@ const Posts: React.FC<Props> = ({ posts }) => {
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
 
-      getDocs(postsRef)
+      const q = query(postsRef, orderBy("voteStatus", "desc"), limit(10))
+
+      getDocs(q)
         .then((posts) => {
           if (posts) {
-            setRandomPosts(posts.docs.sort((a, b) => Math.random() - 0.5));
+            setRandomPosts(posts.docs);
           } else {
             alert("Subreddit does not exist!");
             navigate("/");
