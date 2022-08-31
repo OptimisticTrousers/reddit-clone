@@ -22,7 +22,7 @@ import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
 import { db, getUserId } from "../../../firebase";
 import { useEffect, useReducer, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   selectAuthStatus,
@@ -37,6 +37,10 @@ interface Props {
 
 const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
+
+  const location = useLocation();
+
+  console.log(location.pathname);
 
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
@@ -82,7 +86,7 @@ const Post: React.FC<Props> = (props) => {
       styleName={postId ? "post-excerpt" : "post-excerpt-hover"}
       data-testid="post"
     >
-      {postId && (
+      {location.pathname !== "/user" && (
         <Votes
           voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
           subredditId={props.data?.subredditId ?? postData?.subredditId}
