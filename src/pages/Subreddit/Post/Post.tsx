@@ -113,7 +113,7 @@ const Post: React.FC<Props> = (props) => {
               <div styleName="post-excerpt__image-container">
                 <img
                   styleName="post-excerpt__image"
-                  src={postData?.imageURL || props.data?.imageURL}
+                  src={postData?.imageURL ?? props.data?.imageURL}
                   alt="post"
                 />
               </div>
