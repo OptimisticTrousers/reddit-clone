@@ -41,7 +41,11 @@ const AddPostForm: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState("");
   const [selectedTab, setSelectedTab] = useState("post");
 
-  const { id, name } = useAppSelector(selectCommunityData);
+  const {
+    id,
+    name,
+    description: communityDescription,
+  } = useAppSelector(selectCommunityData);
   const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const navigate = useNavigate();
@@ -126,6 +130,9 @@ const AddPostForm: React.FC = () => {
           <span styleName="post-creator__subreddit-name">{`'${name}'`}</span>{" "}
           subreddit
         </div>
+        <p styleName="post-creator__subreddit-description">
+          Description: {communityDescription}
+        </p>
       </div>
       <div styleName="post-creator__form">
         <div styleName="post-creator__post-types">
