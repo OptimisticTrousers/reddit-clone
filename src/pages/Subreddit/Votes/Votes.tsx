@@ -77,7 +77,9 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
 
       batch.set(userPostVotesRef, newVote);
 
-      batch.update(postRef, { voteStatus: voteStatus + vote! });
+      if (vote) {
+        batch.update(postRef, { voteStatus: voteStatus + vote - vote! });
+      }
       await batch.commit();
     } catch (error) {
       console.log(`ERROR: ${error}`);
@@ -128,7 +130,11 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
 
       const userPostVotes = await getDoc(userPostVotesRef);
 
-      setVote(userPostVotes.data()?.voteValue);
+      if (!userPostVotes.exists()) {
+        setVote(0);
+      } else {
+        setVote(userPostVotes.data()?.voteValue);
+      }
     }
     if (vote === undefined) {
       fetchVote();
