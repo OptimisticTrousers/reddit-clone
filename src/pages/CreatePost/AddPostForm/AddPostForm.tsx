@@ -81,11 +81,11 @@ const AddPostForm: React.FC = () => {
     event.preventDefault();
     if (isLoggedIn) {
       try {
-        const postsRef = collection(db, "posts");
-
         const postId = nanoid();
 
-        const postDocRef = await addDoc(postsRef, {
+        const postsRef = doc(db, "posts", postId);
+
+        const postDocRef = await setDoc(postsRef, {
           createdAt: serverTimestamp(),
           id: postId,
           subredditId: id,
@@ -101,11 +101,11 @@ const AddPostForm: React.FC = () => {
         });
 
         if (selectedFile) {
-          const imageRef = ref(storage, `posts/${postDocRef.id}`);
+          const imageRef = ref(storage, `posts/${postId}`);
           await uploadString(imageRef, selectedFile, "data_url");
           const downloadURL = await getDownloadURL(imageRef);
 
-          await updateDoc(postDocRef, {
+          await updateDoc(postsRef, {
             imageURL: downloadURL,
           });
         }

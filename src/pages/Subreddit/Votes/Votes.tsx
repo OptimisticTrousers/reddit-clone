@@ -12,6 +12,7 @@ import {
   doc,
   DocumentData,
   getDoc,
+  getDocs,
   increment,
   query,
   runTransaction,
@@ -78,8 +79,9 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue}) => {
   // }
 async function fetchVotes(vote: number) {
       if (!isLoggedIn) dispatch(toggleSignInModal());
+
+      const batch = writeBatch(db)
       try {
-        await runTransaction(db, async (transaction) => {
           const userPostVotesDocRef = doc(
             db,
             `users/${getUserId()}/postVotes/${postId}`
@@ -102,7 +104,7 @@ async function fetchVotes(vote: number) {
               voteValue: vote,
             };
 
-            transaction.set(userPostVotesRef, newVote);
+            batch.set(userPostVotesRef, newVote);
 
             //updatedPost.voteStatus = voteStatus + post
             setPostVote(vote)
@@ -110,24 +112,23 @@ async function fetchVotes(vote: number) {
             if (userVoteValue  === vote) {
               //updatedPost.voteStatus = voteStatus - post
             setPostVote(-vote)
-              transaction.delete(userPostVotesDocRef);
+              batch.delete(userPostVotesDocRef);
 
               voteChange *= -1;
             } else {
               //updatedPost.voteStatus = voteStatus + 2 * vote;
 
             setPostVote(2 * vote)
-              transaction.update(userPostVotesDocRef, {
+              batch.update(userPostVotesDocRef, {
                 voteValue: vote,
               });
             }
           }
 
-          const postsRef = collection(db, "posts");
+          const postsRef = doc(db, "posts", postId);
 
-          const q = query(postsRef, where("id", "==", postId))
-          transaction.update(q, { voteStatus: voteStatus + voteChange });
-        });
+          batch.update(postsRef, { voteStatus: voteStatus + voteChange });
+          await batch.commit()
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
