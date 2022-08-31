@@ -79,6 +79,8 @@ const Post: React.FC<Props> = (props) => {
       dispatch(toggleSignInModal());
     }
   }
+
+  console.log(postData?.voteValue ?? props?.userVoteValue)
   return (
     <div
       styleName={postId ? "post-excerpt" : "post-excerpt-hover"}
@@ -87,7 +89,7 @@ const Post: React.FC<Props> = (props) => {
       <Votes
         voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
         subredditId={props.data?.subredditId ?? postData?.subredditId}
-        userVoteValue={props.data?.voteValue ?? postData?.voteValue}
+        userVoteValue={props?.userVoteValue ?? postData?.voteValue}
       />
       <div styleName="post-excerpt__content">
         <PostAuthor

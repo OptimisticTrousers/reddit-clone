@@ -94,7 +94,7 @@ async function fetchVotes(vote: number) {
 
           if (userVoteValue === undefined) {
             const userPostVotesRef = doc(
-              collection(db, `users/${getUserId()}/postVotes`)
+              db, `users/${getUserId()}/postVotes/${postId}`
             );
 
             const newVote = {
@@ -109,9 +109,9 @@ async function fetchVotes(vote: number) {
             //updatedPost.voteStatus = voteStatus + post
             setPostVote(vote)
           } else {
-            if (userVoteValue  === vote) {
+            if (userVoteValue === vote) {
               //updatedPost.voteStatus = voteStatus - post
-            setPostVote(-vote)
+            setPostVote(vote *= -1)
               batch.delete(userPostVotesDocRef);
 
               voteChange *= -1;
@@ -134,9 +134,6 @@ async function fetchVotes(vote: number) {
       }
     }
 
-  useEffect(() => {
-    
-  }, []);
 
   // useEffect(() => {
   //   async function updateData() {

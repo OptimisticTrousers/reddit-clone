@@ -76,8 +76,7 @@ const SinglePostPage = () => {
   useEffect(() => {
     const userPostsVoteRef = doc(
       db,
-      "users",
-      `/${getUserId()}/postVotes/${postId}`
+      `users/${getUserId()}/postVotes/${postId}`
     );
     getDoc(userPostsVoteRef)
       .then((postVotes) => {
@@ -86,12 +85,18 @@ const SinglePostPage = () => {
       .catch((error) => alert(`ERROR: ${error}`));
   }, [postId]);
 
+
   return (
     <Main>
       <div styleName="post-page__container">
         <div styleName="post-page__post">
           {data?.length !== 0 ? (
-            <Post data={data} userVoteValue={postVote?.data()?.voteValue} />
+            <Post data={data} 
+            
+            userVoteValue={postVote?.data()?.voteValue} 
+            
+              // userVoteValue={postVotes?.docs.find((vote: DocumentData) => vote.postId === doc.id)?.voteValue}
+            />
           ) : (
             <>
               <h2 styleName="post-page__text">
