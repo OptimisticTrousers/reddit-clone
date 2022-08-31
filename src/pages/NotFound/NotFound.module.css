@@ -1,0 +1,18 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+    color: var(--secondary-color);
+    height: 100%;
+    padding: 2rem;
+}
+
+.not-found__image {
+    border-radius: 9999px;
+}
+
+.not-found__title {
+
+}
