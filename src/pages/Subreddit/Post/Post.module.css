@@ -72,3 +72,9 @@ a {
     height: fit-content;
   }
 }
+
+@media(max-width: 370px) {
+  .post-excerpt, .post-excerpt-hover {
+    overflow-x: scroll;
+  }
+}
