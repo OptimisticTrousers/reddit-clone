@@ -100,7 +100,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
           >
             <Post
               key={doc.id}
-              userVoteValue={postVotes?.docs.find((vote: DocumentData) => vote.postId === doc.id)?.voteValue}
+              userVoteValue={postVotes?.docs.find((vote: DocumentData) => vote.data().postId === doc.id)?.voteValue}
               data={{ ...data, id: doc.id }}
             />
           </Link>

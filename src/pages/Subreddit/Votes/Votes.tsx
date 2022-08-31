@@ -86,16 +86,10 @@ async function fetchVotes(vote: number) {
             db,
             `users/${getUserId()}/postVotes/${postId}`
           );
-          const postVotesDocRef = doc(db, "posts", postId);
-
-          const userPostVotesDoc = await getDoc(userPostVotesDocRef);
 
           let voteChange = vote;
 
-          if (userVoteValue === undefined) {
-            const userPostVotesRef = doc(
-              db, `users/${getUserId()}/postVotes/${postId}`
-            );
+          if (!userVoteValue) {
 
             const newVote = {
               id: userPostVotesDocRef.id,
@@ -104,7 +98,7 @@ async function fetchVotes(vote: number) {
               voteValue: vote,
             };
 
-            batch.set(userPostVotesRef, newVote);
+            batch.set(userPostVotesDocRef, newVote);
 
             //updatedPost.voteStatus = voteStatus + post
             setPostVote(vote)
