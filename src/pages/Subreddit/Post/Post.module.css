@@ -55,6 +55,10 @@ a {
   color: var(--secondary-color);
 }
 
+.post-excerpt__overflow {
+  overflow-y: hidden;
+}
+
 .post__buttons {
 }
 

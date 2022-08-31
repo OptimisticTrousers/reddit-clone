@@ -95,7 +95,7 @@ const Post: React.FC<Props> = (props) => {
           <h3 styleName="post-excerpt__title">
             {props.data?.title ?? postData?.title}
           </h3>
-          <p styleName="post-excerpt__description">
+          <p styleName={`post-excerpt__description ${!postId && "post-excerpt__overflow"}`}>
             {props.data?.description ?? postData?.description}
           </p>
           <p styleName="post-excerpt__description">
