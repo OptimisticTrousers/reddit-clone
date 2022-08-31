@@ -141,7 +141,6 @@ const Header: React.FC<Props> = ({ subredditName }) => {
               <h2 styleName="header__subreddit-link">r/{subredditName}</h2>
             </div>
             <div styleName="header__buttons">
-              {/* <button styleName=assNames(s["header__button"], s["header__button_type"]>Join</button> */}
               <button
                 styleName="header__button"
                 onClick={

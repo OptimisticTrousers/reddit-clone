@@ -35,7 +35,6 @@ interface Props {
 const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
 
-  console.log(postId);
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
   const isLoggedIn = useAppSelector(selectAuthStatus)
@@ -48,8 +47,6 @@ const Post: React.FC<Props> = (props) => {
       const q = query(postDocRef, where("id", "==", postId));
 
       const postDoc = await getDocs(q);
-
-      // console.log(postDoc.data())
 
       setPostData(postDoc?.docs[0]?.data());
     }
