@@ -13,7 +13,7 @@ import { selectAuthStatus } from "../../features/auth/authSlice";
 const PostCreatorCard: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
   const { name } = useAppSelector(selectCommunityData);
 
   const navigate = useNavigate();
@@ -23,11 +23,11 @@ const PostCreatorCard: React.FC = () => {
   }
 
   function navigateToUser() {
-    navigate("/user")
+    navigate("/user");
   }
 
   function navigateToCreatePostPage() {
-    navigate(`/r/${name}/submit`)
+    navigate(`/r/${name}/submit`);
   }
   return (
     <>
@@ -37,6 +37,7 @@ const PostCreatorCard: React.FC = () => {
             <div
               styleName="post-creator-card__picture"
               onClick={navigateToUser}
+              data-testid="profile-picture"
             >
               <img
                 styleName="post-creator-card__profile-icon"
@@ -53,12 +54,15 @@ const PostCreatorCard: React.FC = () => {
             <button
               styleName="post-creator-card__icon-link"
               onClick={navigateToCreatePostPage}
+              title="navigate to CreatePostPage"
+              data-testid="picture-button"
             >
               <AiOutlinePicture styleName="post-creator-card__icon" />
             </button>
             <button
               styleName="post-creator-card__icon-link"
               onClick={navigateToCreatePostPage}
+              data-testid="link-button"
             >
               <BsLink45Deg styleName="post-creator-card__icon" />
             </button>
