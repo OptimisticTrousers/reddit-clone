@@ -19,15 +19,4 @@ describe("Modal", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
-  test("renders children", () => {
-    render(
-      <Modal>
-        <div>Mock Children</div>
-      </Modal>
-    );
-
-    const modal = screen.queryByText("Mock Children");
-
-    expect(modal?.textContent).toEqual("Mock Children");
-  });
 });
