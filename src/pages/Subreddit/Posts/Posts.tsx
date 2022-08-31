@@ -14,7 +14,7 @@ import {
 import { useEffect, useReducer, useState } from "react";
 import Post from "../Post/Post";
 import styles from "./Posts.module.css";
-import { db } from "../../../firebase";
+import { db, getUserId } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import CSSModules from "react-css-modules";
@@ -30,6 +30,8 @@ const Posts: React.FC<Props> = ({ posts }) => {
     undefined
   );
 
+  const [postVotes, setPostVotes] = useState<DocumentData | null>(null)
+
   const { subredditName } = useParams();
 
   const navigate = useNavigate();
@@ -38,6 +40,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
     if (!subredditName && posts !== undefined) return;
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
+      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
 
       const q = query(postsRef, orderBy("voteStatus", "desc"), limit(10))
 
@@ -51,6 +54,9 @@ const Posts: React.FC<Props> = ({ posts }) => {
           }
         })
         .catch((error) => alert(`ERROR: ${error}`));
+      getDocs(userPostsVoteRef).then((postVotes) => {
+        setPostVotes(postVotes)
+      }).catch((error) => alert(`ERROR: ${error}`))
     } else if (subredditName === undefined) {
       const postsRef = collection(db, "posts");
 
@@ -94,6 +100,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
           >
             <Post
               key={doc.id}
+              userVoteValue={postVotes?.docs.find((vote: DocumentData) => vote.postId === doc.id)?.voteValue}
               data={{ ...data, id: doc.id }}
             />
           </Link>

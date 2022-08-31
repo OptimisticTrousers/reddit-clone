@@ -13,15 +13,17 @@ import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 import { useEffect, useState } from "react";
 import {
   collection,
+  doc,
   DocumentData,
   DocumentReference,
+  getDoc,
   onSnapshot,
   Query,
   query,
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db, getUserId } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { setPostId } from "../../../features/post/postSlice";
 import NestedList from "../../../components/Skeletons/AvatarWithText";
@@ -48,6 +50,8 @@ const SinglePostPage = () => {
   const location = useLocation();
   const { postId } = useParams();
 
+  const [postVote, setPostVote] = useState<DocumentData | null>(null);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -69,12 +73,25 @@ const SinglePostPage = () => {
     });
   }, [postId, dispatch]);
 
+  useEffect(() => {
+    const userPostsVoteRef = doc(
+      db,
+      "users",
+      `/${getUserId()}/postVotes/${postId}`
+    );
+    getDoc(userPostsVoteRef)
+      .then((postVotes) => {
+        setPostVote(postVotes);
+      })
+      .catch((error) => alert(`ERROR: ${error}`));
+  }, [postId]);
+
   return (
     <Main>
       <div styleName="post-page__container">
         <div styleName="post-page__post">
           {data?.length !== 0 ? (
-            <Post data={data} />
+            <Post data={data} userVoteValue={postVote?.data()?.voteValue} />
           ) : (
             <>
               <h2 styleName="post-page__text">

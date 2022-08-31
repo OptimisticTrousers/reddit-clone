@@ -22,7 +22,7 @@ import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
 import { db, getUserId } from "../../../firebase";
 import { useEffect, useReducer, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   selectAuthStatus,
@@ -33,14 +33,12 @@ import { useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
   data: DocumentData;
+  userVoteValue: number;
 }
 
 const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
-
-  const location = useLocation();
-
-  console.log(location.pathname);
+  console.log(props)
 
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
@@ -86,12 +84,11 @@ const Post: React.FC<Props> = (props) => {
       styleName={postId ? "post-excerpt" : "post-excerpt-hover"}
       data-testid="post"
     >
-      {location.pathname !== "/user" && (
-        <Votes
-          voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
-          subredditId={props.data?.subredditId ?? postData?.subredditId}
-        />
-      )}
+      <Votes
+        voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
+        subredditId={props.data?.subredditId ?? postData?.subredditId}
+        userVoteValue={props.data?.voteValue ?? postData?.voteValue}
+      />
       <div styleName="post-excerpt__content">
         <PostAuthor
           subredditName={props.data?.subredditName ?? postData?.subredditName}
