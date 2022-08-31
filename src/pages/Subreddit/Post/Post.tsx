@@ -59,20 +59,22 @@ const Post: React.FC<Props> = (props) => {
     props.data ?? fetchPost();
   }, [postId, props.data]);
 
-  useEffect(() => {
-    async function fetchVote() {
-      if (!props.userVoteValue) {
-        const userPostVoteRef = doc(db, `users/${getUserId()}/postVotes/${postId}`);
+  // useEffect(() => {
+  //   async function fetchVote() {
+  //     if (!props.userVoteValue) {
+  //       const userPostVoteRef = doc(db, `users/${getUserId()}/postVotes/${( props.data.postId)}`);
 
-        const userPostVote= await getDoc(userPostVoteRef)
+  //       const userPostVote= await getDoc(userPostVoteRef)
 
-        setUserPostVote(userPostVote.data())
+  //       console.log(userPostVote)
 
-      }
-    }
+  //       setUserPostVote(userPostVote.data())
 
-    fetchVote();
-  }, [postId, props.userVoteValue]);
+  //     }
+  //   }
+
+  //   fetchVote();
+  // }, [postId, props.userVoteValue]);
 
   async function savePosts() {
     if (isLoggedIn) {

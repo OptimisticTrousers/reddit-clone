@@ -96,12 +96,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
       />
     );
   }
-  console.log(postVotes?.docs[0].data());
-  console.log(
-    postVotes?.docs.find(
-      (vote: any) => vote.data().postId === "sd8jSeV6QIQx6FFzmpsqY"
-    )
-  );
+
   return (
     <>
       {(posts ?? randomPosts)?.map((doc: DocumentData) => {
@@ -110,16 +105,16 @@ const Posts: React.FC<Props> = ({ posts }) => {
           <Link
             key={doc.id}
             to={`/r/${data.subredditName}/comments/${doc.id}`}
-            state={{ ...data }}
+            state={{ ...data, id: doc.id }}
           >
             <Post
               key={doc.id}
-              // userVoteValue={0}
-              userVoteValue={
-                postVotes?.docs.find(
-                  (doc: DocumentData) => doc.data().postId === doc.id
-                )?.voteValue
-              }
+              // // userVoteValue={0}
+              // userVoteValue={
+              //   postVotes?.docs.find(
+              //     (doc: DocumentData) => doc.data().postId === doc.id
+              //   )?.voteValue
+              // }
               data={{ ...data, id: doc.id }}
             />
           </Link>
