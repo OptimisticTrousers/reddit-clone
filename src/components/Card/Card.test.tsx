@@ -12,16 +12,4 @@ describe("Card", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
-
-  test("renders children", () => {
-    render(
-      <Card>
-        <div>Mock Children</div>
-      </Card>
-    );
-
-    const card = screen.getByText("Mock Children");
-
-    expect(card.textContent).toBe("Mock Children");
-  });
 });
