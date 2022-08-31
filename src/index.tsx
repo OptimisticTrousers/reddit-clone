@@ -11,6 +11,7 @@ import StoreProvider from "./redux/provider";
 import SinglePostPage from "./pages/Subreddit/SinglePostPage/SinglePostPage";
 import FetchSubredditData from "./pages/Subreddit/FetchSubredditData/FetchSubredditData";
 import Profile from "./pages/Profile/Profile";
+import NotFound from "./pages/NotFound/NotFound";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -30,6 +31,7 @@ root.render(
                 <Route path="submit" element={<CreatePost />} />
               </Route>
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
