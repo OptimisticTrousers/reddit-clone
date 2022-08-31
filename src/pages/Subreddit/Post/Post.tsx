@@ -20,11 +20,14 @@ import {
 } from "firebase/firestore";
 import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
-import { db, getUserId} from "../../../firebase";
+import { db, getUserId } from "../../../firebase";
 import { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { selectAuthStatus, toggleSignInModal } from "../../../features/auth/authSlice";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
 
@@ -37,7 +40,7 @@ const Post: React.FC<Props> = (props) => {
 
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -76,7 +79,7 @@ const Post: React.FC<Props> = (props) => {
   }
   return (
     <div
-      styleName={postId ? "post-excerpt": "post-excerpt-hover" }
+      styleName={postId ? "post-excerpt" : "post-excerpt-hover"}
       data-testid="post"
     >
       {postId && (
@@ -95,21 +98,26 @@ const Post: React.FC<Props> = (props) => {
           <h3 styleName="post-excerpt__title">
             {props.data?.title ?? postData?.title}
           </h3>
-          <p styleName={`post-excerpt__description ${!postId && "post-excerpt__overflow"}`}>
+          <p
+            styleName={`post-excerpt__description ${
+              !postId && "post-excerpt__overflow"
+            }`}
+          >
             {props.data?.description ?? postData?.description}
           </p>
           <p styleName="post-excerpt__description">
             {props.data?.link ?? postData?.link}
           </p>
-          {props.data?.imageURL && (
-            <div styleName="post-excerpt__image-container">
-              <img
-                styleName="post-excerpt__image"
-                src={postData?.imageURL || props.data?.imageURL}
-                alt="post"
-              />
-            </div>
-          )}
+          {props.data?.imageURL ||
+            (postData?.imageURL && (
+              <div styleName="post-excerpt__image-container">
+                <img
+                  styleName="post-excerpt__image"
+                  src={postData?.imageURL || props.data?.imageURL}
+                  alt="post"
+                />
+              </div>
+            ))}
         </div>
         <div styleName="post__buttons">
           <div styleName="post-excerpt__divider"></div>
