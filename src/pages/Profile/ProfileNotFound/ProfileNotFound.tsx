@@ -1,6 +1,6 @@
 import CSSModules from "react-css-modules";
 import Reddit from "../../../components/Skeletons/Reddit";
-import TaskList from "../../../components/Skeletons/TakeList";
+import TaskList from "../../../components/Skeletons/TaskList";
 import styles from "./ProfileNotFound.module.css";
 
 interface Props {

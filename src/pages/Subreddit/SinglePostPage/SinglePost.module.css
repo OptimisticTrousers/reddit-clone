@@ -12,6 +12,10 @@
   all: unset;
   background-color: red;
 }
+
+.post-page__text {
+  text-align: center;
+}
 .post-page__container {
 }
 

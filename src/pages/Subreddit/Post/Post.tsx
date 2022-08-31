@@ -51,7 +51,7 @@ const Post: React.FC<Props> = (props) => {
 
       // console.log(postDoc.data())
 
-      setPostData(postDoc.docs[0].data());
+      setPostData(postDoc?.docs[0]?.data());
     }
 
     props.data ?? fetchPost();

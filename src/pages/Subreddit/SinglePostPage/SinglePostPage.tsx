@@ -4,7 +4,7 @@ import PostAuthor from "../PostAuthor/PostAuthor";
 import PostInteractions from "../PostInteractions/PostInteractions";
 import Votes from "../Votes/Votes";
 import styles from "./SinglePost.module.css";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Location } from "react-router-dom";
 import CommentsSection from "../CommentsSection/CommentsSection";
 import CSSModules from "react-css-modules";
@@ -22,13 +22,14 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { useAppDispatch } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { setPostId } from "../../../features/post/postSlice";
 import NestedList from "../../../components/Skeletons/AvatarWithText";
 import Reddit from "../../../components/Skeletons/Reddit";
 import UpworkJobLoader from "../../../components/Skeletons/UpworkJobLoader";
 import Main from "../../../layouts/Main/Main";
 import Aside from "../../../layouts/Aside/Aside";
+import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 
 type LocationState = {
   title: string;
@@ -47,8 +48,11 @@ const SinglePostPage = () => {
   const { postId } = useParams();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const data = location.state as LocationState;
+
+  const { subredditName } = useAppSelector(selectCommunityData);
 
   const [comments, setComments] = useState<DocumentData | undefined>(undefined);
 
@@ -64,20 +68,31 @@ const SinglePostPage = () => {
     });
   }, [postId, dispatch]);
 
+  if (!data) {
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  }
+
   return (
     <Main>
       <div styleName="post-page__container">
         <div styleName="post-page__post">
-          {comments ? (
+          {data ? (
             <Post data={data} />
           ) : (
-            <UpworkJobLoader
-              width={700}
-              height={134}
-              animate={true}
-              backgroundColor={"#333"}
-              foregroundColor={"#999"}
-            />
+            <>
+              <h2 styleName="post-page__text">
+                hmm...this post doesn't seem to exist, redirecting...
+              </h2>
+              <UpworkJobLoader
+                width={700}
+                height={134}
+                animate={true}
+                backgroundColor={"#333"}
+                foregroundColor={"#999"}
+              />
+            </>
           )}
         </div>
         <div styleName="post-page__comments">
