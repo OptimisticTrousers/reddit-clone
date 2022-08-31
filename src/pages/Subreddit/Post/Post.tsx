@@ -55,7 +55,7 @@ const Post: React.FC<Props> = (props) => {
     }
 
     props.data ?? fetchPost();
-  }, []);
+  }, [postId, props.data]);
 
   async function savePosts() {
     if (isLoggedIn) {

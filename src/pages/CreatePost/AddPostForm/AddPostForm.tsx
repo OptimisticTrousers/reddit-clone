@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { db, getUserId, getUserName} from "../../../firebase";
+import { db, getUserId, getUserName } from "../../../firebase";
 import styles from "./AddPostForm.module.css";
 import { nanoid } from "nanoid";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
@@ -42,7 +42,7 @@ const AddPostForm: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState("post");
 
   const { id, name } = useAppSelector(selectCommunityData);
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -106,7 +106,7 @@ const AddPostForm: React.FC = () => {
           });
         }
 
-        navigate(`/r/${name}/comments/${postDocRef.id}`);
+        navigate(`/r/${name}/comments/${postId}`);
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
