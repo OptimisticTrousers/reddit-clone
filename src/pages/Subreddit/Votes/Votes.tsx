@@ -1,6 +1,13 @@
 import styles from "./Votes.module.css";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
-import React, { MouseEventHandler, useCallback, useEffect, useReducer, useState } from "react";
+import React, {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import CSSModules from "react-css-modules";
 import {
   selectAuthStatus,
@@ -35,17 +42,15 @@ import { toggleCommunityModalState } from "../../../features/subreddit/subreddit
 interface Props {
   voteStatus: number;
   subredditId: string;
-  userVoteValue: number;
+  postId: string;
 }
 
-type Event = React.MouseEvent<HTMLImageElement, MouseEvent>
+type Event = React.MouseEvent<HTMLImageElement, MouseEvent>;
 
-const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
-  console.log("GEE", userVoteValue)
+const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
   const [postVote, setPostVote] = useState<number>(voteStatus);
-  const [vote, setVote] = useState((userVoteValue ?? 0));
-
-  const postId = useAppSelector(selectPostId);
+  const [vote, setVote] = useState<number | undefined>(undefined);
+  const voteRef = useRef<number | undefined>(undefined);
 
   const params = useParams();
 
@@ -58,25 +63,26 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
 
       const userPostVotesRef = doc(
         db,
-        `users/${getUserId()}/postVotes/${postId}`
+        "users",
+        `${getUserId()}/postVotes/${postId}`
       );
 
-      const postRef = doc(db, `posts/${postId}`);
+      const postRef = doc(db, "posts", `${postId}`);
       const newVote = {
         id: userPostVotesRef.id,
         postId,
         subredditId,
-        voteValue: vote,
+        voteValue: vote!,
       };
 
       batch.set(userPostVotesRef, newVote);
 
-      batch.update(postRef, { voteStatus: voteStatus + vote });
+      batch.update(postRef, { voteStatus: voteStatus + vote! });
       await batch.commit();
     } catch (error) {
       console.log(`ERROR: ${error}`);
     }
-  }, [postId, subredditId, vote, voteStatus])
+  }, [postId, subredditId, vote, voteStatus]);
 
   function handleUpvote(event: Event) {
     event.preventDefault();
@@ -85,6 +91,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
       return;
     }
     setVote((prevVote) => {
+      if (prevVote === undefined) return;
       if (prevVote === 1) {
         return prevVote - 1;
       } else if (prevVote === -1) {
@@ -101,6 +108,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
       return;
     }
     setVote((prevVote) => {
+      if (prevVote === undefined) return;
       if (prevVote === -1) {
         return prevVote + 1;
       } else if (prevVote === 1) {
@@ -111,8 +119,23 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
   }
 
   useEffect(() => {
-    makeVote();
-  }, [vote, makeVote])
+    async function fetchVote() {
+      const userPostVotesRef = doc(
+        db,
+        "users",
+        `${getUserId()}/postVotes/${postId}`
+      );
+
+      const userPostVotes = await getDoc(userPostVotesRef);
+
+      setVote(userPostVotes.data()?.voteValue);
+    }
+    if (vote === undefined) {
+      fetchVote();
+    } else {
+      makeVote();
+    }
+  }, [vote, makeVote, postId]);
   // async function fetchVotes(vote: number) {
   //   if (!isLoggedIn) dispatch(toggleSignInModal());
 
@@ -255,7 +278,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, userVoteValue }) => {
           (vote === -1 && "votes__likes--downvote")
         }`}
       >
-        {voteStatus + vote}
+        {voteStatus + (vote ?? 0)}
       </p>
       <div styleName="votes__vote">
         <img
