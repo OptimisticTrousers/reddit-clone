@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
-import { db, getUserId, getUserName} from "../../../firebase";
+import { db, getUserId, getUserName } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Comments from "../Comments/Comments";
 import {
@@ -37,7 +37,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const [commentText, setCommentText] = useState("");
 
   const { id } = useAppSelector(selectCommunityData);
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const dispatch = useAppDispatch();
 
@@ -118,7 +118,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
       </div>
 
       {comments ? (
-        <Comments comments={comments} postId={postId} renderInteractions={true}/>
+        <Comments comments={comments} />
       ) : (
         <div styleName="comments-section__skeletons">
           <div>

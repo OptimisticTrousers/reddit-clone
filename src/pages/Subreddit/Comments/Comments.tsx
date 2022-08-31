@@ -16,32 +16,29 @@ import { db, getUser, getUserName } from "../../../firebase";
 import CSSModules from "react-css-modules";
 import EmptyComments from "../EmptyComments/EmptyComments";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Props {
   comments: DocumentData | undefined;
-  postId: string | undefined;
-  renderInteractions?: boolean;
-  renderCommentPost?: boolean;
+  commentsPostId?: string;
 }
 
 const Comments: React.FC<Props> = ({
   comments,
-  postId,
-  renderInteractions,
-  renderCommentPost,
+  commentsPostId
 }) => {
   const [postTitle, setPostTitle] = useState();
   const [subredditName, setSubredditName] = useState();
   const [postCreator, setPostCreator] = useState();
   const navigate = useNavigate();
 
+  const {postId} = useParams();
+
   useEffect(() => {
     async function fetchPosts() {
       try {
-        if (renderCommentPost) {
-          if (postId) {
-            const postsDocRef = doc(db, "posts", postId);
+          if (postId || commentsPostId) {
+            const postsDocRef = doc(db, "posts", (postId || commentsPostId)!);
 
             const postsDoc = await getDoc(postsDocRef);
 
@@ -51,16 +48,15 @@ const Comments: React.FC<Props> = ({
             setSubredditName(docData?.subredditName);
             setPostCreator(docData?.userName);
           }
-        }
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
     }
     fetchPosts();
-  }, [postId, renderCommentPost]);
+  }, [postId, commentsPostId]);
 
   function navigateToPost() {
-    navigate(`/r/${subredditName}/comments/${postId}`);
+    navigate(`/r/${subredditName}/comments/${commentsPostId}`);
   }
 
   const renderedComments = comments?.map((doc: DocumentData) => {
@@ -72,7 +68,7 @@ const Comments: React.FC<Props> = ({
     }
     return (
       <>
-        {renderCommentPost && (
+        {commentsPostId && (
           <div styleName="comments__description" onClick={navigateToPost}>
             <p styleName="comments__user">{getUserName()}</p>
             <span styleName="comments__description">{`commented on '${postTitle}'`}</span>
@@ -81,7 +77,7 @@ const Comments: React.FC<Props> = ({
           </div>
         )}
         <Comment key={doc?.id} comment={docData}>
-          {renderInteractions && (
+          {postId && (
             <CommentInteractions
               postId={postId}
               voteStatus={docData?.voteStatus}

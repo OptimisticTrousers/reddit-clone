@@ -154,6 +154,7 @@ const Profile: React.FC = () => {
       }
     }
      }
+     fetchComments();
   }, []);
 
   useEffect(() => {
@@ -231,8 +232,7 @@ const Profile: React.FC = () => {
             <Card>
               <Comments
                 comments={userComments}
-                postId={commentsPostId}
-                renderCommentPost={true}
+                commentsPostId={commentsPostId}
               />
             </Card>
           )}
