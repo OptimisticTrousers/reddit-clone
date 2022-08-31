@@ -62,6 +62,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
 
       const q = query(postsRef, where("subredditName", "==", subredditName));
 
+      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`)
       getDocs(q)
         .then((posts) => {
           if (posts) {
@@ -74,6 +75,9 @@ const Posts: React.FC<Props> = ({ posts }) => {
           }
         })
         .catch((error) => alert(`ERROR: ${error}`));
+      getDocs(userPostsVoteRef).then((postVotes) => {
+        setPostVotes(postVotes)
+      }).catch((error) => alert(`ERROR: ${error}`))
     }
   }, [posts, subredditName, navigate]);
 

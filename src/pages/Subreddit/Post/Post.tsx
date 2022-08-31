@@ -38,7 +38,6 @@ interface Props {
 
 const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
-  console.log(props)
 
   const [postData, setPostData] = useState<DocumentData | undefined>();
 
@@ -80,7 +79,6 @@ const Post: React.FC<Props> = (props) => {
     }
   }
 
-  console.log(postData?.voteValue ?? props?.userVoteValue)
   return (
     <div
       styleName={postId ? "post-excerpt" : "post-excerpt-hover"}
