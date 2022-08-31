@@ -131,7 +131,7 @@ const AddPostForm: React.FC = () => {
           subreddit
         </div>
         <p styleName="post-creator__subreddit-description">
-          Description: {communityDescription}
+          Subreddit Description: {communityDescription}
         </p>
       </div>
       <div styleName="post-creator__form">
