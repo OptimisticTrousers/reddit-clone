@@ -116,7 +116,7 @@ const AuthModal: React.FC = () => {
     <Modal>
       <div styleName="sign-up-modal">
         <div styleName="sign-up-modal__container">
-          <button styleName="sign-up-modal__exit" onClick={handleModalExit}>
+          <button styleName="sign-up-modal__exit" onClick={handleModalExit} data-testid="exit-button">
             <img
               styleName="sign-up-modal__exit-icon"
               src={exitIcon}

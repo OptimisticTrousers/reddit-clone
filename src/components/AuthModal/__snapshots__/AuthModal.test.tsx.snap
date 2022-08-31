@@ -13,6 +13,7 @@ exports[`AuthModal snapshot 1`] = `
       >
         <button
           class="sign-up-modal__exit"
+          data-testid="exit-button"
         >
           <img
             alt="exit button for modal"
@@ -82,8 +83,9 @@ exports[`AuthModal snapshot 1`] = `
             </div>
             <input
               class="sign-up-modal__input"
-              placeholder="USERNAME"
+              placeholder="EMAIL"
               required=""
+              type="email"
               value=""
             />
             <input
@@ -102,7 +104,7 @@ exports[`AuthModal snapshot 1`] = `
             <div
               class="sign-up-modal__bottom-text-container"
             >
-              <a
+              <button
                 class="sign-up-modal__bottom-text"
               />
             </div>

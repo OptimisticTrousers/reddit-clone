@@ -3,6 +3,7 @@ import {
   getByPlaceholderText,
   queryByPlaceholderText,
   queryByRole,
+  queryByTestId,
   render,
   screen,
 } from "@testing-library/react";
@@ -22,14 +23,42 @@ describe("AuthModal", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
-  test("user can correctly enter into the input fields", async () => {
+  test("user can exit modal", async () => {
+    const mockSignInModalState = jest.fn().mockReturnValue(true);
+
+    const mockAppDispatch = jest.fn();
+
+    jest.mock("../../hooks/hooks", () => ({
+      ...jest.requireActual("../../hooks/hooks"),
+      useAppSelector: () => mockSignInModalState,
+      useAppDispatch: () => mockAppDispatch,
+    }));
+
     render(
       <StoreProvider>
         <AuthModal />
       </StoreProvider>
     );
 
-    const user = userEvent.setup();
+    const exitButton = screen.queryByTestId("exit-button");
+
+    await userEvent.click(exitButton as HTMLButtonElement);
+
+    expect(mockAppDispatch).toHaveBeenCalledTimes(1);
+  });
+  test("user can correctly enter into the input fields", async () => {
+    const mockSignInModalState = jest.fn().mockReturnValue(true);
+
+    jest.mock("../../hooks/hooks", () => ({
+      ...jest.requireActual("../../hooks/hooks"),
+      useAppSelector: () => mockSignInModalState,
+    }));
+
+    render(
+      <StoreProvider>
+        <AuthModal />
+      </StoreProvider>
+    );
 
     const emailInput = screen.queryByPlaceholderText(
       "EMAIL"
@@ -44,10 +73,10 @@ describe("AuthModal", () => {
       "CONFIRM PASSWORD"
     ) as HTMLInputElement;
 
-    await user.type(emailInput, "bobjones@gmail.com");
-    await user.type(userNameInput, "bobjones123");
-    await user.type(passwordInput, "locospollos");
-    await user.type(confirmPasswordInput, "locospollos");
+    await userEvent.type(emailInput, "bobjones@gmail.com");
+    await userEvent.type(userNameInput, "bobjones123");
+    await userEvent.type(passwordInput, "locospollos");
+    await userEvent.type(confirmPasswordInput, "locospollos");
 
     expect(emailInput.textContent).toEqual("bobjones@gmail.com");
     expect(userNameInput.textContent).toEqual("bobjones123");
@@ -78,9 +107,7 @@ describe("AuthModal", () => {
   });
   test("email and pasword auth", async () => {
     const user = userEvent.setup();
-    const emailInput = screen.queryByPlaceholderText(
-      "EMAIL"
-    ) as HTMLElement ;
+    const emailInput = screen.queryByPlaceholderText("EMAIL") as HTMLElement;
     const userNameInput = screen.queryByPlaceholderText(
       "USERNAME"
     ) as HTMLInputElement;

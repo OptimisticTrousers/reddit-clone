@@ -62,13 +62,7 @@ describe("PostCreatorCard", () => {
     expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
   test("user is directed to AddPostForm page on image and link click", async () => {
-    render(
-      <BrowserRouter>
-        <StoreProvider>
-          <PostCreatorCard />
-        </StoreProvider>
-      </BrowserRouter>
-    );
+
 
     const mockNavigate = jest.fn();
 
@@ -76,6 +70,13 @@ describe("PostCreatorCard", () => {
       ...jest.requireActual("react-router-dom") as any,
       useNavigate: () => mockNavigate,
     }));
+    render(
+      <BrowserRouter>
+        <StoreProvider>
+          <PostCreatorCard />
+        </StoreProvider>
+      </BrowserRouter>
+    );
     const gallaryButton = screen.queryByTestId("picture-button");
     const linkButton = screen.queryByTestId("link-button");
 
