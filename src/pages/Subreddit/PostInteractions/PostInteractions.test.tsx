@@ -8,7 +8,7 @@ import Post from "../Post/Post";
 
 describe("PostInteractions", () => {
   test("snapshot", () => {
-    const { asFragment } = render(<PostInteractions commentsQuantity={0}/>);
+    const { asFragment } = render(<PostInteractions commentsQuantity={0} postId="mock post id"/>);
 
     expect(asFragment()).toMatchSnapshot();
   });

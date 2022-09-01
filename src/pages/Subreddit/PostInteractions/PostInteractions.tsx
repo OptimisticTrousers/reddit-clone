@@ -3,42 +3,102 @@ import { BiMessage } from "react-icons/bi";
 import styles from "./PostInteractions.module.css";
 import { IoMdShareAlt } from "react-icons/io";
 import { FaRegBookmark } from "react-icons/fa";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { selectAuthStatus, toggleSignInModal } from "../../../features/auth/authSlice";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
+import {
+  doc,
+  setDoc,
+  serverTimestamp,
+  collection,
+  addDoc,
+  where,
+  query,
+  getDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { nanoid } from "nanoid";
-import { db } from "../../../firebase";
+import { db, getUser, getUserId } from "../../../firebase";
 
 interface Props {
   commentsQuantity: number;
-  postId: string;
+  postId: string | undefined;
 }
 
-const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId}) => {
-
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
+  const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useAppDispatch();
-  async function savePosts() {
-    if (!isLoggedIn) {
+
+  const [saveButtonText, setSaveButtonText] = useState("Save");
+
+  async function savePost() {
+    if (!isLoggedIn || !postId) {
       dispatch(toggleSignInModal());
       return;
     }
 
     try {
-      const docId = nanoid();
-
+      const docId = `${getUserId()}${postId}`;
       const savedPostsRef = doc(db, "savedPosts", docId);
 
       await setDoc(savedPostsRef, {
         id: docId,
         postId,
         savedAt: serverTimestamp(),
+        userId: getUserId(),
       });
+      setSaveButtonText("Saved");
     } catch (error) {
       console.log(`ERROR: ${error}`);
     }
   }
+
+  async function unSavePost() {
+    if (!isLoggedIn || !postId) {
+      dispatch(toggleSignInModal());
+      return;
+    }
+
+    try {
+      const savedPostDocRef = doc(db, "savedPosts", `${getUserId()}${postId}`);
+
+      await deleteDoc(savedPostDocRef);
+
+      setSaveButtonText("Save");
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  }
+
+  useEffect(() => {
+    async function fetchSaveStatus() {
+      if (!isLoggedIn || !postId) {
+        dispatch(toggleSignInModal());
+        return;
+      }
+
+      try {
+        const savedPostDocRef = doc(
+          db,
+          "savedPosts",
+          `${getUserId()}${postId}`
+        );
+
+        const savedPostDoc = await getDoc(savedPostDocRef);
+
+        if (savedPostDoc.exists()) {
+          setSaveButtonText("Saved");
+        }
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+    fetchSaveStatus();
+  }, [postId, dispatch, isLoggedIn]);
   return (
     <div styleName="post-excerpt__interactions">
       <div styleName="post-excerpt__interaction">
@@ -53,7 +113,12 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId}) => {
       </div>
       <div styleName="post-excerpt__interaction">
         <FaRegBookmark styleName="post-excerpt__icon" />
-        <span styleName="post-excerpt__action">Save</span>
+        <span
+          styleName="post-excerpt__action"
+          onClick={saveButtonText === "Save" ? savePost : unSavePost}
+        >
+          {saveButtonText}
+        </span>
       </div>
     </div>
   );
