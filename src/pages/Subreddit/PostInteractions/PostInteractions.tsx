@@ -36,7 +36,7 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
   const [saveButtonText, setSaveButtonText] = useState("Save");
 
   async function savePost() {
-    if (!isLoggedIn || !postId) {
+    if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;
     }
@@ -58,7 +58,7 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
   }
 
   async function unSavePost() {
-    if (!isLoggedIn || !postId) {
+    if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;
     }
@@ -100,7 +100,10 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
     fetchSaveStatus();
   }, [postId, dispatch, isLoggedIn]);
   return (
-    <div styleName="post-excerpt__interactions">
+    <div
+      styleName="post-excerpt__interactions"
+      onClick={(e) => e.preventDefault()}
+    >
       <div styleName="post-excerpt__interaction">
         <BiMessage styleName="post-excerpt__icon" />
         <span styleName="post-excerpt__action">

@@ -23,7 +23,7 @@ import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
 import { db, getUserId } from "../../../firebase";
 import { useEffect, useReducer, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   selectAuthStatus,
@@ -45,6 +45,7 @@ const Post: React.FC<Props> = (props) => {
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     async function fetchPost() {
@@ -59,7 +60,6 @@ const Post: React.FC<Props> = (props) => {
 
     props.data ?? fetchPost();
   }, [postId, props.data]);
-
 
   return (
     <div
@@ -104,12 +104,14 @@ const Post: React.FC<Props> = (props) => {
         </div>
         <div styleName="post__buttons">
           <div styleName="post-excerpt__divider"></div>
-          <PostInteractions
-            commentsQuantity={
-              props.data?.commentsQuantity ?? postData?.commentsQuantity
-            }
-            postId={postId}
-          />
+          {location.pathname !== "/user" && (
+            <PostInteractions
+              commentsQuantity={
+                props.data?.commentsQuantity ?? postData?.commentsQuantity
+              }
+              postId={postId}
+            />
+          )}
         </div>
       </div>
     </div>
