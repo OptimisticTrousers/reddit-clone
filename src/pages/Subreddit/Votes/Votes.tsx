@@ -77,8 +77,8 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
 
       batch.set(userPostVotesRef, newVote);
 
-      if (vote) {
-        batch.update(postRef, { voteStatus: voteStatus + vote - vote! });
+      if (vote === 1 || vote === -1) {
+        batch.update(postRef, { voteStatus: voteStatus + vote! });
       }
       await batch.commit();
     } catch (error) {
