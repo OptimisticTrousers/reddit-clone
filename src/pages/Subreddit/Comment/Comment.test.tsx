@@ -12,6 +12,8 @@ describe("Comment", () => {
       comment: {
         content: "this is a mock comment",
       },
+      id: "bob",
+      postId: "bob jones"
     };
     const { asFragment } = render(
       <Comment {...mockProps}>
@@ -29,6 +31,8 @@ describe("Comment", () => {
           seconds: 1662025359,
         },
       },
+      id: "bob",
+      postId: "bob jones"
     };
     render(
       <Comment {...mockProps}>
@@ -49,6 +53,8 @@ describe("Comment", () => {
         },
         userName: "bob jones"
       },
+      id: "bob",
+      postId: "bob jones"
     };
     jest.mock("../../../firebase", () => ({
       ...jest.requireActual("../../../firebase"),

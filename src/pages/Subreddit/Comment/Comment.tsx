@@ -22,7 +22,7 @@ import styles from "./Comment.module.css";
 interface Props {
   comment: DocumentData;
   children: JSX.Element | JSX.Element[];
-  postId: string;
+  postId: string | undefined;
   id: string;
 }
 
