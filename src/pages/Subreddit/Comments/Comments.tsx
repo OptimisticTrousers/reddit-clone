@@ -73,7 +73,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
             <span styleName="comments__description">{postCreator}</span>
           </div>
         )}
-        <Comment key={doc?.id} comment={docData}>
+        <Comment key={doc?.id} comment={docData} postId={postId} id={doc?.id}>
           <CommentInteractions
             postId={postId}
             voteStatus={docData?.voteStatus}

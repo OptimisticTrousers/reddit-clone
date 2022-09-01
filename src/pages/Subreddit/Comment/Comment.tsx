@@ -1,17 +1,82 @@
-import { DocumentData } from "firebase/firestore";
+import {
+  doc,
+  DocumentData,
+  increment,
+  serverTimestamp,
+  setDoc,
+  writeBatch,
+} from "firebase/firestore";
 import moment from "moment";
-import React, { useEffect } from "react";
+import { nanoid } from "nanoid";
+import React, { useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
-import { getUserName } from "../../../firebase";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
+import { db, getUserId, getUserName } from "../../../firebase";
+import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
 import styles from "./Comment.module.css";
 
 interface Props {
   comment: DocumentData;
-  children: JSX.Element | JSX.Element[]
+  children: JSX.Element | JSX.Element[];
+  postId: string;
+  id: string;
 }
 
-const Comment: React.FC<Props> = ({ comment, children }) => {
+const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
+  const isLoggedIn = useAppSelector(selectAuthStatus);
+  const dispatch = useAppDispatch();
+  const [childCommentText, setChildCommentText] = useState("");
+  const onDeleteComment = async () => {
+    try {
+      if (postId) {
+        const batch = writeBatch(db);
+
+        const commentDocRef = doc(db, "comments", id);
+
+        batch.delete(commentDocRef);
+
+        const postDocRef = doc(db, "posts", postId);
+        batch.update(postDocRef, {
+          numberOfComments: increment(-1),
+        });
+
+        await batch.commit();
+      }
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
+
+  const onReply = async () => {
+    if (!isLoggedIn) {
+      dispatch(toggleSignInModal());
+      return;
+    }
+
+    if (!postId) return;
+
+    const parentRef = doc(db, "comments", postId);
+
+    const docId = nanoid();
+    const newCommentRef = doc(db, "comments", docId);
+
+    await setDoc(newCommentRef, {
+      content: childCommentText,
+      createdAt: serverTimestamp(),
+      id: docId,
+      subredditId: id,
+      parentId: parentRef.id,
+      postId,
+      updatedAt: serverTimestamp(),
+      userName: getUserName(),
+      userId: getUserId(),
+      voteStatus: 0,
+    });
+  };
 
   return (
     <div styleName="comment">

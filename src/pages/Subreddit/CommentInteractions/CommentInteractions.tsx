@@ -29,56 +29,6 @@ interface Props {
 }
 
 const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
-  const isLoggedIn = useAppSelector(selectAuthStatus);
-  const dispatch = useAppDispatch();
-  const [childCommentText, setChildCommentText] = useState("");
-  const onDeleteComment = async () => {
-    try {
-      if (postId) {
-        const batch = writeBatch(db);
-
-        const commentDocRef = doc(db, "comments", id);
-
-        batch.delete(commentDocRef);
-
-        const postDocRef = doc(db, "posts", postId);
-        batch.update(postDocRef, {
-          numberOfComments: increment(-1),
-        });
-
-        await batch.commit();
-      }
-    } catch (error) {
-      console.log(`ERROR: ${error}`);
-    }
-  };
-
-  const onReply = async () => {
-    if (!isLoggedIn) {
-      dispatch(toggleSignInModal());
-      return;
-    }
-
-    if (!postId) return;
-
-    const parentRef = doc(db, "comments", postId);
-
-    const docId = nanoid();
-    const newCommentRef = doc(db, "comments", docId);
-
-    await setDoc(newCommentRef, {
-      content: childCommentText,
-      createdAt: serverTimestamp(),
-      id: docId,
-      subredditId: id,
-      parentId: parentRef.id,
-      postId,
-      updatedAt: serverTimestamp(),
-      userName: getUserName(),
-      userId: getUserId(),
-      voteStatus: 0,
-    });
-  };
   return (
     <div styleName="interactions">
       <BiUpvote styleName="interactions__icon" />
@@ -92,7 +42,7 @@ const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
       <button styleName="interactions__button">Report</button>
       <button styleName="interactions__button">Save</button>
       <button styleName="interactions__button">Follow</button>
-      <button styleName="interactions__button" onClick={onDeleteComment}>
+      <button styleName="interactions__button" >
         Delete
       </button>
     </div>

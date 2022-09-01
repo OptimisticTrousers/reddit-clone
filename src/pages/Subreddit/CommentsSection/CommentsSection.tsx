@@ -126,7 +126,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
             </a>
           </div>
       {comments ? (
-        <Comments comments={comments} />
+        <Comments comments={comments} commentsPostId={postId}/>
       ) : (
         <div styleName="comments-section__skeletons">
           <div>
