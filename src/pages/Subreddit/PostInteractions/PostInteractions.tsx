@@ -110,10 +110,10 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
           {commentsQuantity} Comments
         </span>
       </div>
-      {/* <div styleName="post-excerpt__interaction">
+      <div styleName="post-excerpt__interaction">
         <IoMdShareAlt styleName="post-excerpt__icon" />
         <span styleName="post-excerpt__action">Share</span>
-      </div> */}
+      </div>
       <div styleName="post-excerpt__interaction">
         <FaRegBookmark styleName="post-excerpt__icon" />
         <span
