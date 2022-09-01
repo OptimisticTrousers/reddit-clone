@@ -13,7 +13,7 @@ describe("PostInteractions", () => {
     expect(asFragment()).toMatchSnapshot();
   });
   each([39, 251, 100, 512, 21, 51, 12, 1]).test("renders number of comments correctly", (a) => {
-    render(<PostInteractions commentsQuantity={a} />)
+    render(<PostInteractions commentsQuantity={a} postId="mock post id"/>)
 
     const commentsQuantityText = screen.queryByText(`${a} Comments`)
 
