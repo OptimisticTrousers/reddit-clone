@@ -244,9 +244,21 @@ const Profile: React.FC = () => {
 
         const q = query(savedPostsRef, where("userId", "==", getUserId()));
 
-        const savedPosts = await getDocs(q);
+        const { docs } = await getDocs(q);
 
-        setSavedPosts(savedPosts.docs);
+        const newDocs = docs.map(async (document: DocumentData) => {
+          const postId = document.data().postId;
+
+          const postRef = doc(db, "posts", postId);
+
+          const data = await getDoc(postRef);
+
+          return data;
+        });
+
+        const resolvedData = await Promise.all(newDocs);
+
+        setSavedPosts(resolvedData);
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
