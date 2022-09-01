@@ -137,8 +137,8 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
           if (!userPostVotes.exists()) {
             setVote(0);
           } else if (
-            post.data()?.voteStatus ===
-            voteStatus + userPostVotes.data().voteValue
+            userPostVotes.data().voteValue === -1 ||
+            userPostVotes.data().voteValue === 1
           ) {
             setVote(userPostVotes.data()?.voteValue);
           }
