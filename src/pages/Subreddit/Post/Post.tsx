@@ -59,26 +59,7 @@ const Post: React.FC<Props> = (props) => {
 
     props.data ?? fetchPost();
   }, [postId, props.data]);
-  async function savePosts() {
-    if (!isLoggedIn) {
-      dispatch(toggleSignInModal());
-      return;
-    }
 
-    try {
-      const docId = nanoid();
-
-      const savedPostsRef = doc(db, "savedPosts", docId);
-
-      await setDoc(savedPostsRef, {
-        id: docId,
-        postId,
-        savedAt: serverTimestamp(),
-      });
-    } catch (error) {
-      console.log(`ERROR: ${error}`);
-    }
-  }
 
   return (
     <div
@@ -127,6 +108,7 @@ const Post: React.FC<Props> = (props) => {
             commentsQuantity={
               props.data?.commentsQuantity ?? postData?.commentsQuantity
             }
+            postId={postId}
           />
         </div>
       </div>
