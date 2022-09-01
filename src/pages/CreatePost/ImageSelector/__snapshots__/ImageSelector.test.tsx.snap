@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageSelector snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="image-selector__upload"
+  >
+    <div
+      class="image-selector__file-selector"
+    >
+      <img
+        alt="user generated"
+        class="image-selector__file-image"
+        src="mockFile"
+      />
+      <div
+        class="image-selector__buttons"
+      >
+        <button
+          class="image-selector__button"
+          data-testid="back-to-post-button"
+        >
+          Back To Post
+        </button>
+        <button
+          class="image-selector__button"
+          data-testid="remove-button"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

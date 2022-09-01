@@ -29,12 +29,14 @@ const ImageSelector: React.FC<Props> = ({
             <button
               styleName="image-selector__button"
               onClick={() => handleTabChange("post")}
+              data-testid="back-to-post-button"
             >
               Back To Post
             </button>
             <button
               styleName="image-selector__button"
               onClick={() => setSelectedFile("")}
+              data-testid="remove-button"
             >
               Remove
             </button>
@@ -53,6 +55,7 @@ const ImageSelector: React.FC<Props> = ({
             type="file"
             ref={selectedFileRef}
             hidden
+            data-testid="file-input"
             onChange={onSelectImage}
           />
         </div>
