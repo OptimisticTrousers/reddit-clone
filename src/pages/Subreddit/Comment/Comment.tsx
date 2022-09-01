@@ -1,15 +1,20 @@
 import {
+  collection,
   doc,
   DocumentData,
+  getDocs,
   increment,
+  query,
   serverTimestamp,
   setDoc,
+  where,
   writeBatch,
 } from "firebase/firestore";
 import moment from "moment";
 import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
+import { JsxElement } from "typescript";
 import {
   selectAuthStatus,
   toggleSignInModal,
@@ -17,19 +22,22 @@ import {
 import { db, getUserId, getUserName } from "../../../firebase";
 import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
+import Comments from "../Comments/Comments";
 import styles from "./Comment.module.css";
 
 interface Props {
   comment: DocumentData;
-  children: JSX.Element | JSX.Element[];
   postId: string | undefined;
   id: string;
 }
 
-const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
+const Comment: React.FC<Props> = ({ comment, postId, id }) => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useAppDispatch();
   const [childCommentText, setChildCommentText] = useState("");
+  const [childComments, setChildComments] = useState<
+    DocumentData | undefined
+  >();
   const onDeleteComment = async () => {
     try {
       if (postId) {
@@ -59,13 +67,13 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
 
     if (!postId) return;
 
-    const parentRef = doc(db, "comments", postId);
+    const parentRef = doc(db, "comments", id);
 
     const docId = nanoid();
     const newCommentRef = doc(db, "comments", docId);
 
     await setDoc(newCommentRef, {
-      content: childCommentText,
+      content: "HEY THIS IS A CHILD COMMENT",
       createdAt: serverTimestamp(),
       id: docId,
       subredditId: id,
@@ -77,6 +85,20 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
       voteStatus: 0,
     });
   };
+
+  useEffect(() => {
+    async function fetchChildComments() {
+      const childCommentsRef = collection(db, "comments");
+
+      const q = query(childCommentsRef, where("parentId", "==", id));
+
+      const childComments = await getDocs(q);
+
+      setChildComments(childComments.docs);
+    }
+
+    fetchChildComments();
+  }, []);
 
   return (
     <div styleName="comment">
@@ -101,7 +123,12 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
             </p>
           </div>
           <div styleName="comment__message">{comment?.content}</div>
-          {children}
+          <CommentInteractions
+            postId={postId}
+            voteStatus={comment.voteStatus}
+            id={comment?.id}
+          />
+          <Comments comments={childComments} commentsPostId={id} />
         </div>
       </div>
     </div>
