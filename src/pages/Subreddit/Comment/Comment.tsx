@@ -1,6 +1,6 @@
 import { DocumentData } from "firebase/firestore";
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import CSSModules from "react-css-modules";
 import { getUserName } from "../../../firebase";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";

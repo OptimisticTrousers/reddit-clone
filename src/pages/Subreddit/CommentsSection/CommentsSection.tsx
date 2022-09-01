@@ -50,14 +50,17 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const formSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
+    const docId = nanoid()
+
     if (isLoggedIn) {
-      const commentsRef = collection(db, "comments");
-      await addDoc(commentsRef, {
+      const commentsRef = doc(db, "comments", docId);
+      await setDoc(commentsRef, {
         content: commentText,
         createdAt: serverTimestamp(),
-        id: nanoid(),
+        id: docId,
         subredditId: id,
         postId,
+        parentId: null,
         updatedAt: serverTimestamp(),
         userName: getUserName(),
         userId: getUserId(),

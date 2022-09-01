@@ -3,9 +3,24 @@ import styles from "./CommentInteractions.module.css";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
-import React from "react";
-import { doc, increment, writeBatch } from "firebase/firestore";
-import { db } from "../../../firebase";
+import React, { useState } from "react";
+import {
+  doc,
+  increment,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  writeBatch,
+} from "firebase/firestore";
+import { db, getUserId, getUserName } from "../../../firebase";
+import { isJsxClosingFragment } from "typescript";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
+import { nanoid } from "nanoid";
+import { useParams } from "react-router-dom";
 
 interface Props {
   voteStatus: number;
@@ -14,6 +29,9 @@ interface Props {
 }
 
 const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
+  const isLoggedIn = useAppSelector(selectAuthStatus);
+  const dispatch = useAppDispatch();
+  const [childCommentText, setChildCommentText] = useState("");
   const onDeleteComment = async () => {
     try {
       if (postId) {
@@ -33,6 +51,33 @@ const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
     } catch (error) {
       console.log(`ERROR: ${error}`);
     }
+  };
+
+  const onReply = async () => {
+    if (!isLoggedIn) {
+      dispatch(toggleSignInModal());
+      return;
+    }
+
+    if (!postId) return;
+
+    const parentRef = doc(db, "comments", postId);
+
+    const docId = nanoid();
+    const newCommentRef = doc(db, "comments", docId);
+
+    await setDoc(newCommentRef, {
+      content: childCommentText,
+      createdAt: serverTimestamp(),
+      id: docId,
+      subredditId: id,
+      parentId: parentRef.id,
+      postId,
+      updatedAt: serverTimestamp(),
+      userName: getUserName(),
+      userId: getUserId(),
+      voteStatus: 0,
+    });
   };
   return (
     <div styleName="interactions">

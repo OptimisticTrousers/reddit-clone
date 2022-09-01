@@ -65,7 +65,7 @@ const SinglePostPage = () => {
     dispatch(setPostId(postId));
 
     const commentsRef = collection(db, "comments");
-    const commentQuery = query(commentsRef, where("postId", "==", postId));
+    const commentQuery = query(commentsRef, where("postId", "==", postId), where("parentId", "==", null));
 
     onSnapshot(commentQuery, async (snapshot) => {
       const docChanges = snapshot.docChanges();
