@@ -9,7 +9,7 @@ const NotFound: React.FC = () => {
     setTimeout(() => {
       navigate("/");
     }, 5000);
-  });
+  }, []);
 
   return (
     <div styleName="not-found">

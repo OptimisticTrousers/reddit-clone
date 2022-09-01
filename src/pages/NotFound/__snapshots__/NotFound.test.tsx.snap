@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="not-found"
+  >
+    <img
+      alt="redditor who is lost"
+      class="not-found__image"
+      src="https://www.redditstatic.com/reddit404d.png"
+    />
+    <h1
+      class="not-found__title"
+    >
+      404: page not found
+    </h1>
+    <p
+      class="not-found__description"
+    >
+      the page you requested does not exist...redirecting
+    </p>
+  </div>
+</DocumentFragment>
+`;
