@@ -72,16 +72,12 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
         id: userPostVotesRef.id,
         postId,
         subredditId,
-        voteValue: vote!,
+        voteValue: vote,
       };
 
       batch.set(userPostVotesRef, newVote);
 
-      if (vote === 1 || vote === -1) {
-        batch.update(postRef, { voteStatus: voteStatus + vote - vote! });
-      } else if (vote === 0) {
-        batch.update(postRef, { voteStatus: voteStatus + vote - vote! });
-      }
+      batch.update(postRef, { voteStatus: voteStatus + vote! });
       await batch.commit();
     } catch (error) {
       console.log(`ERROR: ${error}`);
@@ -124,26 +120,40 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
 
   useEffect(() => {
     async function fetchVote() {
-      const userPostVotesRef = doc(
-        db,
-        "users",
-        `${getUserId()}/postVotes/${postId}`
-      );
+      await runTransaction(db, async (transaction) => {
+        try {
+          const userPostVotesRef = doc(
+            db,
+            "users",
+            `${getUserId()}/postVotes/${postId}`
+          );
 
-      const userPostVotes = await getDoc(userPostVotesRef);
+          const userPostVotes = await transaction.get(userPostVotesRef);
 
-      if (!userPostVotes.exists()) {
-        setVote(0);
-      } else {
-        setVote(userPostVotes.data()?.voteValue);
-      }
+          const postRef = doc(db, "posts", postId);
+
+          const post = await transaction.get(postRef);
+
+          if (!userPostVotes.exists()) {
+            setVote(0);
+          } else if (
+            post.data()?.voteStatus ===
+            voteStatus + userPostVotes.data().voteValue
+          ) {
+            setVote(userPostVotes.data()?.voteValue);
+          }
+        } catch (error) {
+          console.log(`ERROR: ${error}`);
+        }
+      });
     }
+
     if (vote === undefined) {
       fetchVote();
     } else {
       makeVote();
     }
-  }, [vote, makeVote, postId]);
+  }, [vote, makeVote, postId, voteStatus]);
   // async function fetchVotes(vote: number) {
   //   if (!isLoggedIn) dispatch(toggleSignInModal());
 
