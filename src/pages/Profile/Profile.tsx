@@ -76,6 +76,14 @@ function reducer(state: State, action: Action) {
         downvotes: true,
         saved: false,
       };
+    case "SAVED":
+      return {
+        posts: false,
+        comments: false,
+        upvotes: false,
+        downvotes: false,
+        saved: true,
+      };
     default:
       return state;
   }
@@ -91,6 +99,8 @@ const Profile: React.FC = () => {
   const [commentsPostId, setCommentsPostId] = useState<string | undefined>();
 
   const [upVotesPosts, setUpVotesPosts] = useState<DocumentData | undefined>();
+
+  const [savedPosts, setSavedPosts] = useState<DocumentData | undefined>();
 
   function addPosts() {}
 
@@ -111,54 +121,52 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     async function getUserPosts() {
-      if (isLoggedIn) {
-        try {
-
+      if (!isLoggedIn) {
+        dispatch(toggleSignInModal());
+        return;
+      }
+      try {
         const userPostsRef = collection(db, "posts");
 
         const q = query(userPostsRef, where("userId", "==", getUserId()));
 
-        const userPostsDoc = await getDocs(q)
-        setUserPosts(userPostsDoc.docs)
-        } catch(error) {
-          console.log(`ERROR: ${error}`)
-        }
-
-      } else {
-        alert("Sign in to see your user profile!");
-        navigate("/");
-        dispatch(toggleSignInModal());
+        const userPostsDoc = await getDocs(q);
+        setUserPosts(userPostsDoc.docs);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
       }
     }
     getUserPosts();
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-     async function fetchComments() {
-
-    if (isLoggedIn) {
+    async function fetchComments() {
+      if (!isLoggedIn) {
+        dispatch(toggleSignInModal());
+        return;
+      }
       try {
+        const userCommentsRef = collection(db, "comments");
 
-      const userCommentsRef = collection(db, "comments");
+        const q = query(userCommentsRef, where("userId", "==", getUserId()));
 
-      const q = query(userCommentsRef, where("userId", "==", getUserId()));
+        const userCommentsDoc = await getDocs(q);
 
-      const userCommentsDoc = await getDocs(q)
-
-      
         setCommentsPostId(userCommentsDoc.docs[0].data().postId);
         setUserComments(userCommentsDoc.docs);
-
-      } catch(error) {
-        console.log(`ERROR: ${error}`)
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
       }
     }
-     }
-     fetchComments();
+    fetchComments();
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     async function fetchPostsFromUpVotes() {
+      if (!isLoggedIn) {
+        dispatch(toggleSignInModal());
+        return;
+      }
       try {
         const upVotesRef = collection(db, "users", `${getUserId()}/postVotes`);
 
@@ -184,10 +192,14 @@ const Profile: React.FC = () => {
     }
 
     fetchPostsFromUpVotes();
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     async function fetchPostsFromDownVotes() {
+      if (!isLoggedIn) {
+        dispatch(toggleSignInModal());
+        return;
+      }
       try {
         const downVotesRef = collection(
           db,
@@ -218,7 +230,30 @@ const Profile: React.FC = () => {
     }
 
     fetchPostsFromDownVotes();
-  }, []);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    async function fetchSavedPosts() {
+      if (!isLoggedIn) {
+        dispatch(toggleSignInModal());
+        return;
+      }
+
+      try {
+        const savedPostsRef = collection(db, "savedPosts");
+
+        const q = query(savedPostsRef, where("userId", "==", getUserId()));
+
+        const savedPosts = await getDocs(q);
+
+        setSavedPosts(savedPosts.docs);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+
+    fetchSavedPosts();
+  }, [isLoggedIn]);
 
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -238,6 +273,7 @@ const Profile: React.FC = () => {
           )}
           {activeSection.downvotes && <Posts posts={downVotesPosts} />}
           {activeSection.upvotes && <Posts posts={upVotesPosts} />}
+          {activeSection.saved && <Posts posts={savedPosts} />}
           {activeSection.downvotes && downVotesPosts?.length == false && (
             <ProfileNotFound
               text={`hmm... looks like you haven't downvoted anything yet`}
