@@ -6,7 +6,13 @@ import { getUserName } from "../../../firebase";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
 import styles from "./Comment.module.css";
 
-const Comment: React.FC<DocumentData> = ({ comment, children }) => {
+interface Props {
+  comment: DocumentData;
+  children: JSX.Element | JSX.Element[]
+}
+
+const Comment: React.FC<Props> = ({ comment, children }) => {
+
   return (
     <div styleName="comment">
       <div styleName="comment__user">
@@ -22,7 +28,7 @@ const Comment: React.FC<DocumentData> = ({ comment, children }) => {
       <div styleName="comment__content">
         <div styleName="comment__body">
           <div styleName="comment__author">
-            <p>
+            <p data-testid="author-description">
               {comment?.userName === getUserName() && `${getUserName()}`}{" "}
               <span styleName="comment__date">
                 {moment(new Date(comment?.createdAt?.seconds * 1000)).fromNow()}

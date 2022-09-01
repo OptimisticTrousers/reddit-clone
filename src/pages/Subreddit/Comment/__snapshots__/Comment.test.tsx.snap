@@ -6,9 +6,50 @@ exports[`Comment snapshot 1`] = `
     class="comment"
   >
     <div
-      class="comment__author"
+      class="comment__user"
     >
-      this is a mock comment
+      <div
+        class="comment__profile"
+      >
+        <img
+          alt="default profile icon"
+          class="comment__icon"
+          src="https://styles.redditmedia.com/t5_g2km0/styles/profileIcon_snood9e1c00c-b1c6-46a9-a231-a6fcd78cdd16-headshot.png?width=256&height=256&crop=256:256,smart&s=bba24bf813728096bcea480988469df3e9e45c5d"
+        />
+      </div>
+      <div
+        class="comment__treadline"
+      />
+    </div>
+    <div
+      class="comment__content"
+    >
+      <div
+        class="comment__body"
+      >
+        <div
+          class="comment__author"
+        >
+          <p
+            data-testid="author-description"
+          >
+            undefined 
+            <span
+              class="comment__date"
+            >
+              Invalid date
+            </span>
+          </p>
+        </div>
+        <div
+          class="comment__message"
+        >
+          this is a mock comment
+        </div>
+        <div>
+          Mock Children
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>

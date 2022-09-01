@@ -1,9 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { queryByText, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import each from "jest-each";
 import PostInteractions from "./PostInteractions";
+import Post from "../Post/Post";
 
 describe("PostInteractions", () => {
   test("snapshot", () => {
@@ -11,4 +12,11 @@ describe("PostInteractions", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
+  each([39, 251, 100, 512, 21, 51, 12, 1]).test("renders number of comments correctly", (a) => {
+    render(<PostInteractions commentsQuantity={a} />)
+
+    const commentsQuantityText = screen.queryByText(`${a} Comments`)
+
+    expect(commentsQuantityText).toBeInTheDocument();
+  })
 });
