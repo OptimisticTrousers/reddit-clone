@@ -15,6 +15,7 @@ import {
   query,
   runTransaction,
   serverTimestamp,
+  setDoc,
   where,
   writeBatch,
 } from "firebase/firestore";
@@ -30,6 +31,7 @@ import {
 } from "../../../features/auth/authSlice";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
+import { transcode } from "buffer";
 
 interface Props {
   data: DocumentData;
@@ -39,7 +41,7 @@ const Post: React.FC<Props> = (props) => {
   const { postId } = useParams();
 
   const [postData, setPostData] = useState<DocumentData | undefined>();
-  const [userPostVote, setUserPostVote] = useState<DocumentData | undefined>()
+  const [userPostVote, setUserPostVote] = useState<DocumentData | undefined>();
 
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useDispatch();
@@ -57,42 +59,24 @@ const Post: React.FC<Props> = (props) => {
 
     props.data ?? fetchPost();
   }, [postId, props.data]);
-
-  // useEffect(() => {
-  //   async function fetchVote() {
-  //     if (!props.userVoteValue) {
-  //       const userPostVoteRef = doc(db, `users/${getUserId()}/postVotes/${( props.data.postId)}`);
-
-  //       const userPostVote= await getDoc(userPostVoteRef)
-
-  //       console.log(userPostVote)
-
-  //       setUserPostVote(userPostVote.data())
-
-  //     }
-  //   }
-
-  //   fetchVote();
-  // }, [postId, props.userVoteValue]);
-
   async function savePosts() {
-    if (isLoggedIn) {
-      try {
-        await runTransaction(db, async (transaction) => {
-          const savedPostsRef = collection(db, "savedPosts");
-        });
-        const savedPostsRef = collection(db, "savedPosts");
-
-        await addDoc(savedPostsRef, {
-          id: nanoid(),
-          postId,
-          savedAt: serverTimestamp(),
-        });
-      } catch (error) {
-        console.log(`ERROR: ${error}`);
-      }
-    } else {
+    if (!isLoggedIn) {
       dispatch(toggleSignInModal());
+      return;
+    }
+
+    try {
+      const docId = nanoid();
+
+      const savedPostsRef = doc(db, "savedPosts", docId);
+
+      await setDoc(savedPostsRef, {
+        id: docId,
+        postId,
+        savedAt: serverTimestamp(),
+      });
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
     }
   }
 
