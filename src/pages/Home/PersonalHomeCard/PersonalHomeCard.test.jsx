@@ -12,33 +12,68 @@ import each from "jest-each";
 import PersonalHomeCard from "./PersonalHomeCard";
 import StoreProvider from "../../../redux/provider";
 import * as subredditSlice from "../../../features/subreddit/subredditSlice";
+import { BrowserRouter } from "react-router-dom";
 
 describe("PersonalHomeCard", () => {
   test("snapshot", () => {
     const { asFragment } = render(
-      <StoreProvider>
-        <PersonalHomeCard />
-      </StoreProvider>
+      <BrowserRouter>
+        <StoreProvider>
+          <PersonalHomeCard />
+        </StoreProvider>
+      </BrowserRouter>
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
+  test("open community modal", async () => {
 
-  // test("user clicking 'Create Community' opens up community modal", async () => {
-  //   render(
-  //     <StoreProvider>
-  //       <PersonalHomeCard />
-  //     </StoreProvider>
-  //   );
+    const mockDispatch = jest.fn();
+    jest.mock("../../../hooks/hooks", () => ({
+      ...jest.requireActual("../../../hooks/hooks"),
+      useAppDispatch: () => mockDispatch,
+    }));
 
-  //   const user = userEvent.setup();
+    render(
+      <BrowserRouter>
+        <StoreProvider>
+          <PersonalHomeCard />
+        </StoreProvider>
+      </BrowserRouter>
+    );
 
-  //   const createCommunityButton = screen.queryByText("Create Community");
+    const createCommunityButton = screen.queryByText("Create Community");
 
-  //   await user.click(createCommunityButton);
+    await userEvent.click(createCommunityButton);
 
-  //   const spy = jest.spyOn(subredditSlice, "toggleCommunityModalState");
+    expect(mockDispatch).toBeCalledTimes(1);
+  });
+  test("navigate to create post page", async () => {
 
-  //   expect(spy).toHaveBeenCalled();
-  // });
+    jest.mock("../../../hooks/hooks", () => ({
+      ...jest.requireActual("../../../hooks/hooks"),
+      useAppSelector: () => jest.fn().mockReturnValue("name"),
+    }));
+
+    const mockNavigate = jest.fn();
+    jest.mock("react-router-dom", () => ({
+      ...jest.requireActual("react-router-dom"),
+      useNavigate: () => mockNavigate,
+    }));
+
+    render(
+      <BrowserRouter>
+        <StoreProvider>
+          <PersonalHomeCard />
+        </StoreProvider>
+      </BrowserRouter>
+    );
+
+    const createPostButton = screen.queryByText("Create Post")
+
+    await userEvent.click(createPostButton)
+
+    expect(mockNavigate).toHaveBeenCalledTimes(1)
+  })
+
 });
