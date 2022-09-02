@@ -29,7 +29,7 @@ import {
 } from "firebase/firestore";
 import { db, getUser, getUserId } from "../../../firebase";
 import { nanoid } from "nanoid";
-import { batch } from "react-redux";
+import { batch, useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { selectPostId } from "../../../features/post/postSlice";
 import upVote from "../../../assets/upvote.svg";
@@ -41,17 +41,24 @@ import { toggleCommunityModalState } from "../../../features/subreddit/subreddit
 
 interface Props {
   voteStatus: number;
-  onVote: (vote: number) => void;
-  postId: string;
+  onVote: (vote: number, event:Event) => void;
+  postId: string | undefined;
 }
 
 type Event = React.MouseEvent<HTMLImageElement, MouseEvent>;
 
 const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
-  const [vote, setVote] = useState();
+  const [vote, setVote] = useState(undefined);
+  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const dispatch = useDispatch()
+  console.log(vote)
 
   useEffect(() => {
     async function fetchInitialVote() {
+      if(!isLoggedIn) {
+        dispatch(toggleSignInModal())
+        return
+      }
       try {
         const userPostVoteRef = doc(
           db,
@@ -61,13 +68,14 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
 
         const userPostVote = await getDoc(userPostVoteRef);
 
+        console.log(userPostVote.data())
         setVote(userPostVote.data()?.voteValue);
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
     }
     fetchInitialVote();
-  }, [postId]);
+  }, [postId, dispatch, isLoggedIn]);
 
   return (
     <div styleName="votes">
@@ -78,14 +86,11 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
           }`}
           src={upVote}
           alt="upvote icon"
-          onClick={() => onVote(1)}
+          onClick={(event: Event) => onVote(1, event)}
         />
       </div>
       <p
-        styleName={`votes__likes ${
-          (vote === 1 && "votes__likes--upvote") ||
-          (vote === -1 && "votes__likes--downvote")
-        }`}
+        styleName={`votes__likes }`}
       >
         {voteStatus}
       </p>
@@ -96,7 +101,7 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
           }`}
           src={downVote}
           alt="downvote icon"
-          onClick={() => onVote(1)}
+          onClick={(event: Event) => onVote(-1, event)}
         />
       </div>
     </div>

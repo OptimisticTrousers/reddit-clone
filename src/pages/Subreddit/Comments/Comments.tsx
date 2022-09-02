@@ -129,7 +129,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
     commentId: string,
     postId: string | undefined
   ) => {
-    if (!isLoggedIn || !postId) {
+    if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;
     }

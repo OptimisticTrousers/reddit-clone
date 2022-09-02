@@ -22,7 +22,7 @@ import {
 import CSSModules from "react-css-modules";
 import { render } from "@testing-library/react";
 import { db, getUserId } from "../../../firebase";
-import { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -63,18 +63,24 @@ const Post: React.FC<Props> = (props) => {
     props.data ?? fetchPost();
   }, [postId, props.data]);
 
-  const onVote = async (vote: number) => {
-    if (!isLoggedIn || !postId) {
+  const onVote = async (
+    vote: number,
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;
     }
+
+    if (!postId) return;
 
     try {
       await runTransaction(db, async (transaction) => {
         const userPostVotesRef = doc(
           db,
           "users",
-          `${getUserId()}/postVotes/${getUserId()}/${postId}`
+          `${getUserId()}/postVotes/${postId}`
         );
 
         const postRef = doc(db, "posts", postId);
@@ -126,7 +132,10 @@ const Post: React.FC<Props> = (props) => {
     >
       <Votes
         voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
-        onVote={(vote: number) => onVote(vote)}
+        onVote={(
+          vote: number,
+          event: React.MouseEvent<HTMLImageElement, MouseEvent>
+        ) => onVote(vote, event)}
         // subredditId={props.data?.subredditId ?? postData?.subredditId}
         postId={props.data?.id}
       />
