@@ -2,6 +2,20 @@
   height: 100%;
 }
 
+.profile-not-found {
+  position: relative;
+}
+
+.profile-not-found__text {
+  font-size: 50px;
+  position: absolute;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--secondary-color);
+  top: 250px;
+  text-align: center;
+  width: 100%;
+}
 @media (max-width: 1070px) {
   .subreddit {
     width: 100%;

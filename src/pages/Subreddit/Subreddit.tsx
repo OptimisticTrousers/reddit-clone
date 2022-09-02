@@ -87,12 +87,15 @@ const Subreddit: React.FC = () => {
           {posts ? (
             <Posts posts={posts} />
           ) : (
+            <div styleName="profile-not-found">
+            <h1 styleName="profile-not-found__text">No subreddit found!</h1>
             <AuthorsList
               animate={true}
               backgroundColor={"#333"}
               foregroundColor={"#999"}
               speed={1}
             />
+            </div>
           )}
         </div>
         <Aside>
