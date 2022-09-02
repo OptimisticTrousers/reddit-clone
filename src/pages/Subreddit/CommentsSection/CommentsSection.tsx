@@ -133,13 +133,13 @@ const CommentsSection: React.FC<Props> = ({
         </div>
         {isFilterDropdownActive && (
           <Dropdown dropdown="profile-width">
-            <button styleName="comments-section__filter" onClick={filterRising}>
+            <button styleName="comments-section__filter-button" onClick={filterRising}>
               Rising
             </button>
-            <button styleName="comments-section__filter" onClick={filterTop}>
+            <button styleName="comments-section__filter-button" onClick={filterTop}>
               Top
             </button>
-            <button styleName="comments-section__filter" onClick={filterNew}>
+            <button styleName="comments-section__filter-button" onClick={filterNew}>
               New
             </button>
           </Dropdown>

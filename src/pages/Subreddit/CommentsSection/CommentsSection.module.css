@@ -23,7 +23,7 @@
   line-height: 16px;
 }
 .comments-section__comments-form {
-  /* background-color: #272729; */
+  background-color: #272729;
   background-color: rgb(36, 37, 38);
   border-radius: 0px 0px 4px 4px;
 }
@@ -49,11 +49,27 @@
   color: rgba(26, 26, 27, 0.5);
   cursor: pointer;
 }
+.comments-section__filter-button{
+  height: 3.25rem;
+  border-radius: 10px;
+  background-color: rgb(26, 27, 28);
+  font-size: 1.25rem;
+  font-weight: 600;
+  width: 100%;
+  color: var(--secondary-color);
+  border: none;
+  margin-top: 1rem;
+}
+.comments-section__filter-button:hover {
+  cursor: pointer;
+  background-color: black;
+}
 .comments-section__comments-form-textarea {
   width: 100%;
   background-color: var(--primary-color);
   min-height: 122px;
   border-radius: 4px;
+
   word-break: break-word;
   user-select: text;
   white-space: pre-wrap;
