@@ -6,7 +6,7 @@ import {
   selectCommunityData,
   setCommunityData,
 } from "../../../features/subreddit/subredditSlice";
-import { db} from "../../../firebase";
+import { db } from "../../../firebase";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import styles from "./FetchSubredditData.module.css";
 
@@ -43,9 +43,7 @@ const FetchSubredditData: React.FC = () => {
     }
 
     // Only fetching data if the communityData is empty
-    if (Object.keys(communityData).length === 0) {
-      getSubredditData();
-    }
+    getSubredditData();
   }, [subredditName, dispatch, communityData, navigate]);
 
   return <Outlet />;
