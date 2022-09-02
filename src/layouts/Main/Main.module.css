@@ -3,7 +3,7 @@ main {
   display: flex;
   box-sizing: border-box;
   justify-content: center;
-  max-width: 100%;
+  width: 100%;
   background-color: black;
   height: 100%;
 }
@@ -15,5 +15,6 @@ main {
     max-width: 100%;
     padding: 0;
     padding-top: 20px;
+    overflow: scroll;
   }
 }

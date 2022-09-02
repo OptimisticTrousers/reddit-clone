@@ -37,6 +37,7 @@ const CommentInteractions: React.FC<Props> = ({
   onDelete,
 }) => {
   const [isReplying, setIsReplying] = useState(false);
+
   return (
     <div>
       <div styleName="interactions">

@@ -4,7 +4,7 @@
   align-items: center;
 }
 .filter__categories {
-    display: flex;
+  display: flex;
 }
 .filter__category {
   border-radius: 20px;
@@ -18,20 +18,16 @@
   color: white;
 }
 .filter__category:hover {
-    background-color: #343434;
-    cursor: pointer;
+  background-color: #343434;
+  cursor: pointer;
 }
 .filter__icon {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
-@media(max-width: 640px) {
-  .filter__category{
+@media (max-width: 640px) {
+  div.filter__category {
     display: none;
   }
-  .filter__category:nth-child(1){
-    display: flex;
-  }
 }
-
