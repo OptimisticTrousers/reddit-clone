@@ -270,7 +270,7 @@ const Profile: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div>
+    <div styleName="profile-container">
       <Header dispatch={dispatch} activeSection={activeSection} />
       <Main>
         <div styleName="content" ref={contentRef}>
