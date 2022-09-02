@@ -16,7 +16,7 @@ import Post from "../Post/Post";
 import styles from "./Posts.module.css";
 import { db, getUserId } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 import AuthorsList from "../../../components/Skeletons/AuthorsList";
@@ -30,11 +30,14 @@ const Posts: React.FC<Props> = ({ posts }) => {
     undefined
   );
 
+  const location = useLocation();
+
   const { subredditName } = useParams();
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(location.pathname === "/user") return;
     if (!subredditName && posts !== undefined) return;
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
