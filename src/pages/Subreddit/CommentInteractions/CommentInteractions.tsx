@@ -38,29 +38,31 @@ const CommentInteractions: React.FC<Props> = ({
 }) => {
   const [isReplying, setIsReplying] = useState(false);
   return (
-    <div styleName="interactions">
-      <BiUpvote styleName="interactions__icon" />
-      <p styleName="interactions__vote">{voteStatus}</p>
-      <BiDownvote styleName="interactions__icon" />
-      <div
-        styleName="interactions__reply"
-        onClick={() => setIsReplying((prevValue) => !prevValue)}
-      >
-        <BiMessage styleName="interactions__icon" />
-        <button styleName="interactions__button">Reply</button>
-      </div>
-      {/* <button styleName="interactions__button">Share</button>
+    <div>
+      <div styleName="interactions">
+        <BiUpvote styleName="interactions__icon" />
+        <p styleName="interactions__vote">{voteStatus}</p>
+        <BiDownvote styleName="interactions__icon" />
+        <div
+          styleName="interactions__reply"
+          onClick={() => setIsReplying((prevValue) => !prevValue)}
+        >
+          <BiMessage styleName="interactions__icon" />
+          <button styleName="interactions__button">Reply</button>
+        </div>
+        {/* <button styleName="interactions__button">Share</button>
       <button styleName="interactions__button">Report</button>
       <button styleName="interactions__button">Save</button>
       <button styleName="interactions__button">Follow</button> */}
-      {commentUserId && getUserId() && (
-        <button styleName="interactions__button" onClick={onDelete}>
-          Delete
-        </button>
-      )}
+        {commentUserId && getUserId() && (
+          <button styleName="interactions__button" onClick={onDelete}>
+            Delete
+          </button>
+        )}
+      </div>
       {isReplying && (
         <div>
-          <CommentForm autoFocus={true} onReply={onReply}/>
+          <CommentForm autoFocus={true} onReply={onReply} />
         </div>
       )}
     </div>

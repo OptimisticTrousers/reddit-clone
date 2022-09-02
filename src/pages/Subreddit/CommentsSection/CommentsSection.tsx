@@ -79,6 +79,8 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
     }
   };
 
+  
+
 
   return (
     <div styleName="comments-section">
@@ -120,11 +122,11 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
             </div>
           </form>
           <hr />
-          <div styleName="comments-section__discussion">
+          {/* <div styleName="comments-section__discussion">
             <a styleName="comments-section__hyperlink">
               View discussions in 1 other community
             </a>
-          </div>
+          </div> */}
       {comments ? (
         <Comments comments={comments} commentsPostId={postId}/>
       ) : (
