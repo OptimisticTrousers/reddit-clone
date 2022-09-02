@@ -17,7 +17,9 @@ import {
   DocumentData,
   DocumentReference,
   getDoc,
+  getDocs,
   onSnapshot,
+  orderBy,
   Query,
   query,
   updateDoc,
@@ -89,6 +91,55 @@ const SinglePostPage = () => {
   //     })
   //     .catch((error) => alert(`ERROR: ${error}`));
   // }, [postId]);
+
+  const filterTop = async () => {
+    try {
+      const commentsRef = collection(db, "comments");
+
+      const q = query(commentsRef, orderBy("voteStatus", "desc"));
+
+      const comments = await getDocs(q);
+
+      setComments(comments.docs);
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
+
+  const filterNew = async () => {
+    try {
+      const commentsRef = collection(db, "comments");
+
+      const q = query(commentsRef, orderBy("createdAt", "desc"));
+
+      const comments = await getDocs(q);
+
+      setComments(comments.docs);
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
+
+  const filterRising = async () => {
+    try {
+      const commentsRef = collection(db, "comments");
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      const q = query(commentsRef, where("createdAt", ">=", yesterday));
+
+      const { docs } = await getDocs(q);
+
+      const newComments = docs.sort(
+        (a, b) => a.data().voteStatus - b.data().voteStatus
+      );
+
+      setComments(newComments);
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
 
   return (
     <Main>
