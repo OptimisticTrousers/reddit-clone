@@ -30,8 +30,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
     undefined
   );
 
-  const [postVotes, setPostVotes] = useState<DocumentData | null>(null);
-
   const { subredditName } = useParams();
 
   const navigate = useNavigate();
@@ -40,7 +38,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
     if (!subredditName && posts !== undefined) return;
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
-      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`);
 
       const q = query(postsRef, orderBy("voteStatus", "desc"), limit(10));
 
@@ -53,27 +50,10 @@ const Posts: React.FC<Props> = ({ posts }) => {
 
         setRandomPosts(posts);
       });
-      // getDocs(q)
-      //   .then((posts) => {
-      //     if (posts) {
-      //       setRandomPosts(posts.docs);
-      //     } else {
-      //       alert("Subreddit does not exist!");
-      //       navigate("/");
-      //     }
-      //   })
-      //   .catch((error) => alert(`ERROR: ${error}`));
-      // getDocs(userPostsVoteRef)
-      //   .then((postVotes) => {
-      //     setPostVotes(postVotes);
-      //   })
-      //   .catch((error) => alert(`ERROR: ${error}`));
     } else if (subredditName === undefined) {
       const postsRef = collection(db, "posts");
 
       const q = query(postsRef, where("subredditName", "==", subredditName));
-
-      const userPostsVoteRef = collection(db, `users/${getUserId()}/postVotes`);
 
       onSnapshot(q, (snapshot) => {
         const posts: DocumentData = [];
@@ -84,23 +64,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
 
         setRandomPosts(posts.slice(0, 10).sort(() => Math.random() - 0.5));
       });
-      // getDocs(q)
-      //   .then((posts) => {
-      //     if (posts) {
-      //       setRandomPosts(
-      //         posts.docs.slice(0, 10).sort((a, b) => Math.random() - 0.5)
-      //       );
-      //     } else {
-      //       alert("Subreddit does not exist!");
-      //       navigate("/");
-      //     }
-      //   })
-      //   .catch((error) => alert(`ERROR: ${error}`));
-      // getDocs(userPostsVoteRef)
-      //   .then((postVotes) => {
-      //     setPostVotes(postVotes);
-      //   })
-      //   .catch((error) => alert(`ERROR: ${error}`));
     }
   }, [posts, subredditName, navigate]);
 
@@ -119,13 +82,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
   return (
     <>
       {(posts ?? randomPosts)?.map((doc: DocumentData) => {
-        // let data;
-
-        // if (doc?.data) {
-        //   data = doc.data();
-        // } else {
-        //   data = doc.doc.data();
-        // }
         const data = doc.data();
         return (
           <Link
@@ -133,16 +89,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
             to={`/r/${data.subredditName}/comments/${doc.id}`}
             state={{ ...data, id: doc.id }}
           >
-            <Post
-              key={doc.id}
-              // // userVoteValue={0}
-              // userVoteValue={
-              //   postVotes?.docs.find(
-              //     (doc: DocumentData) => doc.data().postId === doc.id
-              //   )?.voteValue
-              // }
-              data={{ ...data, id: doc.id }}
-            />
+            <Post key={doc.id} data={{ ...data, id: doc.id }} />
           </Link>
         );
       })}

@@ -62,7 +62,7 @@ const Subreddit: React.FC = () => {
 
         setPosts(communityDocs.docs);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not check if the community exists: ${error}`);
       }
     }
 

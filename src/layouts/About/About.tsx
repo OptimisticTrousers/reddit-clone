@@ -95,7 +95,9 @@ const About: React.FC = () => {
 
         setToggleDescription((prevValue) => !prevValue);
       } catch (error) {
-        console.log(`Failed to change subreddit description. Please try again: ${error}`);
+        console.log(
+          `Failed to change subreddit description. Please try again: ${error}`
+        );
       }
     } else {
       alert("Please sign in if you are the creator of this community");
@@ -161,18 +163,6 @@ const About: React.FC = () => {
               )}
             </div>
           ) : (
-            // <form styleName="about__form" onClick={onDescriptionSubmit}>
-            //   <input
-            //     styleName="about__input"
-            //     type="text"
-            //     value={description || communityData.description}
-            //     onChange={(e) => setDescription(e.target.value)}
-            //   />
-            /* <button styleName="about__button-description">
-                Save Description
-              </button>
-              <button styleName="about__button-description">Cancel</button> */
-            /* </form> */
             <p styleName="about__description">{communityData.description}</p>
           )}
           <div styleName="about__members">
@@ -203,11 +193,7 @@ const About: React.FC = () => {
             </button>
           </Link>
           <hr styleName="about__thematic-break"></hr>
-          {/* <button styleName="about__button about__button_type_options">
-            Community Options
-            <IoIosArrowDown />
-          </button> */}
-          {/* <hr styleName="about__thematic-break"></hr> */}
+
           {isUserModerator && (
             <div styleName="about__admin">
               <p styleName="about__admin-text">Admin</p>
@@ -222,7 +208,7 @@ const About: React.FC = () => {
                   <img
                     styleName="about__admin-image"
                     src={selectedFile || communityData.imageURL}
-                    alt="current profile picture"
+                    alt="current subreddit"
                   />
                 ) : (
                   <FaReddit styleName="about__admin-image" />

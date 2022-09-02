@@ -125,7 +125,7 @@ const Post: React.FC<Props> = (props) => {
         });
       });
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      alert(`Could not vote on post. Please try again: ${error}`);
     }
   };
 
@@ -140,7 +140,6 @@ const Post: React.FC<Props> = (props) => {
           vote: number,
           event: React.MouseEvent<HTMLImageElement, MouseEvent>
         ) => onVote(vote, event)}
-        // subredditId={props.data?.subredditId ?? postData?.subredditId}
         postId={postId ?? props.data?.id}
       />
       <div styleName="post-excerpt__content">

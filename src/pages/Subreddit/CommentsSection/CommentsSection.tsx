@@ -64,27 +64,31 @@ const CommentsSection: React.FC<Props> = ({
     const docId = nanoid();
 
     if (isLoggedIn) {
-      const commentsRef = doc(db, "comments", docId);
-      await setDoc(commentsRef, {
-        content: commentText,
-        createdAt: serverTimestamp(),
-        id: docId,
-        subredditId: id,
-        postId,
-        parentId: null,
-        updatedAt: serverTimestamp(),
-        userName: getUserName(),
-        userId: getUserId(),
-        voteStatus: 0,
-      });
+      try {
+        const commentsRef = doc(db, "comments", docId);
+        await setDoc(commentsRef, {
+          content: commentText,
+          createdAt: serverTimestamp(),
+          id: docId,
+          subredditId: id,
+          postId,
+          parentId: null,
+          updatedAt: serverTimestamp(),
+          userName: getUserName(),
+          userId: getUserId(),
+          voteStatus: 0,
+        });
 
-      const postRef = doc(db, "posts", `${postId}`);
+        const postRef = doc(db, "posts", `${postId}`);
 
-      await updateDoc(postRef, {
-        commentsQuantity: increment(1),
-      });
+        await updateDoc(postRef, {
+          commentsQuantity: increment(1),
+        });
 
-      setCommentText("");
+        setCommentText("");
+      } catch (error) {
+        alert(`Could not create comment. Please try again: ${error}`);
+      }
     } else {
       dispatch(toggleSignInModal());
     }
@@ -124,7 +128,9 @@ const CommentsSection: React.FC<Props> = ({
           styleName="comments-section__filter"
           onClick={handleFilterDropdown}
         >
-          <button type="button" styleName="comments-section__button">Sort By: Best</button>
+          <button type="button" styleName="comments-section__button">
+            Sort By: Best
+          </button>
           <img
             styleName="comments-section__icon"
             src={upsideDownTriangle}
@@ -133,24 +139,29 @@ const CommentsSection: React.FC<Props> = ({
         </div>
         {isFilterDropdownActive && (
           <Dropdown dropdown="profile-width">
-            <button styleName="comments-section__filter-button" onClick={filterRising}>
+            <button
+              styleName="comments-section__filter-button"
+              onClick={filterRising}
+            >
               Rising
             </button>
-            <button styleName="comments-section__filter-button" onClick={filterTop}>
+            <button
+              styleName="comments-section__filter-button"
+              onClick={filterTop}
+            >
               Top
             </button>
-            <button styleName="comments-section__filter-button" onClick={filterNew}>
+            <button
+              styleName="comments-section__filter-button"
+              onClick={filterNew}
+            >
               New
             </button>
           </Dropdown>
         )}
       </form>
       <hr />
-      {/* <div styleName="comments-section__discussion">
-            <a styleName="comments-section__hyperlink">
-              View discussions in 1 other community
-            </a>
-          </div> */}
+
       {comments ? (
         <Comments comments={comments} commentsPostId={postId} />
       ) : (

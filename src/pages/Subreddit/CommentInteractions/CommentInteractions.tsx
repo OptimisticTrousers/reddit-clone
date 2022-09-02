@@ -56,13 +56,11 @@ const CommentInteractions: React.FC<Props> = ({
           `${getUserId()}/commentVotes/${getUserId()}${commentId}`
         );
 
-        const userCommentVote = await getDoc(userCommentVoteRef);
-
         onSnapshot(userCommentVoteRef, (snapshot) => {
           setVote(snapshot?.data()?.voteValue);
         });
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch initial vote: ${error}`);
       }
     }
     fetchInitialVote();

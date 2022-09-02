@@ -133,7 +133,7 @@ const Profile: React.FC = () => {
         const userPostsDoc = await getDocs(q);
         setUserPosts(userPostsDoc.docs);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not get posts created by the user: ${error}`);
       }
     }
     getUserPosts();
@@ -155,7 +155,7 @@ const Profile: React.FC = () => {
         setCommentsPostId(userCommentsDoc.docs[0].data().postId);
         setUserComments(userCommentsDoc.docs);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch comments: ${error}`);
       }
     }
     fetchComments();
@@ -187,7 +187,7 @@ const Profile: React.FC = () => {
 
         setUpVotesPosts(resolvedData);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch upvoted posts: ${error}`);
       }
     }
 
@@ -225,7 +225,7 @@ const Profile: React.FC = () => {
 
         setDownVotesPosts(resolvedData);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch downvoted posts: ${error}`);
       }
     }
 
@@ -260,7 +260,7 @@ const Profile: React.FC = () => {
 
         setSavedPosts(resolvedData);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch saved posts: ${error}`);
       }
     }
 

@@ -37,7 +37,7 @@ const TopCommunitiesCard: React.FC = () => {
 
         setTopCommunities(subredditsDocs.docs);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch top communities: ${error}`);
       }
     }
 

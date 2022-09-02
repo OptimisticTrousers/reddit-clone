@@ -67,14 +67,13 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
           `${getUserId()}/postVotes/${postId}`
         );
 
-        const userPostVote = await getDoc(userPostVoteRef);
 
         onSnapshot(userPostVoteRef, (doc) => {
           console.log(doc.data())
           setVote(doc.data()?.voteValue);
         });
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch initial vote: ${error}`);
       }
     }
     fetchInitialVote();

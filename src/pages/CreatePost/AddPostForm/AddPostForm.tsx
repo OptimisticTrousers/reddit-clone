@@ -85,7 +85,7 @@ const AddPostForm: React.FC = () => {
 
         const postsRef = doc(db, "posts", postId);
 
-        const postDocRef = await setDoc(postsRef, {
+        await setDoc(postsRef, {
           createdAt: serverTimestamp(),
           id: postId,
           subredditId: id,
@@ -112,7 +112,7 @@ const AddPostForm: React.FC = () => {
 
         navigate(`/r/${name}/comments/${postId}`);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        alert(`Could not create post. Please try again: ${error}`);
       }
     } else {
       dispatch(toggleSignInModal());

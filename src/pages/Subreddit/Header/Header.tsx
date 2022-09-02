@@ -69,7 +69,7 @@ const Header: React.FC<Props> = ({ subredditName }) => {
 
         setJoinButtonText("Joined");
       } catch (error) {
-        alert(`ERROR: ${error}`);
+        alert(`Could not join community. Please try again: ${error}`);
       }
     } else {
       alert("SIGN IN TO JOIN COMMUNITY");
@@ -92,7 +92,7 @@ const Header: React.FC<Props> = ({ subredditName }) => {
         numberOfMembers: increment(-1),
       });
     } catch (error) {
-      alert(`ERROR: ${error}`);
+      alert(`Could not leave community. Please try again: ${error}`);
     }
   }
 
@@ -115,7 +115,7 @@ const Header: React.FC<Props> = ({ subredditName }) => {
           setJoinButtonText("Joined");
         }
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not see if user joined: ${error}`);
       }
     }
     fetchIfUserJoined();

@@ -60,7 +60,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
           setPostCreator(docData?.userName);
         }
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch posts: ${error}`);
       }
     }
     fetchPosts();
@@ -91,7 +91,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
         await batch.commit();
       }
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      alert(`Could not delete comment. Please try again: ${error}`);
     }
   };
 
@@ -120,7 +120,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
         voteStatus: 0,
       });
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      alert(`Could not reply to comment. Please try again: ${error}`);
     }
   };
 
@@ -181,7 +181,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
         });
       });
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      alert(`Could not vote. Please try again!: ${error}`);
     }
   };
 

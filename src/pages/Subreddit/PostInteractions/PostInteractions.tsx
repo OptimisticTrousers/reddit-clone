@@ -53,7 +53,7 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
       });
       setSaveButtonText("Saved");
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      console.log(`Could not save post: ${error}`);
     }
   }
 
@@ -70,7 +70,7 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
 
       setSaveButtonText("Save");
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      console.log(`Could not save posts: ${error}`);
     }
   }
 
@@ -94,7 +94,7 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
           setSaveButtonText("Saved");
         }
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch post save status: ${error}`);
       }
     }
     fetchSaveStatus();

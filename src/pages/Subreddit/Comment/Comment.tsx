@@ -33,7 +33,6 @@ interface Props {
 }
 
 const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
-  const [childCommentText, setChildCommentText] = useState("");
   const [childComments, setChildComments] = useState<
     DocumentData | undefined
   >();
@@ -47,13 +46,11 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
 
         const q = query(childCommentsRef, where("parentId", "==", id));
 
-        const childComments = await getDocs(q);
-
         onSnapshot(q, (snapshot) => {
           setChildComments(snapshot.docChanges());
         });
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not fetch child comments: ${error}`);
       }
     }
 

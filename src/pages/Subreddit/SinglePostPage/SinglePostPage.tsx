@@ -50,18 +50,11 @@ type LocationState = {
 };
 
 const SinglePostPage = () => {
-  const location = useLocation();
   const { postId } = useParams();
-
-  const [postVote, setPostVote] = useState<DocumentData | null>(null);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState<DocumentData | undefined>();
-
-  // const data = location.state as LocationState;
-
-  const { subredditName } = useAppSelector(selectCommunityData);
 
   const [comments, setComments] = useState<DocumentData | undefined>(undefined);
 
@@ -77,7 +70,6 @@ const SinglePostPage = () => {
 
     onSnapshot(commentQuery, (snapshot) => {
       console.log(snapshot.docs);
-      // const docChanges = snapshot.docChanges();
       setComments(snapshot.docs);
     });
   }, [postId, dispatch]);
@@ -88,8 +80,6 @@ const SinglePostPage = () => {
 
       const postRef = doc(db, "post", postId);
 
-      const post = await getDoc(postRef);
-
       onSnapshot(postRef, (doc) => {
         // console.log(doc.data());
         setData({ ...doc.data(), id: doc.id });
@@ -97,18 +87,6 @@ const SinglePostPage = () => {
     }
     fetchData();
   }, [postId]);
-
-  // useEffect(() => {
-  //   const userPostsVoteRef = doc(
-  //     db,
-  //     `users/${getUserId()}/postVotes/${postId}`
-  //   );
-  //   getDoc(userPostsVoteRef)
-  //     .then((postVotes) => {
-  //       setPostVote(postVotes);
-  //     })
-  //     .catch((error) => alert(`ERROR: ${error}`));
-  // }, [postId]);
 
   const filterTop = async () => {
     try {
@@ -124,7 +102,7 @@ const SinglePostPage = () => {
 
       setComments(comments.docs);
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      console.log(`Could not filter by top comments: ${error}`);
     }
   };
 
@@ -142,7 +120,7 @@ const SinglePostPage = () => {
 
       setComments(comments.docs);
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      console.log(`Could not filter by new comments: ${error}`);
     }
   };
 
@@ -167,7 +145,7 @@ const SinglePostPage = () => {
 
       setComments(newComments);
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      console.log(`Could not filter by rising comments: ${error}`);
     }
   };
 
