@@ -41,72 +41,33 @@ import { toggleCommunityModalState } from "../../../features/subreddit/subreddit
 
 interface Props {
   voteStatus: number;
-  subredditId: string;
+  onVote: (vote: number) => void;
   postId: string;
 }
 
 type Event = React.MouseEvent<HTMLImageElement, MouseEvent>;
 
-const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
+const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
   const [vote, setVote] = useState();
-  const isLoggedIn = useAppSelector(selectAuthStatus);
-  const dispatch = useAppDispatch();
 
-  const onVote = async (vote: number) => {
-    if (!isLoggedIn || !postId) {
-      dispatch(toggleSignInModal());
-      return;
-    }
-
-    try {
-      await runTransaction(db, async (transaction) => {
-        const userPostVotesRef = doc(
+  useEffect(() => {
+    async function fetchInitialVote() {
+      try {
+        const userPostVoteRef = doc(
           db,
           "users",
-          `${getUserId()}/postVotes/${getUserId()}/${postId}`
+          `${getUserId()}/postVotes/${postId}`
         );
 
-        const postRef = doc(db, "posts", postId);
+        const userPostVote = await getDoc(userPostVoteRef);
 
-        const post = await transaction.get(postRef);
-
-        const userPostVotes = await transaction.get(userPostVotesRef);
-        let voteChange = vote;
-
-        if (!userPostVotes.exists()) {
-          const newVote = {
-            id: userPostVotesRef.id,
-            postId,
-            subredditId,
-            voteValue: vote,
-          };
-
-          transaction.set(userPostVotesRef, newVote);
-        } else {
-          if (userPostVotes.data().voteValue === vote) {
-            voteChange *= -1;
-            transaction.update(postRef, {
-              voteStatus: post?.data()?.voteStatus - vote,
-            });
-            transaction.delete(userPostVotesRef);
-          } else {
-            voteChange = 2 * vote;
-            transaction.update(postRef, {
-              voteStatus: post?.data()?.voteStatus + 2 * vote,
-            });
-            transaction.update(userPostVotesRef, {
-              voteValue: vote,
-            });
-          }
-        }
-        transaction.update(postRef, {
-          voteStatus: post?.data()?.voteStatus + voteChange,
-        });
-      });
-    } catch (error) {
-      console.log(`ERROR: ${error}`);
+        setVote(userPostVote.data()?.voteValue);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
     }
-  };
+    fetchInitialVote();
+  }, [postId]);
 
   return (
     <div styleName="votes">
@@ -135,7 +96,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
           }`}
           src={downVote}
           alt="downvote icon"
-          onClick={() => onVote(-1)}
+          onClick={() => onVote(1)}
         />
       </div>
     </div>

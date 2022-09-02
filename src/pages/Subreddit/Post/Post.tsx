@@ -32,6 +32,7 @@ import {
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../../../hooks/hooks";
 import { transcode } from "buffer";
+import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 
 interface Props {
   data: DocumentData;
@@ -46,6 +47,7 @@ const Post: React.FC<Props> = (props) => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useDispatch();
   const location = useLocation();
+  const { id: subredditId } = useAppSelector(selectCommunityData);
 
   useEffect(() => {
     async function fetchPost() {
@@ -61,6 +63,62 @@ const Post: React.FC<Props> = (props) => {
     props.data ?? fetchPost();
   }, [postId, props.data]);
 
+  const onVote = async (vote: number) => {
+    if (!isLoggedIn || !postId) {
+      dispatch(toggleSignInModal());
+      return;
+    }
+
+    try {
+      await runTransaction(db, async (transaction) => {
+        const userPostVotesRef = doc(
+          db,
+          "users",
+          `${getUserId()}/postVotes/${getUserId()}/${postId}`
+        );
+
+        const postRef = doc(db, "posts", postId);
+
+        const post = await transaction.get(postRef);
+
+        const userPostVotes = await transaction.get(userPostVotesRef);
+        let voteChange = vote;
+
+        if (!userPostVotes.exists()) {
+          const newVote = {
+            id: userPostVotesRef.id,
+            postId,
+            subredditId,
+            voteValue: vote,
+          };
+
+          transaction.set(userPostVotesRef, newVote);
+        } else {
+          if (userPostVotes.data().voteValue === vote) {
+            voteChange *= -1;
+            transaction.update(postRef, {
+              voteStatus: post?.data()?.voteStatus - vote,
+            });
+            transaction.delete(userPostVotesRef);
+          } else {
+            voteChange = 2 * vote;
+            transaction.update(postRef, {
+              voteStatus: post?.data()?.voteStatus + 2 * vote,
+            });
+            transaction.update(userPostVotesRef, {
+              voteValue: vote,
+            });
+          }
+        }
+        transaction.update(postRef, {
+          voteStatus: post?.data()?.voteStatus + voteChange,
+        });
+      });
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
+
   return (
     <div
       styleName={postId ? "post-excerpt" : "post-excerpt-hover"}
@@ -68,7 +126,8 @@ const Post: React.FC<Props> = (props) => {
     >
       <Votes
         voteStatus={props.data?.voteStatus ?? postData?.voteStatus}
-        subredditId={props.data?.subredditId ?? postData?.subredditId}
+        onVote={(vote: number) => onVote(vote)}
+        // subredditId={props.data?.subredditId ?? postData?.subredditId}
         postId={props.data?.id}
       />
       <div styleName="post-excerpt__content">
