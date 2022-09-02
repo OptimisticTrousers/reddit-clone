@@ -20,6 +20,7 @@ import {
   getDoc,
   getDocs,
   deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import { db, getUser, getUserId } from "../../../firebase";
@@ -76,7 +77,7 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
 
   useEffect(() => {
     async function fetchSaveStatus() {
-      if (!isLoggedIn || !postId) {
+      if (!isLoggedIn) {
         dispatch(toggleSignInModal());
         return;
       }
@@ -90,9 +91,12 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
 
         const savedPostDoc = await getDoc(savedPostDocRef);
 
-        if (savedPostDoc.exists()) {
-          setSaveButtonText("Saved");
-        }
+        onSnapshot(savedPostDocRef, (snapshot) => {
+          setSaveButtonText(snapshot.exists() ? "Saved" : "Save");
+        });
+
+        // if (savedPostDoc.exists()) {
+        // }
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }

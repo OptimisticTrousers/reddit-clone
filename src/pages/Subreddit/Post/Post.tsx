@@ -181,7 +181,7 @@ const Post: React.FC<Props> = (props) => {
               commentsQuantity={
                 props.data?.commentsQuantity ?? postData?.commentsQuantity
               }
-              postId={postId}
+              postId={postId ?? props.data?.id}
             />
           )}
         </div>
