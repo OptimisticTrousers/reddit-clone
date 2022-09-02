@@ -303,7 +303,12 @@ const Profile: React.FC = () => {
           )}
           {activeSection.comments && userComments?.length == false && (
             <ProfileNotFound
-              text={`hmm... u/${getUserName()}hasn't commented on anything`}
+              text={`hmm... u/${getUserName()} hasn't commented on anything`}
+            />
+          )}
+          {activeSection.saved && savedPosts?.length == false && (
+            <ProfileNotFound
+              text={`hmm... u/${getUserName()} hasn't saved any posts`}
             />
           )}
         </div>

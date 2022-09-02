@@ -89,7 +89,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
         return (
           <Link
             key={doc.id}
-            to={`/r/${data.subredditName}/comments/${doc.id}`}
+            to={`/r/${data?.subredditName}/comments/${doc.id}`}
             state={{ ...data, id: doc.id }}
           >
             <Post key={doc.id} data={{ ...data, id: doc.id }} />
