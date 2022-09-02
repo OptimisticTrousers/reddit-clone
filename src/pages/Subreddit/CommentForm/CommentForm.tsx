@@ -19,6 +19,7 @@ const CommentForm: React.FC<Props> = ({ autoFocus, onReply }) => {
     <form onSubmit={handleSubmit}>
       <div styleName="comment-form-row">
         <textarea
+          required
           autoFocus={autoFocus}
           value={message}
           onChange={(e) => setMessage(e.target.value)}

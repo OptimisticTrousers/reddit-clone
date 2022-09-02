@@ -76,7 +76,11 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
 
         const commentDocRef = doc(db, "comments", id);
 
-        batch.delete(commentDocRef);
+        batch.update(commentDocRef, {
+          userName: "[-]",
+          content: "[deleted]",
+          userId: "undefined",
+        });
 
         const postDocRef = doc(db, "posts", postId);
         batch.update(postDocRef, {

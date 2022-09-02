@@ -55,7 +55,7 @@ const CommentInteractions: React.FC<Props> = ({
       <button styleName="interactions__button">Report</button>
       <button styleName="interactions__button">Save</button>
       <button styleName="interactions__button">Follow</button> */}
-        {commentUserId && getUserId() && (
+        {commentUserId === getUserId() && (
           <button styleName="interactions__button" onClick={onDelete}>
             Delete
           </button>
