@@ -5,14 +5,20 @@ import styles from "./CommentForm.module.css";
 interface Props {
   autoFocus: boolean;
   onReply: (content: string) => void;
+  setIsReplying: (value: boolean) => void;
 }
 
-const CommentForm: React.FC<Props> = ({ autoFocus, onReply }) => {
+const CommentForm: React.FC<Props> = ({
+  autoFocus,
+  onReply,
+  setIsReplying,
+}) => {
   const [message, setMessage] = useState("");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     onReply(message);
+    setIsReplying(false);
     setMessage("");
   }
   return (

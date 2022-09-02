@@ -37,7 +37,8 @@ const FetchSubredditData: React.FC = () => {
           })
         );
       } catch (error) {
-        navigate("/");
+        console.log(`There seemed to be an error fetching data: ${error}`)
+        // navigate("/");
       }
     }
 

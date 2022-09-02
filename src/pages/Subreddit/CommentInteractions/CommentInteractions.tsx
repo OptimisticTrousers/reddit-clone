@@ -101,7 +101,7 @@ const CommentInteractions: React.FC<Props> = ({
       </div>
       {isReplying && (
         <div>
-          <CommentForm autoFocus={true} onReply={onReply} />
+          <CommentForm autoFocus={true} onReply={onReply} setIsReplying={setIsReplying}/>
         </div>
       )}
     </div>
