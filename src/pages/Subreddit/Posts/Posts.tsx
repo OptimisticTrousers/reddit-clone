@@ -48,7 +48,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
         const posts: DocumentData = [];
 
         snapshot.forEach((doc) => {
-          posts.push({ doc });
+          posts.push(doc);
         });
 
         setRandomPosts(posts);
@@ -79,7 +79,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
         const posts: DocumentData = [];
 
         snapshot.forEach((doc) => {
-          posts.push({ doc });
+          posts.push(doc);
         });
 
         setRandomPosts(posts.slice(0, 10).sort(() => Math.random() - 0.5));
@@ -118,7 +118,14 @@ const Posts: React.FC<Props> = ({ posts }) => {
 
   return (
     <>
-      {(posts ?? randomPosts)?.map(({doc}: DocumentData) => {
+      {(posts ?? randomPosts)?.map((doc: DocumentData) => {
+        // let data;
+
+        // if (doc?.data) {
+        //   data = doc.data();
+        // } else {
+        //   data = doc.doc.data();
+        // }
         const data = doc.data();
         return (
           <Link

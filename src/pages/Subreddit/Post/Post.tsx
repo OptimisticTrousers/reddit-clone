@@ -61,9 +61,9 @@ const Post: React.FC<Props> = (props) => {
 
       // setPostData(postDoc?.docs[0]?.data());
       onSnapshot(q, (snapshot: QuerySnapshot) => {
-        console.log(snapshot.docs)
-        setPostData({...snapshot.docs[0].data(), id: snapshot.docs[0].id})
-      })
+        console.log(snapshot.docs);
+        setPostData({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
+      });
     }
 
     props.data ?? fetchPost();
@@ -79,17 +79,15 @@ const Post: React.FC<Props> = (props) => {
       return;
     }
 
-    if (!postId) return;
-
     try {
       await runTransaction(db, async (transaction) => {
         const userPostVotesRef = doc(
           db,
           "users",
-          `${getUserId()}/postVotes/${postId}`
+          `${getUserId()}/postVotes/${postId ?? props.data?.id}`
         );
 
-        const postRef = doc(db, "posts", postId);
+        const postRef = doc(db, "posts", postId ?? props.data?.id);
 
         const post = await transaction.get(postRef);
 
@@ -99,7 +97,7 @@ const Post: React.FC<Props> = (props) => {
         if (!userPostVotes.exists()) {
           const newVote = {
             id: userPostVotesRef.id,
-            postId,
+            postId: postId ?? props.data?.id,
             subredditId,
             voteValue: vote,
           };
@@ -143,7 +141,7 @@ const Post: React.FC<Props> = (props) => {
           event: React.MouseEvent<HTMLImageElement, MouseEvent>
         ) => onVote(vote, event)}
         // subredditId={props.data?.subredditId ?? postData?.subredditId}
-        postId={postId}
+        postId={postId ?? props.data?.id}
       />
       <div styleName="post-excerpt__content">
         <PostAuthor
