@@ -57,8 +57,9 @@ const SinglePostPage = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [data, setData] = useState<DocumentData | undefined>();
 
-  const data = location.state as LocationState;
+  // const data = location.state as LocationState;
 
   const { subredditName } = useAppSelector(selectCommunityData);
 
@@ -79,6 +80,22 @@ const SinglePostPage = () => {
       setComments(docChanges);
     });
   }, [postId, dispatch]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!postId) return;
+
+      const postRef = doc(db, "post", postId);
+
+      const post = await getDoc(postRef);
+
+      onSnapshot(postRef, (doc) => {
+        // console.log(doc.data());
+        setData({...doc.data(), id: doc.id})
+      });
+    }
+    fetchData();
+  }, [postId]);
 
   // useEffect(() => {
   //   const userPostsVoteRef = doc(
@@ -170,7 +187,13 @@ const SinglePostPage = () => {
           )}
         </div>
         <div styleName="post-page__comments">
-          <CommentsSection postId={postId} comments={comments} filterRising={filterRising} filterTop={filterTop} filterNew={filterNew}/>
+          <CommentsSection
+            postId={postId}
+            comments={comments}
+            filterRising={filterRising}
+            filterTop={filterTop}
+            filterNew={filterNew}
+          />
         </div>
       </div>
       <Aside>

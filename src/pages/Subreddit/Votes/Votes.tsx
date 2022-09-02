@@ -21,6 +21,7 @@ import {
   getDoc,
   getDocs,
   increment,
+  onSnapshot,
   query,
   runTransaction,
   updateDoc,
@@ -41,7 +42,7 @@ import { toggleCommunityModalState } from "../../../features/subreddit/subreddit
 
 interface Props {
   voteStatus: number;
-  onVote: (vote: number, event:Event) => void;
+  onVote: (vote: number, event: Event) => void;
   postId: string | undefined;
 }
 
@@ -49,15 +50,15 @@ type Event = React.MouseEvent<HTMLImageElement, MouseEvent>;
 
 const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
   const [vote, setVote] = useState(undefined);
-  const isLoggedIn = useAppSelector(selectAuthStatus)
-  const dispatch = useDispatch()
-  console.log(vote)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
+  const dispatch = useDispatch();
+  console.log(vote);
 
   useEffect(() => {
     async function fetchInitialVote() {
-      if(!isLoggedIn) {
-        dispatch(toggleSignInModal())
-        return
+      if (!isLoggedIn) {
+        dispatch(toggleSignInModal());
+        return;
       }
       try {
         const userPostVoteRef = doc(
@@ -68,8 +69,10 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
 
         const userPostVote = await getDoc(userPostVoteRef);
 
-        console.log(userPostVote.data())
-        setVote(userPostVote.data()?.voteValue);
+        onSnapshot(userPostVoteRef, (doc) => {
+          console.log(doc.data())
+          setVote(doc.data()?.voteValue);
+        });
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
@@ -89,11 +92,7 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
           onClick={(event: Event) => onVote(1, event)}
         />
       </div>
-      <p
-        styleName={`votes__likes }`}
-      >
-        {voteStatus}
-      </p>
+      <p styleName={`votes__likes }`}>{voteStatus}</p>
       <div styleName="votes__vote">
         <img
           styleName={`votes__icon ${

@@ -12,6 +12,7 @@ import {
   DocumentData,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   runTransaction,
   serverTimestamp,
@@ -35,7 +36,7 @@ import { transcode } from "buffer";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 
 interface Props {
-  data: DocumentData;
+  data: DocumentData | undefined;
 }
 
 const Post: React.FC<Props> = (props) => {
@@ -57,7 +58,11 @@ const Post: React.FC<Props> = (props) => {
 
       const postDoc = await getDocs(q);
 
-      setPostData(postDoc?.docs[0]?.data());
+      // setPostData(postDoc?.docs[0]?.data());
+      onSnapshot(q, ({doc}: DocumentData) => {
+        console.log(doc)
+        setPostData({...doc.data(), id: doc.id})
+      })
     }
 
     props.data ?? fetchPost();
@@ -137,7 +142,7 @@ const Post: React.FC<Props> = (props) => {
           event: React.MouseEvent<HTMLImageElement, MouseEvent>
         ) => onVote(vote, event)}
         // subredditId={props.data?.subredditId ?? postData?.subredditId}
-        postId={props.data?.id}
+        postId={postId}
       />
       <div styleName="post-excerpt__content">
         <PostAuthor
