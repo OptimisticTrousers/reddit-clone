@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   increment,
+  onSnapshot,
   runTransaction,
   serverTimestamp,
   setDoc,
@@ -44,7 +45,7 @@ const CommentInteractions: React.FC<Props> = ({
 }) => {
   const [isReplying, setIsReplying] = useState(false);
 
-  const [vote, setVote] = useState(undefined);
+  const [vote, setVote] = useState();
 
   useEffect(() => {
     async function fetchInitialVote() {
@@ -57,7 +58,9 @@ const CommentInteractions: React.FC<Props> = ({
 
         const userCommentVote = await getDoc(userCommentVoteRef);
 
-        setVote(userCommentVote.data()?.voteValue);
+        onSnapshot(userCommentVoteRef, (snapshot) => {
+          setVote(snapshot?.data()?.voteValue);
+        });
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }

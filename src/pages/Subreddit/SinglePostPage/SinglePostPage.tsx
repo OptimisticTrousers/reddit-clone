@@ -75,9 +75,10 @@ const SinglePostPage = () => {
       where("parentId", "==", null)
     );
 
-    onSnapshot(commentQuery, async (snapshot) => {
-      const docChanges = snapshot.docChanges();
-      setComments(docChanges);
+    onSnapshot(commentQuery, (snapshot) => {
+      console.log(snapshot.docs)
+      // const docChanges = snapshot.docChanges();
+      setComments(snapshot.docs);
     });
   }, [postId, dispatch]);
 

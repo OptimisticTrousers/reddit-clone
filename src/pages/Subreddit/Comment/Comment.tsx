@@ -4,6 +4,7 @@ import {
   DocumentData,
   getDocs,
   increment,
+  onSnapshot,
   query,
   serverTimestamp,
   setDoc,
@@ -48,7 +49,9 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
 
         const childComments = await getDocs(q);
 
-        setChildComments(childComments.docs);
+        onSnapshot(q, (snapshot) => {
+          setChildComments(snapshot.docChanges());
+        });
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
@@ -67,7 +70,11 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
             alt="default profile icon"
           />
         </div>
-            <button styleName="comment__treadline" aria-label="Hide Replies" onClick={() => setAreChildrenHidden(true)}/>
+        <button
+          styleName="comment__treadline"
+          aria-label="Hide Replies"
+          onClick={() => setAreChildrenHidden(true)}
+        />
       </div>
       <div styleName="comment__content">
         <div styleName="comment__body">
@@ -84,7 +91,12 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
           <div styleName={`${areChildrenHidden && "hide"}`}>
             <Comments comments={childComments} commentsPostId={postId} />
           </div>
-          <button styleName={`comment__button ${!areChildrenHidden ? "hide" : ""}`} onClick={() => setAreChildrenHidden(false)}>Show Replies</button>
+          <button
+            styleName={`comment__button ${!areChildrenHidden ? "hide" : ""}`}
+            onClick={() => setAreChildrenHidden(false)}
+          >
+            Show Replies
+          </button>
         </div>
       </div>
     </div>
