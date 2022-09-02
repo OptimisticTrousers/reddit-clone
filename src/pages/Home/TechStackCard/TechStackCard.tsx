@@ -11,7 +11,7 @@ const TechStackCard: React.FC = () => {
           <a href="https://firebase.google.com/" styleName="tech" target="_blank" rel="noreferrer">Firebase</a>
           <a href="https://reactrouter.com/en/main" styleName="tech" target="_blank" rel="noreferrer" >React Router</a>
           <a href="https://redux.js.org/" styleName="tech" target="_blank" rel="noreferrer">Redux</a>
-          <a href="https://redux.js.org/" styleName="tech" target="_blank" rel="noreferrer">Typescript</a>
+          <a href="https://www.typescriptlang.org/" styleName="tech" target="_blank" rel="noreferrer">Typescript</a>
           <a href="https://github.com/gajus/react-css-modules" styleName="tech" target="_blank" rel="noreferrer">React CSS Modules</a>
           <a href="https://www.npmjs.com/package/nanoid" styleName="tech" target="_blank" rel="noreferrer">nanoid</a>
           <a href="https://momentjs.com/" styleName="tech" target="_blank" rel="noreferrer">moment.js</a>
