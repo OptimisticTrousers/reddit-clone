@@ -57,7 +57,7 @@ const CommentInteractions: React.FC<Props> = ({
 
         const userCommentVote = await getDoc(userCommentVoteRef);
 
-        setVote(userCommentVote.data()?.vote);
+        setVote(userCommentVote.data()?.voteValue);
       } catch (error) {
         console.log(`ERROR: ${error}`);
       }
