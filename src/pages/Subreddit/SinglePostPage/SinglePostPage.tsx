@@ -32,6 +32,7 @@ import UpworkJobLoader from "../../../components/Skeletons/UpworkJobLoader";
 import Main from "../../../layouts/Main/Main";
 import Aside from "../../../layouts/Aside/Aside";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
+import EmptyComments from "../EmptyComments/EmptyComments";
 
 type LocationState = {
   length: number;
@@ -65,7 +66,11 @@ const SinglePostPage = () => {
     dispatch(setPostId(postId));
 
     const commentsRef = collection(db, "comments");
-    const commentQuery = query(commentsRef, where("postId", "==", postId), where("parentId", "==", null));
+    const commentQuery = query(
+      commentsRef,
+      where("postId", "==", postId),
+      where("parentId", "==", null)
+    );
 
     onSnapshot(commentQuery, async (snapshot) => {
       const docChanges = snapshot.docChanges();
@@ -85,15 +90,14 @@ const SinglePostPage = () => {
   //     .catch((error) => alert(`ERROR: ${error}`));
   // }, [postId]);
 
-
   return (
     <Main>
       <div styleName="post-page__container">
         <div styleName="post-page__post">
           {data?.length !== 0 ? (
-            <Post data={data} 
-            
-            
+            <Post
+              data={data}
+
               // userVoteValue={postVotes?.docs.find((vote: DocumentData) => vote.postId === doc.id)?.voteValue}
             />
           ) : (
