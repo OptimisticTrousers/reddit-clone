@@ -20,6 +20,7 @@ import { useAppSelector, useFilter } from "../../hooks/hooks";
 import { selectCommunityData } from "../../features/subreddit/subredditSlice";
 import Main from "../../layouts/Main/Main";
 import Aside from "../../layouts/Aside/Aside";
+import TechStackCard from "./TechStackCard/TechStackCard";
 
 const Home: React.FC = () => {
   const [filteredPosts, setFilteredPosts] = useState<DocumentData | undefined>();
@@ -51,6 +52,7 @@ const Home: React.FC = () => {
           <TopCommunitiesCard />
           <PremiumCard />
           <PersonalHomeCard />
+          <TechStackCard />
         </Aside>
       </Main>
     </div>

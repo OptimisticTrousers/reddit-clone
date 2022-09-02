@@ -1,0 +1,16 @@
+.techs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1.4rem;
+  gap: 0.3rem;
+}
+
+.tech {
+  color: var(--secondary-color);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.copyright {
+  text-align: center;
+}
