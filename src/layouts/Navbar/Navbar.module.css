@@ -1,6 +1,8 @@
 .header {
-  background-color: rgb(26, 26, 27);
+  /* background-color: rgb(36, 37, 38); */
+  background-color: rgb(36, 37, 38);
   height: 48px;
+  border-bottom: 1px solid rgb(57, 58, 59);
 }
 
 .header__content {
@@ -70,7 +72,7 @@
 }
 
 .header__dropdown-menu {
-  max-width:270px;
+  max-width: 270px;
   position: relative;
   overflow: scroll;
 }
@@ -166,7 +168,7 @@
 }
 
 .header__button_type_log-in:hover {
-  background-color: rgb(26, 26, 27);
+  background-color: rgb(36, 37, 38);
   cursor: pointer;
 }
 
@@ -183,7 +185,7 @@
   width: 100%;
 }
 
-@media(max-width: 1110px) {
+@media (max-width: 1110px) {
   .header_buttons {
     width: 100%;
   }
@@ -192,22 +194,20 @@
   }
 }
 
-@media(max-width: 1070px) {
+@media (max-width: 1070px) {
   .header__logo-name {
     display: none;
   }
 }
 
-@media(max-width: 995px) {
+@media (max-width: 995px) {
   .header__dropdown-title {
     display: none;
   }
 }
 
-@media(max-width: 640px) {
+@media (max-width: 640px) {
   .header__search-input:focus {
     width: 100%;
   }
-
 }
-

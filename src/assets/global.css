@@ -3,7 +3,7 @@
   src: url(../assets/NotoSans-Regular.ttf);
 }
 :root {
-  --primary-color: #1a1a1b;
+  --primary-color: rgb(36, 37, 38);
   --secondary-color: #d7dadc;
 }
 * {

@@ -2,7 +2,8 @@
   width: 100%;
 }
 .profile__button {
-  background-color: #1a1a1b;
+  /* background-color: #1a1a1b; */
+  background-color: var(--primary-color);
   border: 1px solid transparent;
   border-radius: 4px;
   color: gray;

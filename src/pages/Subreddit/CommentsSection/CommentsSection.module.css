@@ -6,6 +6,7 @@
   background: var(--primary-color);
 }
 .comments-form {
+  background-color: rgb(36, 37, 38);
 }
 .comments-section__button {
   color: #4fbcff;
@@ -22,7 +23,8 @@
   line-height: 16px;
 }
 .comments-section__comments-form {
-  background-color: #272729;
+  /* background-color: #272729; */
+  background-color: rgb(36, 37, 38);
   border-radius: 0px 0px 4px 4px;
 }
 .comments-section__comments-form-button-container {
