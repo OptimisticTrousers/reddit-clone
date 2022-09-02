@@ -5,6 +5,7 @@ import {
   getDocs,
   DocumentData,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { db } from "../firebase";
@@ -27,7 +28,13 @@ export const useFilter = () => {
     //   .catch((error) => alert(`ERROR: ${error}`));
 
     const data = await getDocs(q);
-    return data.docs;
+
+    // const data = await getDocs(q);
+    let newData: DocumentData = [];
+    onSnapshot(q, (snapshot) => {
+      newData = snapshot.docs;
+    });
+    return newData;
   }
 
   async function filterTop() {
@@ -40,8 +47,12 @@ export const useFilter = () => {
     //     setFilteredPosts(data.docs);
     //   })
     //   .catch((error) => alert(`ERROR: ${error}`));
-    const data = await getDocs(q);
-    return data.docs;
+    // const data = await getDocs(q);
+    let newData: DocumentData = [];
+    onSnapshot(q, (snapshot) => {
+      newData = snapshot.docs;
+    });
+    return newData;
   }
 
   async function filterRising() {
@@ -50,11 +61,7 @@ export const useFilter = () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
-    const q = query(
-      postsDocsRef,
-      where("createdAt", ">=", yesterday)
-    );
-
+    const q = query(postsDocsRef, where("createdAt", ">=", yesterday));
 
     // getDocs(q)
     //   .then((data: DocumentData) => {
@@ -63,7 +70,14 @@ export const useFilter = () => {
     //   .catch((error) => alert(`ERROR: ${error}`));
     const data = await getDocs(q);
 
-    const newData = data.docs.sort((a, b) => a.data().voteStatus - b.data().voteStatus)
+    // const newData = data.docs.sort((a, b) => a.data().voteStatus - b.data().voteStatus)
+
+    let newData: DocumentData = [];
+    onSnapshot(q, (snapshot) => {
+      newData = snapshot.docs.sort(
+        (a, b) => a.data().voteStatus - b.data().voteStatus
+      );
+    });
     return newData;
   }
 
