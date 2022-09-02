@@ -90,7 +90,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
     }
   };
 
-  const onReply = async (id: string) => {
+  const onReply = async (id: string, content: string) => {
     if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;
@@ -103,7 +103,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
       const newCommentRef = doc(db, "comments", docId);
 
       await setDoc(newCommentRef, {
-        content: "HEY THIS IS A CHILD COMMENT",
+        content,
         createdAt: serverTimestamp(),
         id: docId,
         subredditId: id,
@@ -139,7 +139,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
         <Comment comment={docData} postId={postId} id={docData.id}>
           <CommentInteractions
             voteStatus={docData?.voteStatus}
-            onReply={() => onReply(docData?.id)}
+            onReply={(content: string) => onReply(docData?.id, content)}
             commentUserId={docData?.userId}
             onDelete={() => onDeleteComment(docData?.id)}
           />
