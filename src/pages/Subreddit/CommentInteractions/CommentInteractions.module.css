@@ -39,6 +39,7 @@
   width: 24px;
   height: 24px;
   color: rgb(129, 131, 132);
+  cursor: pointer;
 }
 .interactions__icon--upvote {
   filter: invert(100%) sepia() saturate(10000%) hue-rotate(0deg);
