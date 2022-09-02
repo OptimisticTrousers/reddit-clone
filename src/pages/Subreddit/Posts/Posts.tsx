@@ -119,7 +119,6 @@ const Posts: React.FC<Props> = ({ posts }) => {
   return (
     <>
       {(posts ?? randomPosts)?.map(({doc}: DocumentData) => {
-        console.log(doc)
         const data = doc.data();
         return (
           <Link

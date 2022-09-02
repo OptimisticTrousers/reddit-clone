@@ -14,6 +14,7 @@ import {
   getDocs,
   onSnapshot,
   query,
+  QuerySnapshot,
   runTransaction,
   serverTimestamp,
   setDoc,
@@ -59,9 +60,9 @@ const Post: React.FC<Props> = (props) => {
       const postDoc = await getDocs(q);
 
       // setPostData(postDoc?.docs[0]?.data());
-      onSnapshot(q, ({doc}: DocumentData) => {
-        console.log(doc)
-        setPostData({...doc.data(), id: doc.id})
+      onSnapshot(q, (snapshot: QuerySnapshot) => {
+        console.log(snapshot.docs)
+        setPostData({...snapshot.docs[0].data(), id: snapshot.docs[0].id})
       })
     }
 
