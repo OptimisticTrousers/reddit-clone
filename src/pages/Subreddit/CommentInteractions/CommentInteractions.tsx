@@ -6,6 +6,7 @@ import { BiMessage } from "react-icons/bi";
 import React, { useEffect, useState } from "react";
 import {
   doc,
+  getDoc,
   increment,
   runTransaction,
   serverTimestamp,
@@ -30,6 +31,7 @@ interface Props {
   commentUserId: string;
   onDelete: () => void;
   onVote: (vote: number) => void;
+  commentId: string;
 }
 
 const CommentInteractions: React.FC<Props> = ({
@@ -38,15 +40,47 @@ const CommentInteractions: React.FC<Props> = ({
   commentUserId,
   onDelete,
   onVote,
+  commentId,
 }) => {
   const [isReplying, setIsReplying] = useState(false);
+
+  const [vote, setVote] = useState(undefined);
+
+  useEffect(() => {
+    async function fetchInitialVote() {
+      try {
+        const userCommentVoteRef = doc(
+          db,
+          "users",
+          `${getUserId()}/commentVotes/${getUserId()}${commentId}`
+        );
+
+        const userCommentVote = await getDoc(userCommentVoteRef);
+
+        setVote(userCommentVote.data()?.vote);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
+    }
+    fetchInitialVote();
+  }, [commentId]);
 
   return (
     <div>
       <div styleName="interactions">
-        <BiUpvote styleName={`interactions__icon interactions__icon--upvote`} />
+        <BiUpvote
+          styleName={`interactions__icon ${
+            vote === 1 && "interactions__icon--upvote"
+          }`}
+          onClick={() => onVote(1)}
+        />
         <p styleName="interactions__vote">{voteStatus}</p>
-        <BiDownvote styleName={`interactions__icon interactions__icon--downvote`} />
+        <BiDownvote
+          styleName={`interactions__icon ${
+            vote === -1 && "interactions__icon--downvote"
+          }`}
+          onClick={() => onVote(-1)}
+        />
         <div
           styleName="interactions__reply"
           onClick={() => setIsReplying((prevValue) => !prevValue)}

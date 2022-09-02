@@ -124,16 +124,24 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
     }
   };
 
-  const onVote = async (vote: number, commentId: string) => {
+  const onVote = async (
+    vote: number,
+    commentId: string,
+    postId: string | undefined
+  ) => {
+    if (!isLoggedIn || !postId) {
+      dispatch(toggleSignInModal());
+      return;
+    }
     try {
       await runTransaction(db, async (transaction) => {
         const userCommentPostVotesRef = doc(
           db,
           "users",
-          `${getUserId()}/commentVotes/${getUserId()}${postId}`
+          `${getUserId()}/commentVotes/${getUserId()}${commentId}`
         );
 
-        const commentRef = doc(db, "comments", commentId!);
+        const commentRef = doc(db, "comments", commentId);
         const comment = await transaction.get(commentRef);
         const userCommentPostVotes = await transaction.get(
           userCommentPostVotesRef
@@ -200,7 +208,8 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
             onReply={(content: string) => onReply(docData?.id, content)}
             commentUserId={docData?.userId}
             onDelete={() => onDeleteComment(docData?.id)}
-            onVote={(vote: number) => onVote(vote, docData.id)}
+            onVote={(vote: number) => onVote(vote, docData.id, postId)}
+            commentId={docData.id}
           />
         </Comment>
       </React.Fragment>
