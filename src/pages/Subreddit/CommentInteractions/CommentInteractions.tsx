@@ -24,11 +24,10 @@ import { useParams } from "react-router-dom";
 
 interface Props {
   voteStatus: number;
-  id: string;
-  postId: string | undefined;
+  onReply: () => void;
 }
 
-const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
+const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply }) => {
   return (
     <div styleName="interactions">
       <BiUpvote styleName="interactions__icon" />
@@ -36,7 +35,7 @@ const CommentInteractions: React.FC<Props> = ({ voteStatus, id, postId }) => {
       <BiDownvote styleName="interactions__icon" />
       <div styleName="interactions__reply">
         <BiMessage styleName="interactions__icon" />
-        <button styleName="interactions__button">Reply</button>
+        <button styleName="interactions__button" onClick={onReply}>Reply</button>
       </div>
       <button styleName="interactions__button">Share</button>
       <button styleName="interactions__button">Report</button>

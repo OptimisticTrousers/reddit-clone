@@ -8,15 +8,22 @@ import {
   DocumentData,
   getDoc,
   getDocs,
+  increment,
   onSnapshot,
   query,
+  serverTimestamp,
+  setDoc,
   where,
+  writeBatch,
 } from "firebase/firestore";
-import { db, getUser, getUserName } from "../../../firebase";
+import { db, getUser, getUserId, getUserName } from "../../../firebase";
 import CSSModules from "react-css-modules";
 import EmptyComments from "../EmptyComments/EmptyComments";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
 import { useNavigate, useParams } from "react-router-dom";
+import { nanoid } from "nanoid";
+import { selectAuthStatus, toggleSignInModal } from "../../../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
   comments: DocumentData | undefined;
@@ -27,6 +34,8 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
   const [postTitle, setPostTitle] = useState();
   const [subredditName, setSubredditName] = useState();
   const [postCreator, setPostCreator] = useState();
+  const isLoggedIn = useAppSelector(selectAuthStatus);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { postId } = useParams();
@@ -56,6 +65,54 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
     navigate(`/r/${subredditName}/comments/${commentsPostId}`);
   }
 
+  const onDeleteComment = async (id: string) => {
+    try {
+      if (postId) {
+        const batch = writeBatch(db);
+
+        const commentDocRef = doc(db, "comments", id);
+
+        batch.delete(commentDocRef);
+
+        const postDocRef = doc(db, "posts", postId);
+        batch.update(postDocRef, {
+          numberOfComments: increment(-1),
+        });
+
+        await batch.commit();
+      }
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
+
+  const onReply = async (id: string, postId: string | undefined) => {
+    if (!isLoggedIn) {
+      dispatch(toggleSignInModal());
+      return;
+    }
+
+    if (!postId) return;
+
+    const parentRef = doc(db, "comments", id);
+
+    const docId = nanoid();
+    const newCommentRef = doc(db, "comments", docId);
+
+    await setDoc(newCommentRef, {
+      content: "HEY THIS IS A CHILD COMMENT",
+      createdAt: serverTimestamp(),
+      id: docId,
+      subredditId: id,
+      parentId: parentRef.id,
+      postId,
+      updatedAt: serverTimestamp(),
+      userName: getUserName(),
+      userId: getUserId(),
+      voteStatus: 0,
+    });
+  };
+
   const renderedComments = comments?.map((doc: DocumentData) => {
     let docData;
     if (doc?.data) {
@@ -73,7 +130,12 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
             <span styleName="comments__description">{postCreator}</span>
           </div>
         )}
-        <Comment key={doc?.id} comment={docData} postId={postId} id={doc?.id} />
+        <Comment key={doc?.id} comment={docData} postId={postId} id={doc.id}>
+          <CommentInteractions
+            voteStatus={docData?.voteStatus}
+            onReply={() => onReply(doc.id, postId)}
+          />
+        </Comment>
       </>
     );
   });
