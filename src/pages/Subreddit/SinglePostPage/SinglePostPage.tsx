@@ -170,7 +170,7 @@ const SinglePostPage = () => {
           )}
         </div>
         <div styleName="post-page__comments">
-          <CommentsSection postId={postId} comments={comments} />
+          <CommentsSection postId={postId} comments={comments} filterRising={filterRising} filterTop={filterTop} filterNew={filterNew}/>
         </div>
       </div>
       <Aside>

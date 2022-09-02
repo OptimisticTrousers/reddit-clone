@@ -32,9 +32,18 @@ import Dropdown from "../../../layouts/Dropdown/Dropdown";
 interface Props {
   postId: string | undefined;
   comments: DocumentData | undefined;
+  filterRising: () => void;
+  filterNew: () => void;
+  filterTop: () => void;
 }
 
-const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
+const CommentsSection: React.FC<Props> = ({
+  comments,
+  postId,
+  filterRising,
+  filterNew,
+  filterTop,
+}) => {
   const [commentText, setCommentText] = useState("");
   const [isFilterDropdownActive, setIsFilterDropdownActive] = useState(false);
 
@@ -111,12 +120,11 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
             </button>
           </div>
         </div>
-        <div styleName="comments-section__filter" onClick={handleFilterDropdown}>
-          <button
-            styleName="comments-section__button"
-          >
-            Sort By: Best
-          </button>
+        <div
+          styleName="comments-section__filter"
+          onClick={handleFilterDropdown}
+        >
+          <button styleName="comments-section__button">Sort By: Best</button>
           <img
             styleName="comments-section__icon"
             src={upsideDownTriangle}
@@ -125,9 +133,15 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
         </div>
         {isFilterDropdownActive && (
           <Dropdown dropdown="profile-width">
-            <button styleName="comments-section__filter">Rising</button>
-            <button styleName="comments-section__filter">Top</button>
-            <button styleName="comments-section__filter">New</button>
+            <button styleName="comments-section__filter" onClick={filterRising}>
+              Rising
+            </button>
+            <button styleName="comments-section__filter" onClick={filterTop}>
+              Top
+            </button>
+            <button styleName="comments-section__filter" onClick={filterNew}>
+              New
+            </button>
           </Dropdown>
         )}
       </form>
