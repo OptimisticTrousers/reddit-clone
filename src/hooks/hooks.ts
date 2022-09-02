@@ -14,7 +14,6 @@ import { RootState } from "../redux/store";
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
 export const useFilter = () => {
   async function filterNew() {
     const postsDocsRef = collection(db, "posts");
@@ -28,13 +27,7 @@ export const useFilter = () => {
     //   .catch((error) => alert(`ERROR: ${error}`));
 
     const data = await getDocs(q);
-
-    // const data = await getDocs(q);
-    let newData: DocumentData = [];
-    onSnapshot(q, (snapshot) => {
-      newData = snapshot.docs;
-    });
-    return newData;
+    return data.docs;
   }
 
   async function filterTop() {
@@ -47,12 +40,8 @@ export const useFilter = () => {
     //     setFilteredPosts(data.docs);
     //   })
     //   .catch((error) => alert(`ERROR: ${error}`));
-    // const data = await getDocs(q);
-    let newData: DocumentData = [];
-    onSnapshot(q, (snapshot) => {
-      newData = snapshot.docs;
-    });
-    return newData;
+    const data = await getDocs(q);
+    return data.docs;
   }
 
   async function filterRising() {
@@ -61,7 +50,11 @@ export const useFilter = () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
-    const q = query(postsDocsRef, where("createdAt", ">=", yesterday));
+    const q = query(
+      postsDocsRef,
+      where("createdAt", ">=", yesterday)
+    );
+
 
     // getDocs(q)
     //   .then((data: DocumentData) => {
@@ -70,14 +63,7 @@ export const useFilter = () => {
     //   .catch((error) => alert(`ERROR: ${error}`));
     const data = await getDocs(q);
 
-    // const newData = data.docs.sort((a, b) => a.data().voteStatus - b.data().voteStatus)
-
-    let newData: DocumentData = [];
-    onSnapshot(q, (snapshot) => {
-      newData = snapshot.docs.sort(
-        (a, b) => a.data().voteStatus - b.data().voteStatus
-      );
-    });
+    const newData = data.docs.sort((a, b) => a.data().voteStatus - b.data().voteStatus)
     return newData;
   }
 
@@ -86,4 +72,5 @@ export const useFilter = () => {
     filterTop,
     filterRising,
   };
+
 };
