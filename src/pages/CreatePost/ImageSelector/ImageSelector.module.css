@@ -6,6 +6,7 @@
   margin-bottom: 16px;
   margin-top: 16px;
   margin: 0 auto;
+  width: 100%;
 }
 .image-selector-file-selector {
   display: flex;

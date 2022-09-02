@@ -52,7 +52,6 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
   const [vote, setVote] = useState(undefined);
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useDispatch();
-  console.log(vote);
 
   useEffect(() => {
     async function fetchInitialVote() {
@@ -69,7 +68,6 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
 
 
         onSnapshot(userPostVoteRef, (doc) => {
-          console.log(doc.data())
           setVote(doc.data()?.voteValue);
         });
       } catch (error) {

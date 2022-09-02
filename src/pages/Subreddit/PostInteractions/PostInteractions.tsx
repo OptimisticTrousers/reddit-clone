@@ -104,25 +104,23 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
       styleName="post-excerpt__interactions"
       onClick={(e) => e.preventDefault()}
     >
-      <div styleName="post-excerpt__interaction">
+      <button styleName="post-excerpt__interaction">
         <BiMessage styleName="post-excerpt__icon" />
         <span styleName="post-excerpt__action">
           {commentsQuantity} Comments
         </span>
-      </div>
-      <div styleName="post-excerpt__interaction">
+      </button>
+      <button styleName="post-excerpt__interaction">
         <IoMdShareAlt styleName="post-excerpt__icon" />
         <span styleName="post-excerpt__action">Share</span>
-      </div>
-      <div styleName="post-excerpt__interaction">
+      </button>
+      <button
+        styleName="post-excerpt__interaction"
+        onClick={saveButtonText === "Save" ? savePost : unSavePost}
+      >
         <FaRegBookmark styleName="post-excerpt__icon" />
-        <span
-          styleName="post-excerpt__action"
-          onClick={saveButtonText === "Save" ? savePost : unSavePost}
-        >
-          {saveButtonText}
-        </span>
-      </div>
+        <span styleName="post-excerpt__action">{saveButtonText}</span>
+      </button>
     </div>
   );
 };

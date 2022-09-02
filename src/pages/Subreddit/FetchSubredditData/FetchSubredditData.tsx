@@ -37,13 +37,15 @@ const FetchSubredditData: React.FC = () => {
           })
         );
       } catch (error) {
-        console.log(`There seemed to be an error fetching data: ${error}`)
+        console.log(`There seemed to be an error fetching data: ${error}`);
         // navigate("/");
       }
     }
 
     // Only fetching data if the communityData is empty
-    getSubredditData();
+    if (communityData.name !== subredditName) {
+      getSubredditData();
+    }
   }, [subredditName, dispatch, communityData, navigate]);
 
   return <Outlet />;
