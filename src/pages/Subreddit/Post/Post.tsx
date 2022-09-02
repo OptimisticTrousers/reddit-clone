@@ -176,14 +176,12 @@ const Post: React.FC<Props> = (props) => {
         </div>
         <div styleName="post__buttons">
           <div styleName="post-excerpt__divider"></div>
-          {location.pathname !== "/user" && (
             <PostInteractions
               commentsQuantity={
                 props.data?.commentsQuantity ?? postData?.commentsQuantity
               }
               postId={postId}
             />
-          )}
         </div>
       </div>
     </div>
