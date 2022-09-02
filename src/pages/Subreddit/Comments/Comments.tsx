@@ -11,6 +11,7 @@ import {
   increment,
   onSnapshot,
   query,
+  runTransaction,
   serverTimestamp,
   setDoc,
   where,
@@ -123,6 +124,59 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
     }
   };
 
+  const onVote = async (vote: number, commentId: string) => {
+    try {
+      await runTransaction(db, async (transaction) => {
+        const userCommentPostVotesRef = doc(
+          db,
+          "users",
+          `${getUserId()}/commentVotes/${getUserId()}${postId}`
+        );
+
+        const commentRef = doc(db, "comments", commentId!);
+        const comment = await transaction.get(commentRef);
+        const userCommentPostVotes = await transaction.get(
+          userCommentPostVotesRef
+        );
+        let voteChange = vote;
+
+        if (!userCommentPostVotes.exists()) {
+          const newVote = {
+            id: nanoid(),
+            postId,
+            commentId,
+            subredditName,
+            voteValue: vote,
+          };
+
+          transaction.set(userCommentPostVotesRef, newVote);
+        } else {
+          if (userCommentPostVotes.data().voteValue === vote) {
+            voteChange *= -1;
+            transaction.update(commentRef, {
+              voteStatus: comment?.data()?.voteStatus - vote,
+            });
+            transaction.delete(userCommentPostVotesRef);
+          } else {
+            voteChange = 2 * vote;
+            transaction.update(commentRef, {
+              voteStatus: comment?.data()?.voteStatus + 2 * vote,
+            });
+            transaction.update(userCommentPostVotesRef, {
+              voteValue: vote,
+            });
+          }
+        }
+
+        transaction.update(commentRef, {
+          voteStatus: comment?.data()?.voteStatus + voteChange,
+        });
+      });
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
+  };
+
   const renderedComments = comments?.map((doc: DocumentData) => {
     let docData: DocumentData;
     if (doc?.data) {
@@ -146,6 +200,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
             onReply={(content: string) => onReply(docData?.id, content)}
             commentUserId={docData?.userId}
             onDelete={() => onDeleteComment(docData?.id)}
+            onVote={(vote: number) => onVote(vote, docData.id)}
           />
         </Comment>
       </React.Fragment>

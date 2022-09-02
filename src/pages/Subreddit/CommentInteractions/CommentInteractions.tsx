@@ -7,12 +7,13 @@ import React, { useEffect, useState } from "react";
 import {
   doc,
   increment,
+  runTransaction,
   serverTimestamp,
   setDoc,
   updateDoc,
   writeBatch,
 } from "firebase/firestore";
-import { db, getUserId, getUserName } from "../../../firebase";
+import { db, getUser, getUserId, getUserName } from "../../../firebase";
 import { isJsxClosingFragment } from "typescript";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import {
@@ -28,6 +29,7 @@ interface Props {
   onReply: (content: string) => void;
   commentUserId: string;
   onDelete: () => void;
+  onVote: (vote: number) => void;
 }
 
 const CommentInteractions: React.FC<Props> = ({
@@ -35,6 +37,7 @@ const CommentInteractions: React.FC<Props> = ({
   onReply,
   commentUserId,
   onDelete,
+  onVote,
 }) => {
   const [isReplying, setIsReplying] = useState(false);
 
