@@ -31,12 +31,13 @@ interface Props {
 
 const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply, commentUserId, onDelete}) => {
 
+  const [isReplying, setIsReplying] = useState(false)
   return (
     <div styleName="interactions">
       <BiUpvote styleName="interactions__icon" />
       <p styleName="interactions__vote">{voteStatus}</p>
       <BiDownvote styleName="interactions__icon" />
-      <div styleName="interactions__reply" onClick={onReply}>
+      <div styleName="interactions__reply" onClick={() => setIsReplying(prevValue => !prevValue)}>
         <BiMessage styleName="interactions__icon" />
         <button styleName="interactions__button">Reply</button>
       </div>
@@ -45,6 +46,10 @@ const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply, commentUser
       <button styleName="interactions__button">Save</button>
       <button styleName="interactions__button">Follow</button> */}
       {commentUserId && getUserId() && <button styleName="interactions__button" onClick={onDelete}>Delete</button>}
+      {isReplying && (
+        <div styleName="">
+          </div>
+      )}
     </div>
   );
 };
