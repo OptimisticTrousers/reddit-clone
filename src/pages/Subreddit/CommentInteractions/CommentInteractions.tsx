@@ -44,9 +44,9 @@ const CommentInteractions: React.FC<Props> = ({
   return (
     <div>
       <div styleName="interactions">
-        <BiUpvote styleName="interactions__icon" />
+        <BiUpvote styleName={`interactions__icon interactions__icon--upvote`} />
         <p styleName="interactions__vote">{voteStatus}</p>
-        <BiDownvote styleName="interactions__icon" />
+        <BiDownvote styleName={`interactions__icon interactions__icon--downvote`} />
         <div
           styleName="interactions__reply"
           onClick={() => setIsReplying((prevValue) => !prevValue)}
