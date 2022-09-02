@@ -80,7 +80,7 @@ const About: React.FC = () => {
 
       dispatch(setCommunityData({ ...communityData, imageURL: downloadURL }));
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      console.log(`Failed to upload image. Please try again: ${error}`);
     }
   };
 
@@ -95,7 +95,7 @@ const About: React.FC = () => {
 
         setToggleDescription((prevValue) => !prevValue);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Failed to change subreddit description. Please try again: ${error}`);
       }
     } else {
       alert("Please sign in if you are the creator of this community");
@@ -116,7 +116,7 @@ const About: React.FC = () => {
 
         setIsUserModerator(communitySnippetsDoc?.data()?.isModerator);
       } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(`Could not see if the user is a moderator: ${error}`);
       }
     }
 

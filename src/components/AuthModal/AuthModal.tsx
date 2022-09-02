@@ -14,12 +14,7 @@ import {
   toggleSignInModal,
   toggleSignUpModal,
 } from "../../features/auth/authSlice";
-import {
-  auth,
-  getUser,
-  getUserName,
-  signIn,
-} from "../../firebase";
+import { auth, getUser, getUserName, signIn } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Modal from "../Modal/Modal";
 import styles from "./AuthModal.module.css";
@@ -97,17 +92,17 @@ const AuthModal: React.FC = () => {
           });
           dispatch(toggleSignUpModal());
         } catch (error) {
-          console.log(`ERROR: ${error}`);
+          alert(`Sorry, this email has already been used: ${error}`);
         }
       } else {
-        alert("Please check your password again!");
+        alert("Please check your passwords again!");
       }
     } else if (signInModalState) {
       try {
         await signInWithEmailAndPassword(auth, email, password);
         dispatch(toggleSignInModal());
       } catch (error) {
-        alert(`ERROR: ${error}`);
+        alert(`Wrong email or password. Please try again: ${error}`);
       }
     }
   }
@@ -116,7 +111,11 @@ const AuthModal: React.FC = () => {
     <Modal>
       <div styleName="sign-up-modal">
         <div styleName="sign-up-modal__container">
-          <button styleName="sign-up-modal__exit" onClick={handleModalExit} data-testid="exit-button">
+          <button
+            styleName="sign-up-modal__exit"
+            onClick={handleModalExit}
+            data-testid="exit-button"
+          >
             <img
               styleName="sign-up-modal__exit-icon"
               src={exitIcon}

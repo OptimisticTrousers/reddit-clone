@@ -20,11 +20,14 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db, getUserId, getUserName} from "../../firebase";
+import { db, getUserId, getUserName } from "../../firebase";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { selectAuthStatus } from "../../features/auth/authSlice";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../features/auth/authSlice";
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 type FormEvent = React.FormEvent<HTMLFormElement>;
@@ -33,7 +36,7 @@ const CommunityModal: React.FC = () => {
   const [subredditName, setSubredditName] = useState("");
   const [communityType, setCommunityType] = useState("");
 
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -53,7 +56,10 @@ const CommunityModal: React.FC = () => {
   async function createSubreddit(event: FormEvent) {
     event.preventDefault();
     try {
-      if (!isLoggedIn) throw new Error(`Sorry, you need to log in!`);
+      if (!isLoggedIn) {
+        dispatch(toggleSignInModal());
+        return;
+      }
 
       const subredditDocRef = doc(db, "subreddits", subredditName);
 
@@ -61,7 +67,7 @@ const CommunityModal: React.FC = () => {
         const subredditDoc = await transaction.get(subredditDocRef);
 
         if (subredditDoc.exists()) {
-          throw new Error(`Sorry, r/${subredditName} is taken. Try another`);
+          alert(`Sorry, r/${subredditName} is taken. Try another`);
         }
 
         transaction.set(subredditDocRef, {
@@ -88,7 +94,7 @@ const CommunityModal: React.FC = () => {
         }, 1000);
       });
     } catch (error) {
-      alert("ERROR " + error);
+      alert(`Could not create subreddit. Please try again: ${error}`);
     }
   }
 

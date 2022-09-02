@@ -20,12 +20,6 @@ export const useFilter = () => {
 
     const q = query(postsDocsRef, orderBy("createdAt", "desc"));
 
-    // getDocs(q)
-    //   .then((data: DocumentData) => {
-    //     setFilteredPosts(data.docs);
-    //   })
-    //   .catch((error) => alert(`ERROR: ${error}`));
-
     const data = await getDocs(q);
     return data.docs;
   }
@@ -35,11 +29,6 @@ export const useFilter = () => {
 
     const q = query(postsDocsRef, orderBy("voteStatus", "desc"));
 
-    // getDocs(q)
-    //   .then((data: DocumentData) => {
-    //     setFilteredPosts(data.docs);
-    //   })
-    //   .catch((error) => alert(`ERROR: ${error}`));
     const data = await getDocs(q);
     return data.docs;
   }
@@ -55,12 +44,6 @@ export const useFilter = () => {
       where("createdAt", ">=", yesterday)
     );
 
-
-    // getDocs(q)
-    //   .then((data: DocumentData) => {
-    //     setFilteredPosts(data.docs);
-    //   })
-    //   .catch((error) => alert(`ERROR: ${error}`));
     const data = await getDocs(q);
 
     const newData = data.docs.sort((a, b) => a.data().voteStatus - b.data().voteStatus)
