@@ -27,6 +27,7 @@ import upsideDownTriangle from "../../../assets/upside-down-triangle.svg";
 import { selectCommunityData } from "../../../features/subreddit/subredditSlice";
 import NestedList from "../../../components/Skeletons/AvatarWithText";
 import AvatarWithText from "../../../components/Skeletons/AvatarWithText";
+import Dropdown from "../../../layouts/Dropdown/Dropdown";
 
 interface Props {
   postId: string | undefined;
@@ -35,6 +36,7 @@ interface Props {
 
 const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const [commentText, setCommentText] = useState("");
+  const [isFilterDropdownActive, setIsFilterDropdownActive] = useState(false);
 
   const { id } = useAppSelector(selectCommunityData);
   const isLoggedIn = useAppSelector(selectAuthStatus);
@@ -50,7 +52,7 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
   const formSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const docId = nanoid()
+    const docId = nanoid();
 
     if (isLoggedIn) {
       const commentsRef = doc(db, "comments", docId);
@@ -79,56 +81,64 @@ const CommentsSection: React.FC<Props> = ({ comments, postId }) => {
     }
   };
 
-  
-
+  function handleFilterDropdown() {
+    setIsFilterDropdownActive((prevValue) => !prevValue);
+  }
 
   return (
     <div styleName="comments-section">
-          <div styleName="comments-section__user">
-            <span styleName="comments-section__comment-as">
-              Comment as{" "}
-              <span styleName="comments-section__username">
-                {getUserName()}
-              </span>
-            </span>
+      <div styleName="comments-section__user">
+        <span styleName="comments-section__comment-as">
+          Comment as{" "}
+          <span styleName="comments-section__username">{getUserName()}</span>
+        </span>
+      </div>
+      <form onSubmit={formSubmit}>
+        <div styleName="comments-section__comments-form">
+          <textarea
+            styleName="comments-section__comments-form-textarea"
+            placeholder="What are your thoughts?"
+            onChange={handleCommentChange}
+            value={commentText}
+            required
+          ></textarea>
+          <div styleName="comments-section__comments-form-button-container">
+            <button
+              type="submit"
+              styleName="comments-section__comments-form-button"
+            >
+              Comment
+            </button>
           </div>
-          <form onSubmit={formSubmit}>
-            <div styleName="comments-section__comments-form">
-              <textarea
-                styleName="comments-section__comments-form-textarea"
-                placeholder="What are your thoughts?"
-                onChange={handleCommentChange}
-                value={commentText}
-                required
-              ></textarea>
-              <div styleName="comments-section__comments-form-button-container">
-                <button
-                  type="submit"
-                  styleName="comments-section__comments-form-button"
-                >
-                  Comment
-                </button>
-              </div>
-            </div>
-            <div styleName="comments-section__filter">
-              <button styleName="comments-section__button">
-                Sort By: Best
-              </button>
-              <img
-                styleName="comments-section__icon"
-                src={upsideDownTriangle}
-                alt="tiny upside down triangle"
-              />
-            </div>
-          </form>
-          <hr />
-          {/* <div styleName="comments-section__discussion">
+        </div>
+        <div styleName="comments-section__filter" onClick={handleFilterDropdown}>
+          <button
+            styleName="comments-section__button"
+          >
+            Sort By: Best
+          </button>
+          <img
+            styleName="comments-section__icon"
+            src={upsideDownTriangle}
+            alt="tiny upside down triangle"
+          />
+        </div>
+        {isFilterDropdownActive && (
+          <Dropdown dropdown="profile-width">
+            <button styleName="comments-section__filter">Rising</button>
+            <button styleName="comments-section__filter">Top</button>
+            <button styleName="comments-section__filter">New</button>
+          </Dropdown>
+        )}
+      </form>
+      <hr />
+      {/* <div styleName="comments-section__discussion">
             <a styleName="comments-section__hyperlink">
               View discussions in 1 other community
             </a>
           </div> */}
       {comments ? (
-        <Comments comments={comments} commentsPostId={postId}/>
+        <Comments comments={comments} commentsPostId={postId} />
       ) : (
         <div styleName="comments-section__skeletons">
           <div>

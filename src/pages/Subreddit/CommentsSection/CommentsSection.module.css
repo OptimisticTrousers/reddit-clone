@@ -72,6 +72,7 @@
 }
 .comments-section__filter:hover {
   cursor: pointer;
+  border: 1px solid white;
 }
 .comments-section {
   margin: 24px 40px 24px 48px;
