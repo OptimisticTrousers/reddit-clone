@@ -36,6 +36,7 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
   const [childComments, setChildComments] = useState<
     DocumentData | undefined
   >();
+  const [areChildrenHidden, setAreChildrenHidden] = useState(false);
 
   useEffect(() => {
     async function fetchChildComments() {
@@ -66,7 +67,7 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
             alt="default profile icon"
           />
         </div>
-        <div styleName="comment__treadline"></div>
+            <button styleName="comment__treadline" aria-label="Hide Replies" onClick={() => setAreChildrenHidden(true)}/>
       </div>
       <div styleName="comment__content">
         <div styleName="comment__body">
@@ -80,7 +81,10 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
           </div>
           <div styleName="comment__message">{comment?.content}</div>
           {children}
-          <Comments comments={childComments} commentsPostId={postId} />
+          <div styleName={`${areChildrenHidden && "hide"}`}>
+            <Comments comments={childComments} commentsPostId={postId} />
+          </div>
+          <button styleName={`comment__button ${!areChildrenHidden ? "hide" : ""}`} onClick={() => setAreChildrenHidden(false)}>Show Replies</button>
         </div>
       </div>
     </div>

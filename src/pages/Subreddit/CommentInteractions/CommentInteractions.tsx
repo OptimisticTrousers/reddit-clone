@@ -26,9 +26,10 @@ interface Props {
   voteStatus: number;
   onReply: () => void;
   commentUserId: string;
+  onDelete: () => void;
 }
 
-const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply, commentUserId}) => {
+const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply, commentUserId, onDelete}) => {
 
   return (
     <div styleName="interactions">
@@ -43,7 +44,7 @@ const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply, commentUser
       <button styleName="interactions__button">Report</button>
       <button styleName="interactions__button">Save</button>
       <button styleName="interactions__button">Follow</button> */}
-      {commentUserId && getUserId() && <button styleName="interactions__button">Delete</button>}
+      {commentUserId && getUserId() && <button styleName="interactions__button" onClick={onDelete}>Delete</button>}
     </div>
   );
 };

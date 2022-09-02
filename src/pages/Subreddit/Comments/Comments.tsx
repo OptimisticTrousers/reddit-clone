@@ -95,7 +95,6 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
       dispatch(toggleSignInModal());
       return;
     }
-    console.log("HEYYYY", id)
 
     try {
       const parentRef = doc(db, "comments", id);
@@ -142,6 +141,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
             voteStatus={docData?.voteStatus}
             onReply={() => onReply(docData?.id)}
             commentUserId={docData?.userId}
+            onDelete={() => onDeleteComment(docData?.id)}
           />
         </Comment>
       </React.Fragment>
