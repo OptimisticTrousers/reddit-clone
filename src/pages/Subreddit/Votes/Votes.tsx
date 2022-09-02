@@ -48,234 +48,12 @@ interface Props {
 type Event = React.MouseEvent<HTMLImageElement, MouseEvent>;
 
 const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
-  const [postVote, setPostVote] = useState<number>(voteStatus);
-  const [vote, setVote] = useState<number | undefined>(undefined);
-  const voteRef = useRef<number | undefined>(undefined);
 
-  const params = useParams();
+  const [vote, setVote] = useState()
 
-  const isLoggedIn = useAppSelector(selectAuthStatus);
-  const dispatch = useAppDispatch();
+  const onVote = async () => {
 
-  const makeVote = useCallback(async () => {
-    try {
-      const batch = writeBatch(db);
-
-      const userPostVotesRef = doc(
-        db,
-        "users",
-        `${getUserId()}/postVotes/${postId}`
-      );
-
-      const postRef = doc(db, "posts", `${postId}`);
-      const newVote = {
-        id: userPostVotesRef.id,
-        postId,
-        subredditId,
-        voteValue: vote,
-      };
-
-      batch.set(userPostVotesRef, newVote);
-
-      batch.update(postRef, { voteStatus: voteStatus + vote! });
-      await batch.commit();
-    } catch (error) {
-      console.log(`ERROR: ${error}`);
-    }
-  }, [postId, subredditId, vote, voteStatus]);
-
-  function handleUpvote(event: Event) {
-    event.preventDefault();
-    if (!isLoggedIn) {
-      dispatch(toggleSignInModal());
-      return;
-    }
-    setVote((prevVote) => {
-      if (prevVote === undefined) return;
-      if (prevVote === 1) {
-        return prevVote - 1;
-      } else if (prevVote === -1) {
-        return prevVote + 2;
-      }
-      return prevVote + 1;
-    });
   }
-
-  function handleDownvote(event: Event) {
-    event.preventDefault();
-    if (!isLoggedIn) {
-      dispatch(toggleSignInModal());
-      return;
-    }
-    setVote((prevVote) => {
-      if (prevVote === undefined) return;
-      if (prevVote === -1) {
-        return prevVote + 1;
-      } else if (prevVote === 1) {
-        return prevVote - 2;
-      }
-      return prevVote - 1;
-    });
-  }
-
-  useEffect(() => {
-    async function fetchVote() {
-      await runTransaction(db, async (transaction) => {
-        try {
-          const userPostVotesRef = doc(
-            db,
-            "users",
-            `${getUserId()}/postVotes/${postId}`
-          );
-
-          const userPostVotes = await transaction.get(userPostVotesRef);
-
-          const postRef = doc(db, "posts", postId);
-
-          const post = await transaction.get(postRef);
-
-          if (!userPostVotes.exists()) {
-            setVote(0);
-          } else if (
-            userPostVotes.data().voteValue === -1 ||
-            userPostVotes.data().voteValue === 1
-          ) {
-            setVote(userPostVotes.data()?.voteValue);
-          }
-        } catch (error) {
-          console.log(`ERROR: ${error}`);
-        }
-      });
-    }
-
-    if (vote === undefined) {
-      fetchVote();
-    } else {
-      makeVote();
-    }
-  }, [vote, makeVote, postId, voteStatus]);
-  // async function fetchVotes(vote: number) {
-  //   if (!isLoggedIn) dispatch(toggleSignInModal());
-
-  //   const batch = writeBatch(db);
-  //   try {
-  //     const userPostVotesDocRef = doc(
-  //       db,
-  //       `users/${getUserId()}/postVotes/${postId}`
-  //     );
-
-  //     let voteChange = vote;
-
-  //     if (!userVoteValue) {
-  //       const newVote = {
-  //         id: userPostVotesDocRef.id,
-  //         postId,
-  //         subredditId,
-  //         voteValue: vote,
-  //       };
-
-  //       batch.set(userPostVotesDocRef, newVote);
-
-  //       //updatedPost.voteStatus = voteStatus + post
-  //       // setUserVote(vote);
-  //       setPostVote(voteStatus + vote);
-  //     } else {
-  //       if (userVoteValue === vote) {
-  //         //updatedPost.voteStatus = voteStatus - post
-  //         batch.delete(userPostVotesDocRef);
-  //         // setUserVote(-vote);
-  //         setPostVote(voteStatus - vote);
-  //         voteChange *= -1;
-  //       } else {
-  //         //updatedPost.voteStatus = voteStatus + 2 * vote;
-
-  //         batch.update(userPostVotesDocRef, {
-  //           voteValue: vote,
-  //         });
-  //         setPostVote(voteStatus + 2 * vote);
-  //         // setUserVote(2 * vote);
-  //       }
-  //     }
-
-  //     const postsRef = doc(db, "posts", postId);
-
-  //     batch.update(postsRef, { voteStatus: voteStatus + voteChange });
-  //     await batch.commit();
-  //   } catch (error) {
-  //     console.log(`ERROR: ${error}`);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   async function fetchInitialVotes() {
-
-  //     const userPostVotesDocRef = doc(
-  //       db,
-  //       `users/${getUserId()}/postVotes/${postId}`
-  //     );
-  //     const userPostVotes = await getDoc(userPostVotesDocRef);
-
-  //     if (userPostVotes.exists()) {
-  //       setUserVote(userPostVotes.data().voteValue);
-  //     }
-  //   }
-
-  //   fetchInitialVotes();
-  // }, [postId]);
-
-  // useEffect(() => {
-  //   async function updateData() {
-  //     try {
-  //       await runTransaction(db, async (transaction) => {
-  //         const postVotesDocRef = doc(
-  //           db,
-  //           "users",
-  //           `${getUserId()}/postVotes/${postId}`
-  //         );
-  //         const postsVoteRef = doc(db, "posts", postId!);
-  //         const newVote = {
-  //           id: postVotesDocRef.id,
-  //           postId: postId,
-  //           subredditId,
-  //           voteValue: vote,
-  //         };
-
-  //         transaction.set(postVotesDocRef, newVote);
-  //         transaction.update(postsVoteRef, {
-  //           voteStatus: voteStatus + vote,
-  //         });
-  //       });
-  //     } catch (error) {
-  //       console.log(`ERROR: ${error}`);
-  //     }
-  //   }
-
-  //   if (isLoggedIn) {
-  //     updateData();
-  //   }
-  // }, [vote, postId, subredditId, voteStatus, params.postId, isLoggedIn]);
-
-  // useEffect(() => {
-  //   async function getInitialVote() {
-  //     try {
-  //       const postVotesDocRef = doc(
-  //         db,
-  //         "users",
-  //         `${getUserId()}/postVotes/${postId}`
-  //       );
-
-  //       const docData = await getDoc(postVotesDocRef);
-
-  //       setVote(docData.data()!.voteValue);
-  //     } catch (error) {
-  //       console.log(`ERROR: ${error}`);
-  //     }
-  //   }
-
-  //   if (isLoggedIn) {
-  //     getInitialVote();
-  //   }
-  // }, [postId, isLoggedIn]);
 
   return (
     <div styleName="votes">
@@ -286,8 +64,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
           }`}
           src={upVote}
           alt="upvote icon"
-          // onClick={() => fetchVotes(1)}
-          onClick={handleUpvote}
         />
       </div>
       <p
@@ -296,7 +72,7 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
           (vote === -1 && "votes__likes--downvote")
         }`}
       >
-        {voteStatus + (vote ?? 0)}
+        {voteStatus }
       </p>
       <div styleName="votes__vote">
         <img
@@ -305,7 +81,6 @@ const Votes: React.FC<Props> = ({ voteStatus, subredditId, postId }) => {
           }`}
           src={downVote}
           alt="downvote icon"
-          onClick={handleDownvote}
         />
       </div>
     </div>
