@@ -97,12 +97,13 @@
 }
 
 .header__container {
-  background-color: #272729;
+  /* background-color: #272729; */
+  background-color: rgb(25, 26, 27);
   color: var(--secondary-color);
   margin: 0 auto;
   width: 690px;
   flex-grow: 1;
-  border-radius: 4px;
+  border-radius: 10px;
   display: flex;
   height: 36px;
   align-items: center;
@@ -125,11 +126,11 @@
 }
 
 .header__search-input {
-  background-color: inherit;
+  background-color: rgb(25, 26, 27);
   border: none;
   font-weight: 400;
   color: var(--secondary-color);
-  width: 100%;
+  width: 99%;
 }
 
 .header__search-input:focus {

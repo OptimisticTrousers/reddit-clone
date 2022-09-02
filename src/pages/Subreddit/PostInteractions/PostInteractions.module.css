@@ -11,12 +11,13 @@
   display: flex;
   align-items: center;
   margin-right: 6px;
-  border-radius: 2px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .post-excerpt__interaction:hover {
-  background-color: rgba(215,218,220,0.1);
+  /* background-color: rgba(215,218,220,0.1); */
+  background-color: rgb(100, 100, 100, 0.443);
   outline: none;
   padding: 8px;
   word-break: normal;
