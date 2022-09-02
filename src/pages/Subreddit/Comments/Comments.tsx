@@ -1,6 +1,6 @@
 import styles from "./Comments.module.css";
 import Comment from "../Comment/Comment";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   collection,
   doc,
@@ -20,9 +20,12 @@ import { db, getUser, getUserId, getUserName } from "../../../firebase";
 import CSSModules from "react-css-modules";
 import EmptyComments from "../EmptyComments/EmptyComments";
 import CommentInteractions from "../CommentInteractions/CommentInteractions";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
-import { selectAuthStatus, toggleSignInModal } from "../../../features/auth/authSlice";
+import {
+  selectAuthStatus,
+  toggleSignInModal,
+} from "../../../features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
 interface Props {
@@ -37,6 +40,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
   const isLoggedIn = useAppSelector(selectAuthStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { postId } = useParams();
 
@@ -86,43 +90,46 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
     }
   };
 
-  const onReply = async (id: string, postId: string | undefined) => {
+  const onReply = async (id: string) => {
     if (!isLoggedIn) {
       dispatch(toggleSignInModal());
       return;
     }
+    console.log("HEYYYY", id)
 
-    if (!postId) return;
+    try {
+      const parentRef = doc(db, "comments", id);
 
-    const parentRef = doc(db, "comments", id);
+      const docId = nanoid();
+      const newCommentRef = doc(db, "comments", docId);
 
-    const docId = nanoid();
-    const newCommentRef = doc(db, "comments", docId);
-
-    await setDoc(newCommentRef, {
-      content: "HEY THIS IS A CHILD COMMENT",
-      createdAt: serverTimestamp(),
-      id: docId,
-      subredditId: id,
-      parentId: parentRef.id,
-      postId,
-      updatedAt: serverTimestamp(),
-      userName: getUserName(),
-      userId: getUserId(),
-      voteStatus: 0,
-    });
+      await setDoc(newCommentRef, {
+        content: "HEY THIS IS A CHILD COMMENT",
+        createdAt: serverTimestamp(),
+        id: docId,
+        subredditId: id,
+        parentId: parentRef.id,
+        postId: commentsPostId,
+        updatedAt: serverTimestamp(),
+        userName: getUserName(),
+        userId: getUserId(),
+        voteStatus: 0,
+      });
+    } catch (error) {
+      console.log(`ERROR: ${error}`);
+    }
   };
 
   const renderedComments = comments?.map((doc: DocumentData) => {
-    let docData;
+    let docData: DocumentData;
     if (doc?.data) {
       docData = doc?.data();
     } else {
       docData = doc?.doc?.data();
     }
     return (
-      <>
-        {commentsPostId && (
+      <React.Fragment key={doc?.id}>
+        {location.pathname === "/user" && (
           <div styleName="comments__description" onClick={navigateToPost}>
             <p styleName="comments__user">{getUserName()}</p>
             <span styleName="comments__description">{`commented on '${postTitle}'`}</span>
@@ -130,13 +137,13 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
             <span styleName="comments__description">{postCreator}</span>
           </div>
         )}
-        <Comment key={doc?.id} comment={docData} postId={postId} id={doc.id}>
+        <Comment comment={docData} postId={postId} id={docData.id}>
           <CommentInteractions
             voteStatus={docData?.voteStatus}
-            onReply={() => onReply(doc.id, postId)}
+            onReply={() => onReply(docData?.id)}
           />
         </Comment>
-      </>
+      </React.Fragment>
     );
   });
   return (

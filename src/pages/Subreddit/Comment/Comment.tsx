@@ -33,21 +33,28 @@ interface Props {
 
 const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
   const [childCommentText, setChildCommentText] = useState("");
-  const [childComments, setChildComments] = useState<DocumentData | undefined>();
+  const [childComments, setChildComments] = useState<
+    DocumentData | undefined
+  >();
 
   useEffect(() => {
     async function fetchChildComments() {
-      const childCommentsRef = collection(db, "comments");
+      try {
+        if (!id) return;
+        const childCommentsRef = collection(db, "comments");
 
-      const q = query(childCommentsRef, where("parentId", "==", id));
+        const q = query(childCommentsRef, where("parentId", "==", id));
 
-      const childComments = await getDocs(q);
+        const childComments = await getDocs(q);
 
-      setChildComments(childComments.docs);
+        setChildComments(childComments.docs);
+      } catch (error) {
+        console.log(`ERROR: ${error}`);
+      }
     }
 
     fetchChildComments();
-  }, []);
+  }, [id]);
 
   return (
     <div styleName="comment">
