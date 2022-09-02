@@ -141,6 +141,7 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
           <CommentInteractions
             voteStatus={docData?.voteStatus}
             onReply={() => onReply(docData?.id)}
+            commentUserId={docData?.userId}
           />
         </Comment>
       </React.Fragment>

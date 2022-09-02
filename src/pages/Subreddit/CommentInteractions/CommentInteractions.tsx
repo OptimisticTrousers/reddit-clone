@@ -3,7 +3,7 @@ import styles from "./CommentInteractions.module.css";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiMessage } from "react-icons/bi";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   doc,
   increment,
@@ -25,25 +25,25 @@ import { useParams } from "react-router-dom";
 interface Props {
   voteStatus: number;
   onReply: () => void;
+  commentUserId: string;
 }
 
-const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply }) => {
+const CommentInteractions: React.FC<Props> = ({ voteStatus, onReply, commentUserId}) => {
+
   return (
     <div styleName="interactions">
       <BiUpvote styleName="interactions__icon" />
       <p styleName="interactions__vote">{voteStatus}</p>
       <BiDownvote styleName="interactions__icon" />
-      <div styleName="interactions__reply">
+      <div styleName="interactions__reply" onClick={onReply}>
         <BiMessage styleName="interactions__icon" />
-        <button styleName="interactions__button" onClick={onReply}>Reply</button>
+        <button styleName="interactions__button">Reply</button>
       </div>
-      <button styleName="interactions__button">Share</button>
+      {/* <button styleName="interactions__button">Share</button>
       <button styleName="interactions__button">Report</button>
       <button styleName="interactions__button">Save</button>
-      <button styleName="interactions__button">Follow</button>
-      <button styleName="interactions__button" >
-        Delete
-      </button>
+      <button styleName="interactions__button">Follow</button> */}
+      {commentUserId && getUserId() && <button styleName="interactions__button">Delete</button>}
     </div>
   );
 };
