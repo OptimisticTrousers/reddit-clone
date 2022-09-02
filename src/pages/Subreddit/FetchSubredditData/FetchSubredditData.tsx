@@ -37,7 +37,6 @@ const FetchSubredditData: React.FC = () => {
           })
         );
       } catch (error) {
-        alert(`Subreddit does not exist!`);
         navigate("/");
       }
     }

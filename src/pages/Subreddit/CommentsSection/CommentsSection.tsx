@@ -124,7 +124,7 @@ const CommentsSection: React.FC<Props> = ({
           styleName="comments-section__filter"
           onClick={handleFilterDropdown}
         >
-          <button styleName="comments-section__button">Sort By: Best</button>
+          <button type="button" styleName="comments-section__button">Sort By: Best</button>
           <img
             styleName="comments-section__icon"
             src={upsideDownTriangle}

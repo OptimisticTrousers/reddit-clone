@@ -76,7 +76,7 @@ const SinglePostPage = () => {
     );
 
     onSnapshot(commentQuery, (snapshot) => {
-      console.log(snapshot.docs)
+      console.log(snapshot.docs);
       // const docChanges = snapshot.docChanges();
       setComments(snapshot.docs);
     });
@@ -92,7 +92,7 @@ const SinglePostPage = () => {
 
       onSnapshot(postRef, (doc) => {
         // console.log(doc.data());
-        setData({...doc.data(), id: doc.id})
+        setData({ ...doc.data(), id: doc.id });
       });
     }
     fetchData();
@@ -114,7 +114,11 @@ const SinglePostPage = () => {
     try {
       const commentsRef = collection(db, "comments");
 
-      const q = query(commentsRef, orderBy("voteStatus", "desc"));
+      const q = query(
+        commentsRef,
+        where("postId", "==", postId),
+        orderBy("voteStatus", "desc")
+      );
 
       const comments = await getDocs(q);
 
@@ -128,7 +132,11 @@ const SinglePostPage = () => {
     try {
       const commentsRef = collection(db, "comments");
 
-      const q = query(commentsRef, orderBy("createdAt", "desc"));
+      const q = query(
+        commentsRef,
+        where("postId", "==", postId),
+        orderBy("createdAt", "desc")
+      );
 
       const comments = await getDocs(q);
 
@@ -145,7 +153,11 @@ const SinglePostPage = () => {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
 
-      const q = query(commentsRef, where("createdAt", ">=", yesterday));
+      const q = query(
+        commentsRef,
+        where("postId", "==", postId),
+        where("createdAt", ">=", yesterday)
+      );
 
       const { docs } = await getDocs(q);
 
