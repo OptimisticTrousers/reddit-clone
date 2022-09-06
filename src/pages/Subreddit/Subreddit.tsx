@@ -17,7 +17,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db} from "../../firebase";
-import { useAppDispatch, useAppSelector, useFilter } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector, useFilter, useSubredditFilter } from "../../hooks/hooks";
 import {
   selectCommunityData,
   setCommunityData,
@@ -36,7 +36,7 @@ const Subreddit: React.FC = () => {
   const { id } = useAppSelector(selectCommunityData);
 
   const { subredditName } = useParams();
-  const { filterNew, filterRising, filterTop } = useFilter();
+  const { filterNew, filterRising, filterTop } = useSubredditFilter(subredditName);
 
   async function filterPosts(promise: Promise<DocumentData>) {
     const data = await promise;
