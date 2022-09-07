@@ -4,7 +4,7 @@
 
 [App] Creating a near identical clone of the famous social media website, Reddit
 
-> See it live on [optimistictrousers.github.io/reddit-clone](https://optimistictrousers.github.io/reddit-clone/)
+> See it live on [optimistictrousers.github.io](https://optimistictrousers.github.io/reddit-clone/)
 > Or clone repo, cd into repo, then run "npm run start"
 
 ## Purpose
