@@ -28,6 +28,8 @@ import {
 } from "firebase/storage";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getPerformance } from "firebase/performance";
+import { getAnalytics } from "firebase/analytics";
+
 import app from "./firebase-config";
 import { authStateObserver } from "../redux/store";
 
@@ -65,3 +67,6 @@ export function getUser() {
 }
 
 initFirebaseAuth();
+
+const analytics = getAnalytics(app);
+
