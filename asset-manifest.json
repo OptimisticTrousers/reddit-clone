@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/reddit-clone/static/css/main.265d8b14.css",
-    "main.js": "/reddit-clone/static/js/main.f92640ed.js",
-    "static/js/787.24f7a83b.chunk.js": "/reddit-clone/static/js/787.24f7a83b.chunk.js",
-    "static/media/communities.png": "/reddit-clone/static/media/communities.ddf19e9334de517bd026.png",
-    "static/media/NotoSans-Regular.ttf": "/reddit-clone/static/media/NotoSans-Regular.eae34fa8f1e0c4c6d797.ttf",
-    "static/media/OpenSans-Regular.ttf": "/reddit-clone/static/media/OpenSans-Regular.5657d820611359a23e8b.ttf",
-    "static/media/ProductSans-Regular.ttf": "/reddit-clone/static/media/ProductSans-Regular.2765c69613690b1b9c03.ttf",
-    "static/media/downvote.svg": "/reddit-clone/static/media/downvote.af24a85251dd953697fb0ef7fefc9bff.svg",
-    "static/media/white-logo-name.svg": "/reddit-clone/static/media/white-logo-name.d5761d05283239accbf25af1f39a1686.svg",
-    "static/media/upvote.svg": "/reddit-clone/static/media/upvote.a178b456fa36312ebd638c9f68b6f7ab.svg",
-    "static/media/information-icon.svg": "/reddit-clone/static/media/information-icon.e2d9fb9743ad500ab51b849220577184.svg",
-    "static/media/google-logo.svg": "/reddit-clone/static/media/google-logo.c5f20af48e48c8ceb2dc881a3bc511c1.svg",
-    "static/media/logo.svg": "/reddit-clone/static/media/logo.b32cd2c60a788bc8f04c9ab6c0538867.svg",
-    "index.html": "/reddit-clone/index.html",
-    "static/media/person-icon.svg": "/reddit-clone/static/media/person-icon.5e281f9080a2d3ccb7db58cb19fe2915.svg",
-    "static/media/log-out-icon.svg": "/reddit-clone/static/media/log-out-icon.8839a7778bfcf97bb12133e9f2983cb4.svg",
-    "static/media/exit-icon.svg": "/reddit-clone/static/media/exit-icon.62f700eeaa0ff40694cd825f39bdf74b.svg",
-    "static/media/upside-down-triangle.svg": "/reddit-clone/static/media/upside-down-triangle.620c015c0a141852e251edc59ca9e5b6.svg",
-    "main.265d8b14.css.map": "/reddit-clone/static/css/main.265d8b14.css.map",
-    "main.f92640ed.js.map": "/reddit-clone/static/js/main.f92640ed.js.map",
-    "787.24f7a83b.chunk.js.map": "/reddit-clone/static/js/787.24f7a83b.chunk.js.map"
+    "main.css": "/static/css/main.0073f3e3.css",
+    "main.js": "/static/js/main.deb13d72.js",
+    "static/js/787.24f7a83b.chunk.js": "/static/js/787.24f7a83b.chunk.js",
+    "static/media/communities.png": "/static/media/communities.ddf19e9334de517bd026.png",
+    "static/media/NotoSans-Regular.ttf": "/static/media/NotoSans-Regular.eae34fa8f1e0c4c6d797.ttf",
+    "static/media/OpenSans-Regular.ttf": "/static/media/OpenSans-Regular.5657d820611359a23e8b.ttf",
+    "static/media/ProductSans-Regular.ttf": "/static/media/ProductSans-Regular.2765c69613690b1b9c03.ttf",
+    "static/media/downvote.svg": "/static/media/downvote.af24a85251dd953697fb0ef7fefc9bff.svg",
+    "static/media/white-logo-name.svg": "/static/media/white-logo-name.d5761d05283239accbf25af1f39a1686.svg",
+    "static/media/upvote.svg": "/static/media/upvote.a178b456fa36312ebd638c9f68b6f7ab.svg",
+    "static/media/information-icon.svg": "/static/media/information-icon.e2d9fb9743ad500ab51b849220577184.svg",
+    "static/media/google-logo.svg": "/static/media/google-logo.c5f20af48e48c8ceb2dc881a3bc511c1.svg",
+    "static/media/logo.svg": "/static/media/logo.b32cd2c60a788bc8f04c9ab6c0538867.svg",
+    "index.html": "/index.html",
+    "static/media/person-icon.svg": "/static/media/person-icon.5e281f9080a2d3ccb7db58cb19fe2915.svg",
+    "static/media/log-out-icon.svg": "/static/media/log-out-icon.8839a7778bfcf97bb12133e9f2983cb4.svg",
+    "static/media/exit-icon.svg": "/static/media/exit-icon.62f700eeaa0ff40694cd825f39bdf74b.svg",
+    "static/media/upside-down-triangle.svg": "/static/media/upside-down-triangle.620c015c0a141852e251edc59ca9e5b6.svg",
+    "main.0073f3e3.css.map": "/static/css/main.0073f3e3.css.map",
+    "main.deb13d72.js.map": "/static/js/main.deb13d72.js.map",
+    "787.24f7a83b.chunk.js.map": "/static/js/787.24f7a83b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.265d8b14.css",
-    "static/js/main.f92640ed.js"
+    "static/css/main.0073f3e3.css",
+    "static/js/main.deb13d72.js"
   ]
 }
