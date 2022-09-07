@@ -2,7 +2,7 @@
   "name": "reddit-clone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://optimistictrousers.github.io",
+  "homepage": "http://optimistictrousers.github.io/reddit-clone",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -58,6 +58,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-css-modules": "^4.6.4"
+    "@types/react-css-modules": "^4.6.4",
+    "gh-pages": "^4.0.0"
   }
 }
