@@ -21,7 +21,7 @@ root.render(
     <StoreProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />}>
+          <Route path="reddit-clone/" element={<App />}>
             <Route path="user" element={<Profile />} />
             <Route index element={<Home />} />
             <Route path="r/">
