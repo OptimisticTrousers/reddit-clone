@@ -58,6 +58,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-css-modules": "^4.6.4"
+    "@types/react-css-modules": "^4.6.4",
+    "gh-pages": "^4.0.0"
   }
 }

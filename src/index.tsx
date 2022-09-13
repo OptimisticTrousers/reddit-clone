@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./assets/global.css";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Subreddit from "./pages/Subreddit/Subreddit";
 import CreatePost from "./pages/CreatePost/CreatePost";
@@ -19,7 +19,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <StoreProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<App />}>
             <Route path="user" element={<Profile />} />
@@ -34,7 +34,7 @@ root.render(
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </StoreProvider>
   </React.StrictMode>
 );
