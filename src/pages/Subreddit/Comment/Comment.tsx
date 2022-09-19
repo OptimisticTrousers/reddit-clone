@@ -77,7 +77,7 @@ const Comment: React.FC<Props> = ({ comment, children, postId, id }) => {
         <div styleName="comment__body">
           <div styleName="comment__author">
             <p data-testid="author-description">
-              {comment?.userName === getUserName() && `${getUserName()}`}{" "}
+              {comment?.userName}{" "}
               <span styleName="comment__date">
                 {moment(new Date(comment?.createdAt?.seconds * 1000)).fromNow()}
               </span>
