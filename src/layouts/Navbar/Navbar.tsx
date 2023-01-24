@@ -1,5 +1,6 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.svg";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
@@ -31,7 +32,7 @@ const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { name } = useAppSelector(selectCommunityData);
-  const isLoggedIn = useAppSelector(selectAuthStatus)
+  const isLoggedIn = useAppSelector(selectAuthStatus);
 
   const params = useParams();
 
@@ -47,10 +48,10 @@ const Navbar: React.FC = () => {
   }
 
   function submitSearch(event: FormEvent) {
-    event.preventDefault();
     setTimeout(() => {
       navigate(`${searchInput}`);
       setSearchInput("");
+      location.reload();
     }, 500);
   }
 

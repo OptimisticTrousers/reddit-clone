@@ -6,6 +6,11 @@
   position: relative;
 }
 
+.message {
+  color: white;
+  text-align: center;
+}
+
 .profile-not-found__text {
   font-size: 50px;
   position: absolute;
