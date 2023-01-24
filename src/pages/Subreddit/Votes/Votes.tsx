@@ -56,7 +56,6 @@ const Votes: React.FC<Props> = ({ voteStatus, onVote, postId }) => {
   useEffect(() => {
     async function fetchInitialVote() {
       if (!isLoggedIn) {
-        dispatch(toggleSignInModal());
         return;
       }
       try {

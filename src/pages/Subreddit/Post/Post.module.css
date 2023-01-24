@@ -10,6 +10,7 @@ a {
   border-radius: 20px;
   padding-top: 8px;
   min-width: 600px;
+  border: 1px solid transparent;
 }
 
 .post-excerpt-hover:hover {
