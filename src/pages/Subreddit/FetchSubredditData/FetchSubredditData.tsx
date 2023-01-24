@@ -53,5 +53,5 @@ const FetchSubredditData: React.FC = () => {
 
 export default CSSModules(FetchSubredditData, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

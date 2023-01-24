@@ -127,5 +127,5 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
 
 export default CSSModules(PostInteractions, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

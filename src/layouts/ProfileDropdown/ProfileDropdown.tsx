@@ -39,5 +39,5 @@ const ProfileDropdown: React.FC<Props> = ({ dropdown }) => {
 
 export default CSSModules(ProfileDropdown, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

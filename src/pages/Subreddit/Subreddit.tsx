@@ -16,8 +16,13 @@ import {
   QueryDocumentSnapshot,
   where,
 } from "firebase/firestore";
-import { db} from "../../firebase";
-import { useAppDispatch, useAppSelector, useFilter, useSubredditFilter } from "../../hooks/hooks";
+import { db } from "../../firebase";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useFilter,
+  useSubredditFilter,
+} from "../../hooks/hooks";
 import {
   selectCommunityData,
   setCommunityData,
@@ -36,7 +41,8 @@ const Subreddit: React.FC = () => {
   const { id } = useAppSelector(selectCommunityData);
 
   const { subredditName } = useParams();
-  const { filterNew, filterRising, filterTop } = useSubredditFilter(subredditName);
+  const { filterNew, filterRising, filterTop } =
+    useSubredditFilter(subredditName);
 
   async function filterPosts(promise: Promise<DocumentData>) {
     const data = await promise;
@@ -88,12 +94,12 @@ const Subreddit: React.FC = () => {
             <Posts posts={posts} />
           ) : (
             <div styleName="profile-not-found">
-            <AuthorsList
-              animate={true}
-              backgroundColor={"#333"}
-              foregroundColor={"#999"}
-              speed={1}
-            />
+              <AuthorsList
+                animate={true}
+                backgroundColor={"#333"}
+                foregroundColor={"#999"}
+                speed={1}
+              />
             </div>
           )}
         </div>
@@ -107,5 +113,5 @@ const Subreddit: React.FC = () => {
 
 export default CSSModules(Subreddit, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

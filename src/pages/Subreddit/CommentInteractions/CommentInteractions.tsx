@@ -101,7 +101,11 @@ const CommentInteractions: React.FC<Props> = ({
       </div>
       {isReplying && (
         <div>
-          <CommentForm autoFocus={true} onReply={onReply} setIsReplying={setIsReplying}/>
+          <CommentForm
+            autoFocus={true}
+            onReply={onReply}
+            setIsReplying={setIsReplying}
+          />
         </div>
       )}
     </div>
@@ -110,5 +114,5 @@ const CommentInteractions: React.FC<Props> = ({
 
 export default CSSModules(CommentInteractions, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

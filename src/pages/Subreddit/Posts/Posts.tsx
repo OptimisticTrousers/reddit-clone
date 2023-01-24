@@ -16,7 +16,13 @@ import Post from "../Post/Post";
 import styles from "./Posts.module.css";
 import { db, getUserId } from "../../../firebase";
 import { DocumentSnapshot, DocumentData } from "firebase/firestore";
-import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import CSSModules from "react-css-modules";
 import { useAppSelector } from "../../../hooks/hooks";
 import AuthorsList from "../../../components/Skeletons/AuthorsList";
@@ -37,7 +43,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(location.pathname === "/user") return;
+    if (location.pathname === "/user") return;
     if (!subredditName && posts !== undefined) return;
     else if (posts === undefined) {
       const postsRef = collection(db, "posts");
@@ -68,7 +74,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
         setRandomPosts(posts.slice(0, 10).sort(() => Math.random() - 0.5));
       });
     }
-  }, [posts, subredditName, navigate]);
+  }, [posts, subredditName, navigate, location.pathname]);
 
   if (posts === undefined && randomPosts === undefined) {
     return (
@@ -102,5 +108,5 @@ const Posts: React.FC<Props> = ({ posts }) => {
 
 export default CSSModules(Posts, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

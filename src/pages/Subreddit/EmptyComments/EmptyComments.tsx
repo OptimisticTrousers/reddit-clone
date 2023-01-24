@@ -25,5 +25,5 @@ const EmptyComments: React.FC = () => {
 
 export default CSSModules(EmptyComments, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

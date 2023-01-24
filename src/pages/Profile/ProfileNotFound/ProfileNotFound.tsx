@@ -49,5 +49,5 @@ const ProfileNotFound: React.FC<Props> = ({ text }) => {
 
 export default CSSModules(ProfileNotFound, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

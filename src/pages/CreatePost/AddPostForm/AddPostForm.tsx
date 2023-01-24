@@ -239,5 +239,5 @@ const AddPostForm: React.FC = () => {
 
 export default CSSModules(AddPostForm, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

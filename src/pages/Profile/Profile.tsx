@@ -322,5 +322,5 @@ const Profile: React.FC = () => {
 
 export default CSSModules(Profile, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

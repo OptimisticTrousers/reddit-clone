@@ -39,5 +39,5 @@ const UserCard: React.FC = () => {
 
 export default CSSModules(UserCard, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

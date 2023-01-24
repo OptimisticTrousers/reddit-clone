@@ -159,5 +159,5 @@ const Header: React.FC<Props> = ({ subredditName }) => {
 
 export default CSSModules(Header, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

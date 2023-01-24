@@ -207,5 +207,5 @@ const CommentsSection: React.FC<Props> = ({
 
 export default CSSModules(CommentsSection, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

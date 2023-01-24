@@ -175,12 +175,12 @@ const Post: React.FC<Props> = (props) => {
         </div>
         <div styleName="post__buttons">
           <div styleName="post-excerpt__divider"></div>
-            <PostInteractions
-              commentsQuantity={
-                props.data?.commentsQuantity ?? postData?.commentsQuantity
-              }
-              postId={postId}
-            />
+          <PostInteractions
+            commentsQuantity={
+              props.data?.commentsQuantity ?? postData?.commentsQuantity
+            }
+            postId={postId}
+          />
         </div>
       </div>
     </div>
@@ -189,5 +189,5 @@ const Post: React.FC<Props> = (props) => {
 
 export default CSSModules(Post, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

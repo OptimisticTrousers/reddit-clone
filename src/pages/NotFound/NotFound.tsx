@@ -28,5 +28,5 @@ const NotFound: React.FC = () => {
 
 export default CSSModules(NotFound, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

@@ -48,7 +48,6 @@ const TopCommunitiesCard: React.FC = () => {
     navigate(`/r/${subredditName}`);
   }
 
-
   return (
     <Card>
       <div styleName="top-communities__top-community-image">
@@ -112,5 +111,5 @@ const TopCommunitiesCard: React.FC = () => {
 
 export default CSSModules(TopCommunitiesCard, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

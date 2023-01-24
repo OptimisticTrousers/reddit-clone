@@ -115,6 +115,7 @@ const About: React.FC = () => {
         );
 
         const communitySnippetsDoc = await getDoc(communitySnippetsRef);
+        console.log(communitySnippetsDoc?.data()?.isModerator)
 
         setIsUserModerator(communitySnippetsDoc?.data()?.isModerator);
       } catch (error) {

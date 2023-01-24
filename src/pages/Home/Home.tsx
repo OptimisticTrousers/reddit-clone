@@ -23,14 +23,15 @@ import Aside from "../../layouts/Aside/Aside";
 import TechStackCard from "./TechStackCard/TechStackCard";
 
 const Home: React.FC = () => {
-  const [filteredPosts, setFilteredPosts] = useState<DocumentData | undefined>();
+  const [filteredPosts, setFilteredPosts] = useState<
+    DocumentData | undefined
+  >();
 
   const { filterRising, filterTop, filterNew } = useFilter();
 
-  const {name} = useAppSelector(selectCommunityData)
+  const { name } = useAppSelector(selectCommunityData);
 
   async function addPosts(promise: Promise<DocumentData>) {
-
     const data = await promise;
     setFilteredPosts(data);
   }
@@ -61,5 +62,5 @@ const Home: React.FC = () => {
 
 export default CSSModules(Home, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

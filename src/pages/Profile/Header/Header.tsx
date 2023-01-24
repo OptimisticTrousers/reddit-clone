@@ -61,5 +61,5 @@ const Header: React.FC<Props> = ({
 
 export default CSSModules(Header, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

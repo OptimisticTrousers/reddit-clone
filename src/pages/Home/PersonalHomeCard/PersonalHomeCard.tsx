@@ -62,5 +62,5 @@ const PersonalHomeCard: React.FC = () => {
 
 export default CSSModules(PersonalHomeCard, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

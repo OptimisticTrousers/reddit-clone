@@ -8,7 +8,11 @@ const PremiumCard: React.FC = () => {
     <Card>
       <div styleName="premium-card">
         <div styleName="premium-card__content">
-          <img styleName="premium-card__icon" src={redditShield} alt="reddit premium shield icon" />
+          <img
+            styleName="premium-card__icon"
+            src={redditShield}
+            alt="reddit premium shield icon"
+          />
           <div styleName="premium-card__text">
             <h3 styleName="premium-card__title">Reddit Premium</h3>
             <p styleName="premium-card__description">
@@ -26,5 +30,5 @@ const PremiumCard: React.FC = () => {
 
 export default CSSModules(PremiumCard, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

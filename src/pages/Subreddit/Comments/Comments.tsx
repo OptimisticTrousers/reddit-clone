@@ -225,5 +225,5 @@ const Comments: React.FC<Props> = ({ comments, commentsPostId }) => {
 
 export default CSSModules(Comments, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });

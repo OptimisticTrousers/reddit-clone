@@ -39,5 +39,5 @@ const CommentForm: React.FC<Props> = ({
 
 export default CSSModules(CommentForm, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });
