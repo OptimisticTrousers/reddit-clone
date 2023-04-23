@@ -11,6 +11,7 @@ import {
   limit,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import UpworkJobLoader from "../../../components/Skeletons/UpworkJobLoader";
@@ -30,12 +31,16 @@ const TopCommunitiesCard: React.FC = () => {
         const q = query(
           subredditsRef,
           orderBy("numberOfMembers", "asc"),
-          limit(5)
+          limit(10)
         );
 
         const subredditsDocs = await getDocs(q);
 
-        setTopCommunities(subredditsDocs.docs);
+        console.log(subredditsDocs.docs);
+        const filteredDocs = subredditsDocs.docs.filter((doc: DocumentData) =>
+          doc.data().hasOwnProperty("name")
+        );
+        setTopCommunities(filteredDocs);
       } catch (error) {
         console.log(`Could not fetch top communities: ${error}`);
       }

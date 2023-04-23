@@ -50,6 +50,10 @@ const Subreddit: React.FC = () => {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     async function communityExistance() {
       if (!id || !subredditName) return;
 

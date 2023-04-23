@@ -77,7 +77,6 @@ const PostInteractions: React.FC<Props> = ({ commentsQuantity, postId }) => {
   useEffect(() => {
     async function fetchSaveStatus() {
       if (!isLoggedIn || !postId) {
-        dispatch(toggleSignInModal());
         return;
       }
 
